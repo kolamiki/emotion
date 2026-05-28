@@ -1,0 +1,181 @@
+[
+  {
+    "id": "p1",
+    "author": {
+      "id": "u2",
+      "name": "Anna Nowak",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+      "isOnline": true
+    },
+    "content": "Cześć wszystkim! Właśnie dołączyłam do e-Motion. Pierwszy dzień na nowej platformie i już czuję się jak w domu! 🚀",
+    "timestamp": "2026-05-27T10:00:00Z",
+    "likes": 5,
+    "comments": [
+      {
+        "id": "c1",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "Witamy na pokładzie! 🎉",
+        "timestamp": "2026-05-27T10:05:00Z"
+      }
+    ],
+    "shares": 1
+  },
+  {
+    "id": "p2",
+    "author": {
+      "id": "u3",
+      "name": "Piotr Wiśniewski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+      "isOnline": false
+    },
+    "content": "Dziś piękna pogoda na spacer. Pozdrowienia z gór! ⛰️ Kto chętny na weekend w Tatrach?",
+    "timestamp": "2026-05-27T08:30:00Z",
+    "likes": 12,
+    "comments": [
+      {
+        "id": "c2",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "text": "Ja jestem chętna!",
+        "timestamp": "2026-05-27T08:45:00Z"
+      },
+      {
+        "id": "c3",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "text": "Dopisuję się do listy 👋",
+        "timestamp": "2026-05-27T09:00:00Z"
+      }
+    ],
+    "shares": 3
+  },
+  {
+    "id": "p3",
+    "author": {
+      "id": "u4",
+      "name": "Kasia Zielińska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+      "isOnline": true
+    },
+    "content": "Właśnie skończyłam nowy projekt graficzny! 🎨 Pracowałam nad nim 3 miesiące. Efekt końcowy przeszedł moje oczekiwania. Dajcie znać, co myślicie!",
+    "timestamp": "2026-05-27T07:15:00Z",
+    "likes": 28,
+    "comments": [
+      {
+        "id": "c4",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "text": "Wygląda profesjonalnie! 👏",
+        "timestamp": "2026-05-27T07:30:00Z"
+      },
+      {
+        "id": "c5",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "text": "Super robota Kasiu!",
+        "timestamp": "2026-05-27T07:35:00Z"
+      },
+      {
+        "id": "c6",
+        "author": {
+          "id": "u6",
+          "name": "Marta Lewandowska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+        },
+        "text": "Kiedy możemy zobaczyć więcej?",
+        "timestamp": "2026-05-27T08:00:00Z"
+      }
+    ],
+    "shares": 8
+  },
+  {
+    "id": "p4",
+    "author": {
+      "id": "u5",
+      "name": "Tomek Krawczyk",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u5",
+      "isOnline": true
+    },
+    "content": "Programuję już 12 godzin bez przerwy. Kawy wypite: 5. Bugi naprawione: 1. Bugi stworzone: 7. Takie życie developera. 💻",
+    "timestamp": "2026-05-26T23:45:00Z",
+    "likes": 42,
+    "comments": [
+      {
+        "id": "c7",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "Znam ten ból 😅",
+        "timestamp": "2026-05-27T00:00:00Z"
+      },
+      {
+        "id": "c8",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "text": "Idź spać, jutro będzie lepiej!",
+        "timestamp": "2026-05-27T00:15:00Z"
+      }
+    ],
+    "shares": 5
+  },
+  {
+    "id": "p5",
+    "author": {
+      "id": "u6",
+      "name": "Marta Lewandowska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u6",
+      "isOnline": false
+    },
+    "content": "Właśnie wróciłam z Barcelony! To miasto ma niesamowitą energię. Polecam każdemu odwiedzić dzielnicę Gotic i oczywiście Sagrada Família. Gaudi to geniusz! 🇪🇸✨",
+    "timestamp": "2026-05-26T18:00:00Z",
+    "likes": 35,
+    "comments": [
+      {
+        "id": "c9",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "text": "Zazdroszczę! Muszę tam pojechać 😍",
+        "timestamp": "2026-05-26T18:30:00Z"
+      }
+    ],
+    "shares": 2
+  },
+  {
+    "id": "p6",
+    "author": {
+      "id": "u1",
+      "name": "Jan Kowalski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "isOnline": true
+    },
+    "content": "Kto pamięta jeszcze czasy bez social media? Ja ledwo, ale wspomnienia z podwórka są nie do zastąpienia. Chociaż ta platforma jest naprawdę fajna 😄",
+    "timestamp": "2026-05-26T14:00:00Z",
+    "likes": 15,
+    "comments": [],
+    "shares": 0
+  }
+]

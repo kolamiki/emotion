@@ -1,0 +1,449 @@
+{
+  "chatResponses": [
+    {
+      "id": "cr-anna-greet",
+      "participantId": "u2",
+      "triggers": ["hej", "cześć", "siema", "witaj", "hello", "hi"],
+      "responses": [
+        {
+          "text": "Hej! Co tam u Ciebie? 😊",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 2000
+        },
+        {
+          "text": "Cześć! Właśnie myślałam, żeby do Ciebie napisać!",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2500
+        },
+        {
+          "text": "Hejka! Dawno się nie odzywałeś 😄",
+          "delayBeforeTyping": 1000,
+          "typingDuration": 1800
+        }
+      ]
+    },
+    {
+      "id": "cr-anna-project",
+      "participantId": "u2",
+      "triggers": ["projekt", "praca", "robota", "zadanie", "task"],
+      "responses": [
+        {
+          "text": "O, opowiadaj! Uwielbiam słuchać o nowych projektach ✨",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 2500
+        },
+        {
+          "text": "Wow, brzmi super! Potrzebujesz pomocy z designem? Mogę coś podrzucić 🎨",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 3000
+        }
+      ]
+    },
+    {
+      "id": "cr-anna-mood",
+      "participantId": "u2",
+      "triggers": ["jak się masz", "co słychać", "co tam", "co u ciebie"],
+      "responses": [
+        {
+          "text": "Super! Właśnie wróciłam z jogi, czuję się fantastycznie 🧘‍♀️",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 2500
+        },
+        {
+          "text": "Świetnie! Mam tyle energii dzisiaj, że mogłabym przenosić góry! 💪",
+          "delayBeforeTyping": 1000,
+          "typingDuration": 2000
+        }
+      ]
+    },
+    {
+      "id": "cr-anna-food",
+      "participantId": "u2",
+      "triggers": ["jedzenie", "restauracja", "obiad", "kolacja", "jeść", "kawa", "kawiarnia"],
+      "responses": [
+        {
+          "text": "Omg tak! Znam świetne miejsce w centrum, musisz spróbować ich tiramisu 🍰",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 3000
+        },
+        {
+          "text": "Uwielbiam rozmawiać o jedzeniu! Ostatnio odkryłam wegańską knajpę i WOW 🌱",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2800
+        }
+      ]
+    },
+    {
+      "id": "cr-anna-thanks",
+      "participantId": "u2",
+      "triggers": ["dzięki", "dziękuję", "dziękuje", "thanks", "thx"],
+      "responses": [
+        {
+          "text": "Nie ma za co! Zawsze chętnie pomogę 😊",
+          "delayBeforeTyping": 1000,
+          "typingDuration": 1500
+        }
+      ]
+    },
+    {
+      "id": "cr-piotr-greet",
+      "participantId": "u3",
+      "triggers": ["hej", "cześć", "siema", "witaj", "hello", "hi"],
+      "responses": [
+        {
+          "text": "Yo! Co tam? 🤙",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 1200
+        },
+        {
+          "text": "Cześć! Właśnie wracam z treningu, daj 5 min 💪",
+          "delayBeforeTyping": 5000,
+          "typingDuration": 2500
+        }
+      ]
+    },
+    {
+      "id": "cr-piotr-sport",
+      "participantId": "u3",
+      "triggers": ["trening", "bieganie", "sport", "siłownia", "gym", "bieg", "góry", "tatry"],
+      "responses": [
+        {
+          "text": "Stary, musisz ze mną pobiegać! W sobotę robimy 10k w Łazienkach 🏃‍♂️",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 3000
+        },
+        {
+          "text": "O tak! Właśnie planuję wyjazd w Tatry na weekend. Idziesz ze mną? ⛰️",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 2800
+        }
+      ]
+    },
+    {
+      "id": "cr-piotr-mood",
+      "participantId": "u3",
+      "triggers": ["jak się masz", "co słychać", "co tam", "co u ciebie"],
+      "responses": [
+        {
+          "text": "Spoko! Trochę zmęczony po treningu, ale ogólnie git 😎",
+          "delayBeforeTyping": 4000,
+          "typingDuration": 2200
+        },
+        {
+          "text": "Dobrze! Planuję weekend w górach, muszę odpocząć od miasta",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 2500
+        }
+      ]
+    },
+    {
+      "id": "cr-piotr-games",
+      "participantId": "u3",
+      "triggers": ["gra", "gramy", "planszówki", "planszówka", "gloomhaven", "gry"],
+      "responses": [
+        {
+          "text": "W sobotę mamy sesję Gloomhavena! Dołączysz? 🎲",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2200
+        },
+        {
+          "text": "Haha, nerd alert! Ale serio, muszę ci pokazać nową grę którą kupiłem 🎮",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 3000
+        }
+      ]
+    },
+    {
+      "id": "cr-kasia-greet",
+      "participantId": "u4",
+      "triggers": ["hej", "cześć", "siema", "witaj", "hello", "hi"],
+      "responses": [
+        {
+          "text": "Hej! ✨ Właśnie pracuję nad czymś fajnym, chcesz zobaczyć?",
+          "delayBeforeTyping": 1000,
+          "typingDuration": 2500
+        },
+        {
+          "text": "Cześć! Jak dobrze że piszesz, potrzebuję Twojej opinii o czymś 🎨",
+          "delayBeforeTyping": 800,
+          "typingDuration": 2800
+        }
+      ]
+    },
+    {
+      "id": "cr-kasia-design",
+      "participantId": "u4",
+      "triggers": ["design", "projekt", "grafika", "ui", "ux", "figma", "kolory", "font"],
+      "responses": [
+        {
+          "text": "To mój ulubiony temat! Ostatnio eksperymentuję z glassmorphism + ciepła paleta 🎨",
+          "delayBeforeTyping": 800,
+          "typingDuration": 3000
+        },
+        {
+          "text": "Tak! Widziałeś trendy na 2026? Organiczne kształty wracają mocno ✨",
+          "delayBeforeTyping": 1200,
+          "typingDuration": 2500
+        }
+      ]
+    },
+    {
+      "id": "cr-kasia-mood",
+      "participantId": "u4",
+      "triggers": ["jak się masz", "co słychać", "co tam", "co u ciebie"],
+      "responses": [
+        {
+          "text": "Fantastycznie! Właśnie skończyłam nowy projekt i jestem z siebie dumna 🌟",
+          "delayBeforeTyping": 600,
+          "typingDuration": 2500
+        },
+        {
+          "text": "Hmm, trochę kreatywny kryzys, ale kawa pomaga ☕ A u Ciebie?",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 2200
+        }
+      ]
+    },
+    {
+      "id": "cr-kasia-compliment",
+      "participantId": "u4",
+      "triggers": ["super", "piękne", "ładne", "wow", "fajne", "świetne", "brawo"],
+      "responses": [
+        {
+          "text": "Aww, dziękuję! To naprawdę wiele dla mnie znaczy 🥰",
+          "delayBeforeTyping": 500,
+          "typingDuration": 1800
+        },
+        {
+          "text": "Jesteś za słodki! 💕 Wrzucę więcej na profil wkrótce!",
+          "delayBeforeTyping": 800,
+          "typingDuration": 2000
+        }
+      ]
+    }
+  ],
+
+  "postCommentResponses": [
+    {
+      "id": "pcr-project",
+      "triggers": ["projekt", "praca", "robota", "zrobiłem", "skończyłem", "nowy"],
+      "responses": [
+        {
+          "authorId": "u2",
+          "text": "Super, powodzenia! 💪 Trzymam kciuki!",
+          "delayBeforeTyping": 5000,
+          "typingDuration": 2000
+        },
+        {
+          "authorId": "u4",
+          "text": "Wow, to brzmi niesamowicie! Daj znać jak pójdzie ✨",
+          "delayBeforeTyping": 8000,
+          "typingDuration": 2500
+        }
+      ]
+    },
+    {
+      "id": "pcr-mood",
+      "triggers": ["dzień", "pogoda", "rano", "wieczór", "humor", "nastrój"],
+      "responses": [
+        {
+          "authorId": "u3",
+          "text": "Pozdrawiam! Miłego dnia 🌞",
+          "delayBeforeTyping": 6000,
+          "typingDuration": 1500
+        },
+        {
+          "authorId": "u6",
+          "text": "Dokładnie! Piękny dzień na spędzenie czasu na dworze 🌿",
+          "delayBeforeTyping": 10000,
+          "typingDuration": 2500
+        }
+      ]
+    },
+    {
+      "id": "pcr-tech",
+      "triggers": ["programuję", "kod", "react", "typescript", "javascript", "bug", "deploy", "developer"],
+      "responses": [
+        {
+          "authorId": "u5",
+          "text": "Znam ten ból! 😅 Ale to rozwija 💻",
+          "delayBeforeTyping": 4000,
+          "typingDuration": 2000
+        },
+        {
+          "authorId": "u3",
+          "text": "Stary, dawaj code review, chętnie pomogę! 🔍",
+          "delayBeforeTyping": 7000,
+          "typingDuration": 2200
+        }
+      ]
+    },
+    {
+      "id": "pcr-travel",
+      "triggers": ["podróż", "wakacje", "wyjazd", "miasto", "kraj", "lot", "zwiedzanie"],
+      "responses": [
+        {
+          "authorId": "u6",
+          "text": "Zazdroszczę! Muszę tam kiedyś pojechać 😍",
+          "delayBeforeTyping": 6000,
+          "typingDuration": 2000
+        },
+        {
+          "authorId": "u4",
+          "text": "Piękne! Zrobiłeś jakieś zdjęcia? 📸",
+          "delayBeforeTyping": 9000,
+          "typingDuration": 1800
+        }
+      ]
+    },
+    {
+      "id": "pcr-food",
+      "triggers": ["jedzenie", "gotowanie", "restauracja", "kawa", "obiad", "śniadanie", "przepis"],
+      "responses": [
+        {
+          "authorId": "u2",
+          "text": "Mmm, brzmi pysznie! Podzielisz się przepisem? 😋",
+          "delayBeforeTyping": 5000,
+          "typingDuration": 2200
+        }
+      ]
+    },
+    {
+      "id": "pcr-sport",
+      "triggers": ["trening", "bieganie", "sport", "siłownia", "mecz", "fitness"],
+      "responses": [
+        {
+          "authorId": "u3",
+          "text": "Brawo! Sportowy duch to jest to! 🏃‍♂️💪",
+          "delayBeforeTyping": 4000,
+          "typingDuration": 2000
+        }
+      ]
+    }
+  ],
+
+  "fallbackResponses": {
+    "chat": {
+      "u2": [
+        {
+          "text": "Ciekawe! Opowiedz więcej, lubię słuchać 😊",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2000
+        },
+        {
+          "text": "Haha, rozumiem! 😂 Mam podobnie!",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 1500
+        },
+        {
+          "text": "No nie mów! A ja właśnie myślałam o czymś podobnym ✨",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2500
+        },
+        {
+          "text": "Hmm, to ciekawe 🤔 Muszę się nad tym zastanowić!",
+          "delayBeforeTyping": 1800,
+          "typingDuration": 2200
+        }
+      ],
+      "u3": [
+        {
+          "text": "Spoko! 👍",
+          "delayBeforeTyping": 4000,
+          "typingDuration": 800
+        },
+        {
+          "text": "Heh, no dobra 😎",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 1000
+        },
+        {
+          "text": "Ok, ale wracam do tego po treningu!",
+          "delayBeforeTyping": 5000,
+          "typingDuration": 1800
+        },
+        {
+          "text": "Jasne! Pogadamy o tym na żywo, łatwiej będzie 🤙",
+          "delayBeforeTyping": 3500,
+          "typingDuration": 2200
+        }
+      ],
+      "u4": [
+        {
+          "text": "O super! 🌟 To jest takie inspirujące!",
+          "delayBeforeTyping": 800,
+          "typingDuration": 1800
+        },
+        {
+          "text": "Uwielbiam takie rozmowy! Muszę ci coś pokazać...",
+          "delayBeforeTyping": 600,
+          "typingDuration": 2200
+        },
+        {
+          "text": "Hmm ciekawe! To mi daje pomysł na nowy projekt 🎨",
+          "delayBeforeTyping": 1000,
+          "typingDuration": 2000
+        },
+        {
+          "text": "Haha tak! 😄 Totalnie się z Tobą zgadzam!",
+          "delayBeforeTyping": 700,
+          "typingDuration": 1500
+        }
+      ],
+      "*": [
+        {
+          "text": "Ciekawe! Opowiedz więcej 🤔",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 1500
+        },
+        {
+          "text": "Haha, dobre! 😂",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 1000
+        },
+        {
+          "text": "No jasne! 👍",
+          "delayBeforeTyping": 2500,
+          "typingDuration": 1200
+        },
+        {
+          "text": "Hmm, zastanowię się nad tym 🤔",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 1800
+        }
+      ]
+    },
+    "postComments": [
+      {
+        "authorId": "u2",
+        "text": "Świetny post! 👍",
+        "delayBeforeTyping": 8000,
+        "typingDuration": 1500
+      },
+      {
+        "authorId": "u5",
+        "text": "Podoba mi się! 🔥",
+        "delayBeforeTyping": 12000,
+        "typingDuration": 1200
+      },
+      {
+        "authorId": "u4",
+        "text": "Wow, super! ✨",
+        "delayBeforeTyping": 6000,
+        "typingDuration": 1000
+      },
+      {
+        "authorId": "u3",
+        "text": "Dobre! 💪",
+        "delayBeforeTyping": 10000,
+        "typingDuration": 800
+      },
+      {
+        "authorId": "u6",
+        "text": "Bardzo inspirujące! 🌟",
+        "delayBeforeTyping": 15000,
+        "typingDuration": 1800
+      }
+    ]
+  }
+}

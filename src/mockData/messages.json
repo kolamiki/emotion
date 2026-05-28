@@ -1,0 +1,71 @@
+[
+  {
+    "threadId": "t1",
+    "participant": {
+      "id": "u2",
+      "name": "Anna Nowak",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+      "isOnline": true
+    },
+    "messages": [
+      {
+        "id": "m1",
+        "senderId": "u2",
+        "text": "Hej, widziałeś nowy projekt?",
+        "timestamp": "2026-05-27T11:20:00Z"
+      },
+      {
+        "id": "m2",
+        "senderId": "u1",
+        "text": "Tak, wygląda super!",
+        "timestamp": "2026-05-27T11:22:00Z"
+      },
+      {
+        "id": "m3",
+        "senderId": "u2",
+        "text": "Muszę Ci coś pokazać, wpadnij wieczorem 😄",
+        "timestamp": "2026-05-27T11:25:00Z"
+      }
+    ]
+  },
+  {
+    "threadId": "t2",
+    "participant": {
+      "id": "u3",
+      "name": "Piotr Wiśniewski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+      "isOnline": false
+    },
+    "messages": [
+      {
+        "id": "m4",
+        "senderId": "u3",
+        "text": "Idziesz dzisiaj na trening?",
+        "timestamp": "2026-05-26T18:00:00Z"
+      }
+    ]
+  },
+  {
+    "threadId": "t3",
+    "participant": {
+      "id": "u4",
+      "name": "Kasia Zielińska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+      "isOnline": true
+    },
+    "messages": [
+      {
+        "id": "m5",
+        "senderId": "u4",
+        "text": "Widziałeś mój nowy projekt? 🎨",
+        "timestamp": "2026-05-27T07:30:00Z"
+      },
+      {
+        "id": "m6",
+        "senderId": "u1",
+        "text": "Jeszcze nie, ale zaraz sprawdzę!",
+        "timestamp": "2026-05-27T07:35:00Z"
+      }
+    ]
+  }
+]

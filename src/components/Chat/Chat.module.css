@@ -1,0 +1,265 @@
+.chatContainer {
+  position: fixed;
+  bottom: 0;
+  right: 80px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 12px;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.chatWindow {
+  width: 340px;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  border: var(--border-light);
+  border-bottom: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: var(--shadow-xl);
+  pointer-events: auto;
+  animation: slideUp 0.25s ease-out;
+  overflow: hidden;
+}
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: var(--border-light);
+  background: var(--bg-panel);
+}
+
+.chatAvatarWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.chatAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatOnline {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--success);
+  border: 2px solid var(--bg-panel);
+}
+
+.chatName {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.chatCloseBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.chatCloseBtn:hover {
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--gray-50);
+}
+
+.chatMessages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chatMessages::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 2px;
+}
+
+.bubbleRow {
+  display: flex;
+  max-width: 80%;
+}
+
+.bubbleRowReceived {
+  align-self: flex-start;
+}
+
+.bubbleRowSent {
+  align-self: flex-end;
+}
+
+.bubble {
+  padding: 8px 14px;
+  border-radius: 18px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.bubbleReceived {
+  background: var(--bg-panel);
+  border: var(--border-light);
+  border-bottom-left-radius: 6px;
+  color: var(--text-primary);
+}
+
+.bubbleSent {
+  background: var(--primary);
+  color: #fff;
+  border-bottom-right-radius: 6px;
+}
+
+.bubbleTime {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.bubbleTimeSent {
+  color: rgba(255,255,255,0.6);
+  text-align: right;
+}
+
+.chatInputArea {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: var(--border-light);
+  background: var(--bg-panel);
+}
+
+.chatInput {
+  flex: 1;
+  padding: 8px 14px;
+  border: var(--border-light);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  background: var(--gray-50);
+  transition: all 0.15s;
+}
+
+.chatInput:focus {
+  background: var(--bg-panel);
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.chatInput::placeholder {
+  color: var(--text-muted);
+}
+
+.chatSendBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.chatSendBtn:hover {
+  background: var(--primary-dark);
+}
+
+.chatSendBtn:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+}
+
+/* === Chat Header Info === */
+.chatHeaderInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chatTypingLabel {
+  font-size: 0.72rem;
+  color: var(--primary);
+  font-weight: 500;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* === Typing Indicator === */
+.typingBubble {
+  padding: 10px 16px !important;
+}
+
+.typingDots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 16px;
+}
+
+.typingDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gray-400);
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+
+.typingDot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typingDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typingDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatContainer {
+    right: 8px;
+  }
+  .chatWindow {
+    width: calc(100vw - 16px);
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "currentUser": {
+    "id": "u1",
+    "name": "Jan Kowalski",
+    "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+    "isOnline": true
+  },
+  "allUsers": [
+    {
+      "id": "u1",
+      "name": "Jan Kowalski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "isOnline": true
+    },
+    {
+      "id": "u2",
+      "name": "Anna Nowak",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+      "isOnline": true,
+      "isFriend": true
+    },
+    {
+      "id": "u3",
+      "name": "Piotr Wiśniewski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+      "isOnline": false,
+      "isFriend": true
+    },
+    {
+      "id": "u4",
+      "name": "Kasia Zielińska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+      "isOnline": true,
+      "isFriend": true
+    },
+    {
+      "id": "u5",
+      "name": "Tomek Krawczyk",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u5",
+      "isOnline": true,
+      "isFriend": false
+    },
+    {
+      "id": "u6",
+      "name": "Marta Lewandowska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u6",
+      "isOnline": false,
+      "isFriend": false
+    }
+  ]
+}

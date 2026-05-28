@@ -1,0 +1,61 @@
+{
+  "notifications": [
+    {
+      "id": "n1",
+      "message": "Anna Nowak polubiła Twój post.",
+      "isRead": false,
+      "timestamp": "2026-05-27T11:00:00Z",
+      "type": "like"
+    },
+    {
+      "id": "n2",
+      "message": "Piotr Wiśniewski skomentował Twój post.",
+      "isRead": false,
+      "timestamp": "2026-05-27T10:30:00Z",
+      "type": "comment"
+    },
+    {
+      "id": "n3",
+      "message": "Kasia Zielińska zaprasza Cię do grupy Design i UX.",
+      "isRead": false,
+      "timestamp": "2026-05-27T09:00:00Z",
+      "type": "group"
+    },
+    {
+      "id": "n4",
+      "message": "Tomek Krawczyk wspomniał Cię w komentarzu.",
+      "isRead": true,
+      "timestamp": "2026-05-27T08:00:00Z",
+      "type": "mention"
+    },
+    {
+      "id": "n5",
+      "message": "Marta Lewandowska wysłała Ci zaproszenie do znajomych.",
+      "isRead": true,
+      "timestamp": "2026-05-26T20:00:00Z",
+      "type": "friend"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "f1",
+      "name": "Moja ulubiona kawiarnia",
+      "icon": "Coffee",
+      "description": "",
+      "coverColor": "#8B5E3C",
+      "membersCount": 0,
+      "members": [],
+      "posts": []
+    },
+    {
+      "id": "f2",
+      "name": "Technologiczne Nowości",
+      "icon": "Cpu",
+      "description": "",
+      "coverColor": "#3B82F6",
+      "membersCount": 0,
+      "members": [],
+      "posts": []
+    }
+  ]
+}

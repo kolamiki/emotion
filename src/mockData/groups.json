@@ -1,0 +1,239 @@
+[
+  {
+    "id": "g1",
+    "name": "Programiści React",
+    "icon": "Code",
+    "description": "Grupa dla miłośników React, Next.js i całego ekosystemu. Dzielimy się wiedzą, projektami i pomagamy sobie nawzajem.",
+    "coverColor": "#6C2BD9",
+    "membersCount": 1247,
+    "members": [
+      {
+        "id": "u5",
+        "name": "Tomek Krawczyk",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u5",
+        "role": "admin"
+      },
+      {
+        "id": "u1",
+        "name": "Jan Kowalski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+        "role": "member"
+      },
+      {
+        "id": "u3",
+        "name": "Piotr Wiśniewski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+        "role": "moderator"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp1",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "content": "Właśnie wyszedł React 20! Kto już testował nowe Server Components? Pierwsze wrażenia?",
+        "timestamp": "2026-05-27T09:00:00Z",
+        "likes": 18,
+        "comments": [
+          {
+            "id": "gc1",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Testowałem! Wydajność jest kosmiczna 🚀",
+            "timestamp": "2026-05-27T09:15:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp2",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "content": "Szukam code review partnera do mojego side projectu. Ktoś chętny? Stack: React + TypeScript + Vite",
+        "timestamp": "2026-05-26T15:00:00Z",
+        "likes": 7,
+        "comments": []
+      }
+    ]
+  },
+  {
+    "id": "g2",
+    "name": "Gry Planszowe Warszawa",
+    "icon": "Gamepad2",
+    "description": "Organizujemy spotkania planszówkowe w Warszawie co tydzień. Wszystkie poziomy zaawansowania mile widziane!",
+    "coverColor": "#FF6B6B",
+    "membersCount": 583,
+    "members": [
+      {
+        "id": "u3",
+        "name": "Piotr Wiśniewski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+        "role": "admin"
+      },
+      {
+        "id": "u2",
+        "name": "Anna Nowak",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+        "role": "member"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp3",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "content": "Sobotnie spotkanie planszówkowe! 🎲 Tym razem gramy w Gloomhaven. Start o 16:00, kawiarnia Mały Książę. Zapisy w komentarzach!",
+        "timestamp": "2026-05-27T10:30:00Z",
+        "likes": 24,
+        "comments": [
+          {
+            "id": "gc2",
+            "author": {
+              "id": "u2",
+              "name": "Anna Nowak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+            },
+            "text": "Będę! Rezerwuję miejsce 🙋‍♀️",
+            "timestamp": "2026-05-27T10:45:00Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "g3",
+    "name": "Design i UX",
+    "icon": "Palette",
+    "description": "Projektanci, designerzy i entuzjaści UX. Portfolio reviews, trendy w designie i wzajemna inspiracja.",
+    "coverColor": "#F59E0B",
+    "membersCount": 892,
+    "members": [
+      {
+        "id": "u4",
+        "name": "Kasia Zielińska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+        "role": "admin"
+      },
+      {
+        "id": "u6",
+        "name": "Marta Lewandowska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u6",
+        "role": "moderator"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp4",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "content": "Trend report na 2026: minimalizm wraca, ale z twist — ciepłe kolory, organiczne kształty i micro-animacje. Co myślicie?",
+        "timestamp": "2026-05-27T11:00:00Z",
+        "likes": 31,
+        "comments": [
+          {
+            "id": "gc3",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "Zgadzam się! Widzę to wszędzie ostatnio.",
+            "timestamp": "2026-05-27T11:20:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp5",
+        "author": {
+          "id": "u6",
+          "name": "Marta Lewandowska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+        },
+        "content": "Ktoś poleci dobre narzędzie do prototypowania? Szukam alternatywy dla Figmy.",
+        "timestamp": "2026-05-26T16:00:00Z",
+        "likes": 9,
+        "comments": []
+      }
+    ]
+  },
+  {
+    "id": "g4",
+    "name": "Miłośnicy Kawy",
+    "icon": "Coffee",
+    "description": "Najlepsze kawiarnie, metody parzenia, recenzje ziaren. Dla tych, którzy traktują kawę poważnie ☕",
+    "coverColor": "#8B5E3C",
+    "membersCount": 2103,
+    "members": [
+      {
+        "id": "u1",
+        "name": "Jan Kowalski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+        "role": "admin"
+      },
+      {
+        "id": "u2",
+        "name": "Anna Nowak",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+        "role": "member"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp6",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "content": "Odkryłem nową palarnię w centrum — ziarno z Etiopii o nutach jagodowych. Polecam! Ktoś chce próbkę?",
+        "timestamp": "2026-05-27T07:00:00Z",
+        "likes": 14,
+        "comments": []
+      }
+    ]
+  },
+  {
+    "id": "g5",
+    "name": "Biegacze Amatorzy",
+    "icon": "Footprints",
+    "description": "Wspólne treningi, plany biegowe i motywacja. Od 5K do maratonu — każdy jest mile widziany!",
+    "coverColor": "#10B981",
+    "membersCount": 756,
+    "members": [
+      {
+        "id": "u3",
+        "name": "Piotr Wiśniewski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+        "role": "admin"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp7",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "content": "Poranny trening o 6:00 w sobotę, park Łazienkowski. Tempo easy, 8 km. Kto dołączy?",
+        "timestamp": "2026-05-27T06:00:00Z",
+        "likes": 11,
+        "comments": []
+      }
+    ]
+  }
+]

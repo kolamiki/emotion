@@ -1,0 +1,356 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* === Create Post Teaser === */
+.createTeaser {
+  background: var(--bg-panel);
+  border: var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.createAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.createInput {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  background: var(--gray-50);
+  border: var(--border-light);
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.createInput:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-300);
+}
+
+/* === Post Card === */
+.postCard {
+  background: var(--bg-panel);
+  border: var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  animation-fill-mode: backwards;
+  transition: box-shadow 0.15s;
+}
+
+.postCard:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.postCard:nth-child(2) { animation-delay: 0.03s; }
+.postCard:nth-child(3) { animation-delay: 0.06s; }
+.postCard:nth-child(4) { animation-delay: 0.09s; }
+.postCard:nth-child(5) { animation-delay: 0.12s; }
+.postCard:nth-child(6) { animation-delay: 0.15s; }
+.postCard:nth-child(7) { animation-delay: 0.18s; }
+
+/* === Post Header === */
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.avatarWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.postAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.postAvatar:hover {
+  opacity: 0.85;
+}
+
+.avatarOnline {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--success);
+  border: 2px solid var(--bg-panel);
+}
+
+.postMeta {
+  flex: 1;
+}
+
+.postAuthor {
+  font-weight: 600;
+  font-size: 0.93rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.postAuthor:hover {
+  text-decoration: underline;
+}
+
+.postTime {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* === Post Content === */
+.postContent {
+  padding: 12px 16px 14px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+
+/* === Engagement Stats === */
+.postStats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.likeStats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.likeAvatars {
+  display: flex;
+}
+
+.likeAvatarImg {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-panel);
+  object-fit: cover;
+  margin-left: -6px;
+}
+
+.likeAvatarImg:first-child {
+  margin-left: 0;
+}
+
+.commentShareStats {
+  display: flex;
+  gap: 12px;
+}
+
+.statLink {
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.statLink:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+/* === Divider === */
+.postDivider {
+  height: 0;
+  border: none;
+  border-top: var(--border-light);
+  margin: 0 16px;
+}
+
+/* === Post Actions === */
+.postActions {
+  display: flex;
+  padding: 4px 8px;
+}
+
+.actionButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.12s;
+  background: transparent;
+}
+
+.actionButton:hover {
+  background: var(--gray-50);
+  color: var(--text-primary);
+}
+
+.actionButton:active {
+  transform: scale(0.97);
+}
+
+.likeActive {
+  color: var(--accent) !important;
+}
+
+.likeActive:hover {
+  background: var(--accent-light);
+}
+
+.likePop {
+  animation: likePop 0.35s ease-out;
+}
+
+/* === Comments Section === */
+.commentsSection {
+  padding: 0 16px 12px;
+}
+
+.commentItem {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.commentAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.commentBubble {
+  background: var(--gray-50);
+  padding: 8px 12px;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
+  flex: 1;
+}
+
+.commentAuthor {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.commentText {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.commentTime {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  padding-left: 40px;
+}
+
+.showMoreComments {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px 0;
+  margin-top: 4px;
+}
+
+.showMoreComments:hover {
+  color: var(--primary);
+}
+
+/* === Comment Input === */
+.commentInputArea {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 14px;
+  border-top: var(--border-light);
+  animation: slideUp 0.2s ease-out;
+}
+
+.commentInputWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gray-50);
+  border: var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 2px 4px 2px 14px;
+  transition: all 0.15s;
+}
+
+.commentInputWrap:focus-within {
+  background: var(--bg-panel);
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.commentInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.85rem;
+  outline: none;
+  padding: 8px 0;
+  color: var(--text-primary);
+}
+
+.commentInput::placeholder {
+  color: var(--text-muted);
+}
+
+.commentSendBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.commentSendBtn:hover {
+  background: var(--primary-dark);
+}
+
+.commentSendBtn:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+}
