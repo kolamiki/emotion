@@ -1,4 +1,4 @@
-import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment } from '../types';
+import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis } from '../types';
 import { responsesData, usersData } from '../mockData';
 
 type Dispatch = React.Dispatch<AppAction>;
@@ -23,6 +23,92 @@ const responses = responsesData as {
 
 const allUsers = usersData.allUsers;
 
+/* ============================================
+   CONTEXT ANALYSIS ENGINE
+   ============================================ */
+
+// Emoji sentiment mapping
+const emojiSentiments: Record<string, Sentiment> = {
+  '😊': 'positive', '😄': 'positive', '🎉': 'positive', '👍': 'positive',
+  '🔥': 'positive', '💪': 'positive', '✨': 'positive', '🌟': 'positive',
+  '❤️': 'positive', '💕': 'positive', '🥰': 'positive', '🤩': 'positive',
+  '👏': 'positive', '🙌': 'positive', '💯': 'positive', '🚀': 'positive',
+  '🎯': 'positive', '⭐': 'positive', '🏆': 'positive', '✅': 'positive',
+  '😔': 'negative', '😢': 'negative', '😞': 'negative', '💔': 'negative',
+  '😡': 'negative', '🤬': 'negative', '😤': 'negative', '😰': 'negative',
+  '😩': 'negative', '🥺': 'negative', '😫': 'negative', '👎': 'negative',
+  '😂': 'funny', '🤣': 'funny', '😅': 'funny', '😆': 'funny',
+  '🤪': 'funny', '😜': 'funny', '🤡': 'funny', '💀': 'funny',
+  '🤔': 'question', '❓': 'question', '🧐': 'question',
+};
+
+// Keyword → sentiment mapping
+const sentimentKeywords: Record<string, Sentiment> = {
+  // Positive
+  'super': 'positive', 'świetnie': 'positive', 'fajnie': 'positive',
+  'piękne': 'positive', 'wspaniale': 'positive', 'brawo': 'positive',
+  'genialnie': 'positive', 'rewelacja': 'positive', 'fantastycznie': 'positive',
+  'kocham': 'positive', 'uwielbiam': 'positive', 'wow': 'positive',
+  'niesamowite': 'positive', 'cudownie': 'positive', 'idealnie': 'positive',
+  'udalo': 'positive', 'sukces': 'positive', 'gratulacje': 'positive',
+  'dzieki': 'positive', 'dziekuje': 'positive', 'podziekowania': 'positive',
+  // Negative
+  'problem': 'negative', 'nie dziala': 'negative', 'blad': 'negative',
+  'zle': 'negative', 'trudno': 'negative', 'stres': 'negative',
+  'zmeczony': 'negative', 'zmeczona': 'negative', 'frustracja': 'negative',
+  'nie moge': 'negative', 'nie wiem': 'negative', 'pomoc': 'negative',
+  'nie rozumiem': 'negative', 'kiepsko': 'negative', 'tragedia': 'negative',
+  'beznadziejne': 'negative', 'slabo': 'negative', 'smutne': 'negative',
+  'martwi': 'negative', 'boli': 'negative',
+  // Funny
+  'haha': 'funny', 'lol': 'funny', 'xd': 'funny', 'smiesz': 'funny',
+  'zabawne': 'funny', 'hehe': 'funny', 'rotfl': 'funny',
+};
+
+// Keyword → topic mapping
+const topicKeywords: Record<string, Topic> = {
+  // Tech
+  'programuj': 'tech', 'kod': 'tech', 'react': 'tech', 'typescript': 'tech',
+  'javascript': 'tech', 'bug': 'tech', 'deploy': 'tech', 'developer': 'tech',
+  'frontend': 'tech', 'backend': 'tech', 'api': 'tech', 'baza danych': 'tech',
+  'python': 'tech', 'node': 'tech', 'git': 'tech', 'docker': 'tech',
+  'css': 'tech', 'html': 'tech', 'framework': 'tech', 'biblioteka': 'tech',
+  'plugin': 'tech', 'vscode': 'tech', 'kompilator': 'tech', 'debugger': 'tech',
+  'algorytm': 'tech', 'serwer': 'tech', 'hosting': 'tech', 'linux': 'tech',
+  'open source': 'tech', 'code review': 'tech', 'pull request': 'tech',
+  // Sport
+  'trening': 'sport', 'bieganie': 'sport', 'sport': 'sport', 'silownia': 'sport',
+  'gym': 'sport', 'bieg': 'sport', 'gory': 'sport', 'tatry': 'sport',
+  'rower': 'sport', 'plywanie': 'sport', 'mecz': 'sport', 'fitness': 'sport',
+  'yoga': 'sport', 'joga': 'sport', 'maratón': 'sport', 'spacer': 'sport',
+  // Food
+  'jedzenie': 'food', 'restauracja': 'food', 'obiad': 'food', 'kolacja': 'food',
+  'jesc': 'food', 'kawa': 'food', 'kawiarnia': 'food', 'gotowanie': 'food',
+  'przepis': 'food', 'sniadanie': 'food', 'pizza': 'food', 'sushi': 'food',
+  'ciasto': 'food', 'deser': 'food', 'herbata': 'food',
+  // Travel
+  'podroz': 'travel', 'wakacje': 'travel', 'wyjazd': 'travel', 'miasto': 'travel',
+  'lot': 'travel', 'zwiedzanie': 'travel', 'samolot': 'travel', 'plaze': 'travel',
+  'hotel': 'travel', 'hostel': 'travel', 'kraj': 'travel', 'zagranica': 'travel',
+  // Work
+  'projekt': 'work', 'praca': 'work', 'robota': 'work', 'zadanie': 'work',
+  'spotkanie': 'work', 'deadline': 'work', 'szef': 'work', 'zespol': 'work',
+  'kariera': 'work', 'awans': 'work', 'firma': 'work', 'klient': 'work',
+  // Mood
+  'jak sie masz': 'mood', 'co slychac': 'mood', 'co tam': 'mood', 'co u ciebie': 'mood',
+  'nastroj': 'mood', 'humor': 'mood', 'samopoczucie': 'mood', 'czuje sie': 'mood',
+  // Design
+  'design': 'design', 'grafika': 'design', 'ui': 'design', 'ux': 'design',
+  'figma': 'design', 'kolory': 'design', 'font': 'design', 'typografia': 'design',
+  'ikona': 'design', 'logo': 'design', 'mockup': 'design',
+  // Music
+  'muzyka': 'music', 'piosenka': 'music', 'album': 'music', 'koncert': 'music',
+  'gitara': 'music', 'spotify': 'music', 'playlista': 'music',
+  // Games
+  'gra': 'games', 'gramy': 'games', 'planszowki': 'games', 'gloomhaven': 'games',
+  'gry': 'games', 'gaming': 'games', 'steam': 'games',
+};
+
 /**
  * Normalize text for keyword matching:
  * - lowercase
@@ -45,6 +131,223 @@ function normalize(text: string): string {
 }
 
 /**
+ * Analyze the context of a user message: detect sentiment, topics, keywords.
+ */
+export function analyzeContext(text: string): ContextAnalysis {
+  const normalized = normalize(text);
+  
+  // Detect sentiment from emojis
+  let emojiSentiment: Sentiment | null = null;
+  for (const [emoji, sent] of Object.entries(emojiSentiments)) {
+    if (text.includes(emoji)) {
+      emojiSentiment = sent;
+      break;
+    }
+  }
+
+  // Detect sentiment from keywords
+  let keywordSentiment: Sentiment | null = null;
+  let sentimentScore = 0;
+  for (const [keyword, sent] of Object.entries(sentimentKeywords)) {
+    const normalizedKeyword = normalize(keyword);
+    if (normalized.includes(normalizedKeyword)) {
+      if (normalizedKeyword.length > sentimentScore) {
+        sentimentScore = normalizedKeyword.length;
+        keywordSentiment = sent;
+      }
+    }
+  }
+
+  // Question mark detection
+  const isQuestion = text.includes('?');
+
+  // Final sentiment priority: emoji > keyword > question > neutral
+  let sentiment: Sentiment = 'neutral';
+  if (emojiSentiment) sentiment = emojiSentiment;
+  else if (keywordSentiment) sentiment = keywordSentiment;
+  else if (isQuestion) sentiment = 'question';
+
+  // Detect topics
+  const topics: Topic[] = [];
+  const detectedKeywords: string[] = [];
+  for (const [keyword, topic] of Object.entries(topicKeywords)) {
+    const normalizedKeyword = normalize(keyword);
+    if (normalized.includes(normalizedKeyword)) {
+      if (!topics.includes(topic)) {
+        topics.push(topic);
+      }
+      detectedKeywords.push(keyword);
+    }
+  }
+
+  if (topics.length === 0) topics.push('general');
+
+  return {
+    sentiment,
+    topics,
+    keywords: detectedKeywords,
+    hasEmoji: /[\u{1F300}-\u{1FAFF}]/u.test(text) || Object.keys(emojiSentiments).some(e => text.includes(e)),
+  };
+}
+
+/* ============================================
+   CONTEXTUAL RESPONSE TEMPLATES
+   ============================================ */
+
+// Templates that reference user content — {{keyword}} is replaced with extracted topic keywords
+const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
+  'u2': { // Anna
+    positive: [
+      'Tak się cieszę! 😊 To fantastyczna wiadomość!',
+      'Uwielbiam to! Twój entuzjazm jest zaraźliwy ✨',
+      'Wow, naprawdę super! Opowiedz mi więcej! 🌟',
+      'Niesamowite! Tak się cieszę razem z Tobą! 💕',
+    ],
+    negative: [
+      'Ojej, współczuję 🥺 Daj znać jak mogę pomóc!',
+      'Hej, głowa do góry! Jutro będzie lepiej, obiecuję 💛',
+      'Rozumiem jak się czujesz... Chcesz o tym pogadać? 🫂',
+      'To brzmi trudne... Pamiętaj, jestem tu dla Ciebie! ❤️',
+    ],
+    neutral: [
+      'Hmm, ciekawe! Opowiedz mi więcej 😊',
+      'O, to interesujące! Muszę się nad tym zastanowić 🤔',
+      'Rozumiem! A co dalej planujesz z tym? ✨',
+    ],
+    funny: [
+      'Hahaha, padłam! 😂 Masz świetne poczucie humoru!',
+      'Nie mogę! 🤣 Muszę to komuś opowiedzieć!',
+      'Haha, uwielbiam Twój humor! Zawsze mnie rozbawisz 😄',
+    ],
+    question: [
+      'Hmm, dobre pytanie! Myślę, że... no właśnie, trzeba to przemyśleć 🤔',
+      'O, to ciekawe pytanie! Daj mi chwilę, zastanowię się 💭',
+      'Wow, nikt mnie jeszcze o to nie zapytał! Myślę, że mogę pomóc 😊',
+    ],
+  },
+  'u3': { // Piotr
+    positive: [
+      'No, brawo! 💪 Wiedziałem, że dasz radę!',
+      'Super stary! To jest to! 🤙',
+      'Niezłe! Szacunek! 👊',
+    ],
+    negative: [
+      'Ej, spoko, każdemu się zdarza. Dasz radę! 💪',
+      'No weź, nie dramatyzuj. Chodź lepiej na trening, wybijesz to z głowy 🏃‍♂️',
+      'Luz, od tego są kumple żeby pomóc. Pisz co trzeba 🤙',
+    ],
+    neutral: [
+      'Spoko, rozumiem 👍',
+      'No ok. Co dalej? 🤙',
+      'Aha, jasne. A w weekend co robisz? 😎',
+    ],
+    funny: [
+      'Hahaha! Dobra, dobre 😂',
+      'Heh, niezłe! 😎',
+      'Stary, padłem 🤣💀',
+    ],
+    question: [
+      'Hmm, daj pomyślę... 🤔 A wiesz co, zapytaj może na grupie!',
+      'Dobre pytanie! Nie wiem, ale chętnie się dowiem razem z Tobą 🧐',
+      'No nie wiem stary, ale sprawdź to w necie! 🤙',
+    ],
+  },
+  'u4': { // Kasia
+    positive: [
+      'Aww, to piękne! 🥰 Inspirujesz mnie!',
+      'Wow, uwielbiam! To daje mi masę pomysłów ✨🎨',
+      'Super! Muszę Ci coś pokazać, co właśnie robię — pasuje idealnie! 🌟',
+    ],
+    negative: [
+      'Ojej... Chcesz żebym Ci narysowała coś na pocieszenie? 🎨💛',
+      'Hej, przytulam wirtualnie! 🤗 Będzie dobrze!',
+      'Rozumiem... Czasem kreatywny kryzys pomaga w znalezieniu nowej drogi ✨',
+    ],
+    neutral: [
+      'O, ciekawe! To mi daje pomysł na nowy projekt 🎨',
+      'Hmm, fascynujące! Chcesz zobaczyć jak to wyglądałoby wizualnie? ✨',
+      'Super! Uwielbiam takie rozmowy 🌟',
+    ],
+    funny: [
+      'Hahaha! 😂 Muszę to narysować!',
+      'Padłam! 🤣 Czekaj, robię mema z tego!',
+      'Nie mogę! 😂✨ Totalnie mnie rozbawiłeś!',
+    ],
+    question: [
+      'Hmm, to jest super pytanie! Z perspektywy designera... 🤔🎨',
+      'O, dobre pytanie! Właśnie o czymś takim myślałam! ✨',
+      'Wiesz co, to zależy od kontekstu, ale mogę pomóc to przemyśleć! 🌟',
+    ],
+  },
+};
+
+// Topic-specific response additions
+const topicResponses: Record<Topic, string[]> = {
+  tech: [
+    'Swoją drogą, pracuję teraz nad czymś podobnym!',
+    'Próbowałeś nowych features w najnowszej wersji?',
+    'Mam świetny artykuł na ten temat, wyślę Ci link!',
+  ],
+  sport: [
+    'Kiedyś musimy razem potrenować!',
+    'Ruch to zdrowie, trzymam kciuki!',
+    'Jaki plan na weekend? Może coś aktywnego?',
+  ],
+  food: [
+    'Teraz mi się chce jeść! 😋',
+    'Muszę Ci kiedyś pokazać moją ulubioną knajpkę!',
+    'Mmm, brzmi pysznie!',
+  ],
+  travel: [
+    'Zazdroszczę! Muszę też gdzieś się wybrać!',
+    'Zrobiłeś jakieś zdjęcia? Pokaż!',
+    'Jaki był najlepszy moment wyjazdu?',
+  ],
+  work: [
+    'Trzymam kciuki za projekt!',
+    'Dasz radę, wierzę w Ciebie!',
+    'Jak idzie? Chętnie pomogę!',
+  ],
+  mood: [
+    'A u mnie w miarę dobrze, dzięki za pytanie!',
+    'Miło, że pytasz!',
+    'Nastrój zależy od pogody, a dziś jest pięknie!',
+  ],
+  design: [
+    'Widziałaś najnowsze trendy? Szał!',
+    'Mam pomysł na kolaborację!',
+    'Podoba mi się Twoje podejście do designu!',
+  ],
+  music: [
+    'Co ostatnio słuchasz? Szukam inspiracji!',
+    'Mam świetną playlistę do polecenia!',
+    'Muzyka to najlepszy towarzysz pracy!',
+  ],
+  games: [
+    'Kiedy następna sesja?',
+    'Muszę Ci pokazać nową grę!',
+    'Granie to najlepszy sposób na relaks!',
+  ],
+  general: [],
+};
+
+// Track last responses per thread to avoid repetition
+const lastResponses = new Map<string, string[]>();
+const MAX_HISTORY = 5;
+
+function trackResponse(threadId: string, responseText: string) {
+  const history = lastResponses.get(threadId) || [];
+  history.push(responseText);
+  if (history.length > MAX_HISTORY) history.shift();
+  lastResponses.set(threadId, history);
+}
+
+function wasRecentlyUsed(threadId: string, text: string): boolean {
+  const history = lastResponses.get(threadId) || [];
+  return history.includes(text);
+}
+
+/**
  * Score how well a set of triggers matches the input text.
  * Returns 0 if no match, higher = better match.
  */
@@ -53,26 +356,29 @@ function scoreTriggers(text: string, triggers: string[]): number {
   let score = 0;
   for (const trigger of triggers) {
     const normalizedTrigger = normalize(trigger);
-    // Check if the trigger appears as a word or substring in the text
     if (normalizedText.includes(normalizedTrigger)) {
-      score += normalizedTrigger.length; // longer trigger = more specific = higher score
+      score += normalizedTrigger.length;
     }
   }
   return score;
 }
 
 /**
- * Find the best chat response for a given message text and participant.
+ * Find the best chat response for a given message text and participant,
+ * now enhanced with context analysis.
  */
 export function matchChatResponse(
   text: string,
-  participantId: string
+  participantId: string,
+  threadId?: string
 ): ResponseOption | null {
+  const context = analyzeContext(text);
+  
+  // 1. First try rule-based matching (original trigger system)
   let bestScore = 0;
   let bestResponses: ResponseOption[] = [];
 
   for (const rule of responses.chatResponses) {
-    // Match participant-specific rules or wildcard rules
     if (rule.participantId !== participantId && rule.participantId !== '*') continue;
 
     const score = scoreTriggers(text, rule.triggers);
@@ -83,8 +389,42 @@ export function matchChatResponse(
   }
 
   if (bestScore > 0 && bestResponses.length > 0) {
-    // Pick random response from best match
-    return bestResponses[Math.floor(Math.random() * bestResponses.length)];
+    // Filter out recently used responses
+    const filtered = threadId 
+      ? bestResponses.filter(r => !wasRecentlyUsed(threadId, r.text))
+      : bestResponses;
+    const pool = filtered.length > 0 ? filtered : bestResponses;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  // 2. Fall back to context-based response templates
+  const templates = contextualChatTemplates[participantId];
+  if (templates) {
+    const sentimentResponses = templates[context.sentiment];
+    if (sentimentResponses && sentimentResponses.length > 0) {
+      // Filter out recently used
+      const filtered = threadId
+        ? sentimentResponses.filter(r => !wasRecentlyUsed(threadId, r))
+        : sentimentResponses;
+      const pool = filtered.length > 0 ? filtered : sentimentResponses;
+      let responseText = pool[Math.floor(Math.random() * pool.length)];
+
+      // Optionally append a topic-specific addition
+      if (context.topics[0] !== 'general' && Math.random() > 0.5) {
+        const additions = topicResponses[context.topics[0]];
+        if (additions && additions.length > 0) {
+          responseText += ' ' + additions[Math.floor(Math.random() * additions.length)];
+        }
+      }
+
+      return {
+        text: responseText,
+        delayBeforeTyping: 1000 + Math.random() * 2000,
+        typingDuration: 1500 + Math.random() * 2000,
+        sentiment: context.sentiment,
+        topic: context.topics[0],
+      };
+    }
   }
 
   return null;
@@ -103,11 +443,14 @@ function getFallbackChatResponse(participantId: string): ResponseOption {
 
 /**
  * Find the best post comment response for user-generated content.
+ * Now with context-aware matching.
  */
 export function matchPostCommentResponse(
   text: string,
   currentUserId: string
 ): PostCommentResponseOption | null {
+  const context = analyzeContext(text);
+  
   let bestScore = 0;
   let bestResponses: PostCommentResponseOption[] = [];
 
@@ -115,7 +458,6 @@ export function matchPostCommentResponse(
     const score = scoreTriggers(text, rule.triggers);
     if (score > bestScore) {
       bestScore = score;
-      // Filter out responses from the current user
       bestResponses = rule.responses.filter(r => r.authorId !== currentUserId);
     }
   }
@@ -124,7 +466,67 @@ export function matchPostCommentResponse(
     return bestResponses[Math.floor(Math.random() * bestResponses.length)];
   }
 
+  // Context-based fallback for post comments
+  if (context.sentiment !== 'neutral' || context.topics[0] !== 'general') {
+    const contextualComments = generateContextualPostComment(context, currentUserId);
+    if (contextualComments) return contextualComments;
+  }
+
   return null;
+}
+
+/**
+ * Generate a contextual post comment based on analysis.
+ */
+function generateContextualPostComment(
+  context: ContextAnalysis,
+  currentUserId: string
+): PostCommentResponseOption | null {
+  const nonCurrentUsers = allUsers.filter(u => u.id !== currentUserId && u.id !== 'u1');
+  if (nonCurrentUsers.length === 0) return null;
+
+  const commenter = nonCurrentUsers[Math.floor(Math.random() * nonCurrentUsers.length)];
+
+  const sentimentComments: Record<Sentiment, string[]> = {
+    positive: [
+      'Świetnie! Trzymam kciuki za dalsze sukcesy! 🎉',
+      'To wspaniale! Gratulacje! 👏',
+      'Super wiadomość! Cieszę się razem z Tobą! 🌟',
+      'Wow, brawo! To naprawdę coś! 💪',
+    ],
+    negative: [
+      'Trzymaj się! Jutro będzie lepiej 💛',
+      'Współczuję... Daj znać jakby co, chętnie pomogę!',
+      'Głowa do góry! Wszyscy przez to przechodzimy 🤗',
+    ],
+    neutral: [
+      'Ciekawy post! 👍',
+      'Dzięki za podzielenie się! 😊',
+      'Interesujące, muszę się nad tym zastanowić 🤔',
+    ],
+    funny: [
+      'Hahaha, dobre! 😂',
+      'Nie mogę, padłem! 🤣',
+      'Muszę to zapamiętać, genialne! 😆',
+    ],
+    question: [
+      'Dobre pytanie! Też chciałbym znać odpowiedź 🤔',
+      'Hmm, ciężki temat! Ktoś wie? 🧐',
+      'Też się nad tym zastanawiam! 💭',
+    ],
+  };
+
+  const pool = sentimentComments[context.sentiment];
+  if (!pool || pool.length === 0) return null;
+
+  return {
+    authorId: commenter.id,
+    text: pool[Math.floor(Math.random() * pool.length)],
+    delayBeforeTyping: 4000 + Math.random() * 6000,
+    typingDuration: 1500 + Math.random() * 2000,
+    sentiment: context.sentiment,
+    topic: context.topics[0],
+  };
 }
 
 /**
@@ -146,7 +548,7 @@ function getUserById(userId: string) {
 
 /**
  * Schedule a simulated chat response after the user sends a message.
- * Handles: delay → typing indicator → response message
+ * Handles: context analysis → delay → typing indicator → response message
  */
 export function scheduleChatResponse(
   dispatch: Dispatch,
@@ -154,8 +556,11 @@ export function scheduleChatResponse(
   participantId: string,
   userText: string
 ): void {
-  const matched = matchChatResponse(userText, participantId);
+  const matched = matchChatResponse(userText, participantId, threadId);
   const responseOption = matched ?? getFallbackChatResponse(participantId);
+
+  // Track response to avoid repetition
+  trackResponse(threadId, responseOption.text);
 
   // Phase 1: delay before typing starts
   setTimeout(() => {
@@ -192,7 +597,6 @@ export function schedulePostCommentResponse(
   const author = getUserById(responseOption.authorId);
   if (!author) return;
 
-  // Phase 1: delay before "typing" (we just wait)
   const totalDelay = responseOption.delayBeforeTyping + responseOption.typingDuration;
 
   setTimeout(() => {
@@ -255,4 +659,33 @@ export function scheduleGroupPostCommentResponse(
 
     dispatch({ type: 'ADD_GROUP_COMMENT', groupId, postId, comment });
   }, totalDelay);
+}
+
+/**
+ * Generate a contextual response text based on user's post content.
+ * Used by the scenario engine for dynamic scenario steps.
+ */
+export function generateContextualResponse(userContent: string, responderId: string): string {
+  const context = analyzeContext(userContent);
+  
+  // Try context templates for the responder
+  const templates = contextualChatTemplates[responderId];
+  if (templates) {
+    const pool = templates[context.sentiment];
+    if (pool && pool.length > 0) {
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+  }
+
+  // Generic contextual responses
+  const generic: Record<Sentiment, string[]> = {
+    positive: ['Super! 🎉', 'Świetna wiadomość! 👍', 'Cieszę się! 🌟'],
+    negative: ['Trzymaj się! 💛', 'Głowa do góry! 🤗', 'Dasz radę! 💪'],
+    neutral: ['Ciekawe! 🤔', 'Rozumiem 👍', 'Ok, brzmi dobrze!'],
+    funny: ['Haha, dobre! 😂', 'Niezłe! 😄', 'Padłem! 🤣'],
+    question: ['Hmm, dobre pytanie! 🤔', 'Muszę to przemyśleć...', 'Ciekawy problem! 🧐'],
+  };
+
+  const pool = generic[context.sentiment];
+  return pool[Math.floor(Math.random() * pool.length)];
 }

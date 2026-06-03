@@ -1,0 +1,193 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary-lighter), transparent);
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  color: var(--primary);
+  background: var(--primary-lighter);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0 0;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderCard {
+  background: var(--gray-50);
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 1px dashed var(--gray-300);
+  max-width: 500px;
+  width: 100%;
+}
+
+.placeholderTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.placeholderText {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.startScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.startTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.startText {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.startBtn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.startBtn:hover {
+  opacity: 0.9;
+}
+
+/* Sudoku styles placeholder */
+.sudokuGrid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 1px;
+  background-color: var(--gray-300);
+  border: 2px solid var(--text-primary);
+  margin-top: 1.5rem;
+  max-width: 450px;
+  width: 100%;
+}
+
+.sudokuCell {
+  aspect-ratio: 1;
+  background-color: var(--bg-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  border: none;
+  outline: none;
+  text-align: center;
+}
+
+.sudokuCell:focus {
+  background-color: var(--primary-lighter);
+}
+
+.sudokuCell:nth-child(3n) {
+  border-right: 2px solid var(--text-primary);
+}
+
+.sudokuCell:nth-child(9n) {
+  border-right: none;
+}
+
+.sudokuRow:nth-child(3n) .sudokuCell {
+  border-bottom: 2px solid var(--text-primary);
+}
+
+.sudokuRow:nth-child(9n) .sudokuCell {
+  border-bottom: none;
+}
+
+/* === Locked State Messages === */
+.lockedMessage {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  max-width: 550px;
+  width: 100%;
+}
+
+.lockedTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.lockedMessage p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}

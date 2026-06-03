@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   PenLine,
   MessageCircle,
@@ -12,13 +12,15 @@ import {
   UserPlus,
 } from 'lucide-react';
 import styles from './TopBar.module.css';
-import type { User, AppNotification, MessageThread, AppAction } from '../../types';
+import type { User, AppNotification, MessageThread, AppAction, Group, ActiveView, ReadThreads } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
+import { usersData } from '../../mockData';
 
 interface TopBarProps {
   currentUser: User;
   notifications: AppNotification[];
   messages: MessageThread[];
+  readThreads: ReadThreads;
   onOpenChat: (threadId: string) => void;
   onNavigateHome: () => void;
   isCreatePostOpen: boolean;
@@ -26,6 +28,8 @@ interface TopBarProps {
   onCloseCreatePost: () => void;
   dispatch: React.Dispatch<AppAction>;
   onViewProfile?: (userId: string) => void;
+  groups: Group[];
+  onNavigate: (view: ActiveView) => void;
 }
 
 const notifIconMap: Record<string, { icon: React.ReactNode; className: string }> = {
@@ -36,10 +40,27 @@ const notifIconMap: Record<string, { icon: React.ReactNode; className: string }>
   friend: { icon: <UserPlus size={16} />, className: 'notifIconFriend' },
 };
 
+/* === Polish diacritic normalization for search === */
+function normalizeText(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/ą/g, 'a')
+    .replace(/ć/g, 'c')
+    .replace(/ę/g, 'e')
+    .replace(/ł/g, 'l')
+    .replace(/ń/g, 'n')
+    .replace(/ó/g, 'o')
+    .replace(/ś/g, 's')
+    .replace(/ź/g, 'z')
+    .replace(/ż/g, 'z')
+    .trim();
+}
+
 export const TopBar: React.FC<TopBarProps> = ({
   currentUser,
   notifications,
   messages,
+  readThreads,
   onOpenChat,
   onNavigateHome,
   isCreatePostOpen,
@@ -47,29 +68,146 @@ export const TopBar: React.FC<TopBarProps> = ({
   onCloseCreatePost,
   dispatch,
   onViewProfile,
+  groups,
+  onNavigate,
 }) => {
   const [activeDropdown, setActiveDropdown] = useState<'notifications' | 'messages' | null>(null);
   const [newPostText, setNewPostText] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<typeof usersData.allUsers>([]);
+  const [searchGroupResults, setSearchGroupResults] = useState<Group[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const toggleDropdown = (type: 'notifications' | 'messages') => {
     setActiveDropdown(prev => (prev === type ? null : type));
+    setShowSearchResults(false);
   };
 
   const closeDropdown = () => setActiveDropdown(null);
 
+  // Close dropdowns on outside click
   useEffect(() => {
     if (!activeDropdown) return;
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        closeDropdown();
-      }
+      const target = e.target as Element;
+      if (dropdownRef.current && dropdownRef.current.contains(target)) return;
+      if (target.closest('#btn-messages, #btn-notifications')) return;
+      closeDropdown();
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, [activeDropdown]);
 
+  // Close search results on outside click
+  useEffect(() => {
+    if (!showSearchResults) return;
+    const handler = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setShowSearchResults(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showSearchResults]);
+
+  // Debounced search
+  const performSearch = useCallback((query: string) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      setSearchGroupResults([]);
+      setShowSearchResults(false);
+      return;
+    }
+
+    const normalized = normalizeText(query);
+    const userResults = usersData.allUsers.filter(user => {
+      const normalizedName = normalizeText(user.name);
+      const normalizedBio = normalizeText(user.bio || '');
+      const normalizedLocation = normalizeText(user.location || '');
+      return (
+        normalizedName.includes(normalized) ||
+        normalizedBio.includes(normalized) ||
+        normalizedLocation.includes(normalized)
+      );
+    });
+
+    const groupResults = groups.filter(group => {
+      const normalizedName = normalizeText(group.name);
+      const normalizedDesc = normalizeText(group.description);
+      return normalizedName.includes(normalized) || normalizedDesc.includes(normalized);
+    });
+
+    setSearchResults(userResults);
+    setSearchGroupResults(groupResults);
+    setShowSearchResults(true);
+  }, [groups]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => performSearch(value), 300);
+  };
+
+  const handleSearchResultClick = (userId: string) => {
+    if (onViewProfile) onViewProfile(userId);
+    setSearchQuery('');
+    setSearchResults([]);
+    setSearchGroupResults([]);
+    setShowSearchResults(false);
+  };
+
+  const handleGroupResultClick = (groupId: string) => {
+    onNavigate({ type: 'group', groupId });
+    setSearchQuery('');
+    setSearchResults([]);
+    setSearchGroupResults([]);
+    setShowSearchResults(false);
+  };
+
+  const handleSearchFocus = () => {
+    if (searchQuery.trim()) {
+      performSearch(searchQuery);
+    }
+  };
+
+  // Highlight matching text
+  const highlightMatch = (text: string, query: string) => {
+    if (!query.trim()) return text;
+    const normalizedQuery = normalizeText(query);
+    const normalizedText = normalizeText(text);
+    const index = normalizedText.indexOf(normalizedQuery);
+    if (index === -1) return text;
+
+    const before = text.slice(0, index);
+    const match = text.slice(index, index + query.length);
+    const after = text.slice(index + query.length);
+
+    return (
+      <>
+        {before}<span className={styles.searchHighlight}>{match}</span>{after}
+      </>
+    );
+  };
+
   const unreadNotifs = notifications.filter(n => !n.isRead).length;
+
+  // Check if a thread has unread messages (messages from others after last read timestamp)
+  const isThreadUnread = (thread: MessageThread): boolean => {
+    const lastReadTs = readThreads[thread.threadId];
+    const otherMessages = thread.messages.filter(m => m.senderId !== currentUser.id);
+    if (otherMessages.length === 0) return false;
+    if (!lastReadTs) return true; // never read = unread
+    const lastOtherMsg = otherMessages[otherMessages.length - 1];
+    return new Date(lastOtherMsg.timestamp) > new Date(lastReadTs);
+  };
+
+  const unreadMessages = messages.filter(isThreadUnread).length;
 
   const formatTime = (ts: string) => {
     const d = new Date(ts);
@@ -108,14 +246,130 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
 
         {/* Search */}
-        <div className={styles.searchContainer}>
+        <div className={styles.searchContainer} ref={searchRef}>
           <Search size={16} className={styles.searchIcon} />
           <input
+            ref={searchInputRef}
             id="search-input"
             className={styles.searchInput}
             type="text"
             placeholder="Szukaj osób, grup, postów..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onFocus={handleSearchFocus}
           />
+          {searchQuery && (
+            <button
+              className={styles.searchClear}
+              onClick={() => {
+                setSearchQuery('');
+                setSearchResults([]);
+                setSearchGroupResults([]);
+                setShowSearchResults(false);
+                searchInputRef.current?.focus();
+              }}
+            >
+              <X size={14} />
+            </button>
+          )}
+
+          {/* Search Results Dropdown */}
+          {showSearchResults && (
+            <div className={styles.searchDropdown}>
+              {searchResults.length > 0 && (
+                <>
+                  <div className={styles.searchDropdownHeader}>
+                    <span className={styles.searchDropdownTitle}>Użytkownicy</span>
+                    <span className={styles.searchDropdownCount}>{searchResults.length} wyników</span>
+                  </div>
+                  {searchResults.map(user => (
+                    <div
+                      key={user.id}
+                      className={styles.searchResultItem}
+                      onClick={() => handleSearchResultClick(user.id)}
+                    >
+                      <div className={styles.searchResultAvatarWrap}>
+                        <img
+                          src={user.avatarUrl}
+                          alt={user.name}
+                          className={styles.searchResultAvatar}
+                        />
+                        {user.isOnline && <div className={styles.searchResultOnline} />}
+                      </div>
+                      <div className={styles.searchResultInfo}>
+                        <div className={styles.searchResultName}>
+                          {highlightMatch(user.name, searchQuery)}
+                        </div>
+                        {user.bio && (
+                          <div className={styles.searchResultBio}>
+                            {user.bio.length > 60 ? user.bio.slice(0, 60) + '...' : user.bio}
+                          </div>
+                        )}
+                        {user.location && (
+                          <div className={styles.searchResultLocation}>
+                            📍 {user.location}
+                          </div>
+                        )}
+                      </div>
+                      {user.isFriend && (
+                        <span className={styles.searchResultFriendBadge}>Znajomy</span>
+                      )}
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {searchGroupResults.length > 0 && (
+                <>
+                  <div className={styles.searchDropdownHeader}>
+                    <span className={styles.searchDropdownTitle}>Grupy</span>
+                    <span className={styles.searchDropdownCount}>{searchGroupResults.length} wyników</span>
+                  </div>
+                  {searchGroupResults.map(group => (
+                    <div
+                      key={group.id}
+                      className={styles.searchResultItem}
+                      onClick={() => handleGroupResultClick(group.id)}
+                    >
+                      <div className={styles.searchResultAvatarWrap}>
+                        <div
+                          className={styles.searchResultAvatar}
+                          style={{
+                            background: group.coverColor,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'white',
+                            fontSize: '1.2rem'
+                          }}
+                        >
+                          {group.name.charAt(0)}
+                        </div>
+                      </div>
+                      <div className={styles.searchResultInfo}>
+                        <div className={styles.searchResultName}>
+                          {highlightMatch(group.name, searchQuery)}
+                        </div>
+                        <div className={styles.searchResultBio}>
+                          {group.description.length > 60 ? group.description.slice(0, 60) + '...' : group.description}
+                        </div>
+                        <div className={styles.searchResultLocation}>
+                          👥 {group.membersCount.toLocaleString()} członków
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {searchResults.length === 0 && searchGroupResults.length === 0 && (
+                <div className={styles.searchEmpty}>
+                  <Search size={24} />
+                  <span>Brak wyników dla „{searchQuery}"</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Actions */}
@@ -136,6 +390,9 @@ export const TopBar: React.FC<TopBarProps> = ({
             onClick={() => toggleDropdown('messages')}
           >
             <MessageCircle size={18} />
+            {unreadMessages > 0 && (
+              <span className={styles.badge}>{unreadMessages}</span>
+            )}
           </button>
 
           <button
@@ -150,6 +407,17 @@ export const TopBar: React.FC<TopBarProps> = ({
             )}
           </button>
 
+          {/* onToggleScenarioPanel && (
+            <button
+              id="btn-scenarios"
+              className={styles.actionBtn}
+              title="Scenariusze"
+              onClick={onToggleScenarioPanel}
+            >
+              <Zap size={18} />
+            </button>
+          ) */}
+
           <img
             src={currentUser.avatarUrl}
             alt={currentUser.name}
@@ -158,82 +426,89 @@ export const TopBar: React.FC<TopBarProps> = ({
             style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
           />
         </div>
+
+        {/* Dropdowns */}
+        {activeDropdown && (
+          <>
+            {activeDropdown === 'notifications' && (
+              <div className={styles.dropdown} ref={dropdownRef}>
+                <div className={styles.dropdownHeader}>
+                  <span className={styles.dropdownTitle}>Powiadomienia</span>
+                </div>
+                <div className={styles.dropdownBody}>
+                  {notifications.map(n => {
+                    const iconInfo = notifIconMap[n.type] || notifIconMap.like;
+                    return (
+                      <div
+                        key={n.id}
+                        className={`${styles.notifItem} ${!n.isRead ? styles.notifUnread : ''}`}
+                        onClick={() => dispatch({ type: 'MARK_NOTIFICATION_READ', notificationId: n.id })}
+                      >
+                        <div className={`${styles.notifIcon} ${styles[iconInfo.className]}`}>
+                          {iconInfo.icon}
+                        </div>
+                        <div className={styles.notifContent}>
+                          <div className={styles.notifText}>{n.message}</div>
+                          <div className={styles.notifTime}>{formatTime(n.timestamp)}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {activeDropdown === 'messages' && (
+              <div className={styles.dropdown} ref={dropdownRef}>
+                <div className={styles.dropdownHeader}>
+                  <span className={styles.dropdownTitle}>Wiadomości</span>
+                </div>
+                <div className={styles.dropdownBody}>
+                  {[...messages].sort((a, b) => {
+                    const lastA = a.messages[a.messages.length - 1];
+                    const lastB = b.messages[b.messages.length - 1];
+                    const timeA = lastA ? new Date(lastA.timestamp).getTime() : 0;
+                    const timeB = lastB ? new Date(lastB.timestamp).getTime() : 0;
+                    return timeB - timeA;
+                  }).map(thread => {
+                    const lastMsg = thread.messages[thread.messages.length - 1];
+                    const unread = isThreadUnread(thread);
+                    return (
+                      <div
+                        key={thread.threadId}
+                        className={`${styles.msgItem} ${unread ? styles.msgUnread : ''}`}
+                        onClick={() => { onOpenChat(thread.threadId); closeDropdown(); }}
+                      >
+                        <div className={styles.msgAvatarWrap}>
+                          <img
+                            src={thread.participant.avatarUrl}
+                            alt={thread.participant.name}
+                            className={styles.msgAvatar}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onViewProfile) {
+                                onViewProfile(thread.participant.id);
+                                closeDropdown();
+                              }
+                            }}
+                            style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
+                          />
+                          {thread.participant.isOnline && <div className={styles.onlineDot} />}
+                        </div>
+                        <div className={styles.msgInfo}>
+                          <div className={styles.msgName}>{thread.participant.name}</div>
+                          <div className={styles.msgPreview}>{lastMsg?.text}</div>
+                        </div>
+                        <div className={styles.msgTime}>{formatTime(lastMsg?.timestamp)}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </header>
-
-      {/* Dropdowns */}
-      {activeDropdown && (
-        <div ref={dropdownRef}>
-          {activeDropdown === 'notifications' && (
-            <div className={styles.dropdown}>
-              <div className={styles.dropdownHeader}>
-                <span className={styles.dropdownTitle}>Powiadomienia</span>
-              </div>
-              <div className={styles.dropdownBody}>
-                {notifications.map(n => {
-                  const iconInfo = notifIconMap[n.type] || notifIconMap.like;
-                  return (
-                    <div
-                      key={n.id}
-                      className={`${styles.notifItem} ${!n.isRead ? styles.notifUnread : ''}`}
-                      onClick={() => dispatch({ type: 'MARK_NOTIFICATION_READ', notificationId: n.id })}
-                    >
-                      <div className={`${styles.notifIcon} ${styles[iconInfo.className]}`}>
-                        {iconInfo.icon}
-                      </div>
-                      <div className={styles.notifContent}>
-                        <div className={styles.notifText}>{n.message}</div>
-                        <div className={styles.notifTime}>{formatTime(n.timestamp)}</div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {activeDropdown === 'messages' && (
-            <div className={styles.dropdown}>
-              <div className={styles.dropdownHeader}>
-                <span className={styles.dropdownTitle}>Wiadomości</span>
-              </div>
-              <div className={styles.dropdownBody}>
-                {messages.map(thread => {
-                  const lastMsg = thread.messages[thread.messages.length - 1];
-                  return (
-                    <div
-                      key={thread.threadId}
-                      className={styles.msgItem}
-                      onClick={() => { onOpenChat(thread.threadId); closeDropdown(); }}
-                    >
-                      <div className={styles.msgAvatarWrap}>
-                        <img
-                          src={thread.participant.avatarUrl}
-                          alt={thread.participant.name}
-                          className={styles.msgAvatar}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (onViewProfile) {
-                              onViewProfile(thread.participant.id);
-                              closeDropdown();
-                            }
-                          }}
-                          style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
-                        />
-                        {thread.participant.isOnline && <div className={styles.onlineDot} />}
-                      </div>
-                      <div className={styles.msgInfo}>
-                        <div className={styles.msgName}>{thread.participant.name}</div>
-                        <div className={styles.msgPreview}>{lastMsg?.text}</div>
-                      </div>
-                      <div className={styles.msgTime}>{formatTime(lastMsg?.timestamp)}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
       {/* Create Post Modal */}
       {isCreatePostOpen && (

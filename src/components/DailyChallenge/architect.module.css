@@ -1,0 +1,349 @@
+/* ===========================
+   Architect Puzzle Styles
+   =========================== */
+
+.architectContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.rulesBox {
+  background: linear-gradient(135deg, rgba(108, 43, 217, 0.08), rgba(139, 92, 246, 0.04));
+  border: 1px solid rgba(108, 43, 217, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.rulesBox h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.rulesBox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rulesBox li {
+  padding: 0.15rem 0;
+}
+
+.rulesBox li::before {
+  content: '→ ';
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+/* === Timer === */
+.timerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer svg {
+  opacity: 0.7;
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--gray-100);
+  transition: all 0.2s;
+}
+
+.resetBtn:hover {
+  background: var(--gray-200);
+  color: var(--text-primary);
+}
+
+/* === Grid Wrapper === */
+.gridWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* === Column Clues (top) === */
+.colCluesRow {
+  display: flex;
+  gap: 0;
+  margin-left: 44px; /* offset for row clues */
+}
+
+.colClue {
+  width: 44px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.colClueSatisfied {
+  color: var(--success);
+}
+
+.colClueOver {
+  color: var(--accent);
+}
+
+/* === Grid Row (row clue + cells) === */
+.gridRow {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.rowClue {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.rowClueSatisfied {
+  color: var(--success);
+}
+
+.rowClueOver {
+  color: var(--accent);
+}
+
+/* === Cell === */
+.cell {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--gray-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  background: var(--bg-panel);
+  user-select: none;
+}
+
+.cell:hover {
+  background: rgba(108, 43, 217, 0.06);
+}
+
+.cellHouse {
+  cursor: default;
+  background: rgba(108, 43, 217, 0.04);
+}
+
+.cellHouse:hover {
+  background: rgba(108, 43, 217, 0.04);
+}
+
+.cellTank {
+  background: rgba(108, 43, 217, 0.12);
+}
+
+.cellTankError {
+  background: rgba(255, 107, 107, 0.15);
+}
+
+.cellTankError .tankIcon {
+  color: var(--accent) !important;
+}
+
+/* === House icon === */
+.houseIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
+}
+
+/* === Tank icon === */
+.tankIcon {
+  color: var(--primary);
+  animation: tankAppear 0.25s ease-out;
+}
+
+@keyframes tankAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === Connection line (from house to tank) === */
+.connectionLine {
+  position: absolute;
+  background: var(--primary);
+  opacity: 0.4;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.connectionLineH {
+  height: 3px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.connectionLineV {
+  width: 3px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* === Check Button === */
+.actionsRow {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.checkBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  box-shadow: 0 4px 14px rgba(108, 43, 217, 0.3);
+  transition: all 0.2s;
+}
+
+.checkBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(108, 43, 217, 0.4);
+}
+
+.checkBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* === Success Overlay === */
+.successOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.successTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.successTime {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* === Error message === */
+.errorMsg {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  animation: slideUp 0.3s ease;
+  min-height: 1.2em;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(5px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* === Responsive === */
+@media (max-width: 500px) {
+  .cell,
+  .rowClue {
+    width: 36px;
+    height: 36px;
+  }
+
+  .colClue {
+    width: 36px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .colCluesRow {
+    margin-left: 36px;
+  }
+
+  .rowClue {
+    width: 36px;
+    font-size: 0.75rem;
+  }
+
+  .houseIcon {
+    font-size: 1.2rem;
+  }
+}

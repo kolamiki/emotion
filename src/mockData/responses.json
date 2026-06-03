@@ -8,17 +8,23 @@
         {
           "text": "Hej! Co tam u Ciebie? 😊",
           "delayBeforeTyping": 1500,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "mood"
         },
         {
           "text": "Cześć! Właśnie myślałam, żeby do Ciebie napisać!",
           "delayBeforeTyping": 2000,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "mood"
         },
         {
           "text": "Hejka! Dawno się nie odzywałeś 😄",
           "delayBeforeTyping": 1000,
-          "typingDuration": 1800
+          "typingDuration": 1800,
+          "sentiment": "positive",
+          "topic": "mood"
         }
       ]
     },
@@ -30,12 +36,16 @@
         {
           "text": "O, opowiadaj! Uwielbiam słuchać o nowych projektach ✨",
           "delayBeforeTyping": 1500,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "work"
         },
         {
           "text": "Wow, brzmi super! Potrzebujesz pomocy z designem? Mogę coś podrzucić 🎨",
           "delayBeforeTyping": 2000,
-          "typingDuration": 3000
+          "typingDuration": 3000,
+          "sentiment": "positive",
+          "topic": "work"
         }
       ]
     },
@@ -47,12 +57,16 @@
         {
           "text": "Super! Właśnie wróciłam z jogi, czuję się fantastycznie 🧘‍♀️",
           "delayBeforeTyping": 1500,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "mood"
         },
         {
           "text": "Świetnie! Mam tyle energii dzisiaj, że mogłabym przenosić góry! 💪",
           "delayBeforeTyping": 1000,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "mood"
         }
       ]
     },
@@ -64,12 +78,16 @@
         {
           "text": "Omg tak! Znam świetne miejsce w centrum, musisz spróbować ich tiramisu 🍰",
           "delayBeforeTyping": 1500,
-          "typingDuration": 3000
+          "typingDuration": 3000,
+          "sentiment": "positive",
+          "topic": "food"
         },
         {
           "text": "Uwielbiam rozmawiać o jedzeniu! Ostatnio odkryłam wegańską knajpę i WOW 🌱",
           "delayBeforeTyping": 2000,
-          "typingDuration": 2800
+          "typingDuration": 2800,
+          "sentiment": "positive",
+          "topic": "food"
         }
       ]
     },
@@ -81,7 +99,30 @@
         {
           "text": "Nie ma za co! Zawsze chętnie pomogę 😊",
           "delayBeforeTyping": 1000,
-          "typingDuration": 1500
+          "typingDuration": 1500,
+          "sentiment": "positive",
+          "topic": "general"
+        }
+      ]
+    },
+    {
+      "id": "cr-anna-problem",
+      "participantId": "u2",
+      "triggers": ["problem", "nie działa", "błąd", "trudne", "ciężko", "nie wiem"],
+      "responses": [
+        {
+          "text": "Ojej, to brzmi stresująco 😟 Może mogę jakoś pomóc? Opowiedz więcej!",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 2500,
+          "sentiment": "negative",
+          "topic": "general"
+        },
+        {
+          "text": "Hej, głowa do góry! Razem na pewno znajdziemy rozwiązanie 💛",
+          "delayBeforeTyping": 1200,
+          "typingDuration": 2200,
+          "sentiment": "negative",
+          "topic": "general"
         }
       ]
     },
@@ -93,12 +134,16 @@
         {
           "text": "Yo! Co tam? 🤙",
           "delayBeforeTyping": 3000,
-          "typingDuration": 1200
+          "typingDuration": 1200,
+          "sentiment": "positive",
+          "topic": "mood"
         },
         {
           "text": "Cześć! Właśnie wracam z treningu, daj 5 min 💪",
           "delayBeforeTyping": 5000,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "sport"
         }
       ]
     },
@@ -110,12 +155,16 @@
         {
           "text": "Stary, musisz ze mną pobiegać! W sobotę robimy 10k w Łazienkach 🏃‍♂️",
           "delayBeforeTyping": 2000,
-          "typingDuration": 3000
+          "typingDuration": 3000,
+          "sentiment": "positive",
+          "topic": "sport"
         },
         {
           "text": "O tak! Właśnie planuję wyjazd w Tatry na weekend. Idziesz ze mną? ⛰️",
           "delayBeforeTyping": 3000,
-          "typingDuration": 2800
+          "typingDuration": 2800,
+          "sentiment": "positive",
+          "topic": "sport"
         }
       ]
     },
@@ -127,12 +176,16 @@
         {
           "text": "Spoko! Trochę zmęczony po treningu, ale ogólnie git 😎",
           "delayBeforeTyping": 4000,
-          "typingDuration": 2200
+          "typingDuration": 2200,
+          "sentiment": "neutral",
+          "topic": "mood"
         },
         {
           "text": "Dobrze! Planuję weekend w górach, muszę odpocząć od miasta",
           "delayBeforeTyping": 3000,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "mood"
         }
       ]
     },
@@ -144,12 +197,37 @@
         {
           "text": "W sobotę mamy sesję Gloomhavena! Dołączysz? 🎲",
           "delayBeforeTyping": 2000,
-          "typingDuration": 2200
+          "typingDuration": 2200,
+          "sentiment": "positive",
+          "topic": "games"
         },
         {
           "text": "Haha, nerd alert! Ale serio, muszę ci pokazać nową grę którą kupiłem 🎮",
           "delayBeforeTyping": 3000,
-          "typingDuration": 3000
+          "typingDuration": 3000,
+          "sentiment": "funny",
+          "topic": "games"
+        }
+      ]
+    },
+    {
+      "id": "cr-piotr-problem",
+      "participantId": "u3",
+      "triggers": ["problem", "nie działa", "błąd", "trudne", "ciężko"],
+      "responses": [
+        {
+          "text": "Ej spoko, dasz radę! Od tego są kumple, żeby pomóc 🤙",
+          "delayBeforeTyping": 3000,
+          "typingDuration": 2000,
+          "sentiment": "negative",
+          "topic": "general"
+        },
+        {
+          "text": "No weź, chodź na trening, wybijesz to z głowy! Pomaga, serio 💪",
+          "delayBeforeTyping": 4000,
+          "typingDuration": 2500,
+          "sentiment": "negative",
+          "topic": "sport"
         }
       ]
     },
@@ -161,12 +239,16 @@
         {
           "text": "Hej! ✨ Właśnie pracuję nad czymś fajnym, chcesz zobaczyć?",
           "delayBeforeTyping": 1000,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "design"
         },
         {
           "text": "Cześć! Jak dobrze że piszesz, potrzebuję Twojej opinii o czymś 🎨",
           "delayBeforeTyping": 800,
-          "typingDuration": 2800
+          "typingDuration": 2800,
+          "sentiment": "positive",
+          "topic": "design"
         }
       ]
     },
@@ -178,12 +260,16 @@
         {
           "text": "To mój ulubiony temat! Ostatnio eksperymentuję z glassmorphism + ciepła paleta 🎨",
           "delayBeforeTyping": 800,
-          "typingDuration": 3000
+          "typingDuration": 3000,
+          "sentiment": "positive",
+          "topic": "design"
         },
         {
           "text": "Tak! Widziałeś trendy na 2026? Organiczne kształty wracają mocno ✨",
           "delayBeforeTyping": 1200,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "design"
         }
       ]
     },
@@ -195,12 +281,16 @@
         {
           "text": "Fantastycznie! Właśnie skończyłam nowy projekt i jestem z siebie dumna 🌟",
           "delayBeforeTyping": 600,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "mood"
         },
         {
           "text": "Hmm, trochę kreatywny kryzys, ale kawa pomaga ☕ A u Ciebie?",
           "delayBeforeTyping": 1500,
-          "typingDuration": 2200
+          "typingDuration": 2200,
+          "sentiment": "neutral",
+          "topic": "mood"
         }
       ]
     },
@@ -212,12 +302,79 @@
         {
           "text": "Aww, dziękuję! To naprawdę wiele dla mnie znaczy 🥰",
           "delayBeforeTyping": 500,
-          "typingDuration": 1800
+          "typingDuration": 1800,
+          "sentiment": "positive",
+          "topic": "general"
         },
         {
           "text": "Jesteś za słodki! 💕 Wrzucę więcej na profil wkrótce!",
           "delayBeforeTyping": 800,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "general"
+        }
+      ]
+    },
+    {
+      "id": "cr-kasia-problem",
+      "participantId": "u4",
+      "triggers": ["problem", "nie działa", "błąd", "trudne", "ciężko"],
+      "responses": [
+        {
+          "text": "Ojej... Chcesz żebym Ci narysowała coś na pocieszenie? 🎨💛 Czasem sztuka pomaga!",
+          "delayBeforeTyping": 800,
+          "typingDuration": 2500,
+          "sentiment": "negative",
+          "topic": "design"
+        },
+        {
+          "text": "Hej, przytulam wirtualnie! 🤗 Kreatywny kryzys to normalka, przejdzie!",
+          "delayBeforeTyping": 600,
+          "typingDuration": 2200,
+          "sentiment": "negative",
+          "topic": "general"
+        }
+      ]
+    },
+    {
+      "id": "cr-wildcard-tech",
+      "participantId": "*",
+      "triggers": ["programowanie", "coding", "deploy", "server", "devops", "kubernetes", "docker"],
+      "responses": [
+        {
+          "text": "O, technologia! Mój ulubiony temat 💻 Opowiedz więcej!",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "tech"
+        },
+        {
+          "text": "Hmm, ciekawe! Pracujesz nad czymś nowym? 🤔",
+          "delayBeforeTyping": 2500,
+          "typingDuration": 1800,
+          "sentiment": "question",
+          "topic": "tech"
+        }
+      ]
+    },
+    {
+      "id": "cr-wildcard-travel",
+      "participantId": "*",
+      "triggers": ["podróż", "wakacje", "wyjazd", "samolot", "plaża", "zwiedzanie"],
+      "responses": [
+        {
+          "text": "Wakacje! 🏖️ Zazdroszczę! Gdzie się wybierasz?",
+          "delayBeforeTyping": 2000,
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "travel"
+        },
+        {
+          "text": "Uwielbiam podróże! Opowiadaj, chcę poczuć ten vibe ✈️✨",
+          "delayBeforeTyping": 1500,
+          "typingDuration": 2200,
+          "sentiment": "positive",
+          "topic": "travel"
         }
       ]
     }
@@ -232,13 +389,17 @@
           "authorId": "u2",
           "text": "Super, powodzenia! 💪 Trzymam kciuki!",
           "delayBeforeTyping": 5000,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "work"
         },
         {
           "authorId": "u4",
           "text": "Wow, to brzmi niesamowicie! Daj znać jak pójdzie ✨",
           "delayBeforeTyping": 8000,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "work"
         }
       ]
     },
@@ -250,13 +411,17 @@
           "authorId": "u3",
           "text": "Pozdrawiam! Miłego dnia 🌞",
           "delayBeforeTyping": 6000,
-          "typingDuration": 1500
+          "typingDuration": 1500,
+          "sentiment": "positive",
+          "topic": "mood"
         },
         {
           "authorId": "u6",
           "text": "Dokładnie! Piękny dzień na spędzenie czasu na dworze 🌿",
           "delayBeforeTyping": 10000,
-          "typingDuration": 2500
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "mood"
         }
       ]
     },
@@ -268,13 +433,25 @@
           "authorId": "u5",
           "text": "Znam ten ból! 😅 Ale to rozwija 💻",
           "delayBeforeTyping": 4000,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "funny",
+          "topic": "tech"
         },
         {
           "authorId": "u3",
           "text": "Stary, dawaj code review, chętnie pomogę! 🔍",
           "delayBeforeTyping": 7000,
-          "typingDuration": 2200
+          "typingDuration": 2200,
+          "sentiment": "positive",
+          "topic": "tech"
+        },
+        {
+          "authorId": "u7",
+          "text": "Ciekawe! Z perspektywy DevOps mam kilka sugestii, napisz na priv! ⚙️",
+          "delayBeforeTyping": 9000,
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "tech"
         }
       ]
     },
@@ -286,13 +463,17 @@
           "authorId": "u6",
           "text": "Zazdroszczę! Muszę tam kiedyś pojechać 😍",
           "delayBeforeTyping": 6000,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "travel"
         },
         {
           "authorId": "u4",
           "text": "Piękne! Zrobiłeś jakieś zdjęcia? 📸",
           "delayBeforeTyping": 9000,
-          "typingDuration": 1800
+          "typingDuration": 1800,
+          "sentiment": "question",
+          "topic": "travel"
         }
       ]
     },
@@ -304,7 +485,9 @@
           "authorId": "u2",
           "text": "Mmm, brzmi pysznie! Podzielisz się przepisem? 😋",
           "delayBeforeTyping": 5000,
-          "typingDuration": 2200
+          "typingDuration": 2200,
+          "sentiment": "positive",
+          "topic": "food"
         }
       ]
     },
@@ -316,7 +499,53 @@
           "authorId": "u3",
           "text": "Brawo! Sportowy duch to jest to! 🏃‍♂️💪",
           "delayBeforeTyping": 4000,
-          "typingDuration": 2000
+          "typingDuration": 2000,
+          "sentiment": "positive",
+          "topic": "sport"
+        }
+      ]
+    },
+    {
+      "id": "pcr-sad",
+      "triggers": ["smutne", "trudne", "ciężkie", "nie mogę", "źle", "stres", "problem"],
+      "responses": [
+        {
+          "authorId": "u2",
+          "text": "Trzymaj się! Jutro na pewno będzie lepiej 💛 Pisz jakby co!",
+          "delayBeforeTyping": 4000,
+          "typingDuration": 2200,
+          "sentiment": "negative",
+          "topic": "mood"
+        },
+        {
+          "authorId": "u4",
+          "text": "Hej, głowa do góry! Wszyscy przez to przechodzimy 🤗✨",
+          "delayBeforeTyping": 6000,
+          "typingDuration": 2000,
+          "sentiment": "negative",
+          "topic": "mood"
+        }
+      ]
+    },
+    {
+      "id": "pcr-design",
+      "triggers": ["design", "grafika", "UI", "UX", "figma", "font", "logo", "kolory"],
+      "responses": [
+        {
+          "authorId": "u4",
+          "text": "Wow, piękne! Inspirujesz mnie do własnych eksperymentów 🎨✨",
+          "delayBeforeTyping": 5000,
+          "typingDuration": 2500,
+          "sentiment": "positive",
+          "topic": "design"
+        },
+        {
+          "authorId": "u6",
+          "text": "Cudowny design! Jakie narzędzie użyłeś? 🤩",
+          "delayBeforeTyping": 7000,
+          "typingDuration": 2000,
+          "sentiment": "question",
+          "topic": "design"
         }
       ]
     }

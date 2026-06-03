@@ -1,5 +1,19 @@
 [
   {
+    "id": "p_natalie_1",
+    "author": {
+      "id": "u_natalie",
+      "name": "Natalie Chalamet",
+      "avatarUrl": "https://i.pravatar.cc/150?u=natalie",
+      "isOnline": false
+    },
+    "content": "Czy tylko ja uważam, że nowe produkcje cierpią na chroniczny brak oryginalności? Właśnie wyszłam z kina. Dwie godziny życia, których nikt mi nie odda. 🎬🙄",
+    "timestamp": "2026-06-03T14:00:00Z",
+    "likes": 2,
+    "comments": [],
+    "shares": 0
+  },
+  {
     "id": "p1",
     "author": {
       "id": "u2",

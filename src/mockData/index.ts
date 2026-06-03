@@ -9,10 +9,11 @@ export const mockData: AppData = {
   currentUser: usersData.currentUser,
   posts: postsData,
   groups: groupsData,
-  favorites: notificationsData.favorites,
+  favorites: groupsData.filter(g => g.id === 'g1' || g.id === 'g2'),
   notifications: notificationsData.notifications,
   messages: messagesData,
 } as AppData;
 
 export { default as responsesData } from './responses.json';
 export { default as usersData } from './users.json';
+export { default as scenariosData } from './scenarios.json';

@@ -1,0 +1,90 @@
+.crosswordContainer {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.crosswordGrid {
+  display: grid;
+  gap: 0;
+  background-color: var(--primary);
+  /* border: 2px solid var(--text-primary); */
+  flex-shrink: 0;
+}
+
+.crosswordCell {
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-panel);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crosswordCellEmpty {
+  background-color: gray;
+}
+
+.crosswordInput {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--gray-300);
+  outline: none;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.crosswordInput:focus {
+  background-color: var(--primary-lighter);
+}
+
+.crosswordNumber {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.crosswordClues {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cluesSection h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.clueItem {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .crosswordContainer {
+    flex-direction: column;
+  }
+
+  .crosswordCell {
+    width: 30px;
+    height: 30px;
+  }
+
+  .crosswordInput {
+    font-size: 1rem;
+  }
+}

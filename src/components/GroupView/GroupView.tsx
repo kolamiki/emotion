@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send } from 'lucide-react';
+import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine } from 'lucide-react';
 import styles from './GroupView.module.css';
 import type { Group, User, Comment, AppAction, LikedPosts } from '../../types';
 import { scheduleGroupPostCommentResponse } from '../../store/responseEngine';
@@ -11,9 +11,12 @@ interface GroupViewProps {
   dispatch: React.Dispatch<AppAction>;
   onBack: () => void;
   onViewProfile?: (userId: string) => void;
+  onPostCreated?: () => void;
 }
 
-export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile }) => {
+export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated }) => {
+  const [newGroupPostText, setNewGroupPostText] = useState('');
+
   const formatTime = (ts: string) => {
     const d = new Date(ts);
     const now = new Date();
@@ -24,6 +27,29 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
     const hrs = Math.floor(mins / 60);
     if (hrs < 24) return `${hrs}h temu`;
     return `${Math.floor(hrs / 24)}d temu`;
+  };
+
+  const handlePublishGroupPost = () => {
+    if (!newGroupPostText.trim()) return;
+
+    const newPost = {
+      id: `gp-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+      author: {
+        id: currentUser.id,
+        name: currentUser.name,
+        avatarUrl: currentUser.avatarUrl,
+      },
+      content: newGroupPostText.trim(),
+      timestamp: new Date().toISOString(),
+      likes: 0,
+      comments: [],
+    };
+
+    dispatch({ type: 'ADD_GROUP_POST', groupId: group.id, post: newPost });
+    setNewGroupPostText('');
+
+    // Trigger scenario engine
+    if (onPostCreated) onPostCreated();
   };
 
   return (
@@ -75,10 +101,22 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
         </div>
 
         <div className={styles.groupActions}>
-          <button className={`${styles.groupActionBtn} ${styles.groupActionPrimary}`}>
-            <Shield size={14} style={{ marginRight: 4 }} />
-            Dołączono
-          </button>
+          {group.isMember ? (
+            <button 
+              className={`${styles.groupActionBtn} ${styles.groupActionSecondary}`}
+              onClick={() => dispatch({ type: 'TOGGLE_GROUP_MEMBERSHIP', groupId: group.id })}
+            >
+              <Shield size={14} style={{ marginRight: 4 }} />
+              Opuść grupę
+            </button>
+          ) : (
+            <button 
+              className={`${styles.groupActionBtn} ${styles.groupActionPrimary}`}
+              onClick={() => dispatch({ type: 'TOGGLE_GROUP_MEMBERSHIP', groupId: group.id })}
+            >
+              Dołącz do grupy
+            </button>
+          )}
           <button className={`${styles.groupActionBtn} ${styles.groupActionSecondary}`}>
             Zaproś znajomych
           </button>
@@ -108,6 +146,35 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
         ))}
       </div>
 
+      {/* Create Group Post - Only if member */}
+      {group.isMember && (
+        <div className={styles.groupComposeBox}>
+          <div className={styles.groupComposeHeader}>
+            <PenLine size={16} />
+            <span>Napisz post w grupie</span>
+          </div>
+          <div className={styles.groupComposeBody}>
+            <img src={currentUser.avatarUrl} alt={currentUser.name} className={styles.groupComposeAvatar} />
+            <textarea
+              className={styles.groupComposeTextarea}
+              placeholder={`Co chcesz powiedzieć w ${group.name}?`}
+              value={newGroupPostText}
+              onChange={e => setNewGroupPostText(e.target.value)}
+              rows={2}
+            />
+          </div>
+          <div className={styles.groupComposeFooter}>
+            <button
+              className={styles.groupComposePublishBtn}
+              disabled={!newGroupPostText.trim()}
+              onClick={handlePublishGroupPost}
+            >
+              Opublikuj
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Group Posts */}
       <div className={styles.sectionTitle}>Ostatnie posty</div>
       {group.posts.length === 0 && (
@@ -125,6 +192,7 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
           dispatch={dispatch}
           formatTime={formatTime}
           onViewProfile={onViewProfile}
+          onPostCreated={onPostCreated}
         />
       ))}
     </div>
@@ -140,6 +208,7 @@ interface GroupPostCardProps {
   dispatch: React.Dispatch<AppAction>;
   formatTime: (ts: string) => string;
   onViewProfile?: (userId: string) => void;
+  onPostCreated?: () => void;
 }
 
 const GroupPostCard: React.FC<GroupPostCardProps> = ({
@@ -150,6 +219,7 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
   dispatch,
   formatTime,
   onViewProfile,
+  onPostCreated,
 }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState('');
@@ -174,6 +244,9 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
 
     // Schedule auto-response
     scheduleGroupPostCommentResponse(dispatch, groupId, post.id, commentText.trim(), currentUser.id);
+
+    // Trigger scenario engine
+    if (onPostCreated) onPostCreated();
 
     setCommentText('');
   };

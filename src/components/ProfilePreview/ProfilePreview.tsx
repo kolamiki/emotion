@@ -55,42 +55,9 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   // Compute total likes received
   const totalLikes = userPosts.reduce((sum, p) => sum + p.likes, 0);
 
-  const formatJoinDate = () => {
-    // Simulate a join date based on userId
-    const dates: Record<string, string> = {
-      u1: 'styczeń 2025',
-      u2: 'marzec 2025',
-      u3: 'luty 2025',
-      u4: 'kwiecień 2025',
-      u5: 'maj 2025',
-      u6: 'styczeń 2026',
-    };
-    return dates[user.id] || 'maj 2026';
-  };
-
-  const formatLocation = () => {
-    const locations: Record<string, string> = {
-      u1: 'Warszawa, Polska',
-      u2: 'Kraków, Polska',
-      u3: 'Zakopane, Polska',
-      u4: 'Wrocław, Polska',
-      u5: 'Gdańsk, Polska',
-      u6: 'Barcelona, Hiszpania',
-    };
-    return locations[user.id] || 'Polska';
-  };
-
-  const getBio = () => {
-    const bios: Record<string, string> = {
-      u1: 'Pasjonat technologii i kawy. Full-stack developer z miłością do React i TypeScript. ☕💻',
-      u2: 'Entuzjastka jogi, podróży i zdrowego stylu życia. Szukam inspiracji w każdym dniu! 🧘‍♀️✈️',
-      u3: 'Biegacz, planszówkowicz, miłośnik gór. Weekend bez szlaku to stracony weekend. ⛰️🎲',
-      u4: 'Graphic designer & UX enthusiast. Tworzę piękne rzeczy i dzielę się inspiracjami. 🎨✨',
-      u5: 'Senior developer by day, bug creator by night. 12 lat w branży i wciąż się uczę. 💻🐛',
-      u6: 'Podróżniczka, fotografka amatorka, miłośniczka architektury. Ostatnio zakochana w Barcelonie. 📸🇪🇸',
-    };
-    return bios[user.id] || 'Użytkownik e-Motion';
-  };
+  const formatJoinDate = () => user.joinDate || 'maj 2026';
+  const formatLocation = () => user.location || 'Polska';
+  const getBio = () => user.bio || 'Użytkownik e-Motion';
 
   const handleMessageClick = () => {
     if (onOpenChat) {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './Layout.module.css';
 import { TopBar } from '../TopBar/TopBar';
 import { LeftSidebar } from '../LeftSidebar/LeftSidebar';
@@ -7,9 +7,14 @@ import { GroupView } from '../GroupView/GroupView';
 import { RightSidebar } from '../RightSidebar/RightSidebar';
 import { ChatContainer } from '../Chat/ChatContainer';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
+import { ScenarioPanel } from '../ScenarioPanel/ScenarioPanel';
+import { FriendsList } from '../FriendsList/FriendsList';
+import { DailyChallenge } from '../DailyChallenge/DailyChallenge';
 import { useAppStore } from '../../store/appStore';
+import { ScenarioManager } from '../../store/scenarioEngine';
 import { usersData } from '../../mockData';
 import type { ActiveView, MessageThread } from '../../types';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export const Layout: React.FC = () => {
   const { state, dispatch } = useAppStore();
@@ -17,11 +22,58 @@ export const Layout: React.FC = () => {
   const [activeView, setActiveView] = useState<ActiveView>({ type: 'feed' });
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [viewedUserId, setViewedUserId] = useState<string | null>(null);
+  const [isScenarioPanelOpen, setIsScenarioPanelOpen] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  // Scenario Manager ref — stable reference across renders
+  const scenarioManagerRef = useRef<ScenarioManager | null>(null);
+
+  // Initialize ScenarioManager once
+  useEffect(() => {
+    const manager = new ScenarioManager(dispatch, () => state);
+    scenarioManagerRef.current = manager;
+    manager.startTimerScenarios();
+
+    return () => {
+      manager.destroy();
+      scenarioManagerRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  // Keep the getState closure up to date
+  useEffect(() => {
+    if (scenarioManagerRef.current) {
+      (scenarioManagerRef.current as unknown as { getState: () => typeof state }).getState = () => state;
+    }
+  }, [state]);
+
+  // Manage max active chats based on window size
+  useEffect(() => {
+    const handleResize = () => {
+      const maxChats = window.innerWidth <= 768 ? 1 : 2;
+      setActiveChats(prev => {
+        if (prev.length > maxChats) {
+          return prev.slice(-maxChats);
+        }
+        return prev;
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleOpenChat = (threadId: string) => {
-    setActiveChats(prev =>
-      prev.includes(threadId) ? prev : [...prev, threadId]
-    );
+    setActiveChats(prev => {
+      const maxChats = window.innerWidth <= 768 ? 1 : 2;
+      const withoutNew = prev.filter(id => id !== threadId);
+      const next = [...withoutNew, threadId];
+      return next.slice(-maxChats);
+    });
+    dispatch({ type: 'MARK_THREAD_READ', threadId });
   };
 
   const handleCloseChat = (threadId: string) => {
@@ -29,7 +81,22 @@ export const Layout: React.FC = () => {
   };
 
   const handleNavigate = (view: ActiveView) => {
+    // If a component registered a navigation block, ask for confirmation
+    if (typeof window !== 'undefined' && (window as any).confirmNavigation) {
+      if (!(window as any).confirmNavigation()) {
+        return; // User cancelled navigation
+      }
+    }
+
     setActiveView(view);
+
+    // Trigger scenario engine on group enter
+    if (view.type === 'group' && scenarioManagerRef.current) {
+      scenarioManagerRef.current.trigger('group_enter', view.groupId);
+    }
+    
+    // Close mobile sidebar on navigate
+    setIsMobileSidebarOpen(false);
   };
 
   const handleOpenCreatePost = () => {
@@ -59,6 +126,7 @@ export const Layout: React.FC = () => {
         currentUser={state.currentUser}
         notifications={state.notifications}
         messages={state.messages}
+        readThreads={state.readThreads}
         onOpenChat={handleOpenChat}
         onNavigateHome={() => handleNavigate({ type: 'feed' })}
         isCreatePostOpen={isCreatePostOpen}
@@ -66,10 +134,18 @@ export const Layout: React.FC = () => {
         onCloseCreatePost={() => setIsCreatePostOpen(false)}
         dispatch={dispatch}
         onViewProfile={handleViewProfile}
+        groups={state.groups}
+        onNavigate={handleNavigate}
       />
 
       <main className={styles.mainGrid}>
-        <aside className={styles.leftColumn}>
+        {/* Mobile Overlay */}
+        <div 
+          className={`${styles.mobileOverlay} ${isMobileSidebarOpen ? styles.open : ''}`}
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+
+        <aside className={`${styles.leftColumn} ${isMobileSidebarOpen ? styles.open : ''}`}>
           <LeftSidebar
             currentUser={state.currentUser}
             groups={state.groups}
@@ -79,6 +155,14 @@ export const Layout: React.FC = () => {
             onViewProfile={handleViewProfile}
           />
         </aside>
+
+        {/* Mobile Toggle Button */}
+        <button 
+          className={`${styles.mobileMenuBtn} ${isMobileSidebarOpen ? styles.mobileMenuBtnOpen : ''}`}
+          onClick={() => setIsMobileSidebarOpen(prev => !prev)}
+        >
+          {isMobileSidebarOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
+        </button>
 
         <section className={styles.middleColumn}>
           <div className={styles.feedContainer}>
@@ -100,6 +184,24 @@ export const Layout: React.FC = () => {
                 dispatch={dispatch}
                 onBack={() => handleNavigate({ type: 'feed' })}
                 onViewProfile={handleViewProfile}
+                onPostCreated={() => {
+                  // Trigger scenario engine on group post
+                  if (scenarioManagerRef.current && activeView.type === 'group') {
+                    scenarioManagerRef.current.trigger('group_post', activeView.groupId);
+                  }
+                }}
+              />
+            )}
+            {activeView.type === 'friends' && (
+              <FriendsList
+                currentUser={state.currentUser}
+                onViewProfile={handleViewProfile}
+              />
+            )}
+            {activeView.type === 'daily_challenge' && (
+              <DailyChallenge
+                currentUserName={state.currentUser.name}
+                currentUserAvatar={state.currentUser.avatarUrl}
               />
             )}
           </div>
@@ -108,6 +210,8 @@ export const Layout: React.FC = () => {
         <aside className={styles.rightColumn}>
           <RightSidebar
             messages={state.messages}
+            readThreads={state.readThreads}
+            currentUserId={state.currentUser.id}
             onOpenChat={handleOpenChat}
             onViewProfile={handleViewProfile}
           />
@@ -139,7 +243,12 @@ export const Layout: React.FC = () => {
           }}
         />
       )}
+
+      <ScenarioPanel
+        isOpen={isScenarioPanelOpen}
+        onClose={() => setIsScenarioPanelOpen(false)}
+        scenarioManager={scenarioManagerRef.current}
+      />
     </div>
   );
 };
-

@@ -1,10 +1,10 @@
 [
   {
     "id": "g1",
-    "name": "Programiści React",
-    "icon": "Code",
-    "description": "Grupa dla miłośników React, Next.js i całego ekosystemu. Dzielimy się wiedzą, projektami i pomagamy sobie nawzajem.",
-    "coverColor": "#6C2BD9",
+    "name": "Filmowe polecajki",
+    "icon": "Clapperboard",
+    "description": "Dzielimy się opiniami o filmach i serialach. Daj znać co ostatnio Cię wciągnęło!",
+    "coverColor": "#0d091f",
     "membersCount": 1247,
     "members": [
       {
@@ -34,7 +34,7 @@
           "name": "Tomek Krawczyk",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
-        "content": "Właśnie wyszedł React 20! Kto już testował nowe Server Components? Pierwsze wrażenia?",
+        "content": "Wczoraj byłem na nowym Diunie. Audiowizualne arcydzieło! Denis Villeneuve znowu dowiózł. Co wy na to?",
         "timestamp": "2026-05-27T09:00:00Z",
         "likes": 18,
         "comments": [
@@ -45,7 +45,7 @@
               "name": "Piotr Wiśniewski",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
-            "text": "Testowałem! Wydajność jest kosmiczna 🚀",
+            "text": "Zgadzam się, muzyka Zimmera robi niesamowite wrażenie w kinie IMAX.",
             "timestamp": "2026-05-27T09:15:00Z"
           }
         ]
@@ -57,18 +57,31 @@
           "name": "Jan Kowalski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
-        "content": "Szukam code review partnera do mojego side projectu. Ktoś chętny? Stack: React + TypeScript + Vite",
+        "content": "Szukam czegoś lekkiego na wieczór, najlepiej komedia z lat 90. Macie jakieś sprawdzone tytuły?",
         "timestamp": "2026-05-26T15:00:00Z",
         "likes": 7,
         "comments": []
+      },
+      {
+        "id": "gp_natalie_1",
+        "author": {
+          "id": "u_natalie",
+          "name": "Natalie Chalamet",
+          "avatarUrl": "https://i.pravatar.cc/150?u=natalie"
+        },
+        "content": "Kolejny Marvel, kolejne rozczarowanie. Jak długo jeszcze będziemy karmieni tymi płaskimi jak karton postaciami i fabułą pisaną chyba przez AI na najniższych ustawieniach? Szkoda na to popcornu, a co dopiero pieniędzy.",
+        "timestamp": "2026-06-03T10:00:00Z",
+        "likes": 2,
+        "comments": []
       }
-    ]
+    ],
+    "isMember": true
   },
   {
     "id": "g2",
-    "name": "Gry Planszowe Warszawa",
+    "name": "Szukam pracy",
     "icon": "Gamepad2",
-    "description": "Organizujemy spotkania planszówkowe w Warszawie co tydzień. Wszystkie poziomy zaawansowania mile widziane!",
+    "description": "Grupa dla osób szukających pracy. Dzielimy się ofertami, pomagamy sobie nawzajem.",
     "coverColor": "#FF6B6B",
     "membersCount": 583,
     "members": [
@@ -93,7 +106,7 @@
           "name": "Piotr Wiśniewski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "content": "Sobotnie spotkanie planszówkowe! 🎲 Tym razem gramy w Gloomhaven. Start o 16:00, kawiarnia Mały Książę. Zapisy w komentarzach!",
+        "content": "Cześć! Szukam pracy jako Junior Frontend Developer. Znam React, TypeScript i Tailwinda. Posiadam rok doświadczenia. Ktoś słyszał o rekrutacjach?",
         "timestamp": "2026-05-27T10:30:00Z",
         "likes": 24,
         "comments": [
@@ -104,18 +117,19 @@
               "name": "Anna Nowak",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
-            "text": "Będę! Rezerwuję miejsce 🙋‍♀️",
+            "text": "Odezwij się na priv, u mnie w firmie akurat kogoś szukają!",
             "timestamp": "2026-05-27T10:45:00Z"
           }
         ]
       }
-    ]
+    ],
+    "isMember": true
   },
   {
     "id": "g3",
-    "name": "Design i UX",
+    "name": "Kupię, sprzedam, zamienię",
     "icon": "Palette",
-    "description": "Projektanci, designerzy i entuzjaści UX. Portfolio reviews, trendy w designie i wzajemna inspiracja.",
+    "description": "Grupa dla osób szukających pracy. Dzielimy się ofertami, pomagamy sobie nawzajem.",
     "coverColor": "#F59E0B",
     "membersCount": 892,
     "members": [
@@ -140,7 +154,7 @@
           "name": "Kasia Zielińska",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "content": "Trend report na 2026: minimalizm wraca, ale z twist — ciepłe kolory, organiczne kształty i micro-animacje. Co myślicie?",
+        "content": "Sprzedam konsolę PlayStation 5 z dwoma padami. Stan idealny, mało używana. Cena: 1800 zł. Odbiór osobisty w centrum.",
         "timestamp": "2026-05-27T11:00:00Z",
         "likes": 31,
         "comments": [
@@ -151,7 +165,7 @@
               "name": "Marta Lewandowska",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
-            "text": "Zgadzam się! Widzę to wszędzie ostatnio.",
+            "text": "Czy cena podlega negocjacji? Dam 1600 zł i jestem dzisiaj.",
             "timestamp": "2026-05-27T11:20:00Z"
           }
         ]
@@ -163,20 +177,21 @@
           "name": "Marta Lewandowska",
           "avatarUrl": "https://i.pravatar.cc/150?u=u6"
         },
-        "content": "Ktoś poleci dobre narzędzie do prototypowania? Szukam alternatywy dla Figmy.",
+        "content": "Kupię rower miejski damski w dobrym stanie. Najlepiej z koszykiem. Budżet do 800 zł.",
         "timestamp": "2026-05-26T16:00:00Z",
         "likes": 9,
         "comments": []
       }
-    ]
+    ],
+    "isMember": true
   },
   {
     "id": "g4",
-    "name": "Miłośnicy Kawy",
-    "icon": "Coffee",
-    "description": "Najlepsze kawiarnie, metody parzenia, recenzje ziaren. Dla tych, którzy traktują kawę poważnie ☕",
+    "name": "Mat-Fiz LO - klasa A",
+    "icon": "BookOpen",
+    "description": "Wiadomo",
     "coverColor": "#8B5E3C",
-    "membersCount": 2103,
+    "membersCount": 30,
     "members": [
       {
         "id": "u1",
@@ -199,20 +214,107 @@
           "name": "Jan Kowalski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
-        "content": "Odkryłem nową palarnię w centrum — ziarno z Etiopii o nutach jagodowych. Polecam! Ktoś chce próbkę?",
+        "content": "Ej, piwko w sobotę?",
+        "timestamp": "2026-05-30T12:00:00Z",
+        "likes": 14,
+        "comments": [
+          {
+            "id": "gc3",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "git",
+            "timestamp": "2026-05-30T12:20:00Z"
+          },
+          {
+            "id": "gc4",
+            "author": {
+              "id": "u2",
+              "name": "Anna Nowak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+            },
+            "text": "odpadam",
+            "timestamp": "2026-05-30T12:32:00Z"
+          },
+          {
+            "id": "gc4",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "w następną chętnie",
+            "timestamp": "2026-05-30T12:32:00Z"
+          },
+          {
+            "id": "gc5",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "dobra, to kto będzie?",
+            "timestamp": "2026-05-30T12:35:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp7",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "content": "mata jutro o 12:30 jak cos :)",
         "timestamp": "2026-05-27T07:00:00Z",
         "likes": 14,
         "comments": []
+      },
+      {
+        "id": "gp8",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "content": "ma ktoś pytania z maty?",
+        "timestamp": "2026-05-27T07:00:00Z",
+        "likes": 14,
+        "comments": [
+          {
+            "id": "gc4",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "priv",
+            "timestamp": "2026-05-30T12:32:00Z"
+          },
+          {
+            "id": "gc4",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Co za świnia! Weź się podziel.",
+            "timestamp": "2026-05-30T12:32:00Z"
+          }
+        ]
       }
-    ]
+    ],
+    "isMember": true
   },
   {
     "id": "g5",
-    "name": "Biegacze Amatorzy",
+    "name": "Techno newsy z pierwszej ręki",
     "icon": "Footprints",
-    "description": "Wspólne treningi, plany biegowe i motywacja. Od 5K do maratonu — każdy jest mile widziany!",
-    "coverColor": "#10B981",
-    "membersCount": 756,
+    "description": "Nowinki z branży IT prosto na Twój ekran. Bez spamu, bez polityki - tylko czysta technologia.",
+    "coverColor": "#2E3A87",
+    "membersCount": 14005,
     "members": [
       {
         "id": "u3",
@@ -229,11 +331,179 @@
           "name": "Piotr Wiśniewski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "content": "Poranny trening o 6:00 w sobotę, park Łazienkowski. Tempo easy, 8 km. Kto dołączy?",
+        "content": "Uwaga, uwaga! Właśnie wyszedł iOS 21.2. Aktualizacja waży 6GB, więc uzbroicie się w cierpliwość. Najciekawsze nowości: tryb oszczędzania baterii, tryb focus, ulepszona Siri oraz całkowicie nowy design aplikacji aparatu. Kto już instalował? ",
         "timestamp": "2026-05-27T06:00:00Z",
         "likes": 11,
+        "comments": [
+          {
+            "id": "gc4",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Apple to gówno",
+            "timestamp": "2026-05-30T12:32:00Z"
+          },
+          {
+            "id": "gc5",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "Czekam aż zlecą się wszystkie androidy XD",
+            "timestamp": "2026-05-30T12:32:00Z"
+          }
+        ]
+      }
+    ],
+    "isMember": false
+  },
+  {
+    "id": "g_szukam",
+    "name": "Szukam osoby - pomoc",
+    "icon": "Search",
+    "description": "Grupa wsparcia w poszukiwaniu zaginionych bliskich. Dzielimy się informacjami i pomagamy.",
+    "coverColor": "#E11D48",
+    "membersCount": 240,
+    "members": [
+      {
+        "id": "u_marinette",
+        "name": "Marinette Dupont",
+        "avatarUrl": "https://i.pravatar.cc/150?u=marinette",
+        "role": "member"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp_missing_1",
+        "author": {
+          "id": "u_marinette",
+          "name": "Marinette Dupont",
+          "avatarUrl": "https://i.pravatar.cc/150?u=marinette"
+        },
+        "content": "Błagam o pomoc! Moja przyjaciółka Natalie Chalamet zaginęła dzisiaj wieczorem. Byłyśmy w kinie na seansie. Poszła do toalety i już z niej nie wróciła. Mija 20 minut, jej telefon milczy, a w kabinach jej nie ma. Proszę, jeśli ktoś coś widział, dajcie znać!!! 😭😭",
+        "timestamp": "2026-06-03T20:30:00Z",
+        "likes": 12,
         "comments": []
       }
-    ]
+    ],
+    "isMember": false
+  },
+  {
+    "id": "g_garden",
+    "name": "Mój Piękny Ogród",
+    "icon": "Coffee",
+    "description": "Grupa dla miłośników ogrodnictwa. Dzielimy się poradami, jak pielęgnować rośliny i uprawiać warzywa.",
+    "coverColor": "#4ADE80",
+    "membersCount": 2341,
+    "members": [],
+    "posts": [
+      {
+        "id": "gp_garden_1",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "content": "Moje pomidory zaczynają żółknąć od spodu. Czy to może być brak wapnia? Co polecacie na szybki ratunek?",
+        "timestamp": "2026-06-02T10:00:00Z",
+        "likes": 14,
+        "comments": [
+          {
+            "id": "gc_garden_2",
+            "author": {
+              "id": "u1",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "To chyba znak, aby znaleźć inne hobby. Nie wszyscy muszą mieć rękę do roślin. Pozdrawiam serdecznie.",
+            "timestamp": "2026-06-02T10:30:00Z"
+          },
+          {
+            "id": "gc_garden_1",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "Nie słuchaj Piotra. To prawdopodobnie sucha zgnilizna wierzchołkowa. Oprysk saletrą wapniową powinien pomóc!",
+            "timestamp": "2026-06-02T10:45:00Z"
+          }
+        ]
+      }
+    ],
+    "isMember": false
+  },
+  {
+    "id": "g_sports",
+    "name": "Bieganie i Aktywność",
+    "icon": "Footprints",
+    "description": "Wymiana doświadczeń biegowych, plany treningowe i wspólne motywowanie się do działania.",
+    "coverColor": "#3B82F6",
+    "membersCount": 4120,
+    "members": [],
+    "posts": [
+      {
+        "id": "gp_sports_1",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "content": "Ktoś biega jutro rano w parku? Mam w planie spokojne 10km w tempie 5:30. Zapraszam do wspólnego treningu! 🏃‍♂️",
+        "timestamp": "2026-06-03T08:00:00Z",
+        "likes": 22,
+        "comments": [
+          {
+            "id": "gc_sports_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Ja chętnie! Będę przy głównym wejściu o 7:00.",
+            "timestamp": "2026-06-03T08:15:00Z"
+          }
+        ]
+      }
+    ],
+    "isMember": false
+  },
+  {
+    "id": "g_childcare",
+    "name": "Rodzice i Dzieci",
+    "icon": "Users",
+    "description": "Wsparcie dla rodziców, porady dotyczące wychowania i kreatywnych zabaw.",
+    "coverColor": "#F472B6",
+    "membersCount": 8590,
+    "members": [],
+    "posts": [
+      {
+        "id": "gp_childcare_1",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "content": "Macie jakieś pomysły na zabawy w domu dla 3-latka? Pogoda dzisiaj nie dopisuje, a powoli kończą mi się pomysły. 🌧️🎨",
+        "timestamp": "2026-06-03T09:00:00Z",
+        "likes": 35,
+        "comments": [
+          {
+            "id": "gc_childcare_1",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "Polecam budowanie bazy z koców i krzeseł! U nas zawsze działa na kilka godzin.",
+            "timestamp": "2026-06-03T09:20:00Z"
+          }
+        ]
+      }
+    ],
+    "isMember": false
   }
 ]

@@ -1,32 +1,45 @@
 import styles from './RightSidebar.module.css';
-import type { MessageThread } from '../../types';
+import type { MessageThread, ReadThreads } from '../../types';
 
 interface RightSidebarProps {
   messages: MessageThread[];
+  readThreads: ReadThreads;
+  currentUserId: string;
   onOpenChat: (threadId: string) => void;
   onViewProfile?: (userId: string) => void;
 }
 
 const fakeActivity = [
   { name: 'Anna Nowak', action: 'polubiła post', target: 'Tomka Krawczyka', avatar: 'https://i.pravatar.cc/150?u=u2', time: '2 min temu', userId: 'u2' },
-  { name: 'Kasia Zielińska', action: 'dodała nowy post w', target: 'Design i UX', avatar: 'https://i.pravatar.cc/150?u=u4', time: '8 min temu', userId: 'u4' },
   { name: 'Piotr Wiśniewski', action: 'skomentował post', target: 'Marty Lewandowskiej', avatar: 'https://i.pravatar.cc/150?u=u3', time: '15 min temu', userId: 'u3' },
-  { name: 'Marta Lewandowska', action: 'dołączyła do grupy', target: 'Biegacze Amatorzy', avatar: 'https://i.pravatar.cc/150?u=u6', time: '32 min temu', userId: 'u6' },
 ];
 
 const trendingTopics = [
-  { label: 'Popularne w e-Motion', tag: '#React20', count: '1.2k postów' },
-  { label: 'Trending', tag: '#WeekendWGórach', count: '847 postów' },
-  { label: 'Technologia', tag: '#TypeScript', count: '2.1k postów' },
+  { label: 'Popularne w e-Motion', tag: '#mood', count: '100.2k postów' },
+  { label: 'Lifestyle', tag: '#PhotoOfTheDay', count: '20.7k postów' },
+  { label: 'Technologia', tag: '#PorteFuture', count: '100.2k postów' },
+  { label: 'Kultura', tag: '#wyparowanie', count: '10.2k postów' },
+  { label: 'Sport', tag: '#Mundial', count: '100.2k postów' },
 ];
 
-export const RightSidebar: React.FC<RightSidebarProps> = ({ messages, onOpenChat, onViewProfile }) => {
+export const RightSidebar: React.FC<RightSidebarProps> = ({ messages, readThreads, currentUserId, onOpenChat, onViewProfile }) => {
+  const isThreadUnread = (thread: MessageThread): boolean => {
+    const lastReadTs = readThreads[thread.threadId];
+    const otherMessages = thread.messages.filter(m => m.senderId !== currentUserId);
+    if (otherMessages.length === 0) return false;
+    if (!lastReadTs) return true;
+    const lastOtherMsg = otherMessages[otherMessages.length - 1];
+    return new Date(lastOtherMsg.timestamp) > new Date(lastReadTs);
+  };
+
   return (
     <div className={styles.rightSidebar}>
       {/* Contacts */}
       <div className={styles.panel}>
         <div className={styles.panelHeader}>Kontakty</div>
-        {messages.map(thread => (
+        {messages.map(thread => {
+          const unread = isThreadUnread(thread);
+          return (
           <div
             key={thread.threadId}
             className={styles.contactItem}
@@ -45,12 +58,17 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({ messages, onOpenChat
               />
               <div className={thread.participant.isOnline ? styles.contactOnline : styles.contactOffline} />
             </div>
-            <span className={styles.contactName}>{thread.participant.name}</span>
-            <span className={styles.contactStatus}>
-              {thread.participant.isOnline ? 'Online' : 'Offline'}
-            </span>
+            <span className={`${styles.contactName} ${unread ? styles.contactNameUnread : ''}`}>{thread.participant.name}</span>
+            {unread ? (
+              <span className={styles.unreadBadge} />
+            ) : (
+              <span className={styles.contactStatus}>
+                {thread.participant.isOnline ? 'Online' : 'Offline'}
+              </span>
+            )}
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Recent Activity */}
@@ -58,9 +76,9 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({ messages, onOpenChat
         <div className={styles.panelHeader}>Ostatnia aktywność</div>
         {fakeActivity.map((item, i) => (
           <div key={i} className={styles.activityItem}>
-            <img 
-              src={item.avatar} 
-              alt={item.name} 
+            <img
+              src={item.avatar}
+              alt={item.name}
               className={styles.activityAvatar}
               onClick={() => onViewProfile && onViewProfile(item.userId)}
               style={{ cursor: onViewProfile ? 'pointer' : 'default' }}

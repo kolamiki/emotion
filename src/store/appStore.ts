@@ -24,6 +24,7 @@ export function persistState(state: AppState) {
       messages: state.messages,
       notifications: state.notifications,
       likedPosts: state.likedPosts,
+      readThreads: state.readThreads,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
   } catch {
@@ -44,16 +45,44 @@ export function getInitialState(): AppState {
     currentUser: mockData.currentUser,
     likedPosts: {},
     typing: {},
+    readThreads: {},
   };
 
   if (persisted) {
+    // Merge arrays to ensure newly added mock data is not lost
+    const mergeArrays = <T extends { id?: string; threadId?: string }>(baseArr: T[], persistedArr: T[] = []) => {
+      const persistedIds = new Set(persistedArr.map(item => item.id || item.threadId));
+      const missingFromPersisted = baseArr.filter(item => !persistedIds.has(item.id || item.threadId));
+      return [...persistedArr, ...missingFromPersisted];
+    };
+
+    const rawMessages = mergeArrays(base.messages, persisted.messages);
+    
+    // Deduplicate threads by participant (merge messages if duplicates exist)
+    const messagesByParticipant = new Map<string, typeof rawMessages[0]>();
+    for (const thread of rawMessages) {
+      const pid = thread.participant.id;
+      if (!messagesByParticipant.has(pid)) {
+        messagesByParticipant.set(pid, { ...thread, messages: [...thread.messages] });
+      } else {
+        const existingThread = messagesByParticipant.get(pid)!;
+        // merge and sort messages by timestamp
+        const allMsgs = [...existingThread.messages, ...thread.messages];
+        const uniqueMsgs = Array.from(new Map(allMsgs.map(m => [m.id, m])).values());
+        uniqueMsgs.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+        existingThread.messages = uniqueMsgs;
+      }
+    }
+    const dedupedMessages = Array.from(messagesByParticipant.values());
+
     return {
       ...base,
-      posts: persisted.posts ?? base.posts,
-      groups: persisted.groups ?? base.groups,
-      messages: persisted.messages ?? base.messages,
-      notifications: persisted.notifications ?? base.notifications,
+      posts: mergeArrays(base.posts, persisted.posts),
+      groups: mergeArrays(base.groups, persisted.groups),
+      messages: dedupedMessages,
+      notifications: mergeArrays(base.notifications, persisted.notifications),
       likedPosts: persisted.likedPosts ?? base.likedPosts,
+      readThreads: persisted.readThreads ?? base.readThreads,
     };
   }
 
@@ -172,6 +201,45 @@ export function appReducer(state: AppState, action: AppAction): AppState {
 
     case 'LOAD_STATE': {
       return { ...state, ...action.state };
+    }
+
+    case 'ADD_FEED_POST_FROM_USER': {
+      return { ...state, posts: [action.post, ...state.posts] };
+    }
+
+    case 'ADD_GROUP_POST': {
+      const newGroups = state.groups.map(g => {
+        if (g.id !== action.groupId) return g;
+        return { ...g, posts: [action.post, ...g.posts] };
+      });
+      return { ...state, groups: newGroups };
+    }
+
+    case 'CREATE_THREAD': {
+      // Don't create duplicate threads
+      const exists = state.messages.some(m => m.threadId === action.thread.threadId);
+      if (exists) return state;
+      return { ...state, messages: [...state.messages, action.thread] };
+    }
+
+    case 'MARK_THREAD_READ': {
+      const thread = state.messages.find(t => t.threadId === action.threadId);
+      if (!thread || thread.messages.length === 0) return state;
+      const lastMsg = thread.messages[thread.messages.length - 1];
+      return {
+        ...state,
+        readThreads: {
+          ...state.readThreads,
+          [action.threadId]: lastMsg.timestamp,
+        },
+      };
+    }
+
+    case 'TOGGLE_GROUP_MEMBERSHIP': {
+      const newGroups = state.groups.map(g =>
+        g.id === action.groupId ? { ...g, isMember: !g.isMember } : g
+      );
+      return { ...state, groups: newGroups };
     }
 
     default:

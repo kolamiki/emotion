@@ -1,0 +1,234 @@
+/* ===========================
+   Leaderboard Styles
+   =========================== */
+
+.leaderboardContainer {
+  width: 100%;
+  max-width: 550px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.leaderboardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.leaderboardIcon {
+  color: var(--warning);
+  background: var(--warning-light);
+  padding: 0.6rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboardTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.leaderboardSubtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* === Table === */
+.leaderboardTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+
+.leaderboardTable th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.leaderboardTable th:last-child {
+  text-align: right;
+}
+
+/* === Row === */
+.leaderboardRow {
+  transition: all 0.2s;
+}
+
+.leaderboardRow td {
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border-top: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.leaderboardRow td:first-child {
+  border-left: 1px solid var(--gray-100);
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.leaderboardRow td:last-child {
+  border-right: 1px solid var(--gray-100);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* === Top 3 special styles === */
+.rowGold td {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.03));
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.rowSilver td {
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.1), rgba(156, 163, 175, 0.04));
+  border-color: rgba(156, 163, 175, 0.25);
+}
+
+.rowBronze td {
+  background: linear-gradient(135deg, rgba(180, 120, 60, 0.08), rgba(180, 120, 60, 0.03));
+  border-color: rgba(180, 120, 60, 0.2);
+}
+
+/* === Current User Highlight === */
+.rowCurrentUser td {
+  background: linear-gradient(135deg, rgba(108, 43, 217, 0.12), rgba(108, 43, 217, 0.05));
+  border-color: rgba(108, 43, 217, 0.3);
+  font-weight: 600;
+}
+
+.rowCurrentUser {
+  animation: highlightPulse 1.5s ease-in-out;
+}
+
+@keyframes highlightPulse {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.02);
+  }
+  60% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* === Position cell === */
+.positionCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.positionNumber {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--gray-100);
+  color: var(--text-secondary);
+}
+
+.positionGold {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+}
+
+.positionSilver {
+  background: linear-gradient(135deg, #9CA3AF, #6B7280);
+  color: white;
+}
+
+.positionBronze {
+  background: linear-gradient(135deg, #B4783C, #92400E);
+  color: white;
+}
+
+.medal {
+  font-size: 1.1rem;
+}
+
+/* === User cell === */
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.userAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--gray-200);
+}
+
+.userName {
+  font-weight: 500;
+}
+
+.youBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-lighter);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-full);
+  margin-left: 0.25rem;
+}
+
+/* === Time cell === */
+.timeValue {
+  color: var(--text-primary);
+}
+
+/* === Responsive === */
+@media (max-width: 500px) {
+  .leaderboardTable th,
+  .leaderboardRow td {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .userAvatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .positionNumber {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+}

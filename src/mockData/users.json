@@ -3,49 +3,170 @@
     "id": "u1",
     "name": "Jan Kowalski",
     "avatarUrl": "https://i.pravatar.cc/150?u=u1",
-    "isOnline": true
+    "isOnline": true,
+    "bio": "Tu będzie opis wpisany przez użytkownika na ekranie logowania",
+    "location": "Warszawa, Polska",
+    "joinDate": "styczeń 2025"
   },
   "allUsers": [
     {
       "id": "u1",
       "name": "Jan Kowalski",
       "avatarUrl": "https://i.pravatar.cc/150?u=u1",
-      "isOnline": true
+      "isOnline": true,
+      "bio": "Tu będzie opis wpisany przez użytkownika na ekranie logowania",
+      "location": "Warszawa, Polska",
+      "joinDate": "styczeń 2025"
     },
     {
       "id": "u2",
-      "name": "Anna Nowak",
+      "name": "",
       "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true,
-      "isFriend": true
+      "isFriend": true,
+      "bio": "Entuzjastka jogi, podróży i zdrowego stylu życia. Szukam inspiracji w każdym dniu! 🧘‍♀️✈️",
+      "location": "Kraków, Polska",
+      "joinDate": "marzec 2025"
     },
     {
       "id": "u3",
       "name": "Piotr Wiśniewski",
       "avatarUrl": "https://i.pravatar.cc/150?u=u3",
       "isOnline": false,
-      "isFriend": true
+      "isFriend": true,
+      "bio": "Biegacz, planszówkowicz, miłośnik gór. Weekend bez szlaku to stracony weekend. ⛰️🎲",
+      "location": "Zakopane, Polska",
+      "joinDate": "luty 2025"
     },
     {
       "id": "u4",
       "name": "Kasia Zielińska",
       "avatarUrl": "https://i.pravatar.cc/150?u=u4",
       "isOnline": true,
-      "isFriend": true
+      "isFriend": true,
+      "bio": "Graphic designer & UX enthusiast. Tworzę piękne rzeczy i dzielę się inspiracjami. 🎨✨",
+      "location": "Wrocław, Polska",
+      "joinDate": "kwiecień 2025"
     },
     {
       "id": "u5",
       "name": "Tomek Krawczyk",
       "avatarUrl": "https://i.pravatar.cc/150?u=u5",
       "isOnline": true,
-      "isFriend": false
+      "isFriend": false,
+      "bio": "Senior developer by day, bug creator by night. 12 lat w branży i wciąż się uczę. 💻🐛",
+      "location": "Gdańsk, Polska",
+      "joinDate": "maj 2025"
     },
     {
       "id": "u6",
       "name": "Marta Lewandowska",
       "avatarUrl": "https://i.pravatar.cc/150?u=u6",
       "isOnline": false,
-      "isFriend": false
+      "isFriend": false,
+      "bio": "Podróżniczka, fotografka amatorka, miłośniczka architektury. Ostatnio zakochana w Barcelonie. 📸🇪🇸",
+      "location": "Barcelona, Hiszpania",
+      "joinDate": "styczeń 2026"
+    },
+    {
+      "id": "u7",
+      "name": "Michał Dąbrowski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u7",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "DevOps engineer z pasją do automatyzacji. Kubernetes, Docker, CI/CD — to mój świat. 🐳⚙️",
+      "location": "Poznań, Polska",
+      "joinDate": "czerwiec 2025"
+    },
+    {
+      "id": "u8",
+      "name": "Ola Kamińska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u8",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Copywriterka i content creatorka. Słowa to moja supermoc! ✍️📖",
+      "location": "Łódź, Polska",
+      "joinDate": "lipiec 2025"
+    },
+    {
+      "id": "u9",
+      "name": "Bartek Nowicki",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u9",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Fotograf krajobrazu i miłośnik dronów. Najlepsze ujęcia robię o wschodzie słońca. 📷🌄",
+      "location": "Zakopane, Polska",
+      "joinDate": "sierpień 2025"
+    },
+    {
+      "id": "u10",
+      "name": "Natalia Wójcik",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u10",
+      "isOnline": true,
+      "isFriend": true,
+      "bio": "Data scientist z zamiłowaniem do wizualizacji danych. Python + R = ❤️ 📊🧠",
+      "location": "Warszawa, Polska",
+      "joinDate": "wrzesień 2025"
+    },
+    {
+      "id": "u11",
+      "name": "Jakub Mazur",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u11",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Muzykiem jestem i gram na gitarze. W wolnym czasie tworzę muzykę elektroniczną. 🎸🎧",
+      "location": "Katowice, Polska",
+      "joinDate": "październik 2025"
+    },
+    {
+      "id": "u12",
+      "name": "Karolina Szymańska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u12",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Fitness trenerka i dietetyczka. Pomagam ludziom żyć zdrowiej i szczęśliwiej! 💪🥗",
+      "location": "Sopot, Polska",
+      "joinDate": "grudzień 2025"
+    },
+    {
+      "id": "u13",
+      "name": "Anonimowy użytkownik",
+      "avatarUrl": "/avatars/anonim.png",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Anonimowy użytkownik",
+      "location": " nieznane",
+      "joinDate": "grudzień 2025"
+    },
+    {
+      "id": "u14",
+      "name": "Nicolas de La Hire",
+      "avatarUrl": "/avatars/prime.png",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Widzi przyszłość, kieruje PrimeCo i figuruje w mediach jako Profesor Prime. Lubi dobry film i dobrą kawę. Nie lubi - pisać o sobie w trzeciej osobie, ale zmusza go do tego dział PR.",
+      "location": "Paryż, Polska",
+      "joinDate": "wrzesień 2022"
+    },
+    {
+      "id": "u_natalie",
+      "name": "Natalie Chalamet",
+      "avatarUrl": "https://i.pravatar.cc/150?u=natalie",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Kinoman, krytyk z misją ratowania ludzi przed złym kinem. Mój sarkazm to tarcza przed słabymi scenariuszami.",
+      "location": "Paryż, Francja",
+      "joinDate": "marzec 2024"
+    },
+    {
+      "id": "u_marinette",
+      "name": "Marinette Dupont",
+      "avatarUrl": "https://i.pravatar.cc/150?u=marinette",
+      "isOnline": true,
+      "isFriend": true,
+      "bio": "Uwielbiam kino, spacery po mieście i moich przyjaciół. Często gubię klucze, ale tym razem zgubiłam kogoś znacznie cenniejszego...",
+      "location": "Paryż, Francja",
+      "joinDate": "kwiecień 2024"
     }
   ]
 }

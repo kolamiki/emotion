@@ -4,6 +4,9 @@ export interface User {
   avatarUrl: string;
   isOnline?: boolean;
   isFriend?: boolean;
+  bio?: string;
+  location?: string;
+  joinDate?: string;
 }
 
 export interface Comment {
@@ -48,6 +51,7 @@ export interface Group {
   membersCount: number;
   members: GroupMember[];
   posts: GroupPost[];
+  isMember: boolean;
 }
 
 export interface AppNotification {
@@ -63,6 +67,7 @@ export interface Message {
   senderId: string;
   text: string;
   timestamp: string;
+  isRead?: boolean;
 }
 
 export interface MessageThread {
@@ -80,7 +85,19 @@ export interface AppData {
   messages: MessageThread[];
 }
 
-export type ActiveView = { type: 'feed' } | { type: 'group'; groupId: string };
+export type ActiveView = { type: 'feed' } | { type: 'group'; groupId: string } | { type: 'friends' } | { type: 'daily_challenge' };
+
+/* === Sentiment & Topic Analysis Types === */
+
+export type Sentiment = 'positive' | 'negative' | 'neutral' | 'funny' | 'question';
+export type Topic = 'tech' | 'sport' | 'food' | 'travel' | 'work' | 'mood' | 'design' | 'music' | 'games' | 'general';
+
+export interface ContextAnalysis {
+  sentiment: Sentiment;
+  topics: Topic[];
+  keywords: string[];
+  hasEmoji: boolean;
+}
 
 /* === Response System Types === */
 
@@ -88,6 +105,9 @@ export interface ResponseOption {
   text: string;
   delayBeforeTyping: number;
   typingDuration: number;
+  sentiment?: Sentiment;
+  topic?: Topic;
+  contextTemplate?: string;
 }
 
 export interface PostCommentResponseOption extends ResponseOption {
@@ -118,6 +138,31 @@ export interface ResponsesData {
   fallbackResponses: FallbackResponses;
 }
 
+/* === Scenario System Types === */
+
+export type ScenarioTrigger =
+  | { type: 'group_enter'; groupId: string }
+  | { type: 'group_post'; groupId: string }
+  | { type: 'timer'; intervalMs: number }
+  | { type: 'timeout'; delayMs: number }
+  | { type: 'manual' };
+
+export type ScenarioStep =
+  | { action: 'create_post'; authorId: string; content: string; delayMs: number; target: 'feed' | { groupId: string }; contextRef?: 'user_post' }
+  | { action: 'send_message'; fromId: string; toId: string; text: string; delayMs: number; contextRef?: 'user_post' }
+  | { action: 'add_comment'; authorId: string; postRef: 'latest_feed' | 'latest_group'; text: string; delayMs: number; contextRef?: 'user_post' }
+  | { action: 'add_notification'; message: string; notifType: AppNotification['type']; delayMs: number };
+
+export interface Scenario {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  trigger: ScenarioTrigger;
+  steps: ScenarioStep[];
+  enabled: boolean;
+}
+
 /* === App State Types === */
 
 export interface TypingState {
@@ -126,6 +171,10 @@ export interface TypingState {
 
 export interface LikedPosts {
   [postId: string]: boolean;
+}
+
+export interface ReadThreads {
+  [threadId: string]: string; // timestamp of last read message
 }
 
 export interface AppState {
@@ -137,6 +186,7 @@ export interface AppState {
   currentUser: User;
   likedPosts: LikedPosts;
   typing: TypingState;
+  readThreads: ReadThreads;
 }
 
 export type AppAction =
@@ -150,4 +200,9 @@ export type AppAction =
   | { type: 'SET_TYPING'; threadId: string; isTyping: boolean }
   | { type: 'MARK_NOTIFICATION_READ'; notificationId: string }
   | { type: 'ADD_NOTIFICATION'; notification: AppNotification }
-  | { type: 'LOAD_STATE'; state: Partial<AppState> };
+  | { type: 'LOAD_STATE'; state: Partial<AppState> }
+  | { type: 'ADD_FEED_POST_FROM_USER'; post: Post }
+  | { type: 'ADD_GROUP_POST'; groupId: string; post: GroupPost }
+  | { type: 'CREATE_THREAD'; thread: MessageThread }
+  | { type: 'MARK_THREAD_READ'; threadId: string }
+  | { type: 'TOGGLE_GROUP_MEMBERSHIP'; groupId: string };

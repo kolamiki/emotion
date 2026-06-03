@@ -4,35 +4,49 @@
       "id": "n1",
       "message": "Anna Nowak polubiła Twój post.",
       "isRead": false,
-      "timestamp": "2026-05-27T11:00:00Z",
+      "timestamp": "2026-05-30T18:00:00Z",
       "type": "like"
     },
     {
       "id": "n2",
       "message": "Piotr Wiśniewski skomentował Twój post.",
       "isRead": false,
-      "timestamp": "2026-05-27T10:30:00Z",
+      "timestamp": "2026-05-30T17:30:00Z",
       "type": "comment"
-    },
-    {
-      "id": "n3",
-      "message": "Kasia Zielińska zaprasza Cię do grupy Design i UX.",
-      "isRead": false,
-      "timestamp": "2026-05-27T09:00:00Z",
-      "type": "group"
     },
     {
       "id": "n4",
       "message": "Tomek Krawczyk wspomniał Cię w komentarzu.",
-      "isRead": true,
-      "timestamp": "2026-05-27T08:00:00Z",
+      "isRead": false,
+      "timestamp": "2026-05-30T14:00:00Z",
       "type": "mention"
     },
     {
       "id": "n5",
       "message": "Marta Lewandowska wysłała Ci zaproszenie do znajomych.",
+      "isRead": false,
+      "timestamp": "2026-05-30T12:00:00Z",
+      "type": "friend"
+    },
+    {
+      "id": "n8",
+      "message": "Bartek Nowicki skomentował Twój post: \"Świetne zdjęcie!\"",
       "isRead": true,
-      "timestamp": "2026-05-26T20:00:00Z",
+      "timestamp": "2026-05-29T20:00:00Z",
+      "type": "comment"
+    },
+    {
+      "id": "n9",
+      "message": "Ola Kamińska wspomniała Cię w poście.",
+      "isRead": true,
+      "timestamp": "2026-05-29T18:00:00Z",
+      "type": "mention"
+    },
+    {
+      "id": "n10",
+      "message": "Jakub Mazur wysłał Ci zaproszenie do znajomych.",
+      "isRead": true,
+      "timestamp": "2026-05-29T15:00:00Z",
       "type": "friend"
     }
   ],
