@@ -77,6 +77,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   const [searchResults, setSearchResults] = useState<typeof usersData.allUsers>([]);
   const [searchGroupResults, setSearchGroupResults] = useState<Group[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -242,138 +243,151 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* Logo */}
         <div className={styles.logo} onClick={onNavigateHome}>
           <img src="/logo.png" alt="e-Motion" className={styles.logoImage} />
-          <span className={styles.logoText}>e-Motion</span>
+          <span className={styles.logoText}>eMotion</span>
         </div>
 
         {/* Search */}
-        <div className={styles.searchContainer} ref={searchRef}>
-          <Search size={16} className={styles.searchIcon} />
-          <input
-            ref={searchInputRef}
-            id="search-input"
-            className={styles.searchInput}
-            type="text"
-            placeholder="Szukaj osób, grup, postów..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            onFocus={handleSearchFocus}
-          />
-          {searchQuery && (
-            <button
-              className={styles.searchClear}
-              onClick={() => {
-                setSearchQuery('');
-                setSearchResults([]);
-                setSearchGroupResults([]);
-                setShowSearchResults(false);
-                searchInputRef.current?.focus();
-              }}
-            >
-              <X size={14} />
-            </button>
-          )}
+        <div className={`${styles.mobileSearchWrapper} ${isMobileSearchOpen ? styles.mobileSearchWrapperOpen : ''}`}>
+          <div className={styles.mobileSearchBackdrop} onClick={() => setIsMobileSearchOpen(false)} />
+          <div className={styles.searchContainer} ref={searchRef}>
+            <Search size={16} className={styles.searchIcon} />
+            <input
+              ref={searchInputRef}
+              id="search-input"
+              className={styles.searchInput}
+              type="text"
+              placeholder="Szukaj osób, grup, postów..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              onFocus={handleSearchFocus}
+            />
+            {searchQuery && (
+              <button
+                className={styles.searchClear}
+                onClick={() => {
+                  setSearchQuery('');
+                  setSearchResults([]);
+                  setSearchGroupResults([]);
+                  setShowSearchResults(false);
+                  searchInputRef.current?.focus();
+                }}
+              >
+                <X size={14} />
+              </button>
+            )}
 
-          {/* Search Results Dropdown */}
-          {showSearchResults && (
-            <div className={styles.searchDropdown}>
-              {searchResults.length > 0 && (
-                <>
-                  <div className={styles.searchDropdownHeader}>
-                    <span className={styles.searchDropdownTitle}>Użytkownicy</span>
-                    <span className={styles.searchDropdownCount}>{searchResults.length} wyników</span>
-                  </div>
-                  {searchResults.map(user => (
-                    <div
-                      key={user.id}
-                      className={styles.searchResultItem}
-                      onClick={() => handleSearchResultClick(user.id)}
-                    >
-                      <div className={styles.searchResultAvatarWrap}>
-                        <img
-                          src={user.avatarUrl}
-                          alt={user.name}
-                          className={styles.searchResultAvatar}
-                        />
-                        {user.isOnline && <div className={styles.searchResultOnline} />}
-                      </div>
-                      <div className={styles.searchResultInfo}>
-                        <div className={styles.searchResultName}>
-                          {highlightMatch(user.name, searchQuery)}
+            {/* Search Results Dropdown */}
+            {showSearchResults && (
+              <div className={styles.searchDropdown}>
+                {searchResults.length > 0 && (
+                  <>
+                    <div className={styles.searchDropdownHeader}>
+                      <span className={styles.searchDropdownTitle}>Użytkownicy</span>
+                      <span className={styles.searchDropdownCount}>{searchResults.length} wyników</span>
+                    </div>
+                    {searchResults.map(user => (
+                      <div
+                        key={user.id}
+                        className={styles.searchResultItem}
+                        onClick={() => handleSearchResultClick(user.id)}
+                      >
+                        <div className={styles.searchResultAvatarWrap}>
+                          <img
+                            src={user.avatarUrl}
+                            alt={user.name}
+                            className={styles.searchResultAvatar}
+                          />
+                          {user.isOnline && <div className={styles.searchResultOnline} />}
                         </div>
-                        {user.bio && (
+                        <div className={styles.searchResultInfo}>
+                          <div className={styles.searchResultName}>
+                            {highlightMatch(user.name, searchQuery)}
+                          </div>
+                          {user.bio && (
+                            <div className={styles.searchResultBio}>
+                              {user.bio.length > 60 ? user.bio.slice(0, 60) + '...' : user.bio}
+                            </div>
+                          )}
+                          {user.location && (
+                            <div className={styles.searchResultLocation}>
+                              📍 {user.location}
+                            </div>
+                          )}
+                        </div>
+                        {user.isFriend && (
+                          <span className={styles.searchResultFriendBadge}>Znajomy</span>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+
+                {searchGroupResults.length > 0 && (
+                  <>
+                    <div className={styles.searchDropdownHeader}>
+                      <span className={styles.searchDropdownTitle}>Grupy</span>
+                      <span className={styles.searchDropdownCount}>{searchGroupResults.length} wyników</span>
+                    </div>
+                    {searchGroupResults.map(group => (
+                      <div
+                        key={group.id}
+                        className={styles.searchResultItem}
+                        onClick={() => handleGroupResultClick(group.id)}
+                      >
+                        <div className={styles.searchResultAvatarWrap}>
+                          <div
+                            className={styles.searchResultAvatar}
+                            style={{
+                              background: group.coverColor,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: 'white',
+                              fontSize: '1.2rem'
+                            }}
+                          >
+                            {group.name.charAt(0)}
+                          </div>
+                        </div>
+                        <div className={styles.searchResultInfo}>
+                          <div className={styles.searchResultName}>
+                            {highlightMatch(group.name, searchQuery)}
+                          </div>
                           <div className={styles.searchResultBio}>
-                            {user.bio.length > 60 ? user.bio.slice(0, 60) + '...' : user.bio}
+                            {group.description.length > 60 ? group.description.slice(0, 60) + '...' : group.description}
                           </div>
-                        )}
-                        {user.location && (
                           <div className={styles.searchResultLocation}>
-                            📍 {user.location}
+                            👥 {group.membersCount.toLocaleString()} członków
                           </div>
-                        )}
+                        </div>
                       </div>
-                      {user.isFriend && (
-                        <span className={styles.searchResultFriendBadge}>Znajomy</span>
-                      )}
-                    </div>
-                  ))}
-                </>
-              )}
+                    ))}
+                  </>
+                )}
 
-              {searchGroupResults.length > 0 && (
-                <>
-                  <div className={styles.searchDropdownHeader}>
-                    <span className={styles.searchDropdownTitle}>Grupy</span>
-                    <span className={styles.searchDropdownCount}>{searchGroupResults.length} wyników</span>
+                {searchResults.length === 0 && searchGroupResults.length === 0 && (
+                  <div className={styles.searchEmpty}>
+                    <Search size={24} />
+                    <span>Brak wyników dla „{searchQuery}"</span>
                   </div>
-                  {searchGroupResults.map(group => (
-                    <div
-                      key={group.id}
-                      className={styles.searchResultItem}
-                      onClick={() => handleGroupResultClick(group.id)}
-                    >
-                      <div className={styles.searchResultAvatarWrap}>
-                        <div
-                          className={styles.searchResultAvatar}
-                          style={{
-                            background: group.coverColor,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            fontSize: '1.2rem'
-                          }}
-                        >
-                          {group.name.charAt(0)}
-                        </div>
-                      </div>
-                      <div className={styles.searchResultInfo}>
-                        <div className={styles.searchResultName}>
-                          {highlightMatch(group.name, searchQuery)}
-                        </div>
-                        <div className={styles.searchResultBio}>
-                          {group.description.length > 60 ? group.description.slice(0, 60) + '...' : group.description}
-                        </div>
-                        <div className={styles.searchResultLocation}>
-                          👥 {group.membersCount.toLocaleString()} członków
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              )}
-
-              {searchResults.length === 0 && searchGroupResults.length === 0 && (
-                <div className={styles.searchEmpty}>
-                  <Search size={24} />
-                  <span>Brak wyników dla „{searchQuery}"</span>
-                </div>
-              )}
-            </div>
-          )}
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Actions */}
         <div className={styles.actions}>
+          <button
+            className={`${styles.actionBtn} ${styles.mobileSearchBtn}`}
+            onClick={() => {
+              setIsMobileSearchOpen(true);
+              setTimeout(() => searchInputRef.current?.focus(), 100);
+            }}
+          >
+            <Search size={18} />
+          </button>
+
           <button
             id="btn-create-post"
             className={styles.actionBtn}
