@@ -31,6 +31,7 @@ export function persistState(state: AppState) {
       notifications: state.notifications,
       likedPosts: state.likedPosts,
       readThreads: state.readThreads,
+      currentUser: state.currentUser,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
   } catch {
@@ -48,7 +49,7 @@ export function getInitialState(): AppState {
     messages: mockData.messages,
     notifications: mockData.notifications,
     favorites: mockData.favorites,
-    currentUser: mockData.currentUser,
+    currentUser: persisted?.currentUser ?? mockData.currentUser,
     likedPosts: {},
     typing: {},
     readThreads: {},
@@ -246,6 +247,10 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         g.id === action.groupId ? { ...g, isMember: !g.isMember } : g
       );
       return { ...state, groups: newGroups };
+    }
+
+    case 'UPDATE_CURRENT_USER': {
+      return { ...state, currentUser: { ...state.currentUser, ...action.user } };
     }
 
     default:

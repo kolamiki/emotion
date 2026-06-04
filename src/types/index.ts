@@ -205,4 +205,5 @@ export type AppAction =
   | { type: 'ADD_GROUP_POST'; groupId: string; post: GroupPost }
   | { type: 'CREATE_THREAD'; thread: MessageThread }
   | { type: 'MARK_THREAD_READ'; threadId: string }
-  | { type: 'TOGGLE_GROUP_MEMBERSHIP'; groupId: string };
+  | { type: 'TOGGLE_GROUP_MEMBERSHIP'; groupId: string }
+  | { type: 'UPDATE_CURRENT_USER'; user: Partial<User> };

@@ -117,7 +117,9 @@ export const Layout: React.FC = () => {
       : null;
 
   const viewedUser = viewedUserId
-    ? usersData.allUsers.find(u => u.id === viewedUserId)
+    ? (viewedUserId === state.currentUser.id
+        ? state.currentUser
+        : usersData.allUsers.find(u => u.id === viewedUserId))
     : null;
 
   return (
