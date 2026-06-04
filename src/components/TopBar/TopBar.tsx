@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { getAssetUrl } from '../../utils/assetUrl';
 import {
   PenLine,
   MessageCircle,
@@ -242,7 +243,7 @@ export const TopBar: React.FC<TopBarProps> = ({
       <header className={styles.topbar}>
         {/* Logo */}
         <div className={styles.logo} onClick={onNavigateHome}>
-          <img src="/logo.png" alt="e-Motion" className={styles.logoImage} />
+          <img src={getAssetUrl('/logo.png')} alt="e-Motion" className={styles.logoImage} />
           <span className={styles.logoText}>eMotion</span>
         </div>
 
