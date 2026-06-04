@@ -63,6 +63,11 @@ const sentimentKeywords: Record<string, Sentiment> = {
   // Funny
   'haha': 'funny', 'lol': 'funny', 'xd': 'funny', 'smiesz': 'funny',
   'zabawne': 'funny', 'hehe': 'funny', 'rotfl': 'funny',
+  // Vulgar
+  'kurwa': 'vulgar', 'cholera': 'vulgar', 'ja pierdole': 'vulgar', 'jebac': 'vulgar',
+  'chuj': 'vulgar', 'dupa': 'vulgar', 'kurde': 'vulgar', 'no kurde': 'vulgar', 'kurwa mać': 'vulgar',
+  'jebany': 'vulgar', 'zjebany': 'vulgar', 'kurwiac': 'vulgar', 'kurwica': 'vulgar', 'spierdalaj': 'vulgar',
+  'cipa': 'vulgar', 'jebanie': 'vulgar'
 };
 
 // Keyword → topic mapping
@@ -135,7 +140,7 @@ function normalize(text: string): string {
  */
 export function analyzeContext(text: string): ContextAnalysis {
   const normalized = normalize(text);
-  
+
   // Detect sentiment from emojis
   let emojiSentiment: Sentiment | null = null;
   for (const [emoji, sent] of Object.entries(emojiSentiments)) {
@@ -224,6 +229,10 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
       'O, to ciekawe pytanie! Daj mi chwilę, zastanowię się 💭',
       'Wow, nikt mnie jeszcze o to nie zapytał! Myślę, że mogę pomóc 😊',
     ],
+    vulgar: [
+      "Możesz trochę grzeczniej?",
+      "Nie zapominaj z kim rozmawiasz?",
+    ],
   },
   'u3': { // Piotr
     positive: [
@@ -251,6 +260,10 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
       'Dobre pytanie! Nie wiem, ale chętnie się dowiem razem z Tobą 🧐',
       'No nie wiem stary, ale sprawdź to w necie! 🤙',
     ],
+    vulgar: [
+      "Mówiłeś coś?",
+      "A niech cie szlag",
+    ],
   },
   'u4': { // Kasia
     positive: [
@@ -277,6 +290,11 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
       'Hmm, to jest super pytanie! Z perspektywy designera... 🤔🎨',
       'O, dobre pytanie! Właśnie o czymś takim myślałam! ✨',
       'Wiesz co, to zależy od kontekstu, ale mogę pomóc to przemyśleć! 🌟',
+    ],
+    vulgar: [
+      "Ogarnij się",
+      "Nie jesteś pod trzepakiem wśród kolegów. Zastanów się nim coś palniesz.",
+
     ],
   },
 };
@@ -347,6 +365,179 @@ function wasRecentlyUsed(threadId: string, text: string): boolean {
   return history.includes(text);
 }
 
+/* ============================================
+   PROFANITY STRIKE SYSTEM
+   ============================================ */
+
+const PROFANITY_STORAGE_KEY = 'emotion-profanity-strikes';
+const PROFANITY_BLOCK_KEY = 'emotion-profanity-blocks';
+
+// Per-participant config: how many vulgar messages before they block you
+// Lower = more sensitive character
+interface ProfanityConfig {
+  maxStrikes: number;
+  farewellMessage: string;
+  apologyMessage: string;
+  cooldownMs: number; // how long they stay blocked (ms)
+}
+
+const profanityConfigs: Record<string, ProfanityConfig> = {
+  'u2': { // Anna — wrażliwa, blokuje szybko
+    maxStrikes: 3,
+    farewellMessage: 'Nie... są pewne granice poziomu rozmowy. A ty zniżyłeś się tak bardzo, że szorując po dnie, wykopałeś sobie dół, w którym chyba tylko sam ze sobą będziesz czuł się dobrze. Do widzenia.',
+    apologyMessage: 'Hej, sorry za ostatnią wiadomość. Trochę mnie poniosło. Kiepski dzień itp... Mam nadzieję, że mi wybaczysz 🥺',
+    cooldownMs: 604_800_000, // tydzień spokoju na odpowiedź
+  },
+  'u4': { // Kasia — blokuje po 4
+    maxStrikes: 4,
+    farewellMessage: 'Wiesz co? Nie mam ochoty na taki poziom rozmowy. Nie jestem pod trzepakiem. Odezwij się kiedy dorośniesz.',
+    apologyMessage: 'Hej... przepraszam, że się odcięłam. Miałam ciężki tydzień i chyba zareagowałam zbyt ostro. Mam nadzieję, że nie masz żalu 💛',
+    cooldownMs: 30_000, // 30s demo (symuluje "kilka dni")
+  },
+  'u3': { // Piotr — wytrzymały, ale też ma granicę
+    maxStrikes: 6,
+    farewellMessage: 'Dobra, starczy. Mam wystarczająco własnych problemów, żeby jeszcze słuchać takich rzeczy. Nara.',
+    apologyMessage: 'Ej, słuchaj, sorry za tamto. Byłem trochę naburmuszony. Piwo na zgodę? 🍺',
+    cooldownMs: 30_000,
+  },
+};
+
+// Load strikes from localStorage
+function loadStrikes(): Record<string, number> {
+  try {
+    const raw = localStorage.getItem(PROFANITY_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function saveStrikes(strikes: Record<string, number>) {
+  try {
+    localStorage.setItem(PROFANITY_STORAGE_KEY, JSON.stringify(strikes));
+  } catch { /* ignore */ }
+}
+
+// Load blocks from localStorage
+interface BlockInfo {
+  blockedAt: number; // timestamp
+  cooldownMs: number;
+  apologyMessage: string;
+  apologySent: boolean;
+}
+
+function loadBlocks(): Record<string, BlockInfo> {
+  try {
+    const raw = localStorage.getItem(PROFANITY_BLOCK_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function saveBlocks(blocks: Record<string, BlockInfo>) {
+  try {
+    localStorage.setItem(PROFANITY_BLOCK_KEY, JSON.stringify(blocks));
+  } catch { /* ignore */ }
+}
+
+/**
+ * Check if a participant is currently blocked due to profanity.
+ * Returns true if blocked (still in cooldown).
+ */
+function isParticipantBlocked(participantId: string): boolean {
+  const blocks = loadBlocks();
+  const block = blocks[participantId];
+  if (!block) return false;
+  const elapsed = Date.now() - block.blockedAt;
+  return elapsed < block.cooldownMs;
+}
+
+/**
+ * Register a vulgar message strike. Returns 'blocked' if this strike triggers a block,
+ * 'already_blocked' if they're already blocked, or 'warned' otherwise.
+ */
+function registerVulgarStrike(participantId: string): 'warned' | 'blocked' | 'already_blocked' {
+  if (isParticipantBlocked(participantId)) return 'already_blocked';
+
+  const config = profanityConfigs[participantId];
+  if (!config) return 'warned'; // no config = no blocking, just warn
+
+  const strikes = loadStrikes();
+  const key = participantId;
+  strikes[key] = (strikes[key] || 0) + 1;
+  saveStrikes(strikes);
+
+  if (strikes[key] >= config.maxStrikes) {
+    // Block the participant
+    const blocks = loadBlocks();
+    blocks[participantId] = {
+      blockedAt: Date.now(),
+      cooldownMs: config.cooldownMs,
+      apologyMessage: config.apologyMessage,
+      apologySent: false,
+    };
+    saveBlocks(blocks);
+
+    // Reset strikes for next cycle
+    strikes[key] = 0;
+    saveStrikes(strikes);
+
+    return 'blocked';
+  }
+
+  return 'warned';
+}
+
+/**
+ * Check if a participant's cooldown has expired and send an apology if needed.
+ * Called at the beginning of scheduleChatResponse.
+ */
+function checkAndSendApology(
+  dispatch: Dispatch,
+  threadId: string,
+  participantId: string
+): boolean {
+  const blocks = loadBlocks();
+  const block = blocks[participantId];
+  if (!block) return false;
+
+  const elapsed = Date.now() - block.blockedAt;
+
+  if (elapsed >= block.cooldownMs && !block.apologySent) {
+    // Cooldown expired — send apology
+    block.apologySent = true;
+    saveBlocks(blocks);
+
+    setTimeout(() => {
+      dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+
+        const apologyMsg: Message = {
+          id: `apology-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+          senderId: participantId,
+          text: block.apologyMessage,
+          timestamp: new Date().toISOString(),
+        };
+
+        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: apologyMsg });
+
+        // Clean up the block record entirely
+        const updatedBlocks = loadBlocks();
+        delete updatedBlocks[participantId];
+        saveBlocks(updatedBlocks);
+      }, 2000);
+    }, 1500);
+
+    return true; // apology is being sent, proceed normally after
+  }
+
+  // Still in cooldown
+  if (elapsed < block.cooldownMs) {
+    return true; // still blocked
+  }
+
+  return false;
+}
+
 /**
  * Score how well a set of triggers matches the input text.
  * Returns 0 if no match, higher = better match.
@@ -373,7 +564,7 @@ export function matchChatResponse(
   threadId?: string
 ): ResponseOption | null {
   const context = analyzeContext(text);
-  
+
   // 1. First try rule-based matching (original trigger system)
   let bestScore = 0;
   let bestResponses: ResponseOption[] = [];
@@ -390,7 +581,7 @@ export function matchChatResponse(
 
   if (bestScore > 0 && bestResponses.length > 0) {
     // Filter out recently used responses
-    const filtered = threadId 
+    const filtered = threadId
       ? bestResponses.filter(r => !wasRecentlyUsed(threadId, r.text))
       : bestResponses;
     const pool = filtered.length > 0 ? filtered : bestResponses;
@@ -450,7 +641,7 @@ export function matchPostCommentResponse(
   currentUserId: string
 ): PostCommentResponseOption | null {
   const context = analyzeContext(text);
-  
+
   let bestScore = 0;
   let bestResponses: PostCommentResponseOption[] = [];
 
@@ -514,6 +705,10 @@ function generateContextualPostComment(
       'Hmm, ciężki temat! Ktoś wie? 🧐',
       'Też się nad tym zastanawiam! 💭',
     ],
+    vulgar: [
+      'Ekhm... nie wiem czy to odpowiedni język...',
+      'Proszę, trochę kultury...',
+    ],
   };
 
   const pool = sentimentComments[context.sentiment];
@@ -556,6 +751,55 @@ export function scheduleChatResponse(
   participantId: string,
   userText: string
 ): void {
+  // Check if the participant's cooldown has expired — send apology if so
+  checkAndSendApology(dispatch, threadId, participantId);
+
+  // If participant is currently blocked, don't respond at all
+  if (isParticipantBlocked(participantId)) {
+    return; // silently ignore — they're "not talking to you"
+  }
+
+  // Analyze if this message is vulgar
+  const context = analyzeContext(userText);
+  if (context.sentiment === 'vulgar') {
+    const strikeResult = registerVulgarStrike(participantId);
+
+    if (strikeResult === 'already_blocked') {
+      return; // still blocked, no response
+    }
+
+    if (strikeResult === 'blocked') {
+      // Send the farewell message
+      const config = profanityConfigs[participantId];
+      if (config) {
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+
+            const farewellMsg: Message = {
+              id: `farewell-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              senderId: participantId,
+              text: config.farewellMessage,
+              timestamp: new Date().toISOString(),
+            };
+
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: farewellMsg });
+
+            // Schedule the apology check for when cooldown expires
+            setTimeout(() => {
+              checkAndSendApology(dispatch, threadId, participantId);
+            }, config.cooldownMs + 1000);
+          }, 3000); // longer typing for dramatic effect
+        }, 2000);
+      }
+      return;
+    }
+
+    // strikeResult === 'warned' — they respond with a vulgar-sentiment response (already handled by templates)
+  }
+
   const matched = matchChatResponse(userText, participantId, threadId);
   const responseOption = matched ?? getFallbackChatResponse(participantId);
 
@@ -667,7 +911,7 @@ export function scheduleGroupPostCommentResponse(
  */
 export function generateContextualResponse(userContent: string, responderId: string): string {
   const context = analyzeContext(userContent);
-  
+
   // Try context templates for the responder
   const templates = contextualChatTemplates[responderId];
   if (templates) {
@@ -684,6 +928,7 @@ export function generateContextualResponse(userContent: string, responderId: str
     neutral: ['Ciekawe! 🤔', 'Rozumiem 👍', 'Ok, brzmi dobrze!'],
     funny: ['Haha, dobre! 😂', 'Niezłe! 😄', 'Padłem! 🤣'],
     question: ['Hmm, dobre pytanie! 🤔', 'Muszę to przemyśleć...', 'Ciekawy problem! 🧐'],
+    vulgar: ['Proszę, trochę kultury...', 'Hmm, nie wiem co na to powiedzieć...'],
   };
 
   const pool = generic[context.sentiment];

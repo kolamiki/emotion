@@ -89,7 +89,7 @@ export type ActiveView = { type: 'feed' } | { type: 'group'; groupId: string } |
 
 /* === Sentiment & Topic Analysis Types === */
 
-export type Sentiment = 'positive' | 'negative' | 'neutral' | 'funny' | 'question';
+export type Sentiment = 'positive' | 'negative' | 'neutral' | 'funny' | 'question' | 'vulgar';
 export type Topic = 'tech' | 'sport' | 'food' | 'travel' | 'work' | 'mood' | 'design' | 'music' | 'games' | 'general';
 
 export interface ContextAnalysis {
