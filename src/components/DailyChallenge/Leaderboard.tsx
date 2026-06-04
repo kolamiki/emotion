@@ -20,7 +20,7 @@ interface LeaderboardProps {
 
 // Fictional users for the leaderboard
 const fakeUsers = [
-  { id: 'lb-1', name: 'Kasia Zielińska', avatarUrl: 'https://i.pravatar.cc/150?u=u4' },
+  { id: 'lb-1', name: 'Profesor Prime', avatarUrl: './avatars/prime.png' },
   { id: 'lb-2', name: 'Piotr Wiśniewski', avatarUrl: 'https://i.pravatar.cc/150?u=u3' },
   { id: 'lb-3', name: 'Tomek Krawczyk', avatarUrl: 'https://i.pravatar.cc/150?u=u5' },
   { id: 'lb-4', name: 'Natalia Wójcik', avatarUrl: 'https://i.pravatar.cc/150?u=u10' },
@@ -41,7 +41,7 @@ function generateFakeTimes(): number[] {
   // Seed based on today's date so times are consistent for the day
   const today = new Date();
   const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  
+
   // Simple seeded random
   let rng = seed;
   const nextRandom = () => {
@@ -72,13 +72,35 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({
 }) => {
   const entries = useMemo<LeaderboardEntry[]>(() => {
     const fakeTimes = generateFakeTimes();
-    
+
     // Create entries for fake users
     const fakeEntries: LeaderboardEntry[] = fakeUsers.map((user, i) => ({
       ...user,
       timeSeconds: fakeTimes[i],
       isCurrentUser: false,
     }));
+
+    const primeIndex = fakeEntries.findIndex(e => e.name === 'Profesor Prime');
+    if (primeIndex !== -1) {
+      let primeTime;
+      if (!hideCurrentUser && userTimeSeconds < 999999) {
+        // User solved the puzzle
+        primeTime = Math.max(1, userTimeSeconds - 5);
+      } else {
+        // User gave up or hideCurrentUser is true
+        const minFakeTime = Math.min(...fakeTimes);
+        primeTime = Math.max(1, minFakeTime - 10);
+      }
+      
+      fakeEntries[primeIndex].timeSeconds = primeTime;
+
+      // Ensure no other fake user is faster than Prime
+      fakeEntries.forEach((entry, i) => {
+        if (i !== primeIndex && entry.timeSeconds <= primeTime) {
+          entry.timeSeconds = primeTime + Math.floor(Math.random() * 15) + 1;
+        }
+      });
+    }
 
     const all = [...fakeEntries];
 

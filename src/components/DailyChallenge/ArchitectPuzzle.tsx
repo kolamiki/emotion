@@ -230,12 +230,11 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     <div className={styles.architectContainer}>
       {/* Rules */}
       <div className={styles.rulesBox}>
-        <h4>🏠 Zasady — Architekt</h4>
+        <h4>💣🏫 Zasady — Bombowa Szkoła</h4>
         <ul>
-          <li>Umieść zbiornik z gazem (⛽) przy każdym domku</li>
-          <li>Zbiornik połącz z domkiem kreską (góra/dół/lewo/prawo)</li>
-          <li>Zbiorniki nie mogą się stykać — ani bokiem, ani rogiem</li>
-          <li>Liczby na krawędziach = ile zbiorników w wierszu/kolumnie</li>
+          <li>Wskaż miejsce bomby (💣) przy każdej szkole</li>
+          <li>Bomby nie mogą się stykać — ani bokiem, ani rogiem</li>
+          <li>Liczby na krawędziach = ile bomb w danym wierszu/kolumnie</li>
         </ul>
       </div>
 
@@ -308,18 +307,17 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
                     onClick={() => handleCellClick(row, col)}
                   >
                     {isHouse && (
-                      <span className={styles.houseIcon}>🏠</span>
+                      <span className={styles.houseIcon}>🏫</span>
                     )}
                     {isTank && (
                       <>
                         <Flame size={22} className={styles.tankIcon} />
                         {connectionDir && (
                           <div
-                            className={`${styles.connectionLine} ${
-                              connectionDir === 'left' || connectionDir === 'right'
-                                ? styles.connectionLineH
-                                : styles.connectionLineV
-                            }`}
+                            className={`${styles.connectionLine} ${connectionDir === 'left' || connectionDir === 'right'
+                              ? styles.connectionLineH
+                              : styles.connectionLineV
+                              }`}
                             style={{
                               ...(connectionDir === 'left' ? { right: '50%', left: 0 } : {}),
                               ...(connectionDir === 'right' ? { left: '50%', right: 0 } : {}),

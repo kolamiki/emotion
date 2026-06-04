@@ -3,9 +3,10 @@ import { Trophy, Puzzle, BrainCircuit, Target, Keyboard, HelpCircle, Building2 }
 import styles from './DailyChallenge.module.css';
 import crosswordStyles from './crossword.module.css';
 import { dailyPuzzles } from './puzzles';
-import type { PuzzleType, ArchitectPuzzle } from './puzzles';
+import type { PuzzleType, ArchitectPuzzle, QuizPuzzle } from './puzzles';
 import { ArchitectPuzzleComponent } from './ArchitectPuzzle';
 import { RebusPuzzleComponent } from './RebusPuzzle';
+import { QuizPuzzleComponent } from './QuizPuzzle';
 import { Leaderboard } from './Leaderboard';
 import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 
@@ -244,6 +245,15 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
         <ArchitectPuzzleComponent
           puzzle={puzzleData as ArchitectPuzzle}
           onSolved={handlePuzzleSolved}
+        />
+      );
+    }
+    if (currentPuzzle.type === 'quiz') {
+      return (
+        <QuizPuzzleComponent
+          puzzle={currentPuzzle as { items: QuizPuzzle[] }}
+          onSolved={handlePuzzleSolved}
+          onGiveUp={handleGiveUp}
         />
       );
     }

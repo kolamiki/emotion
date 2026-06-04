@@ -1,0 +1,466 @@
+/* ===========================
+   Quiz Puzzle Styles
+   =========================== */
+
+.quizContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 640px;
+}
+
+/* === Header (Progress & Timer) === */
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.progressDots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.progressDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  transition: all 0.3s;
+}
+
+.progressDotActive {
+  background: var(--primary);
+  transform: scale(1.25);
+  box-shadow: 0 0 8px rgba(108, 43, 217, 0.4);
+}
+
+.progressDotCorrect {
+  background: var(--success);
+}
+
+.progressDotWrong {
+  background: var(--accent);
+}
+
+.progressLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+}
+
+.timer svg {
+  opacity: 0.7;
+}
+
+.penaltyPopup {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  animation: floatUpFade 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUpFade {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+/* === Score Indicator === */
+.scoreRow {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.scoreBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.scoreBadgeCorrect {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.scoreBadgeWrong {
+  background: rgba(255, 107, 107, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+/* === Category Badge === */
+.categoryBadge {
+  background: linear-gradient(135deg, rgba(108, 43, 217, 0.1), rgba(108, 43, 217, 0.05));
+  color: var(--primary);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 1px solid rgba(108, 43, 217, 0.2);
+}
+
+/* === Question Card === */
+.questionCard {
+  width: 100%;
+  background: var(--bg-panel);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.questionNumber {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.questionText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* === Options Grid === */
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.optionBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--gray-200);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.optionBtn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: rgba(108, 43, 217, 0.04);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.optionBtn:disabled {
+  cursor: default;
+}
+
+.optionLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gray-100);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.optionBtn:hover:not(:disabled) .optionLabel {
+  background: rgba(108, 43, 217, 0.15);
+  color: var(--primary);
+}
+
+/* Option states */
+.optionCorrect {
+  border-color: var(--success) !important;
+  background: rgba(34, 197, 94, 0.08) !important;
+}
+
+.optionCorrect .optionLabel {
+  background: var(--success) !important;
+  color: white !important;
+}
+
+.optionWrong {
+  border-color: var(--accent) !important;
+  background: rgba(255, 107, 107, 0.08) !important;
+}
+
+.optionWrong .optionLabel {
+  background: var(--accent) !important;
+  color: white !important;
+}
+
+.optionDisabled {
+  opacity: 0.4;
+}
+
+.optionHidden {
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* === Explanation Box === */
+.explanationBox {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  animation: slideDown 0.3s ease-out;
+  line-height: 1.5;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.explanationCorrect {
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: var(--success);
+}
+
+.explanationWrong {
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  color: var(--accent);
+}
+
+.explanationIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* === Actions === */
+.actionsRow {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nextBtn {
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  box-shadow: 0 4px 14px rgba(108, 43, 217, 0.3);
+  flex: 2;
+  min-width: 160px;
+}
+
+.nextBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 43, 217, 0.4);
+}
+
+.fiftyBtn {
+  color: var(--text-secondary);
+  background: var(--gray-100);
+  flex: 1;
+}
+
+.fiftyBtn:hover:not(:disabled) {
+  background: var(--gray-200);
+  color: var(--text-primary);
+}
+
+.fiftyBtnUsed {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+/* Secondary Actions */
+.secondaryActions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.giveUpBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.giveUpBtn:hover {
+  color: var(--accent);
+}
+
+/* === Success Screen === */
+.successOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 3rem 2rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.successTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--success);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.successStats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.successStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.successStatValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.successStatLabel {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.successTime {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  background: var(--gray-50);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+/* === Responsive === */
+@media (max-width: 520px) {
+  .optionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .questionCard {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .questionText {
+    font-size: 1.05rem;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    flex: none;
+  }
+
+  .scoreRow {
+    gap: 0.5rem;
+  }
+
+  .successStats {
+    gap: 1.25rem;
+  }
+}

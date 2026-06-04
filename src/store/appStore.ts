@@ -5,6 +5,12 @@ import { mockData } from '../mockData';
 /* === localStorage helpers === */
 const STORAGE_KEY = 'emotion-app-state';
 
+// State limits to prevent localStorage bloat
+const MAX_POSTS = 200;
+const MAX_NOTIFICATIONS = 100;
+const MAX_MESSAGES_PER_THREAD = 200;
+const MAX_COMMENTS_PER_POST = 50;
+
 export function loadPersistedState(): Partial<AppState> | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -102,7 +108,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         comments: [],
         shares: 0,
       };
-      return { ...state, posts: [newPost, ...state.posts] };
+      return { ...state, posts: [newPost, ...state.posts].slice(0, MAX_POSTS) };
     }
 
     case 'TOGGLE_LIKE_POST': {
@@ -139,7 +145,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     case 'ADD_COMMENT': {
       const newPosts = state.posts.map(p =>
         p.id === action.postId
-          ? { ...p, comments: [...p.comments, action.comment] }
+          ? { ...p, comments: [...p.comments, action.comment].slice(-MAX_COMMENTS_PER_POST) }
           : p
       );
       return { ...state, posts: newPosts };
@@ -152,7 +158,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
           ...g,
           posts: g.posts.map(p =>
             p.id === action.postId
-              ? { ...p, comments: [...p.comments, action.comment] }
+              ? { ...p, comments: [...p.comments, action.comment].slice(-MAX_COMMENTS_PER_POST) }
               : p
           ),
         };
@@ -163,7 +169,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     case 'SEND_MESSAGE': {
       const newMessages = state.messages.map(t =>
         t.threadId === action.threadId
-          ? { ...t, messages: [...t.messages, action.message] }
+          ? { ...t, messages: [...t.messages, action.message].slice(-MAX_MESSAGES_PER_THREAD) }
           : t
       );
       return { ...state, messages: newMessages };
@@ -172,7 +178,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     case 'ADD_RESPONSE_MESSAGE': {
       const newMessages = state.messages.map(t =>
         t.threadId === action.threadId
-          ? { ...t, messages: [...t.messages, action.message] }
+          ? { ...t, messages: [...t.messages, action.message].slice(-MAX_MESSAGES_PER_THREAD) }
           : t
       );
       return { ...state, messages: newMessages };
@@ -195,7 +201,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     case 'ADD_NOTIFICATION': {
       return {
         ...state,
-        notifications: [action.notification, ...state.notifications],
+        notifications: [action.notification, ...state.notifications].slice(0, MAX_NOTIFICATIONS),
       };
     }
 
@@ -204,13 +210,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     }
 
     case 'ADD_FEED_POST_FROM_USER': {
-      return { ...state, posts: [action.post, ...state.posts] };
+      return { ...state, posts: [action.post, ...state.posts].slice(0, MAX_POSTS) };
     }
 
     case 'ADD_GROUP_POST': {
       const newGroups = state.groups.map(g => {
         if (g.id !== action.groupId) return g;
-        return { ...g, posts: [action.post, ...g.posts] };
+        return { ...g, posts: [action.post, ...g.posts].slice(0, MAX_POSTS) };
       });
       return { ...state, groups: newGroups };
     }

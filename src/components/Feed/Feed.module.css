@@ -354,3 +354,20 @@
   background: var(--gray-300);
   cursor: not-allowed;
 }
+
+/* === Infinite Scroll === */
+.loadMore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+  color: var(--text-muted);
+}
+
+.loaderIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

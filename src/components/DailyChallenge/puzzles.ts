@@ -24,6 +24,20 @@ export interface RebusPuzzle {
   hint: string;
 }
 
+export interface QuizQuestion {
+  id: number;
+  category: 'Nauka' | 'Historia' | 'Geografia' | 'Kultura' | 'Technologia';
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+export interface QuizPuzzle {
+  id: number;
+  questions: QuizQuestion[];
+}
+
 export interface PuzzleCollection {
   dayOfWeek: number; // 0 = Sunday, 1 = Monday, etc.
   type: PuzzleType;
@@ -94,7 +108,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
     title: 'Wtorkowa Wykreślanka',
     description: 'Znajdź wszystkie ukryte słowa w gąszczu liter.',
     items: [
-      { id: 1, words: ['REACT', 'TYPESCRIPT', 'CSS'] },
+      { id: 1, words: ['PRIMECO', 'PROFESOR', 'PRZYSZŁOŚĆ', 'DŁUGOPIS', 'CZAS', 'NAUKA',] },
       { id: 2, words: ['FRONTEND', 'BACKEND', 'API'] }
     ]
   },
@@ -112,8 +126,8 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       { id: 105, category: 'Przysłowia', emojis: ['🏃‍♂️', '💨', '🐢', '🏆'], answer: 'Spiesz się powoli', hint: 'Dokładność jest ważniejsza niż pośpiech.' },
       { id: 106, category: 'Przysłowia', emojis: ['🐈', '🐭', '💃'], answer: 'Gdy kota nie ma myszy harcują', hint: 'Brak nadzoru prowadzi do rozluźnienia dyscypliny.' },
       { id: 107, category: 'Przysłowia', emojis: ['🔥', '💨', '❌', '🔥'], answer: 'Nie ma dymu bez ognia', hint: 'Zawsze jest jakaś przyczyna plotek lub zdarzeń.' },
-      { id: 108, category: 'Przysłowia', emojis: ['👁️', '❤️', '👁️', '❌', '❤️'], answer: 'Czego oczy nie widzą tego sercu nie żal', hint: 'Brak wiedzy chroni przed zmartwieniem.' },
-      { id: 109, category: 'Przysłowia', emojis: ['🐦', '✋', '🐦', '🐦', '🌲'], answer: 'Lepszy wróbel w garści niż gołąb na dachu', hint: 'Pewne, małe zyski są lepsze niż niepewne obietnice.' },
+      { id: 108, category: 'Przysłowia', emojis: ['🏹', '🏹', '🎯'], answer: 'Do trzech razu sztuka', hint: 'Próbuj, próbuj, a za kolejnym razem się uda.' },
+      { id: 109, category: 'Przysłowia', emojis: ['🐦', '✋', '🦅', '🏠'], answer: 'Lepszy wróbel w garści niż gołąb na dachu', hint: 'Pewne, małe zyski są lepsze niż niepewne obietnice.' },
       { id: 110, category: 'Przysłowia', emojis: ['😴', '🛏️', '☀️', '🛌'], answer: 'Kto rano wstaje temu Pan Bóg daje', hint: 'Wczesne wstawanie przynosi korzyści.' },
 
       // === TYTUŁY FILMÓW ===
@@ -139,6 +153,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       { id: 308, category: 'Bohaterowie komiksowi', emojis: ['🐱', '👩', '💎'], answer: 'Kobieta Kot', hint: 'Złodziejka z Gotham, Selina.' },
       { id: 309, category: 'Bohaterowie komiksowi', emojis: ['🏹', '🦅', '🎯'], answer: 'Hawkeye', hint: 'Najlepszy łucznik Avengers.' },
       { id: 310, category: 'Bohaterowie komiksowi', emojis: ['👽', '🦸‍♂️', '☀️', 'S'], answer: 'Superman', hint: 'Człowiek ze stali z planety Krypton.' },
+      { id: 311, category: 'Bohaterowie komiksowi', emojis: ['🥼', '🕶️', '🐶',], answer: 'Doc Behrmann', hint: 'Niemiecki naukowiec, lubiący psy.' },
 
       // === KRAJE ŚWIATA ===
       { id: 401, category: 'Kraje świata', emojis: ['🗼', '🥐', '🍷'], answer: 'Francja', hint: 'Kraj nad Sekwaną.' },
@@ -157,11 +172,48 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
     dayOfWeek: 4,
     type: 'quiz',
     title: 'Czwartkowy Quiz',
-    description: 'Sprawdź swoją wiedzę w naszym quizie.',
+    description: 'Odpowiedz na 10 pytań jak najszybciej! Błędna odpowiedź +30s, podpowiedź 50/50 +15s.',
     items: [
-      { id: 1, questions: [] },
-      { id: 2, questions: [] }
-    ]
+      {
+        id: 1,
+        questions: [
+          // === NAUKA ===
+          { id: 101, category: 'Nauka', question: 'Jaki pierwiastek chemiczny ma symbol "Au"?', options: ['Srebro', 'Złoto', 'Aluminium', 'Argon'], correctIndex: 1, explanation: 'Au pochodzi od łacińskiego "aurum", oznaczającego złoto.' },
+          { id: 102, category: 'Nauka', question: 'Ile kości ma dorosły człowiek?', options: ['186', '206', '226', '256'], correctIndex: 1, explanation: 'Dorosły człowiek posiada 206 kości. Noworodki mają ich około 270, ale niektóre zrastają się z wiekiem.' },
+          { id: 103, category: 'Nauka', question: 'Która planeta Układu Słonecznego jest największa?', options: ['Saturn', 'Neptun', 'Jowisz', 'Uran'], correctIndex: 2, explanation: 'Jowisz jest największą planetą — mieści się w nim ponad 1300 Ziem.' },
+          { id: 104, category: 'Nauka', question: 'Co mierzy skala Richtera?', options: ['Siłę wiatru', 'Siłę trzęsień ziemi', 'Temperaturę', 'Ciśnienie atmosferyczne'], correctIndex: 1, explanation: 'Skala Richtera mierzy magnitudę (energię) trzęsień ziemi.' },
+          { id: 105, category: 'Nauka', question: 'Jaki gaz stanowi największą część atmosfery Ziemi?', options: ['Tlen', 'Azot', 'Dwutlenek węgla', 'Argon'], correctIndex: 1, explanation: 'Azot stanowi około 78% atmosfery Ziemi.' },
+
+          // === HISTORIA ===
+          { id: 201, category: 'Historia', question: 'W którym roku Kolumb dotarł do Ameryki?', options: ['1482', '1492', '1502', '1512'], correctIndex: 1, explanation: 'Krzysztof Kolumb dopłynął do Ameryki 12 października 1492 roku.' },
+          { id: 202, category: 'Historia', question: 'Kto był pierwszym człowiekiem na Księżycu?', options: ['Buzz Aldrin', 'Jurij Gagarin', 'Neil Armstrong', 'John Glenn'], correctIndex: 2, explanation: 'Neil Armstrong postawił stopę na Księżycu 20 lipca 1969 roku w ramach misji Apollo 11.' },
+          { id: 203, category: 'Historia', question: 'W którym roku odbyła się Bitwa pod Grunwaldem?', options: ['1385', '1410', '1444', '1466'], correctIndex: 1, explanation: 'Bitwa pod Grunwaldem miała miejsce 15 lipca 1410 roku — jedno z najważniejszych starć w historii Polski.' },
+          { id: 204, category: 'Historia', question: 'Który faraon kazał zbudować Wielką Piramidę w Gizie?', options: ['Tutanchamon', 'Ramzes II', 'Cheops', 'Amenhotep III'], correctIndex: 2, explanation: 'Wielka Piramida w Gizie została zbudowana ok. 2560 r. p.n.e. dla faraona Cheopsa (Chufu).' },
+          { id: 205, category: 'Historia', question: 'Jak nazywał się ostatni król Polski?', options: ['Jan III Sobieski', 'Stanisław August Poniatowski', 'Zygmunt III Waza', 'August III Sas'], correctIndex: 1, explanation: 'Stanisław August Poniatowski (1732–1798) był ostatnim królem Rzeczypospolitej.' },
+
+          // === GEOGRAFIA ===
+          { id: 301, category: 'Geografia', question: 'Jaka jest stolica Australii?', options: ['Sydney', 'Melbourne', 'Canberra', 'Brisbane'], correctIndex: 2, explanation: 'Stolicą Australii jest Canberra, nie Sydney — wiele osób myli te dwa miasta.' },
+          { id: 302, category: 'Geografia', question: 'Jaka jest najdłuższa rzeka świata?', options: ['Amazonka', 'Nil', 'Jangcy', 'Missisipi'], correctIndex: 1, explanation: 'Nil ma długość ok. 6 650 km. Choć Amazonka bywa uznawana za najdłuższą — zależy od metodologii pomiaru.' },
+          { id: 303, category: 'Geografia', question: 'W ilu strefach czasowych leży Rosja?', options: ['7', '9', '11', '13'], correctIndex: 2, explanation: 'Rosja rozciąga się na 11 stref czasowych — od Kaliningradu po Kamczatkę.' },
+          { id: 304, category: 'Geografia', question: 'Który ocean jest najmniejszy?', options: ['Indyjski', 'Atlantycki', 'Arktyczny', 'Południowy'], correctIndex: 2, explanation: 'Ocean Arktyczny (Lodowaty Północny) ma powierzchnię ok. 14 mln km² — to najmniejszy z pięciu oceanów.' },
+          { id: 305, category: 'Geografia', question: 'Jak nazywa się najwyższy szczyt Afryki?', options: ['Mont Blanc', 'Kilimandżaro', 'Elbrus', 'Aconcagua'], correctIndex: 1, explanation: 'Kilimandżaro (5 895 m n.p.m.) to najwyższy szczyt kontynentu afrykańskiego, położony w Tanzanii.' },
+
+          // === KULTURA ===
+          { id: 401, category: 'Kultura', question: 'Kto namalował "Gwiaździstą noc"?', options: ['Claude Monet', 'Pablo Picasso', 'Vincent van Gogh', 'Salvador Dalí'], correctIndex: 2, explanation: 'Vincent van Gogh namalował "Gwiaździstą noc" w 1889 roku podczas pobytu w szpitalu psychiatrycznym.' },
+          { id: 402, category: 'Kultura', question: 'Ile symfonii skomponował Beethoven?', options: ['5', '7', '9', '12'], correctIndex: 2, explanation: 'Ludwig van Beethoven skomponował 9 symfonii. Ostatnia, IX, zawiera słynną "Odę do radości".' },
+          { id: 403, category: 'Kultura', question: 'Kto napisał "Zbrodnię i karę"?', options: ['Lew Tołstoj', 'Fiodor Dostojewski', 'Anton Czechow', 'Mikołaj Gogol'], correctIndex: 1, explanation: 'Fiodor Dostojewski opublikował "Zbrodnię i karę" w 1866 roku.' },
+          { id: 404, category: 'Kultura', question: 'W którym mieście znajduje się Sagrada Familia?', options: ['Madryt', 'Lizbona', 'Barcelona', 'Rzym'], correctIndex: 2, explanation: 'Sagrada Familia to bazylika w Barcelonii zaprojektowana przez Antoniego Gaudíego, budowana od 1882 roku.' },
+          { id: 405, category: 'Kultura', question: 'Który film jako pierwszy w historii zdobył Oscara za najlepszy film?', options: ['Skrzydła', 'Metropolis', 'Śpiewak jazzbandu', 'Wschód słońca'], correctIndex: 0, explanation: '"Skrzydła" (1927) — niemy film wojenny — zdobyły pierwszego Oscara za najlepszy film w 1929 roku.' },
+
+          // === TECHNOLOGIA ===
+          { id: 501, category: 'Technologia', question: 'W którym roku powstał pierwszy iPhone?', options: ['2005', '2007', '2009', '2010'], correctIndex: 1, explanation: 'Pierwszy iPhone został zaprezentowany przez Steve\'a Jobsa 9 stycznia 2007 roku.' },
+          { id: 502, category: 'Technologia', question: 'Kto jest twórcą Linuxa?', options: ['Bill Gates', 'Steve Wozniak', 'Linus Torvalds', 'Dennis Ritchie'], correctIndex: 2, explanation: 'Linus Torvalds stworzył jądro Linux w 1991 roku, będąc studentem w Finlandii.' },
+          { id: 503, category: 'Technologia', question: 'Co oznacza skrót HTML?', options: ['HyperText Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language', 'Hyper Transfer Multi Language'], correctIndex: 0, explanation: 'HTML to HyperText Markup Language — język znaczników do tworzenia stron internetowych.' },
+          { id: 504, category: 'Technologia', question: 'Która firma stworzyła język programowania Java?', options: ['Microsoft', 'Sun Microsystems', 'IBM', 'Apple'], correctIndex: 1, explanation: 'Java została stworzona przez Jamesa Goslinga w Sun Microsystems i wydana w 1995 roku.' },
+          { id: 505, category: 'Technologia', question: 'Ile bitów ma jeden bajt?', options: ['4', '8', '16', '32'], correctIndex: 1, explanation: 'Jeden bajt składa się z 8 bitów. To podstawowa jednostka informacji w informatyce.' }
+        ] as QuizQuestion[]
+      }
+    ] as QuizPuzzle[]
   },
   5: {
     dayOfWeek: 5,
@@ -176,8 +228,8 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   6: {
     dayOfWeek: 6,
     type: 'architect',
-    title: 'Sobotnia Zagadka — Architekt',
-    description: 'Umieść zbiorniki z gazem przy każdym domku! Zbiorniki nie mogą się stykać.',
+    title: 'Sobotnia Zagadka — Bombowa Szkoła',
+    description: 'Rajciu! Jakiś nicpoń podłożył bomby w pobliskich szkołach i grozi ich wysadzeniem. Na szczęście zdobyłeś plany rozmieszczenia ładunków, dzięki czemu wiesz ile bomb jest w każdym rzędzie oraz kolumnie. Wskaż miejsca bomb i przekaż je saperom. Pamiętaj, że terrorysta działał zgodnie z zasadami BHP i ułożył ładunki tak, aby nie mogły się stykać.',
     items: [
       {
         id: 1,

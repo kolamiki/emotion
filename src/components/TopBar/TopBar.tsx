@@ -11,6 +11,7 @@ import {
   Users,
   AtSign,
   UserPlus,
+  Trash2,
 } from 'lucide-react';
 import styles from './TopBar.module.css';
 import type { User, AppNotification, MessageThread, AppAction, Group, ActiveView, ReadThreads } from '../../types';
@@ -222,6 +223,13 @@ export const TopBar: React.FC<TopBarProps> = ({
     return `${Math.floor(hrs / 24)}d`;
   };
 
+  const handleClearData = () => {
+    if (confirm('Czy na pewno chcesz usunąć wszystkie dane z localStorage i przeładować stronę? (Opcja deweloperska)')) {
+      localStorage.clear();
+      window.location.reload();
+    }
+  };
+
   const handlePublish = () => {
     if (!newPostText.trim()) return;
     const content = newPostText.trim();
@@ -379,6 +387,15 @@ export const TopBar: React.FC<TopBarProps> = ({
 
         {/* Actions */}
         <div className={styles.actions}>
+          <button
+            className={styles.actionBtn}
+            title="Wyczyść dane (Dev)"
+            onClick={handleClearData}
+            style={{ color: 'var(--accent)' }}
+          >
+            <Trash2 size={18} />
+          </button>
+
           <button
             className={`${styles.actionBtn} ${styles.mobileSearchBtn}`}
             onClick={() => {

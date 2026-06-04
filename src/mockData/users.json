@@ -167,6 +167,36 @@
       "bio": "Uwielbiam kino, spacery po mieście i moich przyjaciół. Często gubię klucze, ale tym razem zgubiłam kogoś znacznie cenniejszego...",
       "location": "Paryż, Francja",
       "joinDate": "kwiecień 2024"
+    },
+    {
+      "id": "u_matylda",
+      "name": "Matylda Iggermann",
+      "avatarUrl": "/avatars/matylda.png",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "",
+      "location": "Paryż, Francja",
+      "joinDate": "wrzesień 2022"
+    },
+    {
+      "id": "u_gaston",
+      "name": "Gaston Desole",
+      "avatarUrl": "/avatars/gaston.png",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Przedsięborce, główny twórca aplikacji eMotion. STOP HEJT!",
+      "location": "Paryż, Francja",
+      "joinDate": "styczeń 2026"
+    },
+    {
+      "id": "u_behrmann",
+      "name": "Helmut Behrmann",
+      "avatarUrl": "/avatars/behrmann.png",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Genetyk, kynopsycholog i behawiorysta. Lubię psy i chętnie pomogę w diagnozie zachowania Twojego pupila.",
+      "location": "Düsseldorf, Niemcy",
+      "joinDate": "wrzesień 2022"
     }
   ]
 }

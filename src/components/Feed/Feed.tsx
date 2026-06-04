@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Heart, MessageCircle, Share2, Send } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Heart, MessageCircle, Share2, Send, Loader2 } from 'lucide-react';
 import styles from './Feed.module.css';
 import type { Post, User, Comment, AppAction, LikedPosts } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
@@ -14,9 +14,38 @@ interface FeedProps {
 }
 
 export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, dispatch, onOpenCreatePost, onViewProfile }) => {
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
   const sortedPosts = [...posts].sort(
     (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
   );
+
+  useEffect(() => {
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && visibleCount < sortedPosts.length && !isLoadingMore) {
+        setIsLoadingMore(true);
+        // Simulate network delay for smoother UX
+        setTimeout(() => {
+          setVisibleCount(prev => prev + 5);
+          setIsLoadingMore(false);
+        }, 600);
+      }
+    }, { rootMargin: '400px' }); // Load when within 400px of bottom
+
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+
+    return () => observerRef.current?.disconnect();
+  }, [visibleCount, sortedPosts.length, isLoadingMore]);
+
+  const visiblePosts = sortedPosts.slice(0, visibleCount);
+  const hasMore = visibleCount < sortedPosts.length;
 
   return (
     <div className={styles.feed}>
@@ -36,7 +65,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
         </div>
       </div>
 
-      {sortedPosts.map(post => (
+      {visiblePosts.map(post => (
         <PostCard
           key={post.id}
           post={post}
@@ -46,6 +75,12 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           onViewProfile={onViewProfile}
         />
       ))}
+
+      {hasMore && (
+        <div ref={loadMoreRef} className={styles.loadMore}>
+          {isLoadingMore && <Loader2 size={24} className={styles.loaderIcon} />}
+        </div>
+      )}
     </div>
   );
 };
