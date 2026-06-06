@@ -147,7 +147,7 @@ export const Layout: React.FC = () => {
           dispatch({ type: 'ACCEPT_FRIEND', userId });
           
           // Opcjonalnie dodajemy powiadomienie
-          const user = state.users?.find(u => u.id === userId) || usersData.allUsers.find(u => u.id === userId);
+          const user = usersData.allUsers.find(u => u.id === userId);
           if (user) {
             dispatch({
               type: 'ADD_NOTIFICATION',

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { X, MessageCircle, UserPlus, UserCheck, MapPin, Calendar, Users, FileText } from 'lucide-react';
 import styles from './ProfilePreview.module.css';
-import type { User, Group, Post, AppAction } from '../../types';
+import type { User, Group, Post } from '../../types';
 import { BLOCKED_FRIEND_IDS } from '../../types';
 
 interface ProfilePreviewProps {

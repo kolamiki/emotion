@@ -3,7 +3,7 @@ import { UserPlus, MessageCircle, MapPin, Calendar } from 'lucide-react';
 import styles from './FriendsList.module.css';
 import { usersData } from '../../mockData';
 import { BLOCKED_FRIEND_IDS } from '../../types';
-import type { User, AppAction } from '../../types';
+import type { User } from '../../types';
 
 interface FriendsListProps {
   currentUser: User;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Clock, RotateCcw, CheckCircle, Flame, X } from 'lucide-react';
+import { Clock, RotateCcw, CheckCircle, X } from 'lucide-react';
 import styles from './architect.module.css';
 import type { ArchitectPuzzle } from './puzzles';
 
