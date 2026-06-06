@@ -134,6 +134,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
   const [showAllComments, setShowAllComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleLike = () => {
     if (!isLiked) {
@@ -223,7 +224,36 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
         </div>
       </div>
 
-      <div className={styles.postContent}>{post.content}</div>
+      <div className={styles.postContent}>
+        {post.content.length > 168 && !isExpanded ? (
+          <>
+            {post.content.slice(0, 168)}...{' '}
+            <span 
+              className={styles.readMoreBtn} 
+              onClick={() => setIsExpanded(true)}
+              style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
+            >
+              wyświetl więcej
+            </span>
+          </>
+        ) : (
+          <>
+            {post.content}
+            {post.content.length > 168 && (
+              <>
+                {' '}
+                <span 
+                  className={styles.readMoreBtn} 
+                  onClick={() => setIsExpanded(false)}
+                  style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
+                >
+                  Wyświetl mniej
+                </span>
+              </>
+            )}
+          </>
+        )}
+      </div>
 
       {/* Engagement Stats */}
       {(displayLikes > 0 || post.comments.length > 0 || post.shares > 0) && (

@@ -223,6 +223,7 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
 }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleLike = () => {
     dispatch({ type: 'TOGGLE_LIKE_GROUP_POST', groupId, postId: post.id });
@@ -273,7 +274,36 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
           <div className={styles.gpTime}>{formatTime(post.timestamp)}</div>
         </div>
       </div>
-      <div className={styles.gpContent}>{post.content}</div>
+      <div className={styles.gpContent}>
+        {post.content.length > 168 && !isExpanded ? (
+          <>
+            {post.content.slice(0, 168)}...{' '}
+            <span 
+              className={styles.readMoreBtn} 
+              onClick={() => setIsExpanded(true)}
+              style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
+            >
+              wyświetl więcej
+            </span>
+          </>
+        ) : (
+          <>
+            {post.content}
+            {post.content.length > 168 && (
+              <>
+                {' '}
+                <span 
+                  className={styles.readMoreBtn} 
+                  onClick={() => setIsExpanded(false)}
+                  style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
+                >
+                  Wyświetl mniej
+                </span>
+              </>
+            )}
+          </>
+        )}
+      </div>
 
       {(post.likes > 0 || post.comments.length > 0) && (
         <div className={styles.gpStats}>
