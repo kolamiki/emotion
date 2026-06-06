@@ -12,9 +12,10 @@ import {
   AtSign,
   UserPlus,
   Trash2,
+  ChevronRight,
 } from 'lucide-react';
 import styles from './TopBar.module.css';
-import type { User, AppNotification, MessageThread, AppAction, Group, ActiveView, ReadThreads } from '../../types';
+import type { User, AppNotification, MessageThread, AppAction, Group, ActiveView, ReadThreads, NotificationLink } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
 import { usersData } from '../../mockData';
 
@@ -31,7 +32,10 @@ interface TopBarProps {
   dispatch: React.Dispatch<AppAction>;
   onViewProfile?: (userId: string) => void;
   groups: Group[];
+  friends: Set<string>;
+  pendingFriends: Set<string>;
   onNavigate: (view: ActiveView) => void;
+  onNotificationClick?: (link: NotificationLink) => void;
 }
 
 const notifIconMap: Record<string, { icon: React.ReactNode; className: string }> = {
@@ -71,7 +75,10 @@ export const TopBar: React.FC<TopBarProps> = ({
   dispatch,
   onViewProfile,
   groups,
+  friends,
+  pendingFriends,
   onNavigate,
+  onNotificationClick,
 }) => {
   const [activeDropdown, setActiveDropdown] = useState<'notifications' | 'messages' | null>(null);
   const [newPostText, setNewPostText] = useState('');
@@ -323,9 +330,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                             </div>
                           )}
                         </div>
-                        {user.isFriend && (
+                        {friends.has(user.id) ? (
                           <span className={styles.searchResultFriendBadge}>Znajomy</span>
-                        )}
+                        ) : pendingFriends.has(user.id) ? (
+                          <span className={styles.searchResultFriendBadge} style={{ background: 'var(--gray-200)', color: 'var(--text-secondary)' }}>Wysłane</span>
+                        ) : null}
                       </div>
                     ))}
                   </>
@@ -473,8 +482,14 @@ export const TopBar: React.FC<TopBarProps> = ({
                     return (
                       <div
                         key={n.id}
-                        className={`${styles.notifItem} ${!n.isRead ? styles.notifUnread : ''}`}
-                        onClick={() => dispatch({ type: 'MARK_NOTIFICATION_READ', notificationId: n.id })}
+                        className={`${styles.notifItem} ${!n.isRead ? styles.notifUnread : ''} ${n.link ? styles.notifClickable : ''}`}
+                        onClick={() => {
+                          dispatch({ type: 'MARK_NOTIFICATION_READ', notificationId: n.id });
+                          if (n.link && onNotificationClick) {
+                            onNotificationClick(n.link);
+                            closeDropdown();
+                          }
+                        }}
                       >
                         <div className={`${styles.notifIcon} ${styles[iconInfo.className]}`}>
                           {iconInfo.icon}
@@ -483,6 +498,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                           <div className={styles.notifText}>{n.message}</div>
                           <div className={styles.notifTime}>{formatTime(n.timestamp)}</div>
                         </div>
+                        {n.link && (
+                          <div className={styles.notifChevron}>
+                            <ChevronRight size={16} />
+                          </div>
+                        )}
                       </div>
                     );
                   })}

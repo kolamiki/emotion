@@ -7,8 +7,10 @@ import { scheduleChatResponse } from '../../store/responseEngine';
 interface ChatContainerProps {
   threads: MessageThread[];
   currentUserId: string;
+  currentUserName: string;
   typing: TypingState;
   dispatch: React.Dispatch<AppAction>;
+  pendingFriends: Set<string>;
   onClose: (threadId: string) => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -16,8 +18,10 @@ interface ChatContainerProps {
 export const ChatContainer: React.FC<ChatContainerProps> = ({
   threads,
   currentUserId,
+  currentUserName,
   typing,
   dispatch,
+  pendingFriends,
   onClose,
   onViewProfile,
 }) => {
@@ -28,8 +32,10 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
           key={thread.threadId}
           thread={thread}
           currentUserId={currentUserId}
+          currentUserName={currentUserName}
           isTyping={!!typing[thread.threadId]}
           dispatch={dispatch}
+          pendingFriends={pendingFriends}
           onClose={() => onClose(thread.threadId)}
           onViewProfile={onViewProfile}
         />
@@ -41,8 +47,10 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
 interface ChatWindowProps {
   thread: MessageThread;
   currentUserId: string;
+  currentUserName: string;
   isTyping: boolean;
   dispatch: React.Dispatch<AppAction>;
+  pendingFriends: Set<string>;
   onClose: () => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -50,8 +58,10 @@ interface ChatWindowProps {
 const ChatWindow: React.FC<ChatWindowProps> = ({
   thread,
   currentUserId,
+  currentUserName,
   isTyping,
   dispatch,
+  pendingFriends,
   onClose,
   onViewProfile,
 }) => {
@@ -75,7 +85,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     setInputText('');
 
     // Schedule auto-response
-    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text);
+    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

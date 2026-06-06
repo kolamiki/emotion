@@ -234,6 +234,30 @@
   margin-top: 2px;
 }
 
+/* Clickable notification with link */
+.notifClickable {
+  transition: background 0.15s, transform 0.15s;
+}
+
+.notifClickable:hover {
+  transform: translateX(2px);
+}
+
+.notifChevron {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.notifClickable:hover .notifChevron {
+  opacity: 1;
+  color: var(--primary);
+}
+
 /* === Message Thread Item === */
 .msgItem {
   display: flex;

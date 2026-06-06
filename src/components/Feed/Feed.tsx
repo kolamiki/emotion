@@ -9,11 +9,14 @@ interface FeedProps {
   currentUser: User;
   likedPosts: LikedPosts;
   dispatch: React.Dispatch<AppAction>;
+  matyldaLikesActive: boolean;
   onOpenCreatePost: () => void;
   onViewProfile?: (userId: string) => void;
+  highlightedPostId?: string | null;
+  onClearHighlight?: () => void;
 }
 
-export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, dispatch, onOpenCreatePost, onViewProfile }) => {
+export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, dispatch, matyldaLikesActive, onOpenCreatePost, onViewProfile, highlightedPostId, onClearHighlight }) => {
   const [visibleCount, setVisibleCount] = useState(5);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -47,6 +50,36 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
   const visiblePosts = sortedPosts.slice(0, visibleCount);
   const hasMore = visibleCount < sortedPosts.length;
 
+  // Scroll to highlighted post
+  useEffect(() => {
+    if (!highlightedPostId) return;
+
+    // Ensure the post is visible (expand visibleCount if needed)
+    const postIndex = sortedPosts.findIndex(p => p.id === highlightedPostId);
+    if (postIndex >= 0 && postIndex >= visibleCount) {
+      setVisibleCount(postIndex + 5);
+    }
+
+    // Wait a tick for DOM to update
+    const timer = setTimeout(() => {
+      const el = document.querySelector(`[data-post-id="${highlightedPostId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add(styles.postHighlighted);
+
+        // Remove highlight after animation
+        setTimeout(() => {
+          el.classList.remove(styles.postHighlighted);
+          if (onClearHighlight) onClearHighlight();
+        }, 2500);
+      } else {
+        if (onClearHighlight) onClearHighlight();
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [highlightedPostId]);
+
   return (
     <div className={styles.feed}>
       <div className={styles.createTeaser} onClick={onOpenCreatePost}>
@@ -72,6 +105,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           currentUser={currentUser}
           isLiked={!!likedPosts[post.id]}
           dispatch={dispatch}
+          matyldaLikesActive={matyldaLikesActive}
           onViewProfile={onViewProfile}
         />
       ))}
@@ -91,10 +125,11 @@ interface PostCardProps {
   currentUser: User;
   isLiked: boolean;
   dispatch: React.Dispatch<AppAction>;
+  matyldaLikesActive: boolean;
   onViewProfile?: (userId: string) => void;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, onViewProfile }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, matyldaLikesActive, onViewProfile }) => {
   const [popping, setPopping] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -153,13 +188,24 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
     : post.comments.slice(-2);
 
   // Fake "like avatars" — use first commenters + author as likers
-  const likeAvatarsData = [
+  let likeAvatarsData = [
     { url: post.author.avatarUrl, id: post.author.id },
     ...post.comments.slice(0, 2).map(c => ({ url: c.author.avatarUrl, id: c.author.id })),
   ].slice(0, 3);
 
+  let displayLikes = post.likes;
+
+  // Add Matylda's like
+  if (matyldaLikesActive && post.author.id === currentUser.id) {
+    likeAvatarsData = [
+      { url: 'https://i.pravatar.cc/150?u=u_matylda', id: 'u_matylda' },
+      ...likeAvatarsData.slice(0, 2)
+    ];
+    if (displayLikes === 0) displayLikes = 1;
+  }
+
   return (
-    <article className={styles.postCard}>
+    <article className={styles.postCard} data-post-id={post.id}>
       <div className={styles.postHeader}>
         <div className={styles.avatarWrap}>
           <img 
@@ -180,10 +226,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
       <div className={styles.postContent}>{post.content}</div>
 
       {/* Engagement Stats */}
-      {(post.likes > 0 || post.comments.length > 0 || post.shares > 0) && (
+      {(displayLikes > 0 || post.comments.length > 0 || post.shares > 0) && (
         <div className={styles.postStats}>
           <div className={styles.likeStats}>
-            {post.likes > 0 && (
+            {displayLikes > 0 && (
               <>
                 <div className={styles.likeAvatars}>
                   {likeAvatarsData.map((data, i) => (
@@ -197,7 +243,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
                     />
                   ))}
                 </div>
-                <span>{post.likes}</span>
+                <span>{displayLikes}</span>
               </>
             )}
           </div>

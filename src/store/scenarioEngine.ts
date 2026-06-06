@@ -232,6 +232,7 @@ function executeStep(
           isRead: false,
           timestamp: new Date().toISOString(),
           type: step.notifType,
+          ...(step.link ? { link: step.link } : {}),
         },
       });
       break;

@@ -1,13 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { X, MessageCircle, UserPlus, UserCheck, MapPin, Calendar, Users, FileText } from 'lucide-react';
 import styles from './ProfilePreview.module.css';
-import type { User, Group, Post } from '../../types';
+import type { User, Group, Post, AppAction } from '../../types';
+import { BLOCKED_FRIEND_IDS } from '../../types';
 
 interface ProfilePreviewProps {
   user: User;
   currentUserId: string;
   groups: Group[];
   posts: Post[];
+  friends: Set<string>;
+  pendingFriends: Set<string>;
+  onToggleFriend: (userId: string) => void;
   onClose: () => void;
   onOpenChat?: (userId: string) => void;
 }
@@ -17,6 +21,9 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   currentUserId,
   groups,
   posts,
+  friends,
+  pendingFriends,
+  onToggleFriend,
   onClose,
   onOpenChat,
 }) => {
@@ -64,6 +71,14 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
       onOpenChat(user.id);
     }
     onClose();
+  };
+
+  const isFriend = friends.has(user.id);
+
+  const handleToggleFriend = () => {
+    if (!isFriend && BLOCKED_FRIEND_IDS.has(user.id)) return;
+    if (pendingFriends.has(user.id)) return;
+    onToggleFriend(user.id);
   };
 
   return (
@@ -171,13 +186,29 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
         {/* Actions */}
         {!isCurrentUser && (
           <div className={styles.actionsRow}>
-            {user.isFriend ? (
-              <button className={`${styles.actionBtn} ${styles.actionBtnFriend}`}>
+            {isFriend ? (
+              <button 
+                className={`${styles.actionBtn} ${styles.actionBtnFriend}`}
+                onClick={handleToggleFriend}
+              >
                 <UserCheck size={16} />
                 Znajomi
               </button>
+            ) : pendingFriends.has(user.id) ? (
+              <button 
+                className={`${styles.actionBtn} ${styles.actionBtnDisabled}`}
+                disabled
+              >
+                <UserPlus size={16} />
+                Zaproszenie wysłane
+              </button>
             ) : (
-              <button className={`${styles.actionBtn} ${styles.actionBtnAdd}`}>
+              <button 
+                className={`${styles.actionBtn} ${styles.actionBtnAdd} ${BLOCKED_FRIEND_IDS.has(user.id) ? styles.actionBtnDisabled : ''}`}
+                onClick={handleToggleFriend}
+                disabled={BLOCKED_FRIEND_IDS.has(user.id)}
+                title={BLOCKED_FRIEND_IDS.has(user.id) ? 'Ten użytkownik zablokował możliwość wysyłania zaproszeń' : ''}
+              >
                 <UserPlus size={16} />
                 Dodaj do znajomych
               </button>

@@ -2,16 +2,28 @@ import React from 'react';
 import { UserPlus, MessageCircle, MapPin, Calendar } from 'lucide-react';
 import styles from './FriendsList.module.css';
 import { usersData } from '../../mockData';
-import type { User } from '../../types';
+import { BLOCKED_FRIEND_IDS } from '../../types';
+import type { User, AppAction } from '../../types';
 
 interface FriendsListProps {
   currentUser: User;
   onViewProfile: (userId: string) => void;
+  friends: Set<string>;
+  pendingFriends: Set<string>;
+  onToggleFriend: (userId: string) => void;
 }
 
-export const FriendsList: React.FC<FriendsListProps> = ({ currentUser, onViewProfile }) => {
-  const friends = usersData.allUsers.filter(u => u.isFriend && u.id !== currentUser.id);
-  const suggestions = usersData.allUsers.filter(u => !u.isFriend && u.id !== currentUser.id);
+export const FriendsList: React.FC<FriendsListProps> = ({ currentUser, onViewProfile, friends, pendingFriends, onToggleFriend }) => {
+  const allUsers = usersData.allUsers.filter(u => u.id !== currentUser.id);
+  const friendUsers = allUsers.filter(u => friends.has(u.id));
+  const suggestions = allUsers.filter(u => !friends.has(u.id));
+
+  const handleToggleFriend = (e: React.MouseEvent, userId: string) => {
+    e.stopPropagation();
+    if (!friends.has(userId) && BLOCKED_FRIEND_IDS.has(userId)) return;
+    if (pendingFriends.has(userId)) return;
+    onToggleFriend(userId);
+  };
 
   const renderUserCard = (user: User, isFriend: boolean) => (
     <div key={user.id} className={styles.userCard}>
@@ -50,12 +62,28 @@ export const FriendsList: React.FC<FriendsListProps> = ({ currentUser, onViewPro
       </div>
       <div className={styles.cardActions}>
         {isFriend ? (
-          <button className={`${styles.actionBtn} ${styles.primaryBtn}`}>
+          <button 
+            className={`${styles.actionBtn} ${styles.primaryBtn}`}
+            onClick={(e) => handleToggleFriend(e, user.id)}
+          >
             <MessageCircle size={16} />
-            Wyślij wiadomość
+            Usuń ze znajomych
+          </button>
+        ) : pendingFriends.has(user.id) ? (
+          <button 
+            className={`${styles.actionBtn} ${styles.secondaryBtn} ${styles.btnDisabled}`}
+            disabled
+          >
+            <UserPlus size={16} />
+            Zaproszenie wysłane
           </button>
         ) : (
-          <button className={`${styles.actionBtn} ${styles.secondaryBtn}`}>
+          <button 
+            className={`${styles.actionBtn} ${styles.secondaryBtn} ${BLOCKED_FRIEND_IDS.has(user.id) ? styles.btnDisabled : ''}`}
+            onClick={(e) => handleToggleFriend(e, user.id)}
+            disabled={BLOCKED_FRIEND_IDS.has(user.id)}
+            title={BLOCKED_FRIEND_IDS.has(user.id) ? 'Ten użytkownik zablokował możliwość wysyłania zaproszeń' : ''}
+          >
             <UserPlus size={16} />
             Dodaj do znajomych
           </button>
@@ -72,9 +100,9 @@ export const FriendsList: React.FC<FriendsListProps> = ({ currentUser, onViewPro
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Twoi znajomi ({friends.length})</h2>
+        <h2 className={styles.sectionTitle}>Twoi znajomi ({friendUsers.length})</h2>
         <div className={styles.grid}>
-          {friends.map(user => renderUserCard(user, true))}
+          {friendUsers.map(user => renderUserCard(user, true))}
         </div>
       </div>
 

@@ -168,12 +168,37 @@
 }
 
 .cellHouse {
-  cursor: default;
+  cursor: pointer;
   background: rgba(108, 43, 217, 0.04);
 }
 
 .cellHouse:hover {
-  background: rgba(108, 43, 217, 0.04);
+  background: rgba(108, 43, 217, 0.1);
+}
+
+/* House currently being linked */
+.cellLinking {
+  background: rgba(108, 43, 217, 0.15) !important;
+  box-shadow: 0 0 0 2px var(--primary), 0 0 12px rgba(108, 43, 217, 0.3);
+  animation: linkPulse 1.2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes linkPulse {
+  0%, 100% { box-shadow: 0 0 0 2px var(--primary), 0 0 8px rgba(108, 43, 217, 0.2); }
+  50% { box-shadow: 0 0 0 3px var(--primary), 0 0 16px rgba(108, 43, 217, 0.4); }
+}
+
+/* House that already has a connection */
+.cellConnected {
+  background: rgba(16, 185, 129, 0.08) !important;
+}
+
+/* Bomb that can be connected to the linking house */
+.cellConnectable {
+  box-shadow: inset 0 0 0 2px rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.1) !important;
+  cursor: pointer;
 }
 
 .cellTank {
@@ -186,6 +211,19 @@
 
 .cellTankError .tankIcon {
   color: var(--accent) !important;
+}
+
+.cellMark {
+  background: rgba(239, 68, 68, 0.06);
+}
+
+/* === Mark (X) icon === */
+.markIcon {
+  color: rgba(239, 68, 68, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: tankAppear 0.25s ease-out;
 }
 
 /* === House icon === */

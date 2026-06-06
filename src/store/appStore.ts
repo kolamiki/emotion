@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import type { AppState, AppAction, Post } from '../types';
-import { mockData } from '../mockData';
+import { mockData, usersData } from '../mockData';
 
 /* === localStorage helpers === */
 const STORAGE_KEY = 'emotion-app-state';
@@ -32,6 +32,9 @@ export function persistState(state: AppState) {
       likedPosts: state.likedPosts,
       readThreads: state.readThreads,
       currentUser: state.currentUser,
+      friends: Array.from(state.friends),
+      pendingFriends: Array.from(state.pendingFriends),
+      matyldaLikesActive: state.matyldaLikesActive,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
   } catch {
@@ -43,6 +46,11 @@ export function persistState(state: AppState) {
 export function getInitialState(): AppState {
   const persisted = loadPersistedState();
   
+  // Build initial friends set from mock data
+  const initialFriends = new Set(
+    usersData.allUsers.filter(u => u.isFriend && u.id !== 'u1').map(u => u.id)
+  );
+
   const base: AppState = {
     posts: mockData.posts,
     groups: mockData.groups,
@@ -53,6 +61,9 @@ export function getInitialState(): AppState {
     likedPosts: {},
     typing: {},
     readThreads: {},
+    friends: initialFriends,
+    pendingFriends: new Set(),
+    matyldaLikesActive: false,
   };
 
   if (persisted) {
@@ -82,7 +93,7 @@ export function getInitialState(): AppState {
     }
     const dedupedMessages = Array.from(messagesByParticipant.values());
 
-    return {
+    const stateToReturn = {
       ...base,
       posts: mergeArrays(base.posts, persisted.posts),
       groups: mergeArrays(base.groups, persisted.groups),
@@ -90,7 +101,117 @@ export function getInitialState(): AppState {
       notifications: mergeArrays(base.notifications, persisted.notifications),
       likedPosts: persisted.likedPosts ?? base.likedPosts,
       readThreads: persisted.readThreads ?? base.readThreads,
+      friends: Array.isArray((persisted as any).friends)
+        ? new Set((persisted as any).friends as string[])
+        : base.friends,
+      pendingFriends: Array.isArray((persisted as any).pendingFriends)
+        ? new Set((persisted as any).pendingFriends as string[])
+        : base.pendingFriends,
+      matyldaLikesActive: (persisted as any).matyldaLikesActive ?? base.matyldaLikesActive,
     };
+
+    // Update u1 author in posts to match current user name/avatar
+    stateToReturn.posts = stateToReturn.posts.map(post => {
+      let updatedPost = post;
+      if (post.author.id === 'u1') {
+        updatedPost = {
+          ...post,
+          author: { ...post.author, name: stateToReturn.currentUser.name, avatarUrl: stateToReturn.currentUser.avatarUrl }
+        };
+      }
+      // Update comments authored by u1
+      if (updatedPost.comments.some(c => c.author.id === 'u1')) {
+        updatedPost = {
+          ...updatedPost,
+          comments: updatedPost.comments.map(c => c.author.id === 'u1' ? {
+            ...c,
+            author: { ...c.author, name: stateToReturn.currentUser.name, avatarUrl: stateToReturn.currentUser.avatarUrl }
+          } : c)
+        };
+      }
+      return updatedPost;
+    });
+
+    stateToReturn.groups = stateToReturn.groups.map(group => ({
+      ...group,
+      posts: group.posts.map(post => {
+        let updatedPost = post;
+        if (post.author.id === 'u1') {
+          updatedPost = {
+            ...post,
+            author: { ...post.author, name: stateToReturn.currentUser.name, avatarUrl: stateToReturn.currentUser.avatarUrl }
+          };
+        }
+        if (updatedPost.comments.some(c => c.author.id === 'u1')) {
+          updatedPost = {
+            ...updatedPost,
+            comments: updatedPost.comments.map(c => c.author.id === 'u1' ? {
+              ...c,
+              author: { ...c.author, name: stateToReturn.currentUser.name, avatarUrl: stateToReturn.currentUser.avatarUrl }
+            } : c)
+          };
+        }
+        return updatedPost;
+      })
+    }));
+
+    // Update usersData globally
+    const u1Index = usersData.allUsers.findIndex(u => u.id === 'u1');
+    if (u1Index !== -1) {
+      usersData.allUsers[u1Index] = { ...usersData.allUsers[u1Index], name: stateToReturn.currentUser.name, avatarUrl: stateToReturn.currentUser.avatarUrl };
+    }
+
+    return stateToReturn;
+  }
+
+  // If no persisted state, still ensure mock data is updated just in case
+  base.posts = base.posts.map(post => {
+    let updatedPost = post;
+    if (post.author.id === 'u1') {
+      updatedPost = {
+        ...post,
+        author: { ...post.author, name: base.currentUser.name, avatarUrl: base.currentUser.avatarUrl }
+      };
+    }
+    if (updatedPost.comments.some(c => c.author.id === 'u1')) {
+      updatedPost = {
+        ...updatedPost,
+        comments: updatedPost.comments.map(c => c.author.id === 'u1' ? {
+          ...c,
+          author: { ...c.author, name: base.currentUser.name, avatarUrl: base.currentUser.avatarUrl }
+        } : c)
+      };
+    }
+    return updatedPost;
+  });
+
+  base.groups = base.groups.map(group => ({
+    ...group,
+    posts: group.posts.map(post => {
+      let updatedPost = post;
+      if (post.author.id === 'u1') {
+        updatedPost = {
+          ...post,
+          author: { ...post.author, name: base.currentUser.name, avatarUrl: base.currentUser.avatarUrl }
+        };
+      }
+      if (updatedPost.comments.some(c => c.author.id === 'u1')) {
+        updatedPost = {
+          ...updatedPost,
+          comments: updatedPost.comments.map(c => c.author.id === 'u1' ? {
+            ...c,
+            author: { ...c.author, name: base.currentUser.name, avatarUrl: base.currentUser.avatarUrl }
+          } : c)
+        };
+      }
+      return updatedPost;
+    })
+  }));
+
+  // Update usersData globally
+  const fallbackU1Index = usersData.allUsers.findIndex(u => u.id === 'u1');
+  if (fallbackU1Index !== -1) {
+    usersData.allUsers[fallbackU1Index] = { ...usersData.allUsers[fallbackU1Index], name: base.currentUser.name, avatarUrl: base.currentUser.avatarUrl };
   }
 
   return base;
@@ -250,7 +371,82 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     }
 
     case 'UPDATE_CURRENT_USER': {
-      return { ...state, currentUser: { ...state.currentUser, ...action.user } };
+      const newUser = { ...state.currentUser, ...action.user };
+      
+      const u1Index = usersData.allUsers.findIndex(u => u.id === 'u1');
+      if (u1Index !== -1) {
+        usersData.allUsers[u1Index] = { ...usersData.allUsers[u1Index], ...action.user };
+      }
+
+      return { 
+        ...state, 
+        currentUser: newUser,
+        posts: state.posts.map(post => {
+          let updatedPost = post;
+          if (post.author.id === 'u1') {
+            updatedPost = { ...post, author: { ...post.author, ...action.user } };
+          }
+          if (updatedPost.comments.some(c => c.author.id === 'u1')) {
+            updatedPost = {
+              ...updatedPost,
+              comments: updatedPost.comments.map(c => c.author.id === 'u1' ? { ...c, author: { ...c.author, ...action.user } } : c)
+            };
+          }
+          return updatedPost;
+        }),
+        groups: state.groups.map(group => ({
+          ...group,
+          posts: group.posts.map(post => {
+            let updatedPost = post;
+            if (post.author.id === 'u1') {
+              updatedPost = { ...post, author: { ...post.author, ...action.user } };
+            }
+            if (updatedPost.comments.some(c => c.author.id === 'u1')) {
+              updatedPost = {
+                ...updatedPost,
+                comments: updatedPost.comments.map(c => c.author.id === 'u1' ? { ...c, author: { ...c.author, ...action.user } } : c)
+              };
+            }
+            return updatedPost;
+          })
+        }))
+      };
+    }
+
+    case 'TOGGLE_FRIEND': {
+      const newFriends = new Set(state.friends);
+      if (newFriends.has(action.userId)) {
+        newFriends.delete(action.userId);
+      } else {
+        newFriends.add(action.userId);
+      }
+      return { ...state, friends: newFriends };
+    }
+
+    case 'ADD_PENDING_FRIEND': {
+      const newPending = new Set(state.pendingFriends);
+      newPending.add(action.userId);
+      return { ...state, pendingFriends: newPending };
+    }
+
+    case 'ACCEPT_FRIEND': {
+      const newPending = new Set(state.pendingFriends);
+      newPending.delete(action.userId);
+      const newFriends = new Set(state.friends);
+      newFriends.add(action.userId);
+      return { ...state, pendingFriends: newPending, friends: newFriends };
+    }
+
+    case 'REMOVE_FRIEND': {
+      const newFriends = new Set(state.friends);
+      newFriends.delete(action.userId);
+      const newPending = new Set(state.pendingFriends);
+      newPending.delete(action.userId);
+      return { ...state, friends: newFriends, pendingFriends: newPending };
+    }
+
+    case 'ACTIVATE_MATYLDA_LIKES': {
+      return { ...state, matyldaLikesActive: true };
     }
 
     default:

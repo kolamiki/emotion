@@ -161,6 +161,13 @@
   color: var(--text-primary);
 }
 
-.secondaryBtn:hover {
+.secondaryBtn:hover:not(:disabled) {
   background: var(--border-color);
+}
+
+.btnDisabled {
+  background: var(--hover-bg);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
 }

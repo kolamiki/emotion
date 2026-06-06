@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Clock, RotateCcw, CheckCircle, Flame } from 'lucide-react';
+import { Clock, RotateCcw, CheckCircle, Flame, X } from 'lucide-react';
 import styles from './architect.module.css';
 import type { ArchitectPuzzle } from './puzzles';
 
@@ -31,26 +31,23 @@ function isAdjacentToHouse(tank: [number, number], houses: [number, number][]): 
 }
 
 /**
- * Find which house a tank is connected to (closest orthogonal house).
+ * Get connection direction from source to target (orthogonal only).
  */
-function getConnectedHouse(tank: [number, number], houses: [number, number][]): [number, number] | null {
-  for (const h of houses) {
-    const dr = Math.abs(tank[0] - h[0]);
-    const dc = Math.abs(tank[1] - h[1]);
-    if ((dr + dc) === 1) return h;
-  }
+function getConnectionDirection(from: [number, number], to: [number, number]): 'up' | 'down' | 'left' | 'right' | null {
+  if (to[0] === from[0] - 1 && to[1] === from[1]) return 'up';
+  if (to[0] === from[0] + 1 && to[1] === from[1]) return 'down';
+  if (to[0] === from[0] && to[1] === from[1] - 1) return 'left';
+  if (to[0] === from[0] && to[1] === from[1] + 1) return 'right';
   return null;
 }
 
 /**
- * Get connection direction from tank to house.
+ * Check if two cells are orthogonally adjacent.
  */
-function getConnectionDirection(tank: [number, number], house: [number, number]): 'up' | 'down' | 'left' | 'right' | null {
-  if (house[0] === tank[0] - 1 && house[1] === tank[1]) return 'up';
-  if (house[0] === tank[0] + 1 && house[1] === tank[1]) return 'down';
-  if (house[0] === tank[0] && house[1] === tank[1] - 1) return 'left';
-  if (house[0] === tank[0] && house[1] === tank[1] + 1) return 'right';
-  return null;
+function isOrthogonal(a: [number, number], b: [number, number]): boolean {
+  const dr = Math.abs(a[0] - b[0]);
+  const dc = Math.abs(a[1] - b[1]);
+  return (dr + dc) === 1;
 }
 
 export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzle, onSolved }) => {
@@ -58,6 +55,11 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
 
   // Grid state: tracks placed tanks
   const [tanks, setTanks] = useState<Set<string>>(new Set());
+  const [marks, setMarks] = useState<Set<string>>(new Set());
+  // Manual connections: houseKey -> tankKey
+  const [connections, setConnections] = useState<Map<string, string>>(new Map());
+  // Linking mode: which house is currently being linked
+  const [linkingFrom, setLinkingFrom] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [errorCells, setErrorCells] = useState<Set<string>>(new Set());
   const [isSolved, setIsSolved] = useState(false);
@@ -106,27 +108,96 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     return count;
   }, [tanks]);
 
-  // Click handler
+  // Reverse lookup: which house is connected to a given tank
+  const tankToHouse = new Map<string, string>();
+  connections.forEach((tankKey, houseKey) => {
+    tankToHouse.set(tankKey, houseKey);
+  });
+
+  // Click handler for empty/bomb/mark cells (cycle: empty → bomb → X → empty)
   const handleCellClick = (row: number, col: number) => {
     if (isSolved) return;
     const key = `${row},${col}`;
 
-    // Can't click on houses
-    if (houseSet.has(key)) return;
+    // House click → handle linking mode
+    if (houseSet.has(key)) {
+      handleHouseClick(key);
+      return;
+    }
 
     setErrorMsg('');
     setErrorCells(new Set());
 
-    const newTanks = new Set(tanks);
-    if (newTanks.has(key)) {
-      // Remove tank
-      newTanks.delete(key);
-    } else {
-      // Place tank
-      newTanks.add(key);
+    // If linking mode is active and this is an adjacent bomb, create connection
+    if (linkingFrom && tanks.has(key)) {
+      const [hr, hc] = linkingFrom.split(',').map(Number);
+      if (isOrthogonal([hr, hc], [row, col])) {
+        const newConnections = new Map(connections);
+        // Remove previous connection from this house if any
+        newConnections.set(linkingFrom, key);
+        // Also remove any other house that was connected to this same tank
+        newConnections.forEach((tankKey, houseKey) => {
+          if (houseKey !== linkingFrom && tankKey === key) {
+            newConnections.delete(houseKey);
+          }
+        });
+        setConnections(newConnections);
+        setLinkingFrom(null);
+        return;
+      }
     }
 
-    setTanks(newTanks);
+    // Cancel linking if clicking elsewhere
+    if (linkingFrom) {
+      setLinkingFrom(null);
+    }
+
+    const hasTank = tanks.has(key);
+    const hasMark = marks.has(key);
+
+    if (!hasTank && !hasMark) {
+      // Empty → place bomb
+      const newTanks = new Set(tanks);
+      newTanks.add(key);
+      setTanks(newTanks);
+    } else if (hasTank) {
+      // Bomb → replace with X mark
+      const newTanks = new Set(tanks);
+      newTanks.delete(key);
+      setTanks(newTanks);
+      const newMarks = new Set(marks);
+      newMarks.add(key);
+      setMarks(newMarks);
+      // Remove any connection pointing to this tank
+      const newConnections = new Map(connections);
+      newConnections.forEach((tankKey, houseKey) => {
+        if (tankKey === key) newConnections.delete(houseKey);
+      });
+      setConnections(newConnections);
+    } else {
+      // X mark → clear
+      const newMarks = new Set(marks);
+      newMarks.delete(key);
+      setMarks(newMarks);
+    }
+  };
+
+  // House click handler: toggle linking mode
+  const handleHouseClick = (houseKey: string) => {
+    if (isSolved) return;
+    setErrorMsg('');
+    setErrorCells(new Set());
+
+    if (linkingFrom === houseKey) {
+      // Cancel linking
+      setLinkingFrom(null);
+    } else if (linkingFrom) {
+      // Switch to another house
+      setLinkingFrom(houseKey);
+    } else {
+      // Start linking from this house
+      setLinkingFrom(houseKey);
+    }
   };
 
   // Find error cells (tanks touching each other)
@@ -173,21 +244,38 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
       }
     }
 
-    // 4. Check each house has exactly one adjacent tank
+    // 4. Check each house has a manual connection to an adjacent tank
     for (const house of houses) {
-      const adjTanks = tankList.filter(t => {
-        const dr = Math.abs(t[0] - house[0]);
-        const dc = Math.abs(t[1] - house[1]);
-        return (dr + dc) === 1;
-      });
-      if (adjTanks.length === 0) {
-        setErrorMsg('Każdy domek musi mieć swój zbiornik!');
+      const houseKey = `${house[0]},${house[1]}`;
+      const connectedTank = connections.get(houseKey);
+      if (!connectedTank) {
+        setErrorCells(new Set([houseKey]));
+        setErrorMsg('Każda szkoła musi być połączona z bombą! Kliknij szkołę, a potem sąsiednią bombę.');
         return;
       }
-      if (adjTanks.length > 1) {
-        setErrorMsg('Każdy domek powinien mieć dokładnie jeden zbiornik');
+      if (!tanks.has(connectedTank)) {
+        setErrorCells(new Set([houseKey]));
+        setErrorMsg('Połączenie wskazuje na puste pole — narysuj linię ponownie.');
         return;
       }
+      const [tr, tc] = connectedTank.split(',').map(Number);
+      if (!isOrthogonal(house, [tr, tc])) {
+        setErrorCells(new Set([houseKey]));
+        setErrorMsg('Bomba musi sąsiadować ze szkołą (góra/dół/lewo/prawo).');
+        return;
+      }
+    }
+
+    // 4b. Check no two houses are connected to the same tank
+    const usedTanks = new Set<string>();
+    for (const house of houses) {
+      const houseKey = `${house[0]},${house[1]}`;
+      const connectedTank = connections.get(houseKey)!;
+      if (usedTanks.has(connectedTank)) {
+        setErrorMsg('Każda bomba może być przypisana tylko do jednej szkoły!');
+        return;
+      }
+      usedTanks.add(connectedTank);
     }
 
     // 5. Check row clues
@@ -218,6 +306,9 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
 
   const handleReset = () => {
     setTanks(new Set());
+    setMarks(new Set());
+    setConnections(new Map());
+    setLinkingFrom(null);
     setErrorMsg('');
     setErrorCells(new Set());
     setIsSolved(false);
@@ -235,6 +326,8 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
           <li>Wskaż miejsce bomby (💣) przy każdej szkole</li>
           <li>Bomby nie mogą się stykać — ani bokiem, ani rogiem</li>
           <li>Liczby na krawędziach = ile bomb w danym wierszu/kolumnie</li>
+          <li>Kliknij raz = 💣, dwa razy = ✕ (tu nie ma bomby), trzy razy = wyczyść</li>
+          <li>Kliknij 🏫 szkołę, potem sąsiednią 💣 bombę — narysuj połączenie</li>
         </ul>
       </div>
 
@@ -289,21 +382,31 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
                 const key = `${row},${col}`;
                 const isHouse = houseSet.has(key);
                 const isTank = tanks.has(key);
+                const isMark = marks.has(key);
                 const isError = errorCells.has(key);
+                const isLinkingSource = linkingFrom === key;
+                const isConnected = isHouse && connections.has(key);
 
-                // Determine connection line from tank to house
+                // Is this tank connectable from the currently linking house?
+                const isConnectable = linkingFrom && isTank && (() => {
+                  const [hr, hc] = linkingFrom.split(',').map(Number);
+                  return isOrthogonal([hr, hc], [row, col]);
+                })();
+
+                // Determine connection line from tank to its connected house
                 let connectionDir: string | null = null;
                 if (isTank) {
-                  const connectedHouse = getConnectedHouse([row, col], houses);
-                  if (connectedHouse) {
-                    connectionDir = getConnectionDirection([row, col], connectedHouse);
+                  const connectedHouseKey = tankToHouse.get(key);
+                  if (connectedHouseKey) {
+                    const [hr, hc] = connectedHouseKey.split(',').map(Number);
+                    connectionDir = getConnectionDirection([row, col], [hr, hc]);
                   }
                 }
 
                 return (
                   <div
                     key={key}
-                    className={`${styles.cell} ${isHouse ? styles.cellHouse : ''} ${isTank ? styles.cellTank : ''} ${isTank && isError ? styles.cellTankError : ''}`}
+                    className={`${styles.cell} ${isHouse ? styles.cellHouse : ''} ${isLinkingSource ? styles.cellLinking : ''} ${isHouse && isConnected ? styles.cellConnected : ''} ${isTank ? styles.cellTank : ''} ${isTank && isError ? styles.cellTankError : ''} ${isConnectable ? styles.cellConnectable : ''} ${isMark ? styles.cellMark : ''}`}
                     onClick={() => handleCellClick(row, col)}
                   >
                     {isHouse && (
@@ -311,7 +414,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
                     )}
                     {isTank && (
                       <>
-                        <Flame size={22} className={styles.tankIcon} />
+                        <div className={styles.tankIcon}>💣</div>
                         {connectionDir && (
                           <div
                             className={`${styles.connectionLine} ${connectionDir === 'left' || connectionDir === 'right'
@@ -327,6 +430,11 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
                           />
                         )}
                       </>
+                    )}
+                    {isMark && (
+                      <div className={styles.markIcon}>
+                        <X size={20} strokeWidth={3} />
+                      </div>
                     )}
                   </div>
                 );

@@ -13,7 +13,7 @@ import { DailyChallenge } from '../DailyChallenge/DailyChallenge';
 import { useAppStore } from '../../store/appStore';
 import { ScenarioManager } from '../../store/scenarioEngine';
 import { usersData } from '../../mockData';
-import type { ActiveView, MessageThread } from '../../types';
+import type { ActiveView, MessageThread, NotificationLink } from '../../types';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export const Layout: React.FC = () => {
@@ -24,6 +24,7 @@ export const Layout: React.FC = () => {
   const [viewedUserId, setViewedUserId] = useState<string | null>(null);
   const [isScenarioPanelOpen, setIsScenarioPanelOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
 
   // Scenario Manager ref — stable reference across renders
   const scenarioManagerRef = useRef<ScenarioManager | null>(null);
@@ -107,6 +108,64 @@ export const Layout: React.FC = () => {
     setViewedUserId(userId);
   };
 
+  const handleNotificationClick = (link: NotificationLink) => {
+    switch (link.type) {
+      case 'post':
+        handleNavigate({ type: 'feed' });
+        if (link.postId) {
+          // Short delay to let the feed render before scrolling
+          setTimeout(() => setHighlightedPostId(link.postId!), 100);
+        }
+        break;
+      case 'group':
+        if (link.groupId && link.groupId !== '*') {
+          handleNavigate({ type: 'group', groupId: link.groupId });
+        }
+        break;
+      case 'profile':
+        if (link.userId) handleViewProfile(link.userId);
+        break;
+      case 'chat':
+        if (link.threadId) handleOpenChat(link.threadId);
+        break;
+    }
+  };
+
+  const handleToggleFriend = (userId: string) => {
+    if (state.friends.has(userId)) {
+      dispatch({ type: 'REMOVE_FRIEND', userId });
+    } else {
+      dispatch({ type: 'ADD_PENDING_FRIEND', userId });
+
+      if (userId === 'u_matylda') {
+        if (scenarioManagerRef.current) {
+          scenarioManagerRef.current.runScenario('sc_matylda_friend_request');
+        }
+      } else {
+        // Domyślny timer dla innych użytkowników
+        setTimeout(() => {
+          dispatch({ type: 'ACCEPT_FRIEND', userId });
+          
+          // Opcjonalnie dodajemy powiadomienie
+          const user = state.users?.find(u => u.id === userId) || usersData.allUsers.find(u => u.id === userId);
+          if (user) {
+            dispatch({
+              type: 'ADD_NOTIFICATION',
+              notification: {
+                id: `n-acc-${Date.now()}`,
+                type: 'friend',
+                message: `${user.name} zaakceptował(a) Twoje zaproszenie do znajomych.`,
+                timestamp: new Date().toISOString(),
+                isRead: false,
+                link: { type: 'profile', userId: user.id }
+              }
+            });
+          }
+        }, 15000); // 15 sekund oczekiwania
+      }
+    }
+  };
+
   const activeThreads: MessageThread[] = activeChats
     .map(id => state.messages.find(m => m.threadId === id))
     .filter((t): t is MessageThread => t !== undefined);
@@ -137,7 +196,10 @@ export const Layout: React.FC = () => {
         dispatch={dispatch}
         onViewProfile={handleViewProfile}
         groups={state.groups}
+        friends={state.friends}
+        pendingFriends={state.pendingFriends}
         onNavigate={handleNavigate}
+        onNotificationClick={handleNotificationClick}
       />
 
       <main className={styles.mainGrid}>
@@ -174,8 +236,11 @@ export const Layout: React.FC = () => {
                 currentUser={state.currentUser}
                 likedPosts={state.likedPosts}
                 dispatch={dispatch}
+                matyldaLikesActive={state.matyldaLikesActive}
                 onOpenCreatePost={handleOpenCreatePost}
                 onViewProfile={handleViewProfile}
+                highlightedPostId={highlightedPostId}
+                onClearHighlight={() => setHighlightedPostId(null)}
               />
             )}
             {activeView.type === 'group' && currentGroup && (
@@ -198,6 +263,9 @@ export const Layout: React.FC = () => {
               <FriendsList
                 currentUser={state.currentUser}
                 onViewProfile={handleViewProfile}
+                friends={state.friends}
+                pendingFriends={state.pendingFriends}
+                onToggleFriend={handleToggleFriend}
               />
             )}
             {activeView.type === 'daily_challenge' && (
@@ -223,10 +291,12 @@ export const Layout: React.FC = () => {
       <ChatContainer
         threads={activeThreads}
         currentUserId={state.currentUser.id}
+        currentUserName={state.currentUser.name}
         typing={state.typing}
         dispatch={dispatch}
         onClose={handleCloseChat}
         onViewProfile={handleViewProfile}
+        pendingFriends={state.pendingFriends}
       />
 
       {viewedUser && (
@@ -235,6 +305,9 @@ export const Layout: React.FC = () => {
           currentUserId={state.currentUser.id}
           groups={state.groups}
           posts={state.posts}
+          friends={state.friends}
+          pendingFriends={state.pendingFriends}
+          onToggleFriend={handleToggleFriend}
           onClose={() => setViewedUserId(null)}
           onOpenChat={(userId) => {
             // Find or create chat thread

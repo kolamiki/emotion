@@ -34,7 +34,8 @@
         "action": "add_notification",
         "message": "Tomek Krawczyk i Piotr Wiśniewski skomentowali Twój post w grupie Programiści React",
         "notifType": "comment",
-        "delayMs": 11000
+        "delayMs": 11000,
+        "link": { "type": "group", "groupId": "g1" }
       }
     ],
     "enabled": false
@@ -74,7 +75,8 @@
         "action": "add_notification",
         "message": "Otrzymałeś wiadomość powitalną od admina grupy",
         "notifType": "group",
-        "delayMs": 4500
+        "delayMs": 4500,
+        "link": { "type": "group", "groupId": "*" }
       }
     ],
     "enabled": false
@@ -225,7 +227,8 @@
         "action": "add_notification",
         "message": "Twój post zyskuje popularność! 3 nowe reakcje",
         "notifType": "like",
-        "delayMs": 16000
+        "delayMs": 16000,
+        "link": { "type": "post" }
       }
     ],
     "enabled": false
@@ -258,7 +261,25 @@
         "action": "add_notification",
         "message": "Marinette opublikowała post w grupie 'Szukam osoby - pomoc'.",
         "notifType": "group",
-        "delayMs": 6000
+        "delayMs": 6000,
+        "link": { "type": "group", "groupId": "g_szukam" }
+      }
+    ],
+    "enabled": true
+  },
+  {
+    "id": "sc_matylda_friend_request",
+    "name": "Matylda Iggermann - weryfikacja znajomości",
+    "description": "Scenariusz uruchamiany przy próbie dodania Matyldy do znajomych. Matylda pyta na czacie, czy się znacie.",
+    "icon": "MessageSquare",
+    "trigger": { "type": "manual" },
+    "steps": [
+      {
+        "action": "send_message",
+        "fromId": "u_matylda",
+        "toId": "u1",
+        "text": "Ej, a my się znamy?",
+        "delayMs": 2000
       }
     ],
     "enabled": true

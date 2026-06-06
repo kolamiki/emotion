@@ -54,12 +54,21 @@ export interface Group {
   isMember: boolean;
 }
 
+export interface NotificationLink {
+  type: 'post' | 'group' | 'profile' | 'chat';
+  postId?: string;
+  groupId?: string;
+  userId?: string;
+  threadId?: string;
+}
+
 export interface AppNotification {
   id: string;
   message: string;
   isRead: boolean;
   timestamp: string;
   type: 'like' | 'comment' | 'group' | 'mention' | 'friend';
+  link?: NotificationLink;
 }
 
 export interface Message {
@@ -98,6 +107,13 @@ export interface ContextAnalysis {
   keywords: string[];
   hasEmoji: boolean;
 }
+
+/** User IDs that cannot be added as friends */
+export const BLOCKED_FRIEND_IDS: ReadonlySet<string> = new Set([
+  'u14',       // Nicolas de La Hire
+  'u_behrmann', // Helmut Behrmann
+  'u_gaston',   // Gaston Desole
+]);
 
 /* === Response System Types === */
 
@@ -151,7 +167,7 @@ export type ScenarioStep =
   | { action: 'create_post'; authorId: string; content: string; delayMs: number; target: 'feed' | { groupId: string }; contextRef?: 'user_post' }
   | { action: 'send_message'; fromId: string; toId: string; text: string; delayMs: number; contextRef?: 'user_post' }
   | { action: 'add_comment'; authorId: string; postRef: 'latest_feed' | 'latest_group'; text: string; delayMs: number; contextRef?: 'user_post' }
-  | { action: 'add_notification'; message: string; notifType: AppNotification['type']; delayMs: number };
+  | { action: 'add_notification'; message: string; notifType: AppNotification['type']; delayMs: number; link?: NotificationLink };
 
 export interface Scenario {
   id: string;
@@ -187,6 +203,9 @@ export interface AppState {
   likedPosts: LikedPosts;
   typing: TypingState;
   readThreads: ReadThreads;
+  friends: Set<string>;
+  pendingFriends: Set<string>;
+  matyldaLikesActive: boolean;
 }
 
 export type AppAction =
@@ -206,4 +225,9 @@ export type AppAction =
   | { type: 'CREATE_THREAD'; thread: MessageThread }
   | { type: 'MARK_THREAD_READ'; threadId: string }
   | { type: 'TOGGLE_GROUP_MEMBERSHIP'; groupId: string }
-  | { type: 'UPDATE_CURRENT_USER'; user: Partial<User> };
+  | { type: 'UPDATE_CURRENT_USER'; user: Partial<User> }
+  | { type: 'TOGGLE_FRIEND'; userId: string }
+  | { type: 'ADD_PENDING_FRIEND'; userId: string }
+  | { type: 'ACCEPT_FRIEND'; userId: string }
+  | { type: 'REMOVE_FRIEND'; userId: string }
+  | { type: 'ACTIVATE_MATYLDA_LIKES' };

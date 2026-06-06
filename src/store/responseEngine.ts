@@ -749,7 +749,9 @@ export function scheduleChatResponse(
   dispatch: Dispatch,
   threadId: string,
   participantId: string,
-  userText: string
+  userText: string,
+  pendingFriends?: Set<string>,
+  currentUserName?: string
 ): void {
   // Check if the participant's cooldown has expired — send apology if so
   checkAndSendApology(dispatch, threadId, participantId);
@@ -757,6 +759,56 @@ export function scheduleChatResponse(
   // If participant is currently blocked, don't respond at all
   if (isParticipantBlocked(participantId)) {
     return; // silently ignore — they're "not talking to you"
+  }
+
+  // Handle Matylda friend request scenario
+  if (participantId === 'u_matylda' && pendingFriends?.has('u_matylda')) {
+    const textLower = userText.toLowerCase();
+    const isPersuasive = textLower.includes('tak') ||
+      textLower.includes('znamy') ||
+      textLower.includes('szkoł') ||
+      textLower.includes('szkole') ||
+      textLower.includes('e-motion') ||
+      textLower.includes('puzzle');
+
+    let responseText = '';
+
+    if (isPersuasive) {
+      const nameToUse = currentUserName || usersData.currentUser.name;
+      responseText = `A, to ty! ${nameToUse} Mat-Fiz klasa A. Dobra, już cię dodaję ;)`;
+      dispatch({ type: 'ACCEPT_FRIEND', userId: 'u_matylda' });
+      dispatch({ type: 'ACTIVATE_MATYLDA_LIKES' });
+      dispatch({
+        type: 'ADD_NOTIFICATION',
+        notification: {
+          id: `n-matylda-${Date.now()}`,
+          type: 'friend',
+          message: 'Matylda Iggermann zaakceptowała Twoje zaproszenie do znajomych.',
+          timestamp: new Date().toISOString(),
+          isRead: false,
+          link: { type: 'profile', userId: 'u_matylda' }
+        }
+      });
+    } else {
+      responseText = 'Nie wydaje mi się. Musisz mi jakoś odświeżyć pamięć.';
+    }
+
+    // Send her message
+    setTimeout(() => {
+      dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+        const responseMsg: Message = {
+          id: `resp-matylda-${Date.now()}`,
+          senderId: participantId,
+          text: responseText,
+          timestamp: new Date().toISOString(),
+        };
+        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+      }, 2000);
+    }, 1000);
+
+    return;
   }
 
   // Analyze if this message is vulgar
