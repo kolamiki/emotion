@@ -6,7 +6,9 @@ import aiPersonalitiesData from '../mockData/aiPersonalities.json';
 //  CONFIGURATION
 // ============================================
 
-const AI_PROXY_URL = import.meta.env.VITE_AI_PROXY_URL as string | undefined;
+const AI_PROXY_URL =
+  (import.meta.env.VITE_AI_PROXY_URL as string | undefined) ||
+  'https://emotion-ai-proxy.kolamiki.workers.dev';
 
 // Maximum number of conversation messages to send as context (keeps token usage low)
 const MAX_CONTEXT_MESSAGES = 20;

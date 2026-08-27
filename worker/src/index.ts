@@ -36,14 +36,15 @@ interface IncomingRequest {
 // ============================================
 
 function corsHeaders(origin: string, allowedOrigin: string): Record<string, string> {
-  // In development, allow localhost origins too
   const isAllowed =
+    !origin ||
     origin === allowedOrigin ||
+    origin.endsWith('.github.io') ||
     origin.startsWith('http://localhost') ||
     origin.startsWith('http://127.0.0.1');
 
   return {
-    'Access-Control-Allow-Origin': isAllowed ? origin : allowedOrigin,
+    'Access-Control-Allow-Origin': isAllowed ? (origin || '*') : allowedOrigin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
