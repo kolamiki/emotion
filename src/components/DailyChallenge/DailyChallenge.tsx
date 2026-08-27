@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Trophy, Puzzle, BrainCircuit, Target, Keyboard, HelpCircle, Building2 } from 'lucide-react';
+import { Trophy, BrainCircuit, Target, Keyboard, HelpCircle, Building2, Layers, Search } from 'lucide-react';
 import styles from './DailyChallenge.module.css';
-import crosswordStyles from './crossword.module.css';
 import { dailyPuzzles } from './puzzles';
 import type { PuzzleType, ArchitectPuzzle, QuizPuzzle } from './puzzles';
 import { ArchitectPuzzleComponent } from './ArchitectPuzzle';
 import { RebusPuzzleComponent } from './RebusPuzzle';
 import { QuizPuzzleComponent } from './QuizPuzzle';
+import { CrosswordPuzzleComponent } from './CrosswordPuzzle';
+import { SudokuPuzzleComponent } from './SudokuPuzzle';
+import { WordsearchPuzzleComponent } from './WordsearchPuzzle';
+import { MemoryPuzzleComponent } from './MemoryPuzzle';
 import { Leaderboard } from './Leaderboard';
 import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 
@@ -32,9 +35,10 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
   }, [isStarted]);
 
   useEffect(() => {
-    const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, ...
-    const todayChallenge = dailyPuzzles[today];
-    
+    // Current day challenge (0 = Sunday, 1 = Monday, etc.)
+    const today = new Date().getDay();
+    const todayChallenge = dailyPuzzles[2] || dailyPuzzles[today];
+
     if (todayChallenge) {
       setCurrentPuzzle(todayChallenge);
       // Randomly select one puzzle item from the collection
@@ -61,7 +65,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       delete (window as any).confirmNavigation;
-      
+
       // Auto give-up on unmount if started and not solved
       if (isStartedRef.current && !isSolved && status === 'unplayed') {
         giveUpChallenge();
@@ -94,116 +98,20 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
     switch (type) {
       case 'sudoku': return <Target size={24} />;
       case 'crossword': return <Keyboard size={24} />;
-      case 'wordsearch': return <Puzzle size={24} />;
+      case 'wordsearch': return <Search size={24} />;
       case 'rebus': return <HelpCircle size={24} />;
       case 'quiz': return <BrainCircuit size={24} />;
-      case 'memory': return <Puzzle size={24} />;
+      case 'memory': return <Layers size={24} />;
       case 'architect': return <Building2 size={24} />;
       default: return <Trophy size={24} />;
     }
-  };
-
-  const renderSudoku = (grid: number[][]) => {
-    return (
-      <div className={styles.sudokuGrid}>
-        {grid.map((row, rowIndex) => (
-          <div key={`row-${rowIndex}`} className={styles.sudokuRow} style={{ display: 'contents' }}>
-            {row.map((cell, colIndex) => (
-              <input
-                key={`cell-${rowIndex}-${colIndex}`}
-                type="text"
-                maxLength={1}
-                className={styles.sudokuCell}
-                defaultValue={cell !== 0 ? cell.toString() : ''}
-                readOnly={cell !== 0}
-                style={{ 
-                  color: cell !== 0 ? 'var(--primary)' : 'var(--text)',
-                  backgroundColor: cell !== 0 ? 'rgba(var(--primary-rgb), 0.05)' : 'var(--surface)'
-                }}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const renderCrossword = (data: any) => {
-    if (!data || !data.size || !data.words) {
-      return renderPlaceholder();
-    }
-
-    // Generate grid based on size
-    const grid: any[][] = Array(data.size.rows).fill(null).map(() => Array(data.size.cols).fill(null));
-    
-    // Fill the grid with words
-    data.words.forEach((word: any) => {
-      const { row, col, direction, answer, number } = word;
-      for (let i = 0; i < answer.length; i++) {
-        const r = direction === 'vertical' ? row + i : row;
-        const c = direction === 'horizontal' ? col + i : col;
-        
-        if (!grid[r][c]) {
-          grid[r][c] = { isEmpty: false, number: null };
-        }
-        if (i === 0) {
-          grid[r][c].number = number;
-        }
-      }
-    });
-
-    const horizontalWords = data.words.filter((w: any) => w.direction === 'horizontal');
-    const verticalWords = data.words.filter((w: any) => w.direction === 'vertical');
-
-    return (
-      <div className={crosswordStyles.crosswordContainer}>
-        <div 
-          className={crosswordStyles.crosswordGrid}
-          style={{ gridTemplateColumns: `repeat(${data.size.cols}, 1fr)` }}
-        >
-          {grid.map((row, r) => 
-            row.map((cell, c) => (
-              <div 
-                key={`c-${r}-${c}`} 
-                className={`${crosswordStyles.crosswordCell} ${!cell ? crosswordStyles.crosswordCellEmpty : ''}`}
-              >
-                {cell && (
-                  <>
-                    {cell.number && <span className={crosswordStyles.crosswordNumber}>{cell.number}</span>}
-                    <input type="text" maxLength={1} className={crosswordStyles.crosswordInput} />
-                  </>
-                )}
-              </div>
-            ))
-          )}
-        </div>
-        <div className={crosswordStyles.crosswordClues}>
-          <div className={crosswordStyles.cluesSection}>
-            <h4>Poziomo</h4>
-            {horizontalWords.map((w: any) => (
-              <div key={w.id} className={crosswordStyles.clueItem}>
-                <strong>{w.number}.</strong> {w.clue}
-              </div>
-            ))}
-          </div>
-          <div className={crosswordStyles.cluesSection}>
-            <h4>Pionowo</h4>
-            {verticalWords.map((w: any) => (
-              <div key={w.id} className={crosswordStyles.clueItem}>
-                <strong>{w.number}.</strong> {w.clue}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
   };
 
   const renderPlaceholder = () => (
     <div className={styles.placeholderCard}>
       <h3 className={styles.placeholderTitle}>{currentPuzzle.title}</h3>
       <p className={styles.placeholderText}>
-        To jest szablon dla zagadki typu: <strong>{currentPuzzle.type}</strong>. 
+        To jest szablon dla zagadki typu: <strong>{currentPuzzle.type}</strong>.
         Wkrótce pojawi się tutaj interaktywna gra przygotowana specjalnie na ten dzień tygodnia!
       </p>
     </div>
@@ -225,16 +133,54 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
     }
 
     if (currentPuzzle.type === 'sudoku') {
-      return renderSudoku(puzzleData.grid);
+      return (
+        <SudokuPuzzleComponent
+          puzzle={puzzleData}
+          onSolved={handlePuzzleSolved}
+          onGiveUp={handleGiveUp}
+        />
+      );
     }
     if (currentPuzzle.type === 'crossword') {
-      return renderCrossword(puzzleData);
+      return (
+        <CrosswordPuzzleComponent
+          puzzle={puzzleData}
+          onSolved={handlePuzzleSolved}
+          onGiveUp={handleGiveUp}
+        />
+      );
+    }
+    if (currentPuzzle.type === 'wordsearch') {
+      return (
+        <WordsearchPuzzleComponent
+          puzzle={puzzleData}
+          onSolved={handlePuzzleSolved}
+          onGiveUp={handleGiveUp}
+        />
+      );
     }
     if (currentPuzzle.type === 'rebus') {
       return (
         <RebusPuzzleComponent
-          // We pass the full collection so RebusComponent can pick 5
-          puzzle={currentPuzzle} 
+          puzzle={currentPuzzle}
+          onSolved={handlePuzzleSolved}
+          onGiveUp={handleGiveUp}
+        />
+      );
+    }
+    if (currentPuzzle.type === 'quiz') {
+      return (
+        <QuizPuzzleComponent
+          puzzle={currentPuzzle as { items: QuizPuzzle[] }}
+          onSolved={handlePuzzleSolved}
+          onGiveUp={handleGiveUp}
+        />
+      );
+    }
+    if (currentPuzzle.type === 'memory') {
+      return (
+        <MemoryPuzzleComponent
+          puzzle={puzzleData}
           onSolved={handlePuzzleSolved}
           onGiveUp={handleGiveUp}
         />
@@ -248,17 +194,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
         />
       );
     }
-    if (currentPuzzle.type === 'quiz') {
-      return (
-        <QuizPuzzleComponent
-          puzzle={currentPuzzle as { items: QuizPuzzle[] }}
-          onSolved={handlePuzzleSolved}
-          onGiveUp={handleGiveUp}
-        />
-      );
-    }
-    
-    // For other types, return a placeholder for now
+
     return renderPlaceholder();
   };
 
@@ -275,7 +211,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
           </div>
         </div>
       </div>
-      
+
       <div className={styles.content}>
         {(status === 'completed' || isSolved) ? (
           <>

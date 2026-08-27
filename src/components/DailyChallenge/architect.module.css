@@ -92,22 +92,23 @@
   flex-direction: column;
   align-items: center;
   gap: 0;
+  --cell-size: clamp(28px, 9vw, 44px);
 }
 
 /* === Column Clues (top) === */
 .colCluesRow {
   display: flex;
   gap: 0;
-  margin-left: 44px; /* offset for row clues */
+  margin-left: var(--cell-size); /* offset for row clues */
 }
 
 .colClue {
-  width: 44px;
-  height: 32px;
+  width: var(--cell-size);
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 2.3vw, 0.85rem);
   font-weight: 700;
   color: var(--text-secondary);
   transition: color 0.3s;
@@ -129,12 +130,12 @@
 }
 
 .rowClue {
-  width: 44px;
-  height: 44px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 2.3vw, 0.85rem);
   font-weight: 700;
   color: var(--text-secondary);
   transition: color 0.3s;
@@ -150,8 +151,8 @@
 
 /* === Cell === */
 .cell {
-  width: 44px;
-  height: 44px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   border: 1px solid var(--gray-300);
   display: flex;
   align-items: center;
@@ -161,6 +162,12 @@
   position: relative;
   background: var(--bg-panel);
   user-select: none;
+  box-sizing: border-box;
+}
+
+.cell svg {
+  max-width: 68%;
+  max-height: 68%;
 }
 
 .cell:hover {

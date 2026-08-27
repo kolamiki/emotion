@@ -11,6 +11,7 @@ interface ChatContainerProps {
   typing: TypingState;
   dispatch: React.Dispatch<AppAction>;
   pendingFriends: Set<string>;
+  pendingGroupJoins?: Set<string>;
   onClose: (threadId: string) => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -22,6 +23,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   typing,
   dispatch,
   pendingFriends,
+  pendingGroupJoins,
   onClose,
   onViewProfile,
 }) => {
@@ -36,6 +38,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
           isTyping={!!typing[thread.threadId]}
           dispatch={dispatch}
           pendingFriends={pendingFriends}
+          pendingGroupJoins={pendingGroupJoins}
           onClose={() => onClose(thread.threadId)}
           onViewProfile={onViewProfile}
         />
@@ -51,6 +54,7 @@ interface ChatWindowProps {
   isTyping: boolean;
   dispatch: React.Dispatch<AppAction>;
   pendingFriends: Set<string>;
+  pendingGroupJoins?: Set<string>;
   onClose: () => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -62,6 +66,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   isTyping,
   dispatch,
   pendingFriends,
+  pendingGroupJoins,
   onClose,
   onViewProfile,
 }) => {
@@ -70,7 +75,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [thread.messages, isTyping]);
+    if (thread.messages.length > 0) {
+      dispatch({ type: 'MARK_THREAD_READ', threadId: thread.threadId });
+    }
+  }, [thread.messages, isTyping, dispatch, thread.threadId]);
 
   const handleSend = () => {
     if (!inputText.trim()) return;
@@ -86,7 +94,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
     // Schedule auto-response (pass full thread messages + user ID for AI context)
     const allMessages = [...thread.messages, newMsg];
-    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName, allMessages, currentUserId);
+    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName, allMessages, currentUserId, pendingGroupJoins);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -101,8 +109,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     return d.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
   };
 
+  const markAsRead = () => {
+    if (thread.messages.length > 0) {
+      dispatch({ type: 'MARK_THREAD_READ', threadId: thread.threadId });
+    }
+  };
+
   return (
-    <div className={styles.chatWindow}>
+    <div className={styles.chatWindow} onClick={markAsRead}>
       <div className={styles.chatHeader}>
         <div className={styles.chatAvatarWrap}>
           <img 

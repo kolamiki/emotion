@@ -38,6 +38,31 @@ export interface QuizPuzzle {
   questions: QuizQuestion[];
 }
 
+export interface SudokuPuzzle {
+  id: number;
+  grid: number[][];
+  solution?: number[][];
+}
+
+export interface WordsearchPuzzle {
+  id: number;
+  theme: string;
+  grid: string[][];
+  words: string[];
+}
+
+export interface MemoryPair {
+  id: string;
+  icon: string;
+  name: string;
+}
+
+export interface MemoryPuzzle {
+  id: number;
+  theme: string;
+  pairs: MemoryPair[];
+}
+
 export interface PuzzleCollection {
   dayOfWeek: number; // 0 = Sunday, 1 = Monday, etc.
   type: PuzzleType;
@@ -51,17 +76,35 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
     dayOfWeek: 0,
     type: 'crossword',
     title: 'Niedzielna Krzyżówka',
-    description: 'Rozwiąż hasła i odgadnij główne słowo!',
+    description: 'Rozwiąż hasła i odgadnij wszystkie słowa z dziedziny technologii i Internetu!',
     items: [
       {
         id: 1,
-        size: { rows: 15, cols: 15 },
+        size: { rows: 11, cols: 11 },
         words: [
-          { id: 1, number: 1, clue: 'Wyświetla obraz z komputera', answer: 'EKRAN', row: 2, col: 4, direction: 'horizontal' },
-          { id: 2, number: 2, clue: 'Służy do wpisywania tekstu', answer: 'KLAWIATURA', row: 2, col: 5, direction: 'vertical' },
-          { id: 3, number: 3, clue: 'Gryzoń na biurku', answer: 'MYSZKA', row: 4, col: 0, direction: 'horizontal' },
-          { id: 4, number: 4, clue: 'Bezprzewodowy internet', answer: 'WIFI', row: 5, col: 5, direction: 'horizontal' },
-          { id: 5, number: 5, clue: 'System operacyjny z pingwinem', answer: 'LINUX', row: 6, col: 4, direction: 'horizontal' }
+          { id: 1, number: 1, clue: 'Służy do wpisywania tekstu na komputerze', answer: 'KLAWIATURA', row: 1, col: 5, direction: 'vertical' },
+          { id: 2, number: 2, clue: 'Wyświetla obraz z komputera lub telefonu', answer: 'EKRAN', row: 1, col: 4, direction: 'horizontal' },
+          { id: 3, number: 3, clue: 'Gryzoń pod ręką gracza lub pracownika biura', answer: 'MYSZKA', row: 3, col: 0, direction: 'horizontal' },
+          { id: 4, number: 4, clue: 'Bezprzewodowa sieć lokalna', answer: 'WIFI', row: 4, col: 5, direction: 'horizontal' },
+          { id: 5, number: 5, clue: 'System operacyjny, którego maskotką jest pingwin Tux', answer: 'LINUX', row: 5, col: 4, direction: 'horizontal' },
+          { id: 6, number: 6, clue: 'Potoczne określenie aplikacji na smartfona', answer: 'APKA', row: 6, col: 5, direction: 'horizontal' },
+          { id: 7, number: 7, clue: 'Płaski komputer z ekranem dotykowym', answer: 'TABLET', row: 7, col: 5, direction: 'horizontal' },
+          { id: 8, number: 8, clue: 'Uniwersalny port do podłączania akcesoriów', answer: 'USB', row: 8, col: 5, direction: 'horizontal' },
+          { id: 9, number: 9, clue: 'Szybka pamięć operacyjna komputera', answer: 'RAM', row: 9, col: 5, direction: 'horizontal' },
+          { id: 10, number: 10, clue: 'Sygnał dźwiękowy lub pliki muzyczne', answer: 'AUDIO', row: 10, col: 5, direction: 'horizontal' }
+        ]
+      },
+      {
+        id: 2,
+        size: { rows: 11, cols: 12 },
+        words: [
+          { id: 1, number: 1, clue: 'Osoba pisząca kod źródłowy aplikacji', answer: 'PROGRAMISTA', row: 0, col: 4, direction: 'vertical' },
+          { id: 2, number: 2, clue: 'Język programowania nazwany na cześć grupy Monty Pythona', answer: 'PYTHON', row: 0, col: 4, direction: 'horizontal' },
+          { id: 3, number: 3, clue: 'Urządzenie sieciowe rozdzielające ruch internetowy w domu', answer: 'ROUTER', row: 1, col: 4, direction: 'horizontal' },
+          { id: 4, number: 4, clue: 'Obrazy i ilustracje renderowane przez komputer', answer: 'GRAFIKA', row: 3, col: 4, direction: 'horizontal' },
+          { id: 5, number: 5, clue: 'Wizerunek lub ikona reprezentująca użytkownika w profilu', answer: 'AVATAR', row: 5, col: 4, direction: 'horizontal' },
+          { id: 6, number: 6, clue: 'Globalna sieć komputerowa łącząca cały świat', answer: 'INTERNET', row: 7, col: 4, direction: 'horizontal' },
+          { id: 7, number: 7, clue: 'Komputer udostępniający usługi i strony w sieci', answer: 'SERWER', row: 8, col: 4, direction: 'horizontal' }
         ]
       }
     ]
@@ -70,7 +113,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
     dayOfWeek: 1,
     type: 'sudoku',
     title: 'Poniedziałkowe Sudoku',
-    description: 'Wypełnij planszę 9x9 cyframi od 1 do 9.',
+    description: 'Wypełnij planszę 9x9 cyframi od 1 do 9 tak, aby nie powtarzały się w wierszu, kolumnie ani bloku 3x3.',
     items: [
       {
         id: 1,
@@ -84,6 +127,17 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
           [0, 6, 0, 0, 0, 0, 2, 8, 0],
           [0, 0, 0, 4, 1, 9, 0, 0, 5],
           [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        ],
+        solution: [
+          [5, 3, 4, 6, 7, 8, 9, 1, 2],
+          [6, 7, 2, 1, 9, 5, 3, 4, 8],
+          [1, 9, 8, 3, 4, 2, 5, 6, 7],
+          [8, 5, 9, 7, 6, 1, 4, 2, 3],
+          [4, 2, 6, 8, 5, 3, 7, 9, 1],
+          [7, 1, 3, 9, 2, 4, 8, 5, 6],
+          [9, 6, 1, 5, 3, 7, 2, 8, 4],
+          [2, 8, 7, 4, 1, 9, 6, 3, 5],
+          [3, 4, 5, 2, 8, 6, 1, 7, 9]
         ]
       },
       {
@@ -98,19 +152,96 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
           [0, 0, 9, 3, 0, 0, 0, 7, 4],
           [0, 4, 0, 0, 5, 0, 0, 3, 6],
           [7, 0, 3, 0, 1, 8, 0, 0, 0]
+        ],
+        solution: [
+          [4, 3, 5, 2, 6, 9, 7, 8, 1],
+          [6, 8, 2, 5, 7, 1, 4, 9, 3],
+          [1, 9, 7, 8, 3, 4, 5, 6, 2],
+          [8, 2, 6, 1, 9, 5, 3, 4, 7],
+          [3, 7, 4, 6, 8, 2, 9, 1, 5],
+          [9, 5, 1, 7, 4, 3, 6, 2, 8],
+          [5, 1, 9, 3, 2, 6, 8, 7, 4],
+          [2, 4, 8, 9, 5, 7, 1, 3, 6],
+          [7, 6, 3, 4, 1, 8, 2, 5, 9]
         ]
       }
-    ]
+    ] as SudokuPuzzle[]
   },
   2: {
     dayOfWeek: 2,
     type: 'wordsearch',
     title: 'Wtorkowa Wykreślanka',
-    description: 'Znajdź wszystkie ukryte słowa w gąszczu liter.',
+    description: 'Znajdź wszystkie ukryte słowa w gąszczu liter. Słowa mogą biec poziomo, pionowo oraz po skosie (w obu kierunkach)!',
     items: [
-      { id: 1, words: ['PRIMECO', 'PROFESOR', 'PRZYSZŁOŚĆ', 'DŁUGOPIS', 'CZAS', 'NAUKA',] },
-      { id: 2, words: ['FRONTEND', 'BACKEND', 'API'] }
-    ]
+      {
+        id: 1,
+        theme: 'Czas & Podróże w Przyszłość',
+        words: ['PRZYSZLOSC', 'ZEGAR', 'MINUTA', 'SEKUNDA', 'CHWILA', 'EPOKA', 'JUTRO', 'CZAS', 'PORTAL', 'WEKTOR'],
+        grid: [
+          ['P', 'R', 'Z', 'Y', 'S', 'Z', 'L', 'O', 'S', 'C'],
+          ['Z', 'S', 'E', 'A', 'M', 'E', 'O', 'E', 'U', 'N'],
+          ['E', 'K', 'E', 'P', 'I', 'L', 'A', 'P', 'W', 'P'],
+          ['G', 'O', 'D', 'K', 'N', 'A', 'P', 'O', 'E', 'O'],
+          ['A', 'J', 'A', 'T', 'U', 'S', 'Z', 'K', 'K', 'R'],
+          ['R', 'K', 'U', 'K', 'T', 'N', 'L', 'A', 'T', 'T'],
+          ['W', 'I', 'E', 'T', 'A', 'R', 'D', 'Z', 'O', 'A'],
+          ['E', 'R', 'A', 'K', 'R', 'Z', 'L', 'A', 'R', 'L'],
+          ['M', 'A', 'J', 'A', 'K', 'O', 'C', 'Z', 'A', 'S'],
+          ['C', 'H', 'W', 'I', 'L', 'A', 'P', 'O', 'K', 'I']
+        ]
+      },
+      {
+        id: 2,
+        theme: 'Społeczność eMotion',
+        words: ['EMOTION', 'PROFIL', 'AVATAR', 'CZAT', 'LAJK', 'POST', 'GRUPA', 'MEMY', 'FOTO'],
+        grid: [
+          ['E', 'M', 'O', 'T', 'I', 'O', 'N', 'S', 'P', 'K'],
+          ['B', 'A', 'S', 'K', 'O', 'N', 'T', 'O', 'J', 'P'],
+          ['C', 'I', 'V', 'L', 'I', 'N', 'K', 'A', 'P', 'R'],
+          ['Z', 'O', 'K', 'A', 'D', 'O', 'L', 'A', 'J', 'O'],
+          ['A', 'K', 'T', 'Y', 'T', 'O', 'P', 'I', 'P', 'F'],
+          ['T', 'A', 'B', 'U', 'L', 'A', 'R', 'E', 'O', 'I'],
+          ['S', 'M', 'I', 'L', 'E', 'K', 'R', 'O', 'S', 'L'],
+          ['I', 'K', 'E', 'G', 'R', 'U', 'P', 'A', 'T', 'K'],
+          ['E', 'C', 'H', 'M', 'A', 'I', 'L', 'G', 'R', 'A'],
+          ['C', 'Z', 'A', 'S', 'Y', 'F', 'O', 'T', 'O', 'S']
+        ]
+      },
+      {
+        id: 3,
+        theme: 'Kosmos & Astronomia',
+        words: ['MARS', 'RAKIETA', 'GWIAZDA', 'ORBITA', 'KOMETA', 'LUNA', 'SOLAR', 'NEBULA', 'PLUTON'],
+        grid: [
+          ['M', 'A', 'R', 'S', 'T', 'E', 'L', 'O', 'P', 'R'],
+          ['K', 'O', 'G', 'W', 'I', 'A', 'Z', 'D', 'A', 'A'],
+          ['O', 'S', 'M', 'O', 'S', 'U', 'N', 'I', 'N', 'K'],
+          ['B', 'R', 'A', 'N', 'E', 'T', 'A', 'P', 'E', 'I'],
+          ['L', 'A', 'B', 'K', 'S', 'T', 'R', 'O', 'B', 'E'],
+          ['U', 'Z', 'O', 'I', 'E', 'O', 'K', 'O', 'U', 'T'],
+          ['N', 'O', 'W', 'M', 'T', 'A', 'L', 'S', 'L', 'A'],
+          ['A', 'K', 'O', 'S', 'M', 'A', 'Z', 'A', 'A', 'R'],
+          ['S', 'K', 'P', 'L', 'U', 'T', 'O', 'N', 'R', 'Y'],
+          ['E', 'K', 'R', 'A', 'N', 'G', 'W', 'I', 'A', 'S']
+        ]
+      },
+      {
+        id: 4,
+        theme: 'Retro Gry & Komputery',
+        words: ['PIXEL', 'ARCADE', 'QUEST', 'MARIO', 'KONSOLA', 'JOYSTICK', 'BOSSY', 'TETRIS'],
+        grid: [
+          ['G', 'P', 'I', 'X', 'E', 'L', 'S', 'T', 'A', 'R'],
+          ['A', 'J', 'O', 'Y', 'K', 'O', 'M', 'P', 'U', 'T'],
+          ['R', 'K', 'O', 'L', 'O', 'Q', 'U', 'E', 'S', 'T'],
+          ['C', 'I', 'P', 'Y', 'N', 'Y', 'L', 'O', 'G', 'M'],
+          ['A', 'L', 'E', 'V', 'S', 'S', 'T', 'A', 'P', 'A'],
+          ['D', 'O', 'T', 'S', 'O', 'T', 'T', 'E', 'C', 'R'],
+          ['E', 'K', 'O', 'R', 'L', 'A', 'I', 'T', 'E', 'I'],
+          ['G', 'B', 'O', 'S', 'A', 'K', 'A', 'C', 'L', 'O'],
+          ['T', 'E', 'T', 'R', 'I', 'S', 'L', 'A', 'K', 'A'],
+          ['S', 'Z', 'P', 'I', 'E', 'L', 'G', 'R', 'Y', 'P']
+        ]
+      }
+    ] as WordsearchPuzzle[]
   },
   3: {
     dayOfWeek: 3,
@@ -126,91 +257,83 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       { id: 105, category: 'Przysłowia', emojis: ['🏃‍♂️', '💨', '🐢', '🏆'], answer: 'Spiesz się powoli', hint: 'Dokładność jest ważniejsza niż pośpiech.' },
       { id: 106, category: 'Przysłowia', emojis: ['🐈', '🐭', '💃'], answer: 'Gdy kota nie ma myszy harcują', hint: 'Brak nadzoru prowadzi do rozluźnienia dyscypliny.' },
       { id: 107, category: 'Przysłowia', emojis: ['🔥', '💨', '❌', '🔥'], answer: 'Nie ma dymu bez ognia', hint: 'Zawsze jest jakaś przyczyna plotek lub zdarzeń.' },
-      { id: 108, category: 'Przysłowia', emojis: ['🏹', '🏹', '🎯'], answer: 'Do trzech razu sztuka', hint: 'Próbuj, próbuj, a za kolejnym razem się uda.' },
+      { id: 108, category: 'Przysłowia', emojis: ['🏹', '🏹', '🎯'], answer: 'Do trzech razy sztuka', hint: 'Próbuj, próbuj, a za kolejnym razem się uda.' },
       { id: 109, category: 'Przysłowia', emojis: ['🐦', '✋', '🦅', '🏠'], answer: 'Lepszy wróbel w garści niż gołąb na dachu', hint: 'Pewne, małe zyski są lepsze niż niepewne obietnice.' },
       { id: 110, category: 'Przysłowia', emojis: ['😴', '🛏️', '☀️', '🛌'], answer: 'Kto rano wstaje temu Pan Bóg daje', hint: 'Wczesne wstawanie przynosi korzyści.' },
 
       // === TYTUŁY FILMÓW ===
-      { id: 201, category: 'Tytuły filmów', emojis: ['👽', '🚲', '🌕'], answer: 'ET', hint: 'Klasyk o kosmicie z 1982.' },
-      { id: 202, category: 'Tytuły filmów', emojis: ['🚢', '🧊', '💔'], answer: 'Titanic', hint: 'Słynny statek i góra lodowa.' },
-      { id: 203, category: 'Tytuły filmów', emojis: ['🦖', '🏞️', '🚙'], answer: 'Park Jurajski', hint: 'Dinozaury przywrócone do życia.' },
-      { id: 204, category: 'Tytuły filmów', emojis: ['🦁', '👑', '🌅'], answer: 'Król Lew', hint: 'Animacja Disneya o Simbie.' },
-      { id: 205, category: 'Tytuły filmów', emojis: ['🧙‍♂️', '💍', '🌋'], answer: 'Władca Pierścieni', hint: 'Podróż z jedynym pierścieniem do Mordoru.' },
-      { id: 206, category: 'Tytuły filmów', emojis: ['🦇', '👨', '🃏'], answer: 'Mroczny Rycerz', hint: 'Bruce Wayne walczy z Jokerem.' },
-      { id: 207, category: 'Tytuły filmów', emojis: ['💊', '🔴', '🔵', '🕶️'], answer: 'Matrix', hint: 'Wybór między prawdą a iluzją.' },
-      { id: 208, category: 'Tytuły filmów', emojis: ['🚗', '⏳', '⚡'], answer: 'Powrót do przyszłości', hint: 'Podróż w czasie DeLoreaniem.' },
-      { id: 209, category: 'Tytuły filmów', emojis: ['⭐', '⚔️', '🌌'], answer: 'Gwiezdne Wojny', hint: 'Walka jasnej i ciemnej strony Mocy.' },
-      { id: 210, category: 'Tytuły filmów', emojis: ['🐼', '🥋', '🍜'], answer: 'Kung Fu Panda', hint: 'Otyły niedźwiedź zostaje mistrzem sztuk walki.' },
+      { id: 201, category: 'Tytuły filmów', emojis: ['🦁', '👑'], answer: 'Król Lew', hint: 'Klasyk Disneya o Simbie.' },
+      { id: 202, category: 'Tytuły filmów', emojis: ['🚢', '🧊', '💔'], answer: 'Titanic', hint: 'Katastrofa wielkiego liniowca.' },
+      { id: 203, category: 'Tytuły filmów', emojis: ['💍', '🧙‍♂️', '🌋'], answer: 'Władca Pierścieni', hint: 'Wyprawa do Mordoru.' },
+      { id: 204, category: 'Tytuły filmów', emojis: ['👻', '🔫', '🚫'], answer: 'Pogromcy Duchów', hint: 'Kogo zawołasz? Ghostbusters!' },
+      { id: 205, category: 'Tytuły filmów', emojis: ['🦖', '🏝️', '🚙'], answer: 'Park Jurajski', hint: 'Dinozaury na wyspie Nublar.' },
+      { id: 206, category: 'Tytuły filmów', emojis: ['🕷️', '🧑', '🕸️'], answer: 'Spider-Man', hint: 'Człowiek Pająk ratuje Nowy Jork.' },
+      { id: 207, category: 'Tytuły filmów', emojis: ['🍫', '🏭', '🎩'], answer: 'Charlie i fabryka czekolady', hint: 'Willy Wonka i złoty bilet.' },
+      { id: 208, category: 'Tytuły filmów', emojis: ['🏴‍☠️', '⚔️', '🦜'], answer: 'Piraci z Karaibów', hint: 'Kapitan Jack Sparrow.' },
+      { id: 209, category: 'Tytuły filmów', emojis: ['🦇', '🦸‍♂️', '🌃'], answer: 'Mroczny Rycerz', hint: 'Batman kontra Joker w Gotham.' },
+      { id: 210, category: 'Tytuły filmów', emojis: ['👽', '🚲', '🌕'], answer: 'E.T.', hint: 'Kosmita chce zadzwonić do domu.' },
 
       // === BOHATEROWIE KOMIKSOWI ===
-      { id: 301, category: 'Bohaterowie komiksowi', emojis: ['🦇', '👨'], answer: 'Batman', hint: 'Rycerz z Gotham.' },
-      { id: 302, category: 'Bohaterowie komiksowi', emojis: ['🕷️', '👨', '🕸️'], answer: 'Spiderman', hint: 'Ugryziony przez pajęczaka.' },
-      { id: 303, category: 'Bohaterowie komiksowi', emojis: ['⚡', '🏃‍♂️', '🔴'], answer: 'Flash', hint: 'Najszybszy człowiek na Ziemi.' },
-      { id: 304, category: 'Bohaterowie komiksowi', emojis: ['🛡️', '⭐', '🇺🇸'], answer: 'Kapitan Ameryka', hint: 'Pierwszy mściciel z tarczą ze vibranium.' },
-      { id: 305, category: 'Bohaterowie komiksowi', emojis: ['🤖', '👨', '💰'], answer: 'Iron Man', hint: 'Geniusz, miliarder, filantrop w zbroi.' },
-      { id: 306, category: 'Bohaterowie komiksowi', emojis: ['🔨', '⚡', '🧔'], answer: 'Thor', hint: 'Bóg Piorunów z Asgardu.' },
-      { id: 307, category: 'Bohaterowie komiksowi', emojis: ['🟢', '😡', '💪'], answer: 'Hulk', hint: 'Zły - zielony i bardzo silny.' },
-      { id: 308, category: 'Bohaterowie komiksowi', emojis: ['🐱', '👩', '💎'], answer: 'Kobieta Kot', hint: 'Złodziejka z Gotham, Selina.' },
-      { id: 309, category: 'Bohaterowie komiksowi', emojis: ['🏹', '🦅', '🎯'], answer: 'Hawkeye', hint: 'Najlepszy łucznik Avengers.' },
-      { id: 310, category: 'Bohaterowie komiksowi', emojis: ['👽', '🦸‍♂️', '☀️', 'S'], answer: 'Superman', hint: 'Człowiek ze stali z planety Krypton.' },
-      { id: 311, category: 'Bohaterowie komiksowi', emojis: ['🥼', '🕶️', '🐶',], answer: 'Doc Behrmann', hint: 'Niemiecki naukowiec, lubiący psy.' },
+      { id: 301, category: 'Bohaterowie komiksowi', emojis: ['⚡', '🔨', '🌩️'], answer: 'Thor', hint: 'Nordycki bóg piorunów z Avengers.' },
+      { id: 302, category: 'Bohaterowie komiksowi', emojis: ['🛡️', '⭐', '🇺🇸'], answer: 'Kapitan Ameryka', hint: 'Pierwszy Avenger z tarczą z vibranium.' },
+      { id: 303, category: 'Bohaterowie komiksowi', emojis: ['🤖', '❤️', '🚀'], answer: 'Iron Man', hint: 'Tony Stark w pancerzu.' },
+      { id: 304, category: 'Bohaterowie komiksowi', emojis: ['😡', '🟢', '💥'], answer: 'Hulk', hint: 'Naukowiec Bruce Banner, gdy się zdenerwuje.' },
+      { id: 305, category: 'Bohaterowie komiksowi', emojis: ['🏹', '🎯', '👁️'], answer: 'Hawkeye', hint: 'Mistrz łuku i strzał z Avengers.' },
+      { id: 306, category: 'Bohaterowie komiksowi', emojis: ['🐱', '🦹‍♀️', '💎'], answer: 'Kobieta Kot', hint: 'Zwinna złodziejka z Gotham.' },
+      { id: 307, category: 'Bohaterowie komiksowi', emojis: ['🏃‍♂️', '⚡', '🔴'], answer: 'Flash', hint: 'Najszybszy człowiek na Ziemi.' },
+      { id: 308, category: 'Bohaterowie komiksowi', emojis: ['🔱', '🌊', '🐟'], answer: 'Aquaman', hint: 'Król Atlantydy.' },
+      { id: 309, category: 'Bohaterowie komiksowi', emojis: ['🃏', '🤡', '🃏'], answer: 'Joker', hint: 'Książę Zbrodni i wróg Batmana.' },
+      { id: 310, category: 'Bohaterowie komiksowi', emojis: ['🦝', '🔫', '🚀'], answer: 'Rocket Raccoon', hint: 'Kosmiczny szop ze Strażników Galaktyki.' },
 
       // === KRAJE ŚWIATA ===
-      { id: 401, category: 'Kraje świata', emojis: ['🗼', '🥐', '🍷'], answer: 'Francja', hint: 'Kraj nad Sekwaną.' },
-      { id: 402, category: 'Kraje świata', emojis: ['🍝', '🍕', '🏛️'], answer: 'Włochy', hint: 'Państwo w kształcie buta.' },
-      { id: 403, category: 'Kraje świata', emojis: ['🗽', '🦅', '🍔'], answer: 'USA', hint: 'Stany zjednoczone...' },
-      { id: 404, category: 'Kraje świata', emojis: ['🍣', '🌸', '🗼', '🔴'], answer: 'Japonia', hint: 'Kraj Kwitnącej Wiśni.' },
-      { id: 405, category: 'Kraje świata', emojis: ['🦘', '🐨', '🏖️'], answer: 'Australia', hint: 'Kraj i kontynent jednocześnie.' },
-      { id: 406, category: 'Kraje świata', emojis: ['🍁', '🏒', '🥞'], answer: 'Kanada', hint: 'Kraj syropu klonowego.' },
-      { id: 407, category: 'Kraje świata', emojis: ['🌮', '🌵', '🎉'], answer: 'Meksyk', hint: 'Sąsiad USA na południu.' },
-      { id: 408, category: 'Kraje świata', emojis: ['🐪', '🏜️', '🔺'], answer: 'Egipt', hint: 'Kraj piramid i faraonów.' },
-      { id: 409, category: 'Kraje świata', emojis: ['🍺', '🥨', '🏰'], answer: 'Niemcy', hint: 'Nasz zachodni sąsiad.' },
-      { id: 410, category: 'Kraje świata', emojis: ['🥟', '🦅', '⚪', '🔴'], answer: 'Polska', hint: 'Kraj nad Wisłą.' }
+      { id: 401, category: 'Kraje świata', emojis: ['🍕', '👢', '🏛️'], answer: 'Włochy', hint: 'Kraj w kształcie buta, stolica Rzym.' },
+      { id: 402, category: 'Kraje świata', emojis: ['🗼', '🥖', '🥐'], answer: 'Francja', hint: 'Kraj z Wieżą Eiffla i stolicą w Paryżu.' },
+      { id: 403, category: 'Kraje świata', emojis: ['🍣', '🗾', '🗻'], answer: 'Japonia', hint: 'Kraj Kwitnącej Wiśni z górą Fudżi.' },
+      { id: 404, category: 'Kraje świata', emojis: ['🦘', '🐨', '🏄‍♂️'], answer: 'Australia', hint: 'Kraj i kontynent z kangurami.' },
+      { id: 405, category: 'Kraje świata', emojis: ['🍁', '🏒', '🐻'], answer: 'Kanada', hint: 'Kraj z liściem klonowym na fladze.' },
+      { id: 406, category: 'Kraje świata', emojis: ['🌮', '🌵', '🎉'], answer: 'Meksyk', hint: 'Kraj sombrero, tacos i mariachi.' },
+      { id: 407, category: 'Kraje świata', emojis: ['⚽', '💃', '🌴'], answer: 'Brazylia', hint: 'Kraj samby, karnawału i Amazonii.' },
+      { id: 408, category: 'Kraje świata', emojis: ['🫖', '👑', '🌧️'], answer: 'Wielka Brytania', hint: 'Kraj z Big Benem i rodziną królewską.' },
+      { id: 409, category: 'Kraje świata', emojis: ['🪆', '❄️', '🐻'], answer: 'Rosja', hint: 'Kraj matrioszek i Syberii.' },
+      { id: 410, category: 'Kraje świata', emojis: ['🥟', '🦅', '🏰'], answer: 'Polska', hint: 'Nasz kraj nad Wisłą!' }
     ] as RebusPuzzle[]
   },
   4: {
     dayOfWeek: 4,
     type: 'quiz',
-    title: 'Czwartkowy Quiz',
-    description: 'Odpowiedz na 10 pytań jak najszybciej! Błędna odpowiedź +30s, podpowiedź 50/50 +15s.',
+    title: 'Czwartkowy Quiz Wiedzy',
+    description: 'Odpowiedz poprawnie na 10 pytań z różnych dziedzin. Błędna odpowiedź dodaje +30s kary! Możesz użyć koła ratunkowego 50/50 (+15s).',
     items: [
       {
         id: 1,
         questions: [
           // === NAUKA ===
-          { id: 101, category: 'Nauka', question: 'Jaki pierwiastek chemiczny ma symbol "Au"?', options: ['Srebro', 'Złoto', 'Aluminium', 'Argon'], correctIndex: 1, explanation: 'Au pochodzi od łacińskiego "aurum", oznaczającego złoto.' },
-          { id: 102, category: 'Nauka', question: 'Ile kości ma dorosły człowiek?', options: ['186', '206', '226', '256'], correctIndex: 1, explanation: 'Dorosły człowiek posiada 206 kości. Noworodki mają ich około 270, ale niektóre zrastają się z wiekiem.' },
-          { id: 103, category: 'Nauka', question: 'Która planeta Układu Słonecznego jest największa?', options: ['Saturn', 'Neptun', 'Jowisz', 'Uran'], correctIndex: 2, explanation: 'Jowisz jest największą planetą — mieści się w nim ponad 1300 Ziem.' },
-          { id: 104, category: 'Nauka', question: 'Co mierzy skala Richtera?', options: ['Siłę wiatru', 'Siłę trzęsień ziemi', 'Temperaturę', 'Ciśnienie atmosferyczne'], correctIndex: 1, explanation: 'Skala Richtera mierzy magnitudę (energię) trzęsień ziemi.' },
-          { id: 105, category: 'Nauka', question: 'Jaki gaz stanowi największą część atmosfery Ziemi?', options: ['Tlen', 'Azot', 'Dwutlenek węgla', 'Argon'], correctIndex: 1, explanation: 'Azot stanowi około 78% atmosfery Ziemi.' },
+          { id: 101, category: 'Nauka', question: 'Jaki pierwiastek chemiczny ma symbol "Au"?', options: ['Srebro', 'Złoto', 'Aluminium', 'Argon'], correctIndex: 1, explanation: 'Symbol "Au" pochodzi od łacińskiego słowa "aurum", oznaczającego złoto.' },
+          { id: 102, category: 'Nauka', question: 'Ile kości ma dorosły człowiek?', options: ['186', '206', '256', '300'], correctIndex: 1, explanation: 'Dorosły człowiek ma 206 kości. Noworodek ma ich około 270, lecz część zrasta się z wiekiem.' },
+          { id: 103, category: 'Nauka', question: 'Jaka jest największa planeta w Układzie Słonecznym?', options: ['Saturn', 'Neptun', 'Jowisz', 'Uran'], correctIndex: 2, explanation: 'Jowisz jest największą planetą Układu Słonecznego — jego masa jest ponad 2,5 razy większa niż masa wszystkich pozostałych planet razem wziętych.' },
+          { id: 104, category: 'Nauka', question: 'Jaka jest przybliżona prędkość światła w próżni?', options: ['300 000 km/s', '150 000 km/s', '1 000 000 km/s', '30 000 km/s'], correctIndex: 0, explanation: 'Prędkość światła w próżni wynosi dokładnie 299 792 458 m/s, czyli w zaokrągleniu 300 000 km/s.' },
 
           // === HISTORIA ===
-          { id: 201, category: 'Historia', question: 'W którym roku Kolumb dotarł do Ameryki?', options: ['1482', '1492', '1502', '1512'], correctIndex: 1, explanation: 'Krzysztof Kolumb dopłynął do Ameryki 12 października 1492 roku.' },
-          { id: 202, category: 'Historia', question: 'Kto był pierwszym człowiekiem na Księżycu?', options: ['Buzz Aldrin', 'Jurij Gagarin', 'Neil Armstrong', 'John Glenn'], correctIndex: 2, explanation: 'Neil Armstrong postawił stopę na Księżycu 20 lipca 1969 roku w ramach misji Apollo 11.' },
-          { id: 203, category: 'Historia', question: 'W którym roku odbyła się Bitwa pod Grunwaldem?', options: ['1385', '1410', '1444', '1466'], correctIndex: 1, explanation: 'Bitwa pod Grunwaldem miała miejsce 15 lipca 1410 roku — jedno z najważniejszych starć w historii Polski.' },
-          { id: 204, category: 'Historia', question: 'Który faraon kazał zbudować Wielką Piramidę w Gizie?', options: ['Tutanchamon', 'Ramzes II', 'Cheops', 'Amenhotep III'], correctIndex: 2, explanation: 'Wielka Piramida w Gizie została zbudowana ok. 2560 r. p.n.e. dla faraona Cheopsa (Chufu).' },
-          { id: 205, category: 'Historia', question: 'Jak nazywał się ostatni król Polski?', options: ['Jan III Sobieski', 'Stanisław August Poniatowski', 'Zygmunt III Waza', 'August III Sas'], correctIndex: 1, explanation: 'Stanisław August Poniatowski (1732–1798) był ostatnim królem Rzeczypospolitej.' },
+          { id: 201, category: 'Historia', question: 'W którym roku Kolumb dopłynął do Ameryki?', options: ['1492', '1498', '1502', '1488'], correctIndex: 0, explanation: 'Krzysztof Kolumb dotarł do wyspy San Salvador na Bahamach 12 października 1492 roku.' },
+          { id: 202, category: 'Historia', question: 'W którym roku odbyła się bitwa pod Grunwaldem?', options: ['1385', '1410', '1444', '1525'], correctIndex: 1, explanation: 'Bitwa pod Grunwaldem miała miejsce 15 lipca 1410 roku pomiędzy wojskami polsko-litewskimi a Zakonem Krzyżackim.' },
+          { id: 203, category: 'Historia', question: 'W którym roku uchwalono w Polsce Konstytucję 3 Maja?', options: ['1772', '1791', '1794', '1795'], correctIndex: 1, explanation: 'Konstytucja 3 Maja została uchwalona w 1791 roku jako pierwsza w Europie i druga na świecie nowoczesna konstytucja.' },
 
           // === GEOGRAFIA ===
-          { id: 301, category: 'Geografia', question: 'Jaka jest stolica Australii?', options: ['Sydney', 'Melbourne', 'Canberra', 'Brisbane'], correctIndex: 2, explanation: 'Stolicą Australii jest Canberra, nie Sydney — wiele osób myli te dwa miasta.' },
-          { id: 302, category: 'Geografia', question: 'Jaka jest najdłuższa rzeka świata?', options: ['Amazonka', 'Nil', 'Jangcy', 'Missisipi'], correctIndex: 1, explanation: 'Nil ma długość ok. 6 650 km. Choć Amazonka bywa uznawana za najdłuższą — zależy od metodologii pomiaru.' },
-          { id: 303, category: 'Geografia', question: 'W ilu strefach czasowych leży Rosja?', options: ['7', '9', '11', '13'], correctIndex: 2, explanation: 'Rosja rozciąga się na 11 stref czasowych — od Kaliningradu po Kamczatkę.' },
-          { id: 304, category: 'Geografia', question: 'Który ocean jest najmniejszy?', options: ['Indyjski', 'Atlantycki', 'Arktyczny', 'Południowy'], correctIndex: 2, explanation: 'Ocean Arktyczny (Lodowaty Północny) ma powierzchnię ok. 14 mln km² — to najmniejszy z pięciu oceanów.' },
-          { id: 305, category: 'Geografia', question: 'Jak nazywa się najwyższy szczyt Afryki?', options: ['Mont Blanc', 'Kilimandżaro', 'Elbrus', 'Aconcagua'], correctIndex: 1, explanation: 'Kilimandżaro (5 895 m n.p.m.) to najwyższy szczyt kontynentu afrykańskiego, położony w Tanzanii.' },
+          { id: 301, category: 'Geografia', question: 'Która rzeka jest najdłuższa na świecie?', options: ['Nil', 'Amazonka', 'Jangcy', 'Missisipi'], correctIndex: 1, explanation: 'Według najnowszych badań satelitarnych Amazonka (ok. 6992 km) jest najdłuższą rzeką świata, wyprzedzając Nil (ok. 6853 km).' },
+          { id: 302, category: 'Geografia', question: 'Który kraj ma najwięcej stref czasowych?', options: ['USA', 'Chiny', 'Rosja', 'Australia'], correctIndex: 2, explanation: 'Rosja obejmuje aż 11 stref czasowych rozciągających się od Kaliningradu po Kamczatkę.' },
+          { id: 303, category: 'Geografia', question: 'Jaki jest najmniejszy niepodległy kraj na świecie?', options: ['Monako', 'San Marino', 'Watykan', 'Liechtenstein'], correctIndex: 2, explanation: 'Watykan zajmuje powierzchnię zaledwie 0,44 km² i jest najmniejszym państwem świata.' },
 
           // === KULTURA ===
           { id: 401, category: 'Kultura', question: 'Kto namalował "Gwiaździstą noc"?', options: ['Claude Monet', 'Pablo Picasso', 'Vincent van Gogh', 'Salvador Dalí'], correctIndex: 2, explanation: 'Vincent van Gogh namalował "Gwiaździstą noc" w 1889 roku podczas pobytu w szpitalu psychiatrycznym.' },
           { id: 402, category: 'Kultura', question: 'Ile symfonii skomponował Beethoven?', options: ['5', '7', '9', '12'], correctIndex: 2, explanation: 'Ludwig van Beethoven skomponował 9 symfonii. Ostatnia, IX, zawiera słynną "Odę do radości".' },
           { id: 403, category: 'Kultura', question: 'Kto napisał "Zbrodnię i karę"?', options: ['Lew Tołstoj', 'Fiodor Dostojewski', 'Anton Czechow', 'Mikołaj Gogol'], correctIndex: 1, explanation: 'Fiodor Dostojewski opublikował "Zbrodnię i karę" w 1866 roku.' },
-          { id: 404, category: 'Kultura', question: 'W którym mieście znajduje się Sagrada Familia?', options: ['Madryt', 'Lizbona', 'Barcelona', 'Rzym'], correctIndex: 2, explanation: 'Sagrada Familia to bazylika w Barcelonii zaprojektowana przez Antoniego Gaudíego, budowana od 1882 roku.' },
-          { id: 405, category: 'Kultura', question: 'Który film jako pierwszy w historii zdobył Oscara za najlepszy film?', options: ['Skrzydła', 'Metropolis', 'Śpiewak jazzbandu', 'Wschód słońca'], correctIndex: 0, explanation: '"Skrzydła" (1927) — niemy film wojenny — zdobyły pierwszego Oscara za najlepszy film w 1929 roku.' },
+          { id: 404, category: 'Kultura', question: 'W którym mieście znajduje się Sagrada Familia?', options: ['Madryt', 'Lizbona', 'Barcelona', 'Rzym'], correctIndex: 2, explanation: 'Sagrada Familia to bazylika w Barcelonie zaprojektowana przez Antoniego Gaudíego, budowana od 1882 roku.' },
 
           // === TECHNOLOGIA ===
           { id: 501, category: 'Technologia', question: 'W którym roku powstał pierwszy iPhone?', options: ['2005', '2007', '2009', '2010'], correctIndex: 1, explanation: 'Pierwszy iPhone został zaprezentowany przez Steve\'a Jobsa 9 stycznia 2007 roku.' },
           { id: 502, category: 'Technologia', question: 'Kto jest twórcą Linuxa?', options: ['Bill Gates', 'Steve Wozniak', 'Linus Torvalds', 'Dennis Ritchie'], correctIndex: 2, explanation: 'Linus Torvalds stworzył jądro Linux w 1991 roku, będąc studentem w Finlandii.' },
           { id: 503, category: 'Technologia', question: 'Co oznacza skrót HTML?', options: ['HyperText Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language', 'Hyper Transfer Multi Language'], correctIndex: 0, explanation: 'HTML to HyperText Markup Language — język znaczników do tworzenia stron internetowych.' },
-          { id: 504, category: 'Technologia', question: 'Która firma stworzyła język programowania Java?', options: ['Microsoft', 'Sun Microsystems', 'IBM', 'Apple'], correctIndex: 1, explanation: 'Java została stworzona przez Jamesa Goslinga w Sun Microsystems i wydana w 1995 roku.' },
-          { id: 505, category: 'Technologia', question: 'Ile bitów ma jeden bajt?', options: ['4', '8', '16', '32'], correctIndex: 1, explanation: 'Jeden bajt składa się z 8 bitów. To podstawowa jednostka informacji w informatyce.' }
+          { id: 504, category: 'Technologia', question: 'Ile bitów ma jeden bajt?', options: ['4', '8', '16', '32'], correctIndex: 1, explanation: 'Jeden bajt składa się z 8 bitów. To podstawowa jednostka informacji w informatyce.' }
         ] as QuizQuestion[]
       }
     ] as QuizPuzzle[]
@@ -219,11 +342,37 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
     dayOfWeek: 5,
     type: 'memory',
     title: 'Piątkowe Memory',
-    description: 'Znajdź wszystkie pary w jak najkrótszym czasie.',
+    description: 'Odszukaj wszystkie pasujące pary kart w jak najmniejszej liczbie ruchów!',
     items: [
-      { id: 1, cards: [] },
-      { id: 2, cards: [] }
-    ]
+      {
+        id: 1,
+        theme: 'Czas & Technologia',
+        pairs: [
+          { id: 'p1', icon: '🚀', name: 'Rakieta' },
+          { id: 'p2', icon: '💡', name: 'Pomysł' },
+          { id: 'p3', icon: '🎨', name: 'Design' },
+          { id: 'p4', icon: '💻', name: 'Kod' },
+          { id: 'p5', icon: '⏳', name: 'Czas' },
+          { id: 'p6', icon: '⚡', name: 'Energia' },
+          { id: 'p7', icon: '🔒', name: 'Bezpieczeństwo' },
+          { id: 'p8', icon: '💎', name: 'Kryształ' }
+        ]
+      },
+      {
+        id: 2,
+        theme: 'Cyfrowy Świat',
+        pairs: [
+          { id: 'm1', icon: '📱', name: 'Smartfon' },
+          { id: 'm2', icon: '💬', name: 'Wiadomość' },
+          { id: 'm3', icon: '🎮', name: 'Gry' },
+          { id: 'm4', icon: '🎧', name: 'Muzyka' },
+          { id: 'm5', icon: '📷', name: 'Aparat' },
+          { id: 'm6', icon: '☕', name: 'Kawa' },
+          { id: 'm7', icon: '🔥', name: 'Trendy' },
+          { id: 'm8', icon: '🏆', name: 'Puchar' }
+        ]
+      }
+    ] as MemoryPuzzle[]
   },
   6: {
     dayOfWeek: 6,
@@ -234,7 +383,6 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       {
         id: 1,
         size: 7,
-        // Houses positions [row, col] (0-indexed)
         houses: [
           [0, 1], [0, 5],
           [1, 3],
@@ -244,11 +392,8 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
           [5, 1], [5, 3],
           [6, 5]
         ],
-        // Number of tanks in each row
         rowClues: [2, 1, 1, 2, 1, 2, 2],
-        // Number of tanks in each column
         colClues: [1, 2, 1, 2, 1, 2, 2],
-        // Solution tank positions [row, col]
         solution: [
           [0, 0], [0, 6],
           [1, 4],
