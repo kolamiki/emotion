@@ -84,8 +84,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     dispatch({ type: 'SEND_MESSAGE', threadId: thread.threadId, message: newMsg });
     setInputText('');
 
-    // Schedule auto-response
-    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName);
+    // Schedule auto-response (pass full thread messages + user ID for AI context)
+    const allMessages = [...thread.messages, newMsg];
+    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName, allMessages, currentUserId);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

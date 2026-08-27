@@ -1,4 +1,5 @@
 import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis } from '../types';
+import { hasAIPersonality, getAIPersonality, fetchAIResponse } from '../services/aiChatService';
 import { responsesData, usersData } from '../mockData';
 
 type Dispatch = React.Dispatch<AppAction>;
@@ -741,6 +742,27 @@ function getUserById(userId: string) {
   return allUsers.find(u => u.id === userId);
 }
 
+const SESSION_GAP_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+/**
+ * Extract messages belonging to the current active session.
+ * A new session starts if there was a gap of >= 24 hours between messages.
+ */
+function getCurrentSessionMessages(messages: Message[]): Message[] {
+  if (!messages || messages.length === 0) return [];
+
+  let sessionStartIndex = 0;
+  for (let i = 1; i < messages.length; i++) {
+    const prevTime = new Date(messages[i - 1].timestamp).getTime();
+    const currTime = new Date(messages[i].timestamp).getTime();
+    if (!isNaN(prevTime) && !isNaN(currTime) && (currTime - prevTime) >= SESSION_GAP_MS) {
+      sessionStartIndex = i;
+    }
+  }
+
+  return messages.slice(sessionStartIndex);
+}
+
 /**
  * Schedule a simulated chat response after the user sends a message.
  * Handles: context analysis → delay → typing indicator → response message
@@ -751,8 +773,16 @@ export function scheduleChatResponse(
   participantId: string,
   userText: string,
   pendingFriends?: Set<string>,
-  currentUserName?: string
+  currentUserName?: string,
+  threadMessages?: Message[],
+  currentUserId?: string
 ): void {
+  // If the participant is offline, they do not respond to messages
+  const participant = getUserById(participantId);
+  if (participant && participant.isOnline === false) {
+    return;
+  }
+
   // Check if the participant's cooldown has expired — send apology if so
   checkAndSendApology(dispatch, threadId, participantId);
 
@@ -852,6 +882,104 @@ export function scheduleChatResponse(
     // strikeResult === 'warned' — they respond with a vulgar-sentiment response (already handled by templates)
   }
 
+  // === AI-POWERED RESPONSE PATH ===
+  // If the participant has an AI personality and we have message history,
+  // try to get a response from the AI proxy first.
+  if (hasAIPersonality(participantId) && threadMessages && currentUserId) {
+    const personality = getAIPersonality(participantId);
+    const sessionMessages = getCurrentSessionMessages(threadMessages);
+    const sessionUserCount = sessionMessages.filter(m => m.senderId === currentUserId).length;
+    const limit = personality?.messageLimit ?? 30;
+
+    // Limit reached: send in-character farewell message
+    if (sessionUserCount === limit) {
+      const farewell = personality?.farewellMessage || 'Sorki, muszę już lecieć! Pogadamy później 👋';
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+          const responseMsg: Message = {
+            id: `farewell-${Date.now()}`,
+            senderId: participantId,
+            text: farewell,
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+        }, 1800);
+      }, 1000);
+      return;
+    }
+
+    // Limit exceeded within 24h: character does not respond (remains silent/offline)
+    if (sessionUserCount > limit) {
+      return;
+    }
+
+    // Show typing indicator immediately (simulates "thinking")
+    const aiTypingDelay = 800 + Math.random() * 1200;
+    setTimeout(() => {
+      dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+    }, aiTypingDelay);
+
+    // Fire the async AI request
+    fetchAIResponse(participantId, threadMessages, currentUserId, currentUserName)
+      .then(aiReply => {
+        if (aiReply) {
+          // AI responded successfully — use it
+          const aiTypingDuration = 1000 + Math.min(aiReply.length * 30, 3000);
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+
+            const responseMsg: Message = {
+              id: `ai-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              senderId: participantId,
+              text: aiReply,
+              timestamp: new Date().toISOString(),
+            };
+
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+          }, aiTypingDuration);
+        } else {
+          // AI failed or unavailable — fall back to rule-based engine
+          fallbackToRuleEngine(dispatch, threadId, participantId, userText);
+        }
+      })
+      .catch(() => {
+        // Network/runtime error — fall back silently
+        fallbackToRuleEngine(dispatch, threadId, participantId, userText);
+      });
+
+    return;
+  }
+
+  // === RULE-BASED RESPONSE PATH (original) ===
+  executeRuleBasedResponse(dispatch, threadId, participantId, userText);
+}
+
+/**
+ * Fall back to the rule-based response engine.
+ * Used when AI is unavailable or returns an error.
+ */
+function fallbackToRuleEngine(
+  dispatch: Dispatch,
+  threadId: string,
+  participantId: string,
+  userText: string
+): void {
+  // Clear any lingering typing indicator from the AI attempt
+  dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+  executeRuleBasedResponse(dispatch, threadId, participantId, userText);
+}
+
+/**
+ * Execute the original rule-based response logic.
+ */
+function executeRuleBasedResponse(
+  dispatch: Dispatch,
+  threadId: string,
+  participantId: string,
+  userText: string
+): void {
   const matched = matchChatResponse(userText, participantId, threadId);
   const responseOption = matched ?? getFallbackChatResponse(participantId);
 

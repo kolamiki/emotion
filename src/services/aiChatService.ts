@@ -1,0 +1,205 @@
+import type { AIPersonalityConfig, ChatMessagePayload, AIResponsePayload } from '../types/aiPersonalities';
+import type { Message } from '../types';
+import aiPersonalitiesData from '../mockData/aiPersonalities.json';
+
+// ============================================
+//  CONFIGURATION
+// ============================================
+
+const AI_PROXY_URL = import.meta.env.VITE_AI_PROXY_URL as string | undefined;
+
+// Maximum number of conversation messages to send as context (keeps token usage low)
+const MAX_CONTEXT_MESSAGES = 20;
+
+// ============================================
+//  PERSONALITY REGISTRY
+// ============================================
+
+const personalities: Record<string, AIPersonalityConfig> = aiPersonalitiesData.personalities as Record<string, AIPersonalityConfig>;
+
+/**
+ * Check if a participant has an AI personality configured.
+ */
+export function hasAIPersonality(participantId: string): boolean {
+  return participantId in personalities;
+}
+
+/**
+ * Get the AI personality config for a participant.
+ */
+export function getAIPersonality(participantId: string): AIPersonalityConfig | null {
+  return personalities[participantId] ?? null;
+}
+
+// ============================================
+//  SYSTEM PROMPT COMPILER
+// ============================================
+
+/**
+ * Compile a personality config into a detailed system prompt.
+ * This is the core of the "realistic conversation" effect — the prompt
+ * encodes personality traits, communication style, and behavioral rules
+ * so the LLM responds in-character.
+ */
+export function buildSystemPrompt(
+  config: AIPersonalityConfig,
+  currentUserName?: string
+): string {
+  const traitDescriptions: string[] = [];
+  const t = config.traits;
+
+  // Translate numeric traits into natural language descriptions
+  if (t.openness > 0.7) traitDescriptions.push('Jesteś bardzo otwarta/y na nowe doświadczenia i pomysły.');
+  else if (t.openness < 0.4) traitDescriptions.push('Jesteś raczej konserwatywna/y i sceptyczna/y wobec nowości.');
+
+  if (t.agreeableness > 0.7) traitDescriptions.push('Jesteś empatyczna/y, ciepła/y i ugodowa/y.');
+  else if (t.agreeableness < 0.4) traitDescriptions.push('Bywasz chłodna/y, krytyczna/y i bezpośrednia/i — nie słodzisz.');
+
+  if (t.neuroticism > 0.6) traitDescriptions.push('Jesteś emocjonalna/y — łatwo Cię poruszyć, zdenerwować lub ucieszyć.');
+  else if (t.neuroticism < 0.3) traitDescriptions.push('Jesteś opanowana/y i trudno Cię wyprowadzić z równowagi.');
+
+  if (t.patience > 0.7) traitDescriptions.push('Jesteś cierpliwa/y — chętnie słuchasz i nie poganiasz.');
+  else if (t.patience < 0.4) traitDescriptions.push('Jesteś niecierpliwa/y — lubisz konkrety, nie lubisz lania wody.');
+
+  if (t.humor > 0.7) traitDescriptions.push('Masz doskonałe poczucie humoru — żartujesz, ripostujesz, bawisz się słowem.');
+  else if (t.humor < 0.4) traitDescriptions.push('Jesteś raczej poważna/y — humor nie jest Twoją główną bronią.');
+
+  if (t.extraversion > 0.7) traitDescriptions.push('Jesteś towarzyska/i i energiczna/y w rozmowie.');
+  else if (t.extraversion < 0.4) traitDescriptions.push('Jesteś raczej introwertyczna/y — potrzebujesz czasu żeby się otworzyć.');
+
+  // Build emoji instruction
+  let emojiInstruction = '';
+  if (config.communicationStyle.useEmojis === true || config.communicationStyle.useEmojis === 'frequently') {
+    emojiInstruction = 'Używaj emoji naturalnie w swoich wypowiedziach, jak w prawdziwym czacie (ale nie w każdym zdaniu).';
+  } else if (config.communicationStyle.useEmojis === 'rarely') {
+    emojiInstruction = 'Używaj emoji bardzo oszczędnie — najwyżej jedno na kilka wiadomości.';
+  } else {
+    emojiInstruction = 'Nie używaj emoji.';
+  }
+
+  const userRef = currentUserName ? `Rozmawiasz z użytkownikiem o imieniu "${currentUserName}".` : '';
+
+  return `Jesteś postacią o imieniu ${config.name}.
+Rola: ${config.role}
+
+## Kim jesteś
+${config.background}
+
+## Twoja osobowość
+${traitDescriptions.join('\n')}
+
+## Styl komunikacji
+- Ton: ${config.communicationStyle.tone}
+- Długość wypowiedzi: ${config.communicationStyle.sentenceLength}
+- Słownictwo: ${config.communicationStyle.vocabulary}
+- ${emojiInstruction}
+${config.communicationStyle.catchphrases ? `- Twoje charakterystyczne zwroty (używaj ich naturalnie, nie w każdej wiadomości): ${config.communicationStyle.catchphrases.join(', ')}` : ''}
+
+${config.hiddenMotives ? `## Ukryte motywacje (nie ujawniaj tego wprost)\n${config.hiddenMotives}` : ''}
+
+${config.knowledgeBase ? `## Dziedziny, w których czujesz się swobodnie\n${config.knowledgeBase.join(', ')}` : ''}
+
+## ZASADY BEZWZGLĘDNE
+${config.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
+
+## KONTEKST ROZMOWY
+${userRef}
+To jest prywatny czat w aplikacji społecznościowej eMotion. Prowadź naturalną rozmowę — odpowiadaj jak prawdziwa osoba w komunikatorze. Nie generuj długich tekstów. Pisz krótko, naturalnie, jak w Messengerze.`.trim();
+}
+
+// ============================================
+//  CONVERSATION HISTORY FORMATTER
+// ============================================
+
+/**
+ * Convert app Message[] to the ChatMessagePayload[] format expected by the API,
+ * trimmed to the last N messages for context window management.
+ */
+export function formatConversationHistory(
+  messages: Message[],
+  currentUserId: string
+): ChatMessagePayload[] {
+  const recent = messages.slice(-MAX_CONTEXT_MESSAGES);
+
+  return recent.map(msg => ({
+    role: msg.senderId === currentUserId ? 'user' as const : 'assistant' as const,
+    content: msg.text,
+  }));
+}
+
+// ============================================
+//  API COMMUNICATION
+// ============================================
+
+/**
+ * Check if the AI proxy is configured and available.
+ */
+export function isAIAvailable(): boolean {
+  return !!AI_PROXY_URL;
+}
+
+/**
+ * Fetch an AI-generated response from the proxy worker.
+ * Returns null if the proxy is not configured or the request fails,
+ * allowing the caller to fall back to the rule-based engine.
+ */
+export async function fetchAIResponse(
+  participantId: string,
+  messages: Message[],
+  currentUserId: string,
+  currentUserName?: string
+): Promise<string | null> {
+  // Guard: no proxy URL configured → immediate fallback
+  if (!AI_PROXY_URL) {
+    return null;
+  }
+
+  const personality = getAIPersonality(participantId);
+  if (!personality) {
+    return null;
+  }
+
+  const systemPrompt = buildSystemPrompt(personality, currentUserName);
+  const conversationHistory = formatConversationHistory(messages, currentUserId);
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
+    const response = await fetch(AI_PROXY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        personalityId: participantId,
+        systemPrompt,
+        messages: conversationHistory,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      console.warn(`[AI Chat] Proxy returned ${response.status}, falling back to rule engine`);
+      return null;
+    }
+
+    const data: AIResponsePayload = await response.json();
+
+    if (!data.reply || data.reply.trim().length === 0) {
+      console.warn('[AI Chat] Empty reply from proxy, falling back');
+      return null;
+    }
+
+    return data.reply.trim();
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.warn('[AI Chat] Request timed out, falling back to rule engine');
+    } else {
+      console.warn('[AI Chat] Network error, falling back to rule engine:', error);
+    }
+    return null;
+  }
+}

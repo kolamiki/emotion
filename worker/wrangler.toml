@@ -1,0 +1,19 @@
+name = "emotion-ai-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[vars]
+# Set your preferred model here. Options:
+# Gemini:  "gemini-1.5-flash"
+# Groq:    "llama-3.3-70b-versatile"  (or "llama-3.1-8b-instant" for cheaper/faster)
+AI_MODEL = "gemini-1.5-flash"
+
+# Which provider to use: "gemini" or "groq"
+AI_PROVIDER = "gemini"
+
+# Your frontend's origin for CORS
+ALLOWED_ORIGIN = "https://kolamiki.github.io"
+
+# API keys are stored as Secrets (not here!)
+# Run:  npx wrangler secret put GEMINI_API_KEY
+# Or:   npx wrangler secret put GROQ_API_KEY
