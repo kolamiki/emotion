@@ -231,7 +231,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     const touching = findTouchingTanks();
     if (touching.size > 0) {
       setErrorCells(touching);
-      setErrorMsg('Zbiorniki nie mogą się stykać — ani bokiem, ani rogiem!');
+      setErrorMsg('Zbiorniki nie mogą się stykać - ani bokiem, ani rogiem!');
       return;
     }
 
@@ -255,7 +255,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
       }
       if (!tanks.has(connectedTank)) {
         setErrorCells(new Set([houseKey]));
-        setErrorMsg('Połączenie wskazuje na puste pole — narysuj linię ponownie.');
+        setErrorMsg('Połączenie wskazuje na puste pole - narysuj linię ponownie.');
         return;
       }
       const [tr, tc] = connectedTank.split(',').map(Number);
@@ -321,13 +321,13 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     <div className={styles.architectContainer}>
       {/* Rules */}
       <div className={styles.rulesBox}>
-        <h4>💣🏫 Zasady — Bombowa Szkoła</h4>
+        <h4>💣🏫 Zasady - Bombowa Szkoła</h4>
         <ul>
           <li>Wskaż miejsce bomby (💣) przy każdej szkole</li>
-          <li>Bomby nie mogą się stykać — ani bokiem, ani rogiem</li>
+          <li>Bomby nie mogą się stykać - ani bokiem, ani rogiem</li>
           <li>Liczby na krawędziach = ile bomb w danym wierszu/kolumnie</li>
           <li>Kliknij raz = 💣, dwa razy = ✕ (tu nie ma bomby), trzy razy = wyczyść</li>
-          <li>Kliknij 🏫 szkołę, potem sąsiednią 💣 bombę — narysuj połączenie</li>
+          <li>Kliknij 🏫 szkołę, potem sąsiednią 💣 bombę - narysuj połączenie</li>
         </ul>
       </div>
 

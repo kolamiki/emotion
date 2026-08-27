@@ -52,6 +52,10 @@ export interface Group {
   members: GroupMember[];
   posts: GroupPost[];
   isMember: boolean;
+  isRestricted?: boolean;
+  adminId?: string;
+  joinTaskType?: 'convince' | 'write_post_against';
+  joinTaskTarget?: string;
 }
 
 export interface NotificationLink {
@@ -206,6 +210,7 @@ export interface AppState {
   friends: Set<string>;
   pendingFriends: Set<string>;
   matyldaLikesActive: boolean;
+  pendingGroupJoins: Set<string>;
 }
 
 export type AppAction =
@@ -232,4 +237,6 @@ export type AppAction =
   | { type: 'ADD_PENDING_FRIEND'; userId: string }
   | { type: 'ACCEPT_FRIEND'; userId: string }
   | { type: 'REMOVE_FRIEND'; userId: string }
-  | { type: 'ACTIVATE_MATYLDA_LIKES' };
+  | { type: 'ACTIVATE_MATYLDA_LIKES' }
+  | { type: 'SET_GROUP_PENDING_JOIN'; groupId: string }
+  | { type: 'APPROVE_GROUP_JOIN'; groupId: string };

@@ -2,15 +2,18 @@
   {
     "id": "sc-group-react-chain",
     "name": "Reakcja na post w grupie React",
-    "description": "Po dodaniu posta w grupie Programiści React, inni reagują kontekstowo — Tomek pisze prywatną wiadomość nawiązującą do tematu, Piotr komentuje post.",
+    "description": "Po dodaniu posta w grupie Programiści React, inni reagują kontekstowo - Tomek pisze prywatną wiadomość nawiązującą do tematu, Piotr komentuje post.",
     "icon": "Zap",
-    "trigger": { "type": "group_post", "groupId": "g1" },
+    "trigger": {
+      "type": "group_post",
+      "groupId": "g1"
+    },
     "steps": [
       {
         "action": "send_message",
         "fromId": "u5",
         "toId": "u1",
-        "text": "Hej! Widziałem Twój nowy post w grupie Programiści React — ciekawy temat! 🚀 Chętnie pogadam więcej.",
+        "text": "Hej! Widziałem Twój nowy post w grupie Programiści React - ciekawy temat! 🚀 Chętnie pogadam więcej.",
         "delayMs": 3000,
         "contextRef": "user_post"
       },
@@ -35,7 +38,10 @@
         "message": "Tomek Krawczyk i Piotr Wiśniewski skomentowali Twój post w grupie Programiści React",
         "notifType": "comment",
         "delayMs": 11000,
-        "link": { "type": "group", "groupId": "g1" }
+        "link": {
+          "type": "group",
+          "groupId": "g1"
+        }
       }
     ],
     "enabled": false
@@ -45,7 +51,10 @@
     "name": "Cykliczna aktywność użytkowników",
     "description": "Co 30 sekund losowy użytkownik tworzy nowy post na głównym feedzie.",
     "icon": "Clock",
-    "trigger": { "type": "timer", "intervalMs": 30000 },
+    "trigger": {
+      "type": "timer",
+      "intervalMs": 30000
+    },
     "steps": [
       {
         "action": "create_post",
@@ -62,7 +71,10 @@
     "name": "Powitanie w grupie",
     "description": "Po wejściu w widok grupy, admin grupy wysyła spersonalizowaną wiadomość powitalną na czacie.",
     "icon": "MessageSquare",
-    "trigger": { "type": "group_enter", "groupId": "*" },
+    "trigger": {
+      "type": "group_enter",
+      "groupId": "*"
+    },
     "steps": [
       {
         "action": "send_message",
@@ -76,7 +88,10 @@
         "message": "Otrzymałeś wiadomość powitalną od admina grupy",
         "notifType": "group",
         "delayMs": 4500,
-        "link": { "type": "group", "groupId": "*" }
+        "link": {
+          "type": "group",
+          "groupId": "*"
+        }
       }
     ],
     "enabled": false
@@ -84,9 +99,11 @@
   {
     "id": "sc-conversation-chain",
     "name": "Symulowana konwersacja",
-    "description": "Ręczne uruchomienie serii postów i komentarzy — fikcyjna dyskusja między użytkownikami na feedzie z kontekstowymi reakcjami.",
+    "description": "Ręczne uruchomienie serii postów i komentarzy - fikcyjna dyskusja między użytkownikami na feedzie z kontekstowymi reakcjami.",
     "icon": "MessagesSquare",
-    "trigger": { "type": "manual" },
+    "trigger": {
+      "type": "manual"
+    },
     "steps": [
       {
         "action": "create_post",
@@ -106,7 +123,7 @@
         "action": "add_comment",
         "authorId": "u10",
         "postRef": "latest_feed",
-        "text": "Z perspektywy data science — Bun świetnie radzi sobie z dużymi plikami JSON 📊",
+        "text": "Z perspektywy data science - Bun świetnie radzi sobie z dużymi plikami JSON 📊",
         "delayMs": 9000
       },
       {
@@ -127,7 +144,7 @@
         "action": "add_comment",
         "authorId": "u6",
         "postRef": "latest_feed",
-        "text": "Uwielbiam ten trend! Pamiętam jeszcze czasy iOS 6 — ta estetyka wraca w nowej formie 📱",
+        "text": "Uwielbiam ten trend! Pamiętam jeszcze czasy iOS 6 - ta estetyka wraca w nowej formie 📱",
         "delayMs": 22000
       },
       {
@@ -152,14 +169,19 @@
     "name": "Debata w grupie Design",
     "description": "Po wejściu w grupę Design i UX pojawia się żywa dyskusja między designerami z wieloma głosami.",
     "icon": "Palette",
-    "trigger": { "type": "group_enter", "groupId": "g3" },
+    "trigger": {
+      "type": "group_enter",
+      "groupId": "g3"
+    },
     "steps": [
       {
         "action": "create_post",
         "authorId": "u6",
         "content": "Hot take: AI nie zastąpi designerów, ale designerzy używający AI zastąpią tych, którzy tego nie robią. Zgadzacie się? 🤖🎨",
         "delayMs": 3000,
-        "target": { "groupId": "g3" }
+        "target": {
+          "groupId": "g3"
+        }
       },
       {
         "action": "add_comment",
@@ -195,9 +217,11 @@
   {
     "id": "sc-feed-reaction-chain",
     "name": "Reakcja łańcuchowa na Twoim poście",
-    "description": "Po dodaniu posta na feedzie, fikcyjni użytkownicy reagują kontekstowo — komentują i wysyłają wiadomości nawiązujące do Twojej treści.",
+    "description": "Po dodaniu posta na feedzie, fikcyjni użytkownicy reagują kontekstowo - komentują i wysyłają wiadomości nawiązujące do Twojej treści.",
     "icon": "Zap",
-    "trigger": { "type": "manual" },
+    "trigger": {
+      "type": "manual"
+    },
     "steps": [
       {
         "action": "add_comment",
@@ -219,7 +243,7 @@
         "action": "send_message",
         "fromId": "u4",
         "toId": "u1",
-        "text": "Hej! Widziałam Twój post — super myśl! Chciałabym pogadać o tym więcej 🌟",
+        "text": "Hej! Widziałam Twój post - super myśl! Chciałabym pogadać o tym więcej 🌟",
         "delayMs": 14000,
         "contextRef": "user_post"
       },
@@ -228,7 +252,9 @@
         "message": "Twój post zyskuje popularność! 3 nowe reakcje",
         "notifType": "like",
         "delayMs": 16000,
-        "link": { "type": "post" }
+        "link": {
+          "type": "post"
+        }
       }
     ],
     "enabled": false
@@ -262,7 +288,10 @@
         "message": "Marinette opublikowała post w grupie 'Szukam osoby - pomoc'.",
         "notifType": "group",
         "delayMs": 6000,
-        "link": { "type": "group", "groupId": "g_szukam" }
+        "link": {
+          "type": "group",
+          "groupId": "g_szukam"
+        }
       }
     ],
     "enabled": true
@@ -272,7 +301,9 @@
     "name": "Matylda Iggermann - weryfikacja znajomości",
     "description": "Scenariusz uruchamiany przy próbie dodania Matyldy do znajomych. Matylda pyta na czacie, czy się znacie.",
     "icon": "MessageSquare",
-    "trigger": { "type": "manual" },
+    "trigger": {
+      "type": "manual"
+    },
     "steps": [
       {
         "action": "send_message",

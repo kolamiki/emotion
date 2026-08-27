@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Check } from 'lucide-react';
 import styles from './WelcomeScreen.module.css';
 import { getAssetUrl } from '../../utils/assetUrl';
 
@@ -58,15 +59,25 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         <div className={styles.formGroup}>
           <label className={styles.label}>Wybierz swój awatar</label>
           <div className={styles.avatarGrid}>
-            {AVATARS.map(avatar => (
-              <div
-                key={avatar}
-                className={`${styles.avatarOption} ${selectedAvatar === avatar ? styles.avatarSelected : ''}`}
-                onClick={() => setSelectedAvatar(avatar)}
-              >
-                <img src={avatar} alt="Avatar option" />
-              </div>
-            ))}
+            {AVATARS.map(avatar => {
+              const isSelected = selectedAvatar === avatar;
+              return (
+                <div
+                  key={avatar}
+                  className={`${styles.avatarOption} ${isSelected ? styles.avatarSelected : ''}`}
+                  onClick={() => setSelectedAvatar(avatar)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <img src={avatar} alt="Avatar option" />
+                  {isSelected && (
+                    <div className={styles.selectedBadge}>
+                      <Check size={12} strokeWidth={3} />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 

@@ -83,9 +83,9 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
   return (
     <div className={styles.feed}>
       <div className={styles.createTeaser} onClick={onOpenCreatePost}>
-        <img 
-          src={currentUser.avatarUrl} 
-          alt={currentUser.name} 
+        <img
+          src={currentUser.avatarUrl}
+          alt={currentUser.name}
           className={styles.createAvatar}
           onClick={(e) => {
             e.stopPropagation();
@@ -188,7 +188,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
     ? post.comments
     : post.comments.slice(-2);
 
-  // Fake "like avatars" — use first commenters + author as likers
+  // Fake "like avatars" - use first commenters + author as likers
   let likeAvatarsData = [
     { url: post.author.avatarUrl, id: post.author.id },
     ...post.comments.slice(0, 2).map(c => ({ url: c.author.avatarUrl, id: c.author.id })),
@@ -209,9 +209,9 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
     <article className={styles.postCard} data-post-id={post.id}>
       <div className={styles.postHeader}>
         <div className={styles.avatarWrap}>
-          <img 
-            src={post.author.avatarUrl} 
-            alt={post.author.name} 
+          <img
+            src={post.author.avatarUrl}
+            alt={post.author.name}
             className={styles.postAvatar}
             onClick={() => onViewProfile && onViewProfile(post.author.id)}
             style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -228,8 +228,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
         {post.content.length > 168 && !isExpanded ? (
           <>
             {post.content.slice(0, 168)}...{' '}
-            <span 
-              className={styles.readMoreBtn} 
+            <span
+              className={styles.readMoreBtn}
               onClick={() => setIsExpanded(true)}
               style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
             >
@@ -242,8 +242,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
             {post.content.length > 168 && (
               <>
                 {' '}
-                <span 
-                  className={styles.readMoreBtn} 
+                <span
+                  className={styles.readMoreBtn}
                   onClick={() => setIsExpanded(false)}
                   style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
                 >
@@ -263,10 +263,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
               <>
                 <div className={styles.likeAvatars}>
                   {likeAvatarsData.map((data, i) => (
-                    <img 
-                      key={i} 
-                      src={data.url} 
-                      alt="" 
+                    <img
+                      key={i}
+                      src={data.url}
+                      alt=""
                       className={styles.likeAvatarImg}
                       onClick={() => onViewProfile && onViewProfile(data.id)}
                       style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -329,9 +329,9 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
           )}
           {visibleComments.map((comment: Comment) => (
             <div key={comment.id} className={styles.commentItem}>
-              <img 
-                src={comment.author.avatarUrl} 
-                alt={comment.author.name} 
+              <img
+                src={comment.author.avatarUrl}
+                alt={comment.author.name}
                 className={styles.commentAvatar}
                 onClick={() => onViewProfile && onViewProfile(comment.author.id)}
                 style={{ cursor: onViewProfile ? 'pointer' : 'default' }}

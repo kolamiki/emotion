@@ -1,5 +1,5 @@
 /**
- * eMotion AI Chat Proxy — Cloudflare Worker
+ * eMotion AI Chat Proxy - Cloudflare Worker
  *
  * This lightweight proxy sits between the frontend (GitHub Pages)
  * and the LLM API (Gemini / Groq). It:

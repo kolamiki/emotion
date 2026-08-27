@@ -12,6 +12,7 @@ import { FriendsList } from '../FriendsList/FriendsList';
 import { DailyChallenge } from '../DailyChallenge/DailyChallenge';
 import { useAppStore } from '../../store/appStore';
 import { ScenarioManager } from '../../store/scenarioEngine';
+import { scheduleGroupJoinAdminResponse } from '../../store/responseEngine';
 import { usersData } from '../../mockData';
 import type { ActiveView, MessageThread, NotificationLink } from '../../types';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
@@ -26,7 +27,7 @@ export const Layout: React.FC = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
 
-  // Scenario Manager ref — stable reference across renders
+  // Scenario Manager ref - stable reference across renders
   const scenarioManagerRef = useRef<ScenarioManager | null>(null);
 
   // Initialize ScenarioManager once
@@ -95,7 +96,7 @@ export const Layout: React.FC = () => {
     if (view.type === 'group' && scenarioManagerRef.current) {
       scenarioManagerRef.current.trigger('group_enter', view.groupId);
     }
-    
+
     // Close mobile sidebar on navigate
     setIsMobileSidebarOpen(false);
   };
@@ -145,8 +146,7 @@ export const Layout: React.FC = () => {
         // Domyślny timer dla innych użytkowników
         setTimeout(() => {
           dispatch({ type: 'ACCEPT_FRIEND', userId });
-          
-          // Opcjonalnie dodajemy powiadomienie
+
           const user = usersData.allUsers.find(u => u.id === userId);
           if (user) {
             dispatch({
@@ -161,11 +161,20 @@ export const Layout: React.FC = () => {
               }
             });
           }
-        }, 15000); // 15 sekund oczekiwania
+        }, 15000);
       }
     }
   };
 
+  const handleRequestGroupJoin = (groupId: string) => {
+    dispatch({ type: 'SET_GROUP_PENDING_JOIN', groupId });
+    const targetGroup = state.groups.find(g => g.id === groupId);
+    if (targetGroup) {
+      scheduleGroupJoinAdminResponse(dispatch, targetGroup, state.currentUser, state.messages);
+    }
+  };
+
+  // Derive active message threads
   const activeThreads: MessageThread[] = activeChats
     .map(id => state.messages.find(m => m.threadId === id))
     .filter((t): t is MessageThread => t !== undefined);
@@ -177,8 +186,8 @@ export const Layout: React.FC = () => {
 
   const viewedUser = viewedUserId
     ? (viewedUserId === state.currentUser.id
-        ? state.currentUser
-        : usersData.allUsers.find(u => u.id === viewedUserId))
+      ? state.currentUser
+      : usersData.allUsers.find(u => u.id === viewedUserId))
     : null;
 
   return (
@@ -198,13 +207,14 @@ export const Layout: React.FC = () => {
         groups={state.groups}
         friends={state.friends}
         pendingFriends={state.pendingFriends}
+        pendingGroupJoins={state.pendingGroupJoins}
         onNavigate={handleNavigate}
         onNotificationClick={handleNotificationClick}
       />
 
       <main className={styles.mainGrid}>
         {/* Mobile Overlay */}
-        <div 
+        <div
           className={`${styles.mobileOverlay} ${isMobileSidebarOpen ? styles.open : ''}`}
           onClick={() => setIsMobileSidebarOpen(false)}
         />
@@ -221,7 +231,7 @@ export const Layout: React.FC = () => {
         </aside>
 
         {/* Mobile Toggle Button */}
-        <button 
+        <button
           className={`${styles.mobileMenuBtn} ${isMobileSidebarOpen ? styles.mobileMenuBtnOpen : ''}`}
           onClick={() => setIsMobileSidebarOpen(prev => !prev)}
         >
@@ -257,6 +267,8 @@ export const Layout: React.FC = () => {
                     scenarioManagerRef.current.trigger('group_post', activeView.groupId);
                   }
                 }}
+                pendingGroupJoins={state.pendingGroupJoins}
+                onRequestGroupJoin={handleRequestGroupJoin}
               />
             )}
             {activeView.type === 'friends' && (
@@ -297,6 +309,7 @@ export const Layout: React.FC = () => {
         onClose={handleCloseChat}
         onViewProfile={handleViewProfile}
         pendingFriends={state.pendingFriends}
+        pendingGroupJoins={state.pendingGroupJoins}
       />
 
       {viewedUser && (

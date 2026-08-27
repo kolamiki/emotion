@@ -35,6 +35,7 @@ export function persistState(state: AppState) {
       friends: Array.from(state.friends),
       pendingFriends: Array.from(state.pendingFriends),
       matyldaLikesActive: state.matyldaLikesActive,
+      pendingGroupJoins: Array.from(state.pendingGroupJoins),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
   } catch {
@@ -64,6 +65,7 @@ export function getInitialState(): AppState {
     friends: initialFriends,
     pendingFriends: new Set(),
     matyldaLikesActive: false,
+    pendingGroupJoins: new Set(),
   };
 
   if (persisted) {
@@ -108,6 +110,9 @@ export function getInitialState(): AppState {
         ? new Set((persisted as any).pendingFriends as string[])
         : base.pendingFriends,
       matyldaLikesActive: (persisted as any).matyldaLikesActive ?? base.matyldaLikesActive,
+      pendingGroupJoins: Array.isArray((persisted as any).pendingGroupJoins)
+        ? new Set((persisted as any).pendingGroupJoins as string[])
+        : base.pendingGroupJoins,
     };
 
     // Update u1 author in posts to match current user name/avatar
@@ -372,13 +377,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
 
     case 'MARK_THREAD_READ': {
       const thread = state.messages.find(t => t.threadId === action.threadId);
-      if (!thread || thread.messages.length === 0) return state;
-      const lastMsg = thread.messages[thread.messages.length - 1];
+      const lastMsg = thread?.messages && thread.messages.length > 0 ? thread.messages[thread.messages.length - 1] : null;
+      const readTimestamp = lastMsg ? lastMsg.timestamp : new Date().toISOString();
       return {
         ...state,
         readThreads: {
           ...state.readThreads,
-          [action.threadId]: lastMsg.timestamp,
+          [action.threadId]: readTimestamp,
         },
       };
     }
@@ -467,6 +472,21 @@ export function appReducer(state: AppState, action: AppAction): AppState {
 
     case 'ACTIVATE_MATYLDA_LIKES': {
       return { ...state, matyldaLikesActive: true };
+    }
+
+    case 'SET_GROUP_PENDING_JOIN': {
+      const newPending = new Set(state.pendingGroupJoins);
+      newPending.add(action.groupId);
+      return { ...state, pendingGroupJoins: newPending };
+    }
+
+    case 'APPROVE_GROUP_JOIN': {
+      const newPending = new Set(state.pendingGroupJoins);
+      newPending.delete(action.groupId);
+      const newGroups = state.groups.map(g =>
+        g.id === action.groupId ? { ...g, isMember: true } : g
+      );
+      return { ...state, pendingGroupJoins: newPending, groups: newGroups };
     }
 
     default:

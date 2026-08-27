@@ -34,6 +34,7 @@ interface TopBarProps {
   groups: Group[];
   friends: Set<string>;
   pendingFriends: Set<string>;
+  pendingGroupJoins?: Set<string>;
   onNavigate: (view: ActiveView) => void;
   onNotificationClick?: (link: NotificationLink) => void;
 }
@@ -77,6 +78,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   groups,
   friends,
   pendingFriends,
+  pendingGroupJoins,
   onNavigate,
   onNotificationClick,
 }) => {
@@ -245,7 +247,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
     // Schedule auto-comment from fictional user
     setTimeout(() => {
-      schedulePostCommentResponse(dispatch, postId, content, currentUser.id, currentUser.name);
+      schedulePostCommentResponse(dispatch, postId, content, currentUser.id, currentUser.name, pendingGroupJoins);
     }, 100);
 
     setNewPostText('');

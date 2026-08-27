@@ -310,7 +310,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
           // === NAUKA ===
           { id: 101, category: 'Nauka', question: 'Jaki pierwiastek chemiczny ma symbol "Au"?', options: ['Srebro', 'Złoto', 'Aluminium', 'Argon'], correctIndex: 1, explanation: 'Symbol "Au" pochodzi od łacińskiego słowa "aurum", oznaczającego złoto.' },
           { id: 102, category: 'Nauka', question: 'Ile kości ma dorosły człowiek?', options: ['186', '206', '256', '300'], correctIndex: 1, explanation: 'Dorosły człowiek ma 206 kości. Noworodek ma ich około 270, lecz część zrasta się z wiekiem.' },
-          { id: 103, category: 'Nauka', question: 'Jaka jest największa planeta w Układzie Słonecznym?', options: ['Saturn', 'Neptun', 'Jowisz', 'Uran'], correctIndex: 2, explanation: 'Jowisz jest największą planetą Układu Słonecznego — jego masa jest ponad 2,5 razy większa niż masa wszystkich pozostałych planet razem wziętych.' },
+          { id: 103, category: 'Nauka', question: 'Jaka jest największa planeta w Układzie Słonecznym?', options: ['Saturn', 'Neptun', 'Jowisz', 'Uran'], correctIndex: 2, explanation: 'Jowisz jest największą planetą Układu Słonecznego - jego masa jest ponad 2,5 razy większa niż masa wszystkich pozostałych planet razem wziętych.' },
           { id: 104, category: 'Nauka', question: 'Jaka jest przybliżona prędkość światła w próżni?', options: ['300 000 km/s', '150 000 km/s', '1 000 000 km/s', '30 000 km/s'], correctIndex: 0, explanation: 'Prędkość światła w próżni wynosi dokładnie 299 792 458 m/s, czyli w zaokrągleniu 300 000 km/s.' },
 
           // === HISTORIA ===
@@ -332,7 +332,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
           // === TECHNOLOGIA ===
           { id: 501, category: 'Technologia', question: 'W którym roku powstał pierwszy iPhone?', options: ['2005', '2007', '2009', '2010'], correctIndex: 1, explanation: 'Pierwszy iPhone został zaprezentowany przez Steve\'a Jobsa 9 stycznia 2007 roku.' },
           { id: 502, category: 'Technologia', question: 'Kto jest twórcą Linuxa?', options: ['Bill Gates', 'Steve Wozniak', 'Linus Torvalds', 'Dennis Ritchie'], correctIndex: 2, explanation: 'Linus Torvalds stworzył jądro Linux w 1991 roku, będąc studentem w Finlandii.' },
-          { id: 503, category: 'Technologia', question: 'Co oznacza skrót HTML?', options: ['HyperText Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language', 'Hyper Transfer Multi Language'], correctIndex: 0, explanation: 'HTML to HyperText Markup Language — język znaczników do tworzenia stron internetowych.' },
+          { id: 503, category: 'Technologia', question: 'Co oznacza skrót HTML?', options: ['HyperText Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language', 'Hyper Transfer Multi Language'], correctIndex: 0, explanation: 'HTML to HyperText Markup Language - język znaczników do tworzenia stron internetowych.' },
           { id: 504, category: 'Technologia', question: 'Ile bitów ma jeden bajt?', options: ['4', '8', '16', '32'], correctIndex: 1, explanation: 'Jeden bajt składa się z 8 bitów. To podstawowa jednostka informacji w informatyce.' }
         ] as QuizQuestion[]
       }
@@ -377,7 +377,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   6: {
     dayOfWeek: 6,
     type: 'architect',
-    title: 'Sobotnia Zagadka — Bombowa Szkoła',
+    title: 'Sobotnia Zagadka - Bombowa Szkoła',
     description: 'Rajciu! Jakiś nicpoń podłożył bomby w pobliskich szkołach i grozi ich wysadzeniem. Na szczęście zdobyłeś plany rozmieszczenia ładunków, dzięki czemu wiesz ile bomb jest w każdym rzędzie oraz kolumnie. Wskaż miejsca bomb i przekaż je saperom. Pamiętaj, że terrorysta działał zgodnie z zasadami BHP i ułożył ładunki tak, aby nie mogły się stykać.',
     items: [
       {

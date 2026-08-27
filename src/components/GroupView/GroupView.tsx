@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine } from 'lucide-react';
+import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2 } from 'lucide-react';
 import styles from './GroupView.module.css';
 import type { Group, User, Comment, AppAction, LikedPosts } from '../../types';
 import { scheduleGroupPostCommentResponse } from '../../store/responseEngine';
@@ -12,10 +12,16 @@ interface GroupViewProps {
   onBack: () => void;
   onViewProfile?: (userId: string) => void;
   onPostCreated?: () => void;
+  pendingGroupJoins?: Set<string>;
+  onRequestGroupJoin?: (groupId: string) => void;
 }
 
-export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated }) => {
+export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated, pendingGroupJoins, onRequestGroupJoin }) => {
   const [newGroupPostText, setNewGroupPostText] = useState('');
+
+  const isRestricted = !!group.isRestricted;
+  const isLocked = isRestricted && !group.isMember;
+  const isPending = pendingGroupJoins?.has(group.id) ?? false;
 
   const formatTime = (ts: string) => {
     const d = new Date(ts);
@@ -71,6 +77,12 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
           <div className={styles.groupCoverOverlay} />
           <div className={styles.groupCoverContent}>
             <h1 className={styles.groupName}>{group.name}</h1>
+            {isRestricted && (
+              <div className={styles.restrictedBadge}>
+                <Lock size={12} />
+                Grupa zamknięta
+              </div>
+            )}
           </div>
         </div>
 
@@ -91,10 +103,10 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
             <div className={styles.membersPreview}>
               <div className={styles.memberAvatars}>
                 {group.members.slice(0, 4).map(m => (
-                  <img 
-                    key={m.id} 
-                    src={m.avatarUrl} 
-                    alt={m.name} 
+                  <img
+                    key={m.id}
+                    src={m.avatarUrl}
+                    alt={m.name}
                     className={styles.memberAvatar}
                     onClick={() => onViewProfile && onViewProfile(m.id)}
                     style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -107,19 +119,37 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
 
         <div className={styles.groupActions}>
           {group.isMember ? (
-            <button 
+            <button
               className={`${styles.groupActionBtn} ${styles.groupActionSecondary}`}
               onClick={() => dispatch({ type: 'TOGGLE_GROUP_MEMBERSHIP', groupId: group.id })}
             >
               <Shield size={14} style={{ marginRight: 4 }} />
               Opuść grupę
             </button>
-          ) : (
-            <button 
-              className={`${styles.groupActionBtn} ${styles.groupActionPrimary}`}
-              onClick={() => dispatch({ type: 'TOGGLE_GROUP_MEMBERSHIP', groupId: group.id })}
+          ) : isPending ? (
+            <button
+              className={`${styles.groupActionBtn} ${styles.groupActionPending}`}
+              disabled
             >
-              Dołącz do grupy
+              <Loader2 size={14} className={styles.spinIcon} style={{ marginRight: 4 }} />
+              Oczekuje na akceptację...
+            </button>
+          ) : (
+            <button
+              className={`${styles.groupActionBtn} ${styles.groupActionPrimary}`}
+              onClick={() => {
+                if (isRestricted && onRequestGroupJoin) {
+                  onRequestGroupJoin(group.id);
+                } else {
+                  dispatch({ type: 'TOGGLE_GROUP_MEMBERSHIP', groupId: group.id });
+                }
+              }}
+            >
+              {isRestricted ? (
+                <><Lock size={14} style={{ marginRight: 4 }} /> Wyślij prośbę o dołączenie</>
+              ) : (
+                'Dołącz do grupy'
+              )}
             </button>
           )}
           <button className={`${styles.groupActionBtn} ${styles.groupActionSecondary}`}>
@@ -133,9 +163,9 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
         <div className={styles.sectionTitle}>Członkowie ({group.members.length})</div>
         {group.members.map(member => (
           <div key={member.id} className={styles.memberRow}>
-            <img 
-              src={member.avatarUrl} 
-              alt={member.name} 
+            <img
+              src={member.avatarUrl}
+              alt={member.name}
               className={styles.memberRowAvatar}
               onClick={() => onViewProfile && onViewProfile(member.id)}
               style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -151,55 +181,85 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
         ))}
       </div>
 
-      {/* Create Group Post - Only if member */}
-      {group.isMember && (
-        <div className={styles.groupComposeBox}>
-          <div className={styles.groupComposeHeader}>
-            <PenLine size={16} />
-            <span>Napisz post w grupie</span>
-          </div>
-          <div className={styles.groupComposeBody}>
-            <img src={currentUser.avatarUrl} alt={currentUser.name} className={styles.groupComposeAvatar} />
-            <textarea
-              className={styles.groupComposeTextarea}
-              placeholder={`Co chcesz powiedzieć w ${group.name}?`}
-              value={newGroupPostText}
-              onChange={e => setNewGroupPostText(e.target.value)}
-              rows={2}
-            />
-          </div>
-          <div className={styles.groupComposeFooter}>
-            <button
-              className={styles.groupComposePublishBtn}
-              disabled={!newGroupPostText.trim()}
-              onClick={handlePublishGroupPost}
-            >
-              Opublikuj
-            </button>
+      {/* Locked Content Overlay - for restricted groups when not a member */}
+      {isLocked ? (
+        <div className={styles.lockedOverlay}>
+          <div className={styles.lockedCard}>
+            <div className={styles.lockedIcon}>
+              <Lock size={40} />
+            </div>
+            <h3 className={styles.lockedTitle}>Treści dostępne tylko dla członków</h3>
+            <p className={styles.lockedDesc}>
+              Ta grupa jest zamknięta. Aby zobaczyć posty i dyskusje, wyślij prośbę o dołączenie - administrator grupy rozpatrzy Twoje zgłoszenie.
+            </p>
+            {isPending ? (
+              <div className={styles.lockedPendingInfo}>
+                <Loader2 size={18} className={styles.spinIcon} />
+                <span>Twoja prośba została wysłana. Oczekuj wiadomości od administratora.</span>
+              </div>
+            ) : (
+              <button className={styles.lockedJoinBtn} onClick={() => {
+                if (onRequestGroupJoin) onRequestGroupJoin(group.id);
+              }}>
+                <Lock size={16} />
+                Wyślij prośbę o dołączenie
+              </button>
+            )}
           </div>
         </div>
-      )}
+      ) : (
+        <>
+          {/* Create Group Post - Only if member */}
+          {group.isMember && (
+            <div className={styles.groupComposeBox}>
+              <div className={styles.groupComposeHeader}>
+                <PenLine size={16} />
+                <span>Napisz post w grupie</span>
+              </div>
+              <div className={styles.groupComposeBody}>
+                <img src={currentUser.avatarUrl} alt={currentUser.name} className={styles.groupComposeAvatar} />
+                <textarea
+                  className={styles.groupComposeTextarea}
+                  placeholder={`Co chcesz powiedzieć w ${group.name}?`}
+                  value={newGroupPostText}
+                  onChange={e => setNewGroupPostText(e.target.value)}
+                  rows={2}
+                />
+              </div>
+              <div className={styles.groupComposeFooter}>
+                <button
+                  className={styles.groupComposePublishBtn}
+                  disabled={!newGroupPostText.trim()}
+                  onClick={handlePublishGroupPost}
+                >
+                  Opublikuj
+                </button>
+              </div>
+            </div>
+          )}
 
-      {/* Group Posts */}
-      <div className={styles.sectionTitle}>Ostatnie posty</div>
-      {group.posts.length === 0 && (
-        <div className={styles.groupPost} style={{ padding: 32, textAlign: 'center', color: 'var(--text-muted)' }}>
-          Brak postów w tej grupie. Bądź pierwszy!
-        </div>
+          {/* Group Posts */}
+          <div className={styles.sectionTitle}>Ostatnie posty</div>
+          {group.posts.length === 0 && (
+            <div className={styles.groupPost} style={{ padding: 32, textAlign: 'center', color: 'var(--text-muted)' }}>
+              Brak postów w tej grupie. Bądź pierwszy!
+            </div>
+          )}
+          {group.posts.map(post => (
+            <GroupPostCard
+              key={post.id}
+              post={post}
+              groupId={group.id}
+              currentUser={currentUser}
+              isLiked={!!likedPosts[post.id]}
+              dispatch={dispatch}
+              formatTime={formatTime}
+              onViewProfile={onViewProfile}
+              onPostCreated={onPostCreated}
+            />
+          ))}
+        </>
       )}
-      {group.posts.map(post => (
-        <GroupPostCard
-          key={post.id}
-          post={post}
-          groupId={group.id}
-          currentUser={currentUser}
-          isLiked={!!likedPosts[post.id]}
-          dispatch={dispatch}
-          formatTime={formatTime}
-          onViewProfile={onViewProfile}
-          onPostCreated={onPostCreated}
-        />
-      ))}
     </div>
   );
 };
@@ -267,9 +327,9 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
   return (
     <div className={styles.groupPost}>
       <div className={styles.gpHeader}>
-        <img 
-          src={post.author.avatarUrl} 
-          alt={post.author.name} 
+        <img
+          src={post.author.avatarUrl}
+          alt={post.author.name}
           className={styles.gpAvatar}
           onClick={() => onViewProfile && onViewProfile(post.author.id)}
           style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -283,8 +343,8 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
         {post.content.length > 168 && !isExpanded ? (
           <>
             {post.content.slice(0, 168)}...{' '}
-            <span 
-              className={styles.readMoreBtn} 
+            <span
+              className={styles.readMoreBtn}
               onClick={() => setIsExpanded(true)}
               style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
             >
@@ -297,8 +357,8 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
             {post.content.length > 168 && (
               <>
                 {' '}
-                <span 
-                  className={styles.readMoreBtn} 
+                <span
+                  className={styles.readMoreBtn}
                   onClick={() => setIsExpanded(false)}
                   style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 500 }}
                 >
@@ -341,9 +401,9 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
         <div className={styles.gpComments}>
           {post.comments.map(c => (
             <div key={c.id} className={styles.gpComment}>
-              <img 
-                src={c.author.avatarUrl} 
-                alt={c.author.name} 
+              <img
+                src={c.author.avatarUrl}
+                alt={c.author.name}
                 className={styles.gpCommentAvatar}
                 onClick={() => onViewProfile && onViewProfile(c.author.id)}
                 style={{ cursor: onViewProfile ? 'pointer' : 'default' }}

@@ -364,14 +364,44 @@
     "id": "g_szukam",
     "name": "Szukam osoby - pomoc",
     "icon": "Search",
-    "description": "Grupa wsparcia w poszukiwaniu zaginionych bliskich. Dzielimy się informacjami i pomagamy.",
+    "description": "Grupa wsparcia w poszukiwaniu zaginionych bliskich i osób potrzebujących pomocy. Dzielimy się informacjami, organizujemy grupy poszukiwawcze i pomagamy.",
     "coverColor": "#E11D48",
-    "membersCount": 240,
+    "membersCount": 542,
     "members": [
+      {
+        "id": "u8",
+        "name": "Ola Kamińska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u8",
+        "role": "admin"
+      },
+      {
+        "id": "u9",
+        "name": "Bartek Nowicki",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u9",
+        "role": "moderator"
+      },
       {
         "id": "u_marinette",
         "name": "Marinette Dupont",
         "avatarUrl": "https://i.pravatar.cc/150?u=marinette",
+        "role": "member"
+      },
+      {
+        "id": "u7",
+        "name": "Michał Dąbrowski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u7",
+        "role": "member"
+      },
+      {
+        "id": "u3",
+        "name": "Piotr Wiśniewski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+        "role": "member"
+      },
+      {
+        "id": "u4",
+        "name": "Kasia Zielińska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u4",
         "role": "member"
       }
     ],
@@ -385,11 +415,144 @@
         },
         "content": "Błagam o pomoc! Moja przyjaciółka Natalie Chalamet zaginęła dzisiaj wieczorem. Byłyśmy w kinie na seansie. Poszła do toalety i już z niej nie wróciła. Mija 20 minut, jej telefon milczy, a w kabinach jej nie ma. Proszę, jeśli ktoś coś widział, dajcie znać!!! 😭😭",
         "timestamp": "2026-06-03T20:30:00Z",
-        "likes": 12,
-        "comments": []
+        "likes": 28,
+        "comments": [
+          {
+            "id": "gc_missing_1_1",
+            "author": {
+              "id": "u9",
+              "name": "Bartek Nowicki",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u9"
+            },
+            "text": "O której to dokładnie było i w którym kinie? Zgłosiłaś to od razu obsłudze i ochronie, żeby zabezpieczyli monitoring?",
+            "timestamp": "2026-06-03T20:34:00Z"
+          },
+          {
+            "id": "gc_missing_1_2",
+            "author": {
+              "id": "u_marinette",
+              "name": "Marinette Dupont",
+              "avatarUrl": "https://i.pravatar.cc/150?u=marinette"
+            },
+            "text": "Kino Le Grand Rex! Ochrona sprawdza korytarze, ale twierdzą, że nikt podejrzany nie wchodził. Znalazłam tylko jej telefon w kabinie! 😭",
+            "timestamp": "2026-06-03T20:38:00Z"
+          },
+          {
+            "id": "gc_missing_1_3",
+            "author": {
+              "id": "u8",
+              "name": "Ola Kamińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+            },
+            "text": "Marinette, nie czekaj ani chwili, od razu zgłaszaj sprawę na policję. Udostępniam Twój apel na naszych kanałach ratunkowych.",
+            "timestamp": "2026-06-03T20:42:00Z"
+          },
+          {
+            "id": "gc_missing_1_4",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Mieszkam niedaleko tego kina. Jeśli zorganizujemy grupę poszukiwawczą na przyległych ulicach, dajcie znać na priv – dołączę natychmiast!",
+            "timestamp": "2026-06-03T20:46:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_missing_2",
+        "author": {
+          "id": "u8",
+          "name": "Ola Kamińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+        },
+        "content": "📌 ZASADY POSTĘPOWANIA W PIERWSZYCH GODZINACH ZAGINIĘCIA:\n1. Policja ma obowiązek przyjąć zgłoszenie NATYCHMIAST – mit o czekaniu 24h/48h to szkodliwa bzdura!\n2. Zabezpieczcie ostatnie logowania kont (Find My Phone / Google, portale społecznościowe).\n3. Przy zgłoszeniach w grupie podawajcie: dokładne miejsce, ubiór, znaki szczególne oraz ostatnie zdjęcie.\nPomagajmy sobie nawzajem i zachowajmy spokój w komentarzach.",
+        "timestamp": "2026-06-01T10:00:00Z",
+        "likes": 56,
+        "comments": [
+          {
+            "id": "gc_missing_2_1",
+            "author": {
+              "id": "u7",
+              "name": "Michał Dąbrowski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+            },
+            "text": "Warto też od razu wygenerować kopię zapasową danych z chmury, jeśli posiadacie wspólny dostęp rodzinny.",
+            "timestamp": "2026-06-01T10:25:00Z"
+          },
+          {
+            "id": "gc_missing_2_2",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Bardzo ważny post! Przypnijmy go na stałe u góry grupy.",
+            "timestamp": "2026-06-01T11:00:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_missing_3",
+        "author": {
+          "id": "u9",
+          "name": "Bartek Nowicki",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u9"
+        },
+        "content": "WSPANIAŁA WIADOMOŚĆ: 78-letni pan Henryk, który zaginął wczoraj na obrzeżach lasu, został odnaleziony cały i zdrowy! 🚁 Zlokalizowaliśmy go przy użyciu drona z kamerą termowizyjną w gęstym młodniku, 4 km od miejsca zamieszkania. Dziękuję wszystkim wolontariuszom za błyskawiczną nocną akcję! ❤️👏",
+        "timestamp": "2026-06-02T07:30:00Z",
+        "likes": 104,
+        "comments": [
+          {
+            "id": "gc_missing_3_1",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "Niesamowita robota! Drony z termowizją w takich akcjach ratują życie.",
+            "timestamp": "2026-06-02T07:45:00Z"
+          },
+          {
+            "id": "gc_missing_3_2",
+            "author": {
+              "id": "u8",
+              "name": "Ola Kamińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+            },
+            "text": "Wielki szacunek Bartek dla Ciebie i całej ekipy poszukiwawczej!",
+            "timestamp": "2026-06-02T08:00:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_missing_4",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "content": "ZAGINIONY LABRADOR – POMÓŻCIE ZNALEŹĆ! 🐾 Wczoraj około 18:30 w okolicach Parku Miejskiego uciekł pies 'Baster' (biszkoptowy labrador, niebieska obroża z numerem). Pies wymaga leków na serce! Jeśli ktokolwiek go widział, prosimy o pilny kontakt.",
+        "timestamp": "2026-06-03T15:00:00Z",
+        "likes": 39,
+        "comments": [
+          {
+            "id": "gc_missing_4_1",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Widziałem podobnego labradora ok. 19:15 przy alejce wzdłuż rzeki, biegał w stronę mostu. Sprawdźcie tamtejszy brzeg!",
+            "timestamp": "2026-06-03T15:20:00Z"
+          }
+        ]
       }
     ],
-    "isMember": false
+    "isMember": false,
+    "isRestricted": true,
+    "adminId": "u8",
+    "joinTaskType": "convince"
   },
   {
     "id": "g_garden",
@@ -614,6 +777,10 @@
         ]
       }
     ],
-    "isMember": false
+    "isMember": false,
+    "isRestricted": true,
+    "adminId": "u_kornel",
+    "joinTaskType": "write_post_against",
+    "joinTaskTarget": "prime"
   }
 ]

@@ -11,16 +11,16 @@ const scenarios = scenariosData as Scenario[];
 const randomPostContents = [
   "Właśnie odkryłem niesamowity plugin do VS Code! Zmienił moje życie developera 🚀 Polecam każdemu!",
   "Kto jeszcze pracuje o tej porze? ☕ Nocna zmiana programistów, łączmy się!",
-  "Dzisiaj miałem fenomenalny dzień — 3 PR-y zmergowane i zero bugów. To chyba rekord! 🎉",
+  "Dzisiaj miałem fenomenalny dzień - 3 PR-y zmergowane i zero bugów. To chyba rekord! 🎉",
   "Szukam rekomendacji na dobry podcast technologiczny po polsku. Macie coś? 🎧",
   "Właśnie skończyłam kurs machine learningu! Czuję się jak superbohater z nowymi supermocami 🦸‍♀️📊",
-  "Weekend w górach zrobił swoje — nowe siły i nowe pomysły na projekty! ⛰️✨",
+  "Weekend w górach zrobił swoje - nowe siły i nowe pomysły na projekty! ⛰️✨",
   "Kto chętny na wspólne code review? Mam projekt w React + TypeScript, potrzebuję świeżego spojrzenia 👀",
   "Ciekawostka dnia: średnio programista pisze ~100 linii kodu dziennie, ale czyta ~1000. Czytanie to klucz! 📖",
-  "Właśnie dołączyłem do nowego projektu open source. Szukamy kontrybutorów — piszcie jeśli zainteresowani! 🌍",
+  "Właśnie dołączyłem do nowego projektu open source. Szukamy kontrybutorów - piszcie jeśli zainteresowani! 🌍",
   "Poniedziałki nie są takie złe, kiedy robisz to, co kochasz 💪 Miłego początku tygodnia!",
   "Kto próbował Edge Functions w Supabase? Mam kilka pytań dotyczących wydajności 🤔",
-  "Właśnie wróciłam ze spotkania UI/UX meetup — tyle inspiracji! Muszę się teraz podzielić notatkami 🎨",
+  "Właśnie wróciłam ze spotkania UI/UX meetup - tyle inspiracji! Muszę się teraz podzielić notatkami 🎨",
 ];
 
 /**
@@ -59,7 +59,7 @@ function resolveContent(content: string): string {
  */
 function ensureThread(dispatch: Dispatch, state: AppState, fromId: string, toId: string): string {
   const otherUserId = fromId === 'u1' ? toId : fromId;
-  
+
   // Check if thread already exists
   const existing = state.messages.find(m => m.participant.id === otherUserId);
   if (existing) return existing.threadId;
@@ -84,6 +84,27 @@ function ensureThread(dispatch: Dispatch, state: AppState, fromId: string, toId:
   return threadId;
 }
 
+/* === localStorage helpers for completed scenarios === */
+const SCENARIOS_STORAGE_KEY = 'emotion-completed-scenarios';
+
+function loadCompletedScenarios(): Set<string> {
+  try {
+    const raw = localStorage.getItem(SCENARIOS_STORAGE_KEY);
+    if (!raw) return new Set();
+    return new Set(JSON.parse(raw));
+  } catch {
+    return new Set();
+  }
+}
+
+function saveCompletedScenarios(completed: Set<string>) {
+  try {
+    localStorage.setItem(SCENARIOS_STORAGE_KEY, JSON.stringify(Array.from(completed)));
+  } catch {
+    // Ignore
+  }
+}
+
 /**
  * Execute a single scenario step.
  */
@@ -103,6 +124,11 @@ function executeStep(
         : resolveContent(step.content);
 
       if (step.target === 'feed') {
+        // Prevent duplicate post if identical content already exists
+        if (state.posts.some(p => p.author.id === author.id && p.content.trim() === content.trim())) {
+          return;
+        }
+
         const post: Post = {
           id: `sc-p-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
           author: {
@@ -120,6 +146,11 @@ function executeStep(
         dispatch({ type: 'ADD_FEED_POST_FROM_USER', post });
       } else {
         const groupId = step.target.groupId;
+        const group = state.groups.find(g => g.id === groupId);
+        if (group && group.posts.some(gp => gp.author.id === author.id && gp.content.trim() === content.trim())) {
+          return;
+        }
+
         const groupPost: GroupPost = {
           id: `sc-gp-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
           author: {
@@ -150,10 +181,17 @@ function executeStep(
       const fromUser = resolveUser(fromId);
       if (!fromUser) return;
 
-      // Find existing thread or create one
-      const existingThread = state.messages.find(m => m.participant.id === fromId);
-      let threadId: string;
+      const messageText = step.contextRef === 'user_post' && context.userContent
+        ? generateContextualResponse(context.userContent, fromId)
+        : step.text;
 
+      // Prevent duplicate messages if already present in history
+      const existingThread = state.messages.find(m => m.participant.id === fromId);
+      if (existingThread && existingThread.messages.some(m => m.senderId === fromId && m.text.trim() === messageText.trim())) {
+        return;
+      }
+
+      let threadId: string;
       if (existingThread) {
         threadId = existingThread.threadId;
       } else {
@@ -161,10 +199,6 @@ function executeStep(
       }
 
       if (!threadId) return;
-
-      const messageText = step.contextRef === 'user_post' && context.userContent
-        ? generateContextualResponse(context.userContent, fromId)
-        : step.text;
 
       // Slight delay to ensure thread creation is processed
       setTimeout(() => {
@@ -224,6 +258,11 @@ function executeStep(
     }
 
     case 'add_notification': {
+      // Prevent duplicate notification with same text
+      if (state.notifications.some(n => n.message.trim() === step.message.trim())) {
+        return;
+      }
+
       dispatch({
         type: 'ADD_NOTIFICATION',
         notification: {
@@ -241,7 +280,7 @@ function executeStep(
 }
 
 /**
- * ScenarioManager — manages lifecycle of all scenarios.
+ * ScenarioManager - manages lifecycle of all scenarios.
  */
 export class ScenarioManager {
   private activeTimers: Map<string, ReturnType<typeof setTimeout>[]> = new Map();
@@ -250,18 +289,39 @@ export class ScenarioManager {
   private dispatch: Dispatch;
   private getState: () => AppState;
   private scenarioStates: Map<string, { enabled: boolean; running: boolean; executedSteps: number }> = new Map();
+  private completedScenarios: Set<string> = new Set();
   private listeners: Set<() => void> = new Set();
 
   constructor(dispatch: Dispatch, getState: () => AppState) {
     this.dispatch = dispatch;
     this.getState = getState;
 
+    this.completedScenarios = loadCompletedScenarios();
+
+    // Check existing state to auto-detect if one-time scenarios were already executed in history
+    const currentState = this.getState();
+    for (const sc of scenarios) {
+      if (sc.trigger.type === 'timeout') {
+        const hasMessageStep = sc.steps.find(s => s.action === 'send_message');
+        if (hasMessageStep && 'fromId' in hasMessageStep && 'text' in hasMessageStep) {
+          const fromId = hasMessageStep.fromId === '_group_admin' ? '' : hasMessageStep.fromId;
+          if (fromId) {
+            const thread = currentState.messages.find(m => m.participant.id === fromId);
+            if (thread && thread.messages.some(m => m.senderId === fromId && m.text.trim() === hasMessageStep.text.trim())) {
+              this.completedScenarios.add(sc.id);
+            }
+          }
+        }
+      }
+    }
+    saveCompletedScenarios(this.completedScenarios);
+
     // Initialize scenario states
     for (const sc of scenarios) {
       this.scenarioStates.set(sc.id, {
         enabled: sc.enabled,
         running: false,
-        executedSteps: 0,
+        executedSteps: this.completedScenarios.has(sc.id) ? sc.steps.length : 0,
       });
     }
   }
@@ -277,7 +337,7 @@ export class ScenarioManager {
   }
 
   /** Get all scenarios with their current state */
-  getScenarios(): (Scenario & { running: boolean; executedSteps: number })[] {
+  getScenarios(): (Scenario & { running: boolean; executedSteps: number; completed: boolean })[] {
     return scenarios.map(sc => {
       const state = this.scenarioStates.get(sc.id);
       return {
@@ -285,6 +345,7 @@ export class ScenarioManager {
         enabled: state?.enabled ?? sc.enabled,
         running: state?.running ?? false,
         executedSteps: state?.executedSteps ?? 0,
+        completed: this.completedScenarios.has(sc.id),
       };
     });
   }
@@ -303,6 +364,10 @@ export class ScenarioManager {
         clearTimeout(timeout);
         this.timeoutTimers.delete(scenarioId);
       }
+    } else {
+      // If re-enabling a completed scenario, allow it to run again
+      this.completedScenarios.delete(scenarioId);
+      saveCompletedScenarios(this.completedScenarios);
     }
 
     // If it's a timer/timeout scenario and just enabled, start it
@@ -352,7 +417,10 @@ export class ScenarioManager {
         if (scenario.trigger.type === 'timer') {
           this.startTimerScenario(scenario);
         } else if (scenario.trigger.type === 'timeout') {
-          this.startTimeoutScenario(scenario);
+          // Do not re-run timeout scenarios if already completed in past session
+          if (!this.completedScenarios.has(scenario.id)) {
+            this.startTimeoutScenario(scenario);
+          }
         }
       }
     }
@@ -419,9 +487,13 @@ export class ScenarioManager {
         scenarioState.executedSteps = index + 1;
         this.notify();
 
-        // If last step, mark as not running
+        // If last step, mark as not running and persist completed status for one-time scenarios
         if (index === scenario.steps.length - 1) {
           scenarioState.running = false;
+          if (scenario.trigger.type === 'timeout') {
+            this.completedScenarios.add(scenario.id);
+            saveCompletedScenarios(this.completedScenarios);
+          }
           this.notify();
         }
       }, cumulativeDelay);

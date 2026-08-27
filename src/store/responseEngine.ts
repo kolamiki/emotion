@@ -1,4 +1,4 @@
-import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis } from '../types';
+import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis, Group, User, MessageThread } from '../types';
 import { hasAIPersonality, getAIPersonality, fetchAIResponse, fetchAIPostComment } from '../services/aiChatService';
 import { responsesData, usersData, groupsData } from '../mockData';
 
@@ -200,7 +200,7 @@ export function analyzeContext(text: string): ContextAnalysis {
    CONTEXTUAL RESPONSE TEMPLATES
    ============================================ */
 
-// Templates that reference user content — {{keyword}} is replaced with extracted topic keywords
+// Templates that reference user content - {{keyword}} is replaced with extracted topic keywords
 const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
   'u2': { // Anna
     positive: [
@@ -270,7 +270,7 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
     positive: [
       'Aww, to piękne! 🥰 Inspirujesz mnie!',
       'Wow, uwielbiam! To daje mi masę pomysłów ✨🎨',
-      'Super! Muszę Ci coś pokazać, co właśnie robię — pasuje idealnie! 🌟',
+      'Super! Muszę Ci coś pokazać, co właśnie robię - pasuje idealnie! 🌟',
     ],
     negative: [
       'Ojej... Chcesz żebym Ci narysowała coś na pocieszenie? 🎨💛',
@@ -295,7 +295,36 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
     vulgar: [
       "Ogarnij się",
       "Nie jesteś pod trzepakiem wśród kolegów. Zastanów się nim coś palniesz.",
-
+    ],
+  },
+  'u_marinette': { // Marinette Dupont
+    positive: [
+      'Dziękuję za wsparcie! Każde dobre słowo dodaje mi teraz sił w poszukiwaniach Natalie 💛',
+      'Naprawdę? Dziękuję, że jesteś. Mam nadzieję, że wkrótce wszystko się wyjaśni...',
+      'To miłe... cieszę się, że mogę na kogoś liczyć w tym trudnym momencie ✨',
+    ],
+    negative: [
+      'To straszne... tak bardzo się o nią martwię 🥺 Mam nadzieję, że nic złego się nie stało...',
+      'Wiem... czuję się jak w jakimś koszmarze. Nie spocznę, dopóki jej nie odnajdę.',
+      'Rozumiem... to wszystko jest takie przytłaczające 🫂',
+    ],
+    neutral: [
+      'Rozumiem... Gdybyś tylko cokolwiek usłyszał o Natalie, daj mi proszę od razu znać!',
+      'Tak... cały czas myślę o tym wieczorze w kinie. Wszystko wydawało się takie normalne...',
+      'Wiem, muszę zachować spokój i krok po kroku sprawdzić wszystkie poszlaki.',
+    ],
+    funny: [
+      'Heh, dzięki za próbę rozładowania atmosfery... choć wciąż ciężko mi myśleć o czymś innym niż Natalie 😅',
+      'Doceniam humor, pomaga choć na sekundę zapomnieć o tym całym stresie...',
+    ],
+    question: [
+      'Wyszła do toalety podczas seansu i już nie wróciła... W kabinie zostały tylko jej rzeczy i telefon 📱',
+      'Próbuję rozmawiać ze wszystkimi, którzy byli wtedy w kinie. Każdy szczegół może mieć znaczenie!',
+      'Myślę, że musimy przeszukać okolicę kina i sprawdzić nagrania z monitoringu, jeśli to możliwe.',
+    ],
+    vulgar: [
+      'Proszę, nie mów tak... Jestem kłębkiem nerwów przez zniknięcie Natalie.',
+      'Naprawdę musisz tak pisać? Przeżywam teraz koszmar...',
     ],
   },
 };
@@ -383,19 +412,19 @@ interface ProfanityConfig {
 }
 
 const profanityConfigs: Record<string, ProfanityConfig> = {
-  'u2': { // Anna — wrażliwa, blokuje szybko
+  'u2': { // Anna - wrażliwa, blokuje szybko
     maxStrikes: 3,
     farewellMessage: 'Nie... są pewne granice poziomu rozmowy. A ty zniżyłeś się tak bardzo, że szorując po dnie, wykopałeś sobie dół, w którym chyba tylko sam ze sobą będziesz czuł się dobrze. Do widzenia.',
     apologyMessage: 'Hej, sorry za ostatnią wiadomość. Trochę mnie poniosło. Kiepski dzień itp... Mam nadzieję, że mi wybaczysz 🥺',
     cooldownMs: 604_800_000, // tydzień spokoju na odpowiedź
   },
-  'u4': { // Kasia — blokuje po 4
+  'u4': { // Kasia - blokuje po 4
     maxStrikes: 4,
     farewellMessage: 'Wiesz co? Nie mam ochoty na taki poziom rozmowy. Nie jestem pod trzepakiem. Odezwij się kiedy dorośniesz.',
     apologyMessage: 'Hej... przepraszam, że się odcięłam. Miałam ciężki tydzień i chyba zareagowałam zbyt ostro. Mam nadzieję, że nie masz żalu 💛',
     cooldownMs: 30_000, // 30s demo (symuluje "kilka dni")
   },
-  'u3': { // Piotr — wytrzymały, ale też ma granicę
+  'u3': { // Piotr - wytrzymały, ale też ma granicę
     maxStrikes: 6,
     farewellMessage: 'Dobra, starczy. Mam wystarczająco własnych problemów, żeby jeszcze słuchać takich rzeczy. Nara.',
     apologyMessage: 'Ej, słuchaj, sorry za tamto. Byłem trochę naburmuszony. Piwo na zgodę? 🍺',
@@ -502,7 +531,7 @@ function checkAndSendApology(
   const elapsed = Date.now() - block.blockedAt;
 
   if (elapsed >= block.cooldownMs && !block.apologySent) {
-    // Cooldown expired — send apology
+    // Cooldown expired - send apology
     block.apologySent = true;
     saveBlocks(blocks);
 
@@ -775,7 +804,8 @@ export function scheduleChatResponse(
   pendingFriends?: Set<string>,
   currentUserName?: string,
   threadMessages?: Message[],
-  currentUserId?: string
+  currentUserId?: string,
+  pendingGroupJoins?: Set<string>
 ): void {
   // If the participant is offline, they do not respond to messages
   const participant = getUserById(participantId);
@@ -783,12 +813,12 @@ export function scheduleChatResponse(
     return;
   }
 
-  // Check if the participant's cooldown has expired — send apology if so
+  // Check if the participant's cooldown has expired - send apology if so
   checkAndSendApology(dispatch, threadId, participantId);
 
   // If participant is currently blocked, don't respond at all
   if (isParticipantBlocked(participantId)) {
-    return; // silently ignore — they're "not talking to you"
+    return; // silently ignore - they're "not talking to you"
   }
 
   // Handle Matylda friend request scenario
@@ -841,6 +871,44 @@ export function scheduleChatResponse(
     return;
   }
 
+  // Handle Ola Kamińska (u8) group join request for "Szukam osoby - pomoc" (g_szukam)
+  if (participantId === 'u8' && pendingGroupJoins?.has('g_szukam')) {
+    const textLower = userText.toLowerCase();
+    const isSensible = textLower.length >= 3 && !textLower.includes('spierdalaj') && !textLower.includes('chuj');
+
+    if (isSensible) {
+      const acceptText = 'Rozumiem, dziękuję za odpowiedź i chęć pomocy. Zaakceptowałam Twoją prośbę - witamy w grupie "Szukam osoby - pomoc"! Pamiętaj o zachowaniu powagi i szacunku w postach.';
+
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+          const responseMsg: Message = {
+            id: `resp-ola-${Date.now()}`,
+            senderId: participantId,
+            text: acceptText,
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+          dispatch({ type: 'APPROVE_GROUP_JOIN', groupId: 'g_szukam' });
+          dispatch({
+            type: 'ADD_NOTIFICATION',
+            notification: {
+              id: `n-approve-szukam-${Date.now()}`,
+              type: 'group',
+              message: 'Ola Kamińska zaakceptowała Twoją prośbę o dołączenie do grupy "Szukam osoby - pomoc".',
+              timestamp: new Date().toISOString(),
+              isRead: false,
+              link: { type: 'group', groupId: 'g_szukam' }
+            }
+          });
+        }, 2200);
+      }, 1000);
+
+      return;
+    }
+  }
+
   // Analyze if this message is vulgar
   const context = analyzeContext(userText);
   if (context.sentiment === 'vulgar') {
@@ -879,7 +947,7 @@ export function scheduleChatResponse(
       return;
     }
 
-    // strikeResult === 'warned' — they respond with a vulgar-sentiment response (already handled by templates)
+    // strikeResult === 'warned' - they respond with a vulgar-sentiment response (already handled by templates)
   }
 
   // === AI-POWERED RESPONSE PATH ===
@@ -925,7 +993,7 @@ export function scheduleChatResponse(
     fetchAIResponse(participantId, threadMessages, currentUserId, currentUserName)
       .then(aiReply => {
         if (aiReply) {
-          // AI responded successfully — use it
+          // AI responded successfully - use it
           const aiTypingDuration = 1000 + Math.min(aiReply.length * 30, 3000);
           setTimeout(() => {
             dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
@@ -940,12 +1008,12 @@ export function scheduleChatResponse(
             dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
           }, aiTypingDuration);
         } else {
-          // AI failed or unavailable — fall back to rule-based engine
+          // AI failed or unavailable - fall back to rule-based engine
           fallbackToRuleEngine(dispatch, threadId, participantId, userText);
         }
       })
       .catch(() => {
-        // Network/runtime error — fall back silently
+        // Network/runtime error - fall back silently
         fallbackToRuleEngine(dispatch, threadId, participantId, userText);
       });
 
@@ -1014,10 +1082,85 @@ export function schedulePostCommentResponse(
   postId: string,
   postContent: string,
   currentUserId: string,
-  currentUserName?: string
+  currentUserName?: string,
+  pendingGroupJoins?: Set<string>
 ): void {
+  // 0. Check for Kornel anti-prime group task
+  if (pendingGroupJoins?.has('g_anty_prime')) {
+    const norm = normalize(postContent);
+    const isAntiPrime = norm.includes('prime') ||
+      norm.includes('profesor') ||
+      norm.includes('szarlatan') ||
+      norm.includes('oszust') ||
+      norm.includes('klam') ||
+      norm.includes('bzdur') ||
+      norm.includes('inwigilac') ||
+      norm.includes('primeco') ||
+      norm.includes('sciem');
+
+    if (isAntiPrime) {
+      setTimeout(() => {
+        // Kornel likes the post
+        dispatch({ type: 'INCREMENT_POST_LIKES', postId });
+        dispatch({
+          type: 'ADD_NOTIFICATION',
+          notification: {
+            id: `notif-kornel-like-${Date.now()}`,
+            message: `Kornel Zagórski polubił Twój post.`,
+            isRead: false,
+            timestamp: new Date().toISOString(),
+            type: 'like',
+            link: { type: 'post', postId }
+          }
+        });
+
+        // Kornel adds a comment
+        const kornel = allUsers.find(u => u.id === 'u_kornel') || {
+          id: 'u_kornel',
+          name: 'Kornel Zagórski',
+          avatarUrl: 'https://i.pravatar.cc/150?u=kornel_zagorski'
+        };
+
+        const kornelComment: Comment = {
+          id: `c-kornel-${Date.now()}`,
+          author: {
+            id: kornel.id,
+            name: kornel.name,
+            avatarUrl: kornel.avatarUrl
+          },
+          text: 'O to chodzi! Precz z manipulacjami PrimeCo i bajkami o widzeniu przyszłości! 🔥',
+          timestamp: new Date().toISOString()
+        };
+        dispatch({ type: 'ADD_COMMENT', postId, comment: kornelComment });
+
+        // Kornel sends direct message in chat and approves group
+        const kornelThreadId = 't_u_kornel';
+        const kornelMsg: Message = {
+          id: `kornel-appr-${Date.now()}`,
+          senderId: 'u_kornel',
+          text: 'Widziałem Twój post na wallu. Dobra robota! Wreszcie ktoś, kto nie boi się pisać prawdy. Zaakceptowałem Cię w grupie STOP Szarlatanom. Witaj na pokładzie!',
+          timestamp: new Date().toISOString()
+        };
+
+        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: kornelThreadId, message: kornelMsg });
+        dispatch({ type: 'APPROVE_GROUP_JOIN', groupId: 'g_anty_prime' });
+        dispatch({
+          type: 'ADD_NOTIFICATION',
+          notification: {
+            id: `notif-kornel-group-${Date.now()}`,
+            message: 'Kornel Zagórski zaakceptował Twoją prośbę o dołączenie do grupy "STOP Szarlatanom: Prawda o Nowej Nauce i PrimeCo".',
+            isRead: false,
+            timestamp: new Date().toISOString(),
+            type: 'group',
+            link: { type: 'group', groupId: 'g_anty_prime' }
+          }
+        });
+      }, 8000 + Math.random() * 4000);
+    }
+  }
+
   // 1. Schedule simulated likes from fictional users (3 to 7 likes)
-  scheduleSimulatedLikes(dispatch, postId, false);
+  scheduleSimulatedLikes(dispatch, postId, false, undefined, postContent);
 
   // 2. Select 2 to 5 distinct commenters
   const candidateUsers = selectDiverseCommenters(currentUserId, undefined, postContent);
@@ -1089,7 +1232,7 @@ export function scheduleGroupPostCommentResponse(
   const groupInfo = currentGroup ? { name: currentGroup.name, description: currentGroup.description } : undefined;
 
   // 2. Schedule simulated likes from group members (2 to 6 likes)
-  scheduleSimulatedLikes(dispatch, postId, true, groupId);
+  scheduleSimulatedLikes(dispatch, postId, true, groupId, postContent);
 
   // 3. Select 2 to 5 distinct commenters for this specific group
   const candidateUsers = selectDiverseCommenters(currentUserId, groupId, postContent);
@@ -1165,20 +1308,45 @@ export function scheduleGroupPostCommentResponse(
 function selectDiverseCommenters(
   currentUserId: string,
   groupId?: string,
-  _postContent?: string
+  postContent?: string
 ): any[] {
   const eligible = allUsers.filter(u => u.id !== currentUserId && u.isOnline !== false);
 
+  // Analyze post content context
+  const norm = normalize(postContent || '');
+  const isAntiPrimeOrHostile =
+    norm.includes('prime') ||
+    norm.includes('profesor') ||
+    norm.includes('szarlatan') ||
+    norm.includes('oszust') ||
+    norm.includes('jebac') ||
+    norm.includes('chuj') ||
+    norm.includes('kurw') ||
+    norm.includes('zlodziej') ||
+    norm.includes('sciem') ||
+    norm.includes('klam') ||
+    norm.includes('bzdur') ||
+    norm.includes('inwigilac') ||
+    norm.includes('nowa nauka') ||
+    norm.includes('stop szarlatan');
+
   // Preferred list prioritizing AI personalities
   let aiUsers = eligible.filter(u => hasAIPersonality(u.id));
-  const otherUsers = eligible.filter(u => !hasAIPersonality(u.id));
+  let otherUsers = eligible.filter(u => !hasAIPersonality(u.id));
 
-  // Context-specific prioritization based on group topic
-  if (groupId === 'g_anty_prime') {
-    // STOP Szarlatanom: Kornel, Weronika, Damian (Profesor Prime u14 is completely excluded)
+  // If the post is hostile / anti-Prime / aggressive:
+  // Exclude sensitive and peace-loving characters from commenting (Marinette, Anna, Kasia, Ola)
+  if (isAntiPrimeOrHostile || groupId === 'g_anty_prime') {
+    const sensitiveUserIds = new Set(['u_marinette', 'u2', 'u4', 'u8']);
+    aiUsers = aiUsers.filter(u => !sensitiveUserIds.has(u.id));
+    otherUsers = otherUsers.filter(u => !sensitiveUserIds.has(u.id));
+
+    // Exclude Profesor Prime (u14) from commenting favorably on anti-prime posts
     aiUsers = aiUsers.filter(u => u.id !== 'u14');
+
+    // Prioritize members of the resistance / anti-Prime activists
     aiUsers.sort((a, b) => {
-      const antiOrder = ['u_kornel', 'u_weronika', 'u_damian'];
+      const antiOrder = ['u_kornel', 'u_weronika', 'u_damian', 'u_gaston', 'u3'];
       const idxA = antiOrder.indexOf(a.id);
       const idxB = antiOrder.indexOf(b.id);
       if (idxA !== -1 && idxB !== -1) return idxA - idxB;
@@ -1220,9 +1388,36 @@ function scheduleSimulatedLikes(
   dispatch: Dispatch,
   postId: string,
   isGroup: boolean,
-  groupId?: string
+  groupId?: string,
+  postContent?: string
 ): void {
-  const likerCandidates = allUsers.filter(u => u.id !== 'u1');
+  let likerCandidates = allUsers.filter(u => u.id !== 'u1');
+
+  if (postContent) {
+    const norm = normalize(postContent);
+    const isAntiPrimeOrHostile =
+      norm.includes('prime') ||
+      norm.includes('profesor') ||
+      norm.includes('szarlatan') ||
+      norm.includes('oszust') ||
+      norm.includes('jebac') ||
+      norm.includes('chuj') ||
+      norm.includes('kurw') ||
+      norm.includes('zlodziej') ||
+      norm.includes('sciem') ||
+      norm.includes('klam') ||
+      norm.includes('bzdur') ||
+      norm.includes('inwigilac') ||
+      norm.includes('nowa nauka') ||
+      norm.includes('stop szarlatan');
+
+    if (isAntiPrimeOrHostile || groupId === 'g_anty_prime') {
+      // Sensitive users (Marinette, Anna, Kasia, Ola) and Profesor Prime shouldn't like anti-Prime/aggressive posts
+      const excludedLikerIds = new Set(['u_marinette', 'u2', 'u4', 'u8', 'u14']);
+      likerCandidates = likerCandidates.filter(u => !excludedLikerIds.has(u.id));
+    }
+  }
+
   const shuffled = [...likerCandidates].sort(() => Math.random() - 0.5);
   const likeCount = Math.floor(Math.random() * 4) + 3; // 3 to 6 likes
 
@@ -1320,4 +1515,82 @@ export function generateContextualResponse(userContent: string, responderId: str
 
   const pool = generic[context.sentiment];
   return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/**
+ * Schedule admin verification response after a user requests to join a restricted group.
+ */
+export function scheduleGroupJoinAdminResponse(
+  dispatch: Dispatch,
+  group: Group,
+  currentUser: User,
+  messages: MessageThread[]
+): void {
+  const adminId = group.adminId;
+  if (!adminId) return;
+
+  const admin = allUsers.find(u => u.id === adminId) || group.members.find(m => m.id === adminId);
+  if (!admin) return;
+
+  // Ensure thread exists
+  const existingThread = messages.find(m => m.participant.id === admin.id);
+  const threadId = existingThread?.threadId || `t_${admin.id}`;
+  if (!existingThread) {
+    dispatch({
+      type: 'CREATE_THREAD',
+      thread: {
+        threadId,
+        participant: {
+          id: admin.id,
+          name: admin.name,
+          avatarUrl: admin.avatarUrl,
+          isOnline: true
+        },
+        messages: []
+      }
+    });
+  }
+
+  // Admin responds after 10-25 seconds
+  const delay = 12000 + Math.random() * 8000;
+  setTimeout(() => {
+    dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+
+    setTimeout(() => {
+      dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+
+      let adminText = '';
+      const userName = currentUser?.name || '';
+      const greeting = userName ? `Cześć ${userName}!` : 'Cześć!';
+
+      if (group.id === 'g_szukam') {
+        adminText = `${greeting} Widzę Twoją prośbę o dołączenie do grupy "${group.name}". Zanim Cię zaakceptuję, napisz proszę w kilku słowach: dlaczego chcesz dołączyć i w jaki sposób możesz pomóc w poszukiwaniach?`;
+      } else if (group.id === 'g_anty_prime') {
+        adminText = `Widzę Twoją prośbę o dołączenie do "${group.name}". Nie przyjmujemy każdego z ulicy - PrimeCo ma wszędzie swoich szpiegów. Jeśli chcesz być jednym z nas, musisz udowodnić swoją lojalność. Napisz post szkalujący Profesora Prime'a na swoim wallu (tablicy głównej). Dopiero wtedy Cię zaakceptuję.`;
+      } else {
+        adminText = `${greeting} Widzę Twoją prośbę o dołączenie do grupy "${group.name}". Napisz proszę krótko, co Cię do nas sprowadza?`;
+      }
+
+      const msg: Message = {
+        id: `admin-req-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+        senderId: admin.id,
+        text: adminText,
+        timestamp: new Date().toISOString()
+      };
+
+      dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: msg });
+
+      dispatch({
+        type: 'ADD_NOTIFICATION',
+        notification: {
+          id: `n-join-req-${Date.now()}`,
+          type: 'group',
+          message: `${admin.name} napisał(a) do Ciebie w sprawie prośby o dołączenie do grupy "${group.name}".`,
+          timestamp: new Date().toISOString(),
+          isRead: false,
+          link: { type: 'chat', threadId }
+        }
+      });
+    }, 2500);
+  }, delay);
 }

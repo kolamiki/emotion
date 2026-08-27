@@ -39,7 +39,7 @@ export function getAIPersonality(participantId: string): AIPersonalityConfig | n
 
 /**
  * Compile a personality config into a detailed system prompt.
- * This is the core of the "realistic conversation" effect — the prompt
+ * This is the core of the "realistic conversation" effect - the prompt
  * encodes personality traits, communication style, and behavioral rules
  * so the LLM responds in-character.
  */
@@ -55,26 +55,26 @@ export function buildSystemPrompt(
   else if (t.openness < 0.4) traitDescriptions.push('Jesteś raczej konserwatywna/y i sceptyczna/y wobec nowości.');
 
   if (t.agreeableness > 0.7) traitDescriptions.push('Jesteś empatyczna/y, ciepła/y i ugodowa/y.');
-  else if (t.agreeableness < 0.4) traitDescriptions.push('Bywasz chłodna/y, krytyczna/y i bezpośrednia/i — nie słodzisz.');
+  else if (t.agreeableness < 0.4) traitDescriptions.push('Bywasz chłodna/y, krytyczna/y i bezpośrednia/i - nie słodzisz.');
 
-  if (t.neuroticism > 0.6) traitDescriptions.push('Jesteś emocjonalna/y — łatwo Cię poruszyć, zdenerwować lub ucieszyć.');
+  if (t.neuroticism > 0.6) traitDescriptions.push('Jesteś emocjonalna/y - łatwo Cię poruszyć, zdenerwować lub ucieszyć.');
   else if (t.neuroticism < 0.3) traitDescriptions.push('Jesteś opanowana/y i trudno Cię wyprowadzić z równowagi.');
 
-  if (t.patience > 0.7) traitDescriptions.push('Jesteś cierpliwa/y — chętnie słuchasz i nie poganiasz.');
-  else if (t.patience < 0.4) traitDescriptions.push('Jesteś niecierpliwa/y — lubisz konkrety, nie lubisz lania wody.');
+  if (t.patience > 0.7) traitDescriptions.push('Jesteś cierpliwa/y - chętnie słuchasz i nie poganiasz.');
+  else if (t.patience < 0.4) traitDescriptions.push('Jesteś niecierpliwa/y - lubisz konkrety, nie lubisz lania wody.');
 
-  if (t.humor > 0.7) traitDescriptions.push('Masz doskonałe poczucie humoru — żartujesz, ripostujesz, bawisz się słowem.');
-  else if (t.humor < 0.4) traitDescriptions.push('Jesteś raczej poważna/y — humor nie jest Twoją główną bronią.');
+  if (t.humor > 0.7) traitDescriptions.push('Masz doskonałe poczucie humoru - żartujesz, ripostujesz, bawisz się słowem.');
+  else if (t.humor < 0.4) traitDescriptions.push('Jesteś raczej poważna/y - humor nie jest Twoją główną bronią.');
 
   if (t.extraversion > 0.7) traitDescriptions.push('Jesteś towarzyska/i i energiczna/y w rozmowie.');
-  else if (t.extraversion < 0.4) traitDescriptions.push('Jesteś raczej introwertyczna/y — potrzebujesz czasu żeby się otworzyć.');
+  else if (t.extraversion < 0.4) traitDescriptions.push('Jesteś raczej introwertyczna/y - potrzebujesz czasu żeby się otworzyć.');
 
   // Build emoji instruction
   let emojiInstruction = '';
   if (config.communicationStyle.useEmojis === true || config.communicationStyle.useEmojis === 'frequently') {
     emojiInstruction = 'Używaj emoji naturalnie w swoich wypowiedziach, jak w prawdziwym czacie (ale nie w każdym zdaniu).';
   } else if (config.communicationStyle.useEmojis === 'rarely') {
-    emojiInstruction = 'Używaj emoji bardzo oszczędnie — najwyżej jedno na kilka wiadomości.';
+    emojiInstruction = 'Używaj emoji bardzo oszczędnie - najwyżej jedno na kilka wiadomości.';
   } else {
     emojiInstruction = 'Nie używaj emoji.';
   }
@@ -104,9 +104,16 @@ ${config.knowledgeBase ? `## Dziedziny, w których czujesz się swobodnie\n${con
 ## ZASADY BEZWZGLĘDNE
 ${config.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 
+## LOGIKA I ZASADY PROWADZENIA CZATU
+- Wiadomości oznaczone jako "user" to wypowiedzi Twojego rozmówcy (${currentUserName || 'użytkownika'}). Wiadomości "assistant" to Twoje własne wcześniejsze wypowiedzi.
+- ZAWSZE odpowiadaj bezpośrednio i logicznie na OSTATNIĄ wiadomość rozmówcy.
+- Jeśli rozmówca potwierdza, zgadza się lub pisze krótko (np. "ok", "dobra", "jasne", "zaraz sprawdzę", "pomogę"), potraktuj to jako akceptację Twojej wcześniejszej prośby/pytania i podziękuj za chęć wsparcia, zamiast traktować to jako pytanie.
+- Zwrotów takich jak "Dzięki, że pytasz!" używaj WYŁĄCZNIE w sytuacji, gdy rozmówca wprost zapytał o Twoje samopoczucie, nastrój lub co u Ciebie (np. "Jak się trzymasz?", "Wszystko w porządku?", "Jak się czujesz?").
+- Nie powtarzaj całej fabuły ani nie wyrzucaj wszystkich faktów naraz - prowadź dialog naturalnie, krok po kroku.
+
 ## KONTEKST ROZMOWY
 ${userRef}
-To jest prywatny czat w aplikacji społecznościowej eMotion. Prowadź naturalną rozmowę — odpowiadaj jak prawdziwa osoba w komunikatorze. Nie generuj długich tekstów. Pisz krótko, naturalnie, jak w Messengerze.`.trim();
+To jest prywatny czat w aplikacji społecznościowej eMotion. Prowadź naturalną rozmowę - odpowiadaj jak prawdziwa osoba w komunikatorze. Nie generuj długich tekstów. Pisz krótko, naturalnie, jak w Messengerze (1-3 zdania).`.trim();
 }
 
 // ============================================
@@ -234,7 +241,7 @@ export async function fetchAIPostComment(
 Znajomy właśnie opublikował nowy post.
 ${contextNote}
 Napisz BARDZO KRÓTKI komentarz pod tym postem (dokładnie 1 lub 2 zwięzłe zdania, maksymalnie 25 słów) w roli swojej postaci.
-Bądź autentyczny/a — reaguj zgodnie ze swoją osobowością i stylem wypowiedzi w kontekście tej grupy/tablicy.
+Bądź autentyczny/a - reaguj zgodnie ze swoją osobowością i stylem wypowiedzi w kontekście tej grupy/tablicy.
 NIGDY nie pisz długich esejów, nie przedstawiaj się, nie dodawaj podpisów. Pisz krótko i naturalnie jak w komentarzu w social mediach.`;
 
   const messages: ChatMessagePayload[] = [
