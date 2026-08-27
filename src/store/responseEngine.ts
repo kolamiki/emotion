@@ -805,11 +805,11 @@ export function scheduleChatResponse(
   currentUserName?: string,
   threadMessages?: Message[],
   currentUserId?: string,
-  pendingGroupJoins?: Set<string>
+  _pendingGroupJoins?: Set<string>
 ): void {
-  // If the participant is offline, they do not respond to messages
+  // If the participant is offline, they do not respond to messages (except active group admins)
   const participant = getUserById(participantId);
-  if (participant && participant.isOnline === false) {
+  if (participant && participant.isOnline === false && participantId !== 'u8' && participantId !== 'u_kornel') {
     return;
   }
 
@@ -872,9 +872,9 @@ export function scheduleChatResponse(
   }
 
   // Handle Ola Kamińska (u8) group join request for "Szukam osoby - pomoc" (g_szukam)
-  if (participantId === 'u8' && pendingGroupJoins?.has('g_szukam')) {
+  if (participantId === 'u8') {
     const textLower = userText.toLowerCase();
-    const isSensible = textLower.length >= 3 && !textLower.includes('spierdalaj') && !textLower.includes('chuj');
+    const isSensible = textLower.length >= 2 && !textLower.includes('spierdalaj') && !textLower.includes('chuj');
 
     if (isSensible) {
       const acceptText = 'Rozumiem, dziękuję za odpowiedź i chęć pomocy. Zaakceptowałam Twoją prośbę - witamy w grupie "Szukam osoby - pomoc"! Pamiętaj o zachowaniu powagi i szacunku w postach.';
@@ -902,8 +902,8 @@ export function scheduleChatResponse(
               link: { type: 'group', groupId: 'g_szukam' }
             }
           });
-        }, 2200);
-      }, 1000);
+        }, 1800);
+      }, 800);
 
       return;
     }
