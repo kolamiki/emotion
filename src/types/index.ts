@@ -209,9 +209,11 @@ export interface AppState {
 }
 
 export type AppAction =
-  | { type: 'ADD_POST'; content: string }
+  | { type: 'ADD_POST'; content: string; id?: string }
   | { type: 'TOGGLE_LIKE_POST'; postId: string }
   | { type: 'TOGGLE_LIKE_GROUP_POST'; groupId: string; postId: string }
+  | { type: 'INCREMENT_POST_LIKES'; postId: string }
+  | { type: 'INCREMENT_GROUP_POST_LIKES'; groupId: string; postId: string }
   | { type: 'ADD_COMMENT'; postId: string; comment: Comment }
   | { type: 'ADD_GROUP_COMMENT'; groupId: string; postId: string; comment: Comment }
   | { type: 'SEND_MESSAGE'; threadId: string; message: Message }

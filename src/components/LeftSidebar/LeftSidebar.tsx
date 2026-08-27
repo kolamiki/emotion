@@ -10,6 +10,7 @@ import {
   Cpu,
   ChevronRight,
   Trophy,
+  AlertTriangle,
 } from 'lucide-react';
 import styles from './LeftSidebar.module.css';
 import type { User, Group, ActiveView } from '../../types';
@@ -30,6 +31,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Coffee: <Coffee size={16} />,
   Footprints: <Footprints size={16} />,
   Cpu: <Cpu size={16} />,
+  AlertTriangle: <AlertTriangle size={16} />,
 };
 
 export const LeftSidebar: React.FC<LeftSidebarProps> = ({

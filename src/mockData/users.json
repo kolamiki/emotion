@@ -197,6 +197,36 @@
       "bio": "Genetyk, kynopsycholog i behawiorysta. Lubię psy i chętnie pomogę w diagnozie zachowania Twojego pupila.",
       "location": "Düsseldorf, Niemcy",
       "joinDate": "wrzesień 2022"
+    },
+    {
+      "id": "u_kornel",
+      "name": "Kornel Zagórski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Inżynier społeczny i demaskator korporacyjnych mitów. 'Nowa Nauka' to cyfrowe kłamstwo mające podzielić ludzi na lepszych i gorszych.",
+      "location": "Warszawa, Polska",
+      "joinDate": "styczeń 2024"
+    },
+    {
+      "id": "u_weronika",
+      "name": "Weronika Skalska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Działaczka na rzecz równości cyfrowej. PrimeCo bogaci się na wykluczeniu zwykłych ludzi. Czas zdemaskować 'proroka' Prime'a!",
+      "location": "Kraków, Polska",
+      "joinDate": "luty 2024"
+    },
+    {
+      "id": "u_damian",
+      "name": "Damian Wilk",
+      "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Zero litości dla szarlatanów w garniturach. Przepowiadanie przyszłości? To zwykły algorytmiczny szwindel i insider trading.",
+      "location": "Poznań, Polska",
+      "joinDate": "kwiecień 2024"
     }
   ]
 }

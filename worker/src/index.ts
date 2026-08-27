@@ -5,7 +5,7 @@
  * and the LLM API (Gemini / Groq). It:
  *   1. Keeps API keys secret (stored as Worker Secrets, never sent to browser)
  *   2. Validates and sanitizes requests
- *   3. Handles CORS for the GitHub Pages origin
+ *   3. Handles CORS reliably for GitHub Pages and local development
  *   4. Forwards the conversation to the chosen LLM and returns the reply
  */
 
@@ -35,20 +35,34 @@ interface IncomingRequest {
 //  CORS HEADERS
 // ============================================
 
-function corsHeaders(origin: string, allowedOrigin: string): Record<string, string> {
-  const isAllowed =
-    !origin ||
-    origin === allowedOrigin ||
-    origin.endsWith('.github.io') ||
-    origin.startsWith('http://localhost') ||
-    origin.startsWith('http://127.0.0.1');
-
+function corsHeaders(): Record<string, string> {
   return {
-    'Access-Control-Allow-Origin': isAllowed ? (origin || '*') : allowedOrigin,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': '*',
     'Access-Control-Max-Age': '86400',
   };
+}
+
+// ============================================
+//  ORIGIN VALIDATION (BLOCK UNRELATED WEBSITES)
+// ============================================
+
+function isForeignSite(origin: string | null): boolean {
+  if (!origin) return false; // Allow direct/same-origin/privacy-stripped requests
+  const lower = origin.toLowerCase();
+
+  // Allow GitHub Pages and Localhost
+  if (
+    lower.endsWith('.github.io') ||
+    lower.includes('localhost') ||
+    lower.includes('127.0.0.1')
+  ) {
+    return false;
+  }
+
+  // Reject foreign domains trying to leech your worker
+  return true;
 }
 
 // ============================================
@@ -61,16 +75,20 @@ async function callGemini(
   systemPrompt: string,
   messages: ChatMessage[]
 ): Promise<string> {
-  const modelsToTry = [model, 'gemini-1.5-flash', 'gemini-2.5-flash', 'gemini-3.6-flash', 'gemini-1.5-pro'].filter(
-    (v, i, a) => a.indexOf(v) === i
-  );
+  const modelsToTry = [
+    model,
+    'gemini-3.5-flash-lite',
+    'gemini-3.5-flash',
+    'gemini-3.6-flash-lite',
+    'gemini-3.6-flash',
+  ].filter((v, i, a) => a.indexOf(v) === i);
 
   const contents = messages.map(msg => ({
     role: msg.role === 'assistant' ? 'model' : 'user',
     parts: [{ text: msg.content }],
   }));
 
-  let lastError = '';
+  const allErrors: string[] = [];
 
   for (const m of modelsToTry) {
     try {
@@ -94,7 +112,7 @@ async function callGemini(
 
       if (!response.ok) {
         const errorText = await response.text();
-        lastError = `Model ${m} error ${response.status}: ${errorText}`;
+        allErrors.push(`[${m} status ${response.status}]: ${errorText}`);
         continue;
       }
 
@@ -105,11 +123,11 @@ async function callGemini(
         return reply;
       }
     } catch (err: any) {
-      lastError = err?.message || String(err);
+      allErrors.push(`[${m} exception]: ${err?.message || String(err)}`);
     }
   }
 
-  throw new Error(`Gemini API failed on all candidate models: ${lastError}`);
+  throw new Error(`Gemini API failed. Errors:\n${allErrors.join('\n')}`);
 }
 
 // ============================================
@@ -122,7 +140,6 @@ async function callGroq(
   systemPrompt: string,
   messages: ChatMessage[]
 ): Promise<string> {
-  // Groq uses the OpenAI-compatible format
   const groqMessages = [
     { role: 'system', content: systemPrompt },
     ...messages,
@@ -138,7 +155,7 @@ async function callGroq(
       model,
       messages: groqMessages,
       temperature: 0.9,
-      max_tokens: 256,
+      max_tokens: 500,
       top_p: 0.95,
     }),
   });
@@ -164,20 +181,41 @@ async function callGroq(
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const origin = request.headers.get('Origin') || '';
-    const headers = corsHeaders(origin, env.ALLOWED_ORIGIN);
+    const headers = corsHeaders();
 
-    // Handle CORS preflight
+    // 1. Handle CORS preflight (OPTIONS)
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers });
     }
 
-    // Only accept POST
+    // 2. Handle GET healthcheck
+    if (request.method === 'GET') {
+      return new Response(
+        JSON.stringify({
+          status: 'ok',
+          message: 'eMotion AI Proxy is operational',
+          provider: env.AI_PROVIDER,
+          model: env.AI_MODEL,
+        }),
+        { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // 3. Only accept POST for chat
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405,
         headers: { ...headers, 'Content-Type': 'application/json' },
       });
+    }
+
+    // 4. Block unrelated third-party websites
+    const origin = request.headers.get('Origin');
+    if (isForeignSite(origin)) {
+      return new Response(
+        JSON.stringify({ error: 'Access denied: Foreign origins not allowed.' }),
+        { status: 403, headers: { ...headers, 'Content-Type': 'application/json' } }
+      );
     }
 
     try {

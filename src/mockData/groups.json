@@ -505,5 +505,115 @@
       }
     ],
     "isMember": false
+  },
+  {
+    "id": "g_anty_prime",
+    "name": "STOP Szarlatanom: Prawda o Nowej Nauce i PrimeCo",
+    "icon": "AlertTriangle",
+    "description": "Otwarty ruch sprzeciwu wobec Profesora Prime'a, jego rzekomego 'widzenia przyszłości' oraz pogłębiania nierówności społecznych przez PrimeCo. Bez cenzury, bez kultu jednostki.",
+    "coverColor": "#7f1d1d",
+    "membersCount": 3412,
+    "members": [
+      {
+        "id": "u_kornel",
+        "name": "Kornel Zagórski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski",
+        "role": "admin"
+      },
+      {
+        "id": "u_weronika",
+        "name": "Weronika Skalska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska",
+        "role": "moderator"
+      },
+      {
+        "id": "u_damian",
+        "name": "Damian Wilk",
+        "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk",
+        "role": "member"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp_anti_1",
+        "author": {
+          "id": "u_kornel",
+          "name": "Kornel Zagórski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+        },
+        "content": "Przestańmy wreszcie udawać, że Profesor Prime 'widzi przyszłość'. To nie jest żadne oświecenie ani dar. Każdy, kto ma pojęcie o architekturze sieci neuronowych i big data, wie, że to zwykła agresywna ekstrapolacja danych i inwigilacja milionów obywateli! Facet sprzedaje wam tanią iluzję przeznaczenia, żebyście potulnie zaakceptowali jego monopol. Czas powiedzieć DOŚĆ temu szarlatanowi!",
+        "timestamp": "2026-06-03T11:00:00Z",
+        "likes": 87,
+        "comments": [
+          {
+            "id": "gc_anti_1_1",
+            "author": {
+              "id": "u_damian",
+              "name": "Damian Wilk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+            },
+            "text": "Dokładnie. 'Wizjoner' od siedmiu boleści. Jak mu algorytm nawali na giełdzie, to zwali na 'niewłaściwą fluktuację emocjonalną'. Czysty scam dla naiwnych.",
+            "timestamp": "2026-06-03T11:15:00Z"
+          },
+          {
+            "id": "gc_anti_1_2",
+            "author": {
+              "id": "u_weronika",
+              "name": "Weronika Skalska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+            },
+            "text": "Najgorsze jest to, że PrimeCo na podstawie tych pseudonaukowych prognoz decyduje, kto dostanie kredyt, awans czy ubezpieczenie. Dzielą nas na kasty!",
+            "timestamp": "2026-06-03T11:22:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_anti_2",
+        "author": {
+          "id": "u_weronika",
+          "name": "Weronika Skalska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+        },
+        "content": "Nowa Nauka to narzędzie segregacji społecznej. PrimeCo buduje szklane wieżowce i enklawy dla garstki bogaczy, wmawiając reszcie społeczeństwa, że ich 'niższy status' został rzekomo matematycznie wyliczony przez algorytm przyszłości. Nie ma większego kłamstwa niż determinizm społeczny serwowany przez korporację z Paryża. Pogłębianie biedy pod płaszczykiem nauki to zbrodnia.",
+        "timestamp": "2026-06-03T12:30:00Z",
+        "likes": 114,
+        "comments": [
+          {
+            "id": "gc_anti_2_1",
+            "author": {
+              "id": "u_kornel",
+              "name": "Kornel Zagórski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+            },
+            "text": "Zgadzam się w 100%. Zwykły człowiek staje się towarem, a Prime liczy zyski w drogich garniturach.",
+            "timestamp": "2026-06-03T12:45:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_anti_3",
+        "author": {
+          "id": "u_damian",
+          "name": "Damian Wilk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+        },
+        "content": "Widzieliście ostatni wywiad z tym bufoniastym 'Profesorem'? Mówi zagadkami, pije espresso za 100 euro i patrzy na wszystkich z góry, jakby był nadczłowiekiem. Prawda jest taka, że bez armii PR-owców i prawników PrimeCo byłby nikim. Czy ktoś w ogóle kiedykolwiek widział twardy, zrecenzowany dowód na te jego 'proroctwa'?",
+        "timestamp": "2026-06-03T14:10:00Z",
+        "likes": 63,
+        "comments": [
+          {
+            "id": "gc_anti_3_1",
+            "author": {
+              "id": "u_weronika",
+              "name": "Weronika Skalska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+            },
+            "text": "Żadnych recenzji naukowych, wszystko utajnione jako 'tajemnica przedsiębiorstwa'. Klasyka manipulacji.",
+            "timestamp": "2026-06-03T14:25:00Z"
+          }
+        ]
+      }
+    ],
+    "isMember": false
   }
 ]

@@ -48,6 +48,11 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
     dispatch({ type: 'ADD_GROUP_POST', groupId: group.id, post: newPost });
     setNewGroupPostText('');
 
+    // Schedule AI / simulated comment from a group member
+    setTimeout(() => {
+      scheduleGroupPostCommentResponse(dispatch, group.id, newPost.id, newPost.content, currentUser.id, currentUser.name);
+    }, 100);
+
     // Trigger scenario engine
     if (onPostCreated) onPostCreated();
   };
@@ -244,7 +249,7 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
     dispatch({ type: 'ADD_GROUP_COMMENT', groupId, postId: post.id, comment });
 
     // Schedule auto-response
-    scheduleGroupPostCommentResponse(dispatch, groupId, post.id, commentText.trim(), currentUser.id);
+    scheduleGroupPostCommentResponse(dispatch, groupId, post.id, commentText.trim(), currentUser.id, currentUser.name);
 
     // Trigger scenario engine
     if (onPostCreated) onPostCreated();

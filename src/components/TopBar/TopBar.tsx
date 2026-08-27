@@ -240,13 +240,12 @@ export const TopBar: React.FC<TopBarProps> = ({
   const handlePublish = () => {
     if (!newPostText.trim()) return;
     const content = newPostText.trim();
-    dispatch({ type: 'ADD_POST', content });
+    const postId = `p-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+    dispatch({ type: 'ADD_POST', id: postId, content });
 
     // Schedule auto-comment from fictional user
-    const postId = `p-${Date.now()}`;
-    // Small delay to ensure state is updated
     setTimeout(() => {
-      schedulePostCommentResponse(dispatch, postId, content, currentUser.id);
+      schedulePostCommentResponse(dispatch, postId, content, currentUser.id, currentUser.name);
     }, 100);
 
     setNewPostText('');

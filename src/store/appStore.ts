@@ -222,7 +222,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'ADD_POST': {
       const newPost: Post = {
-        id: `p-${Date.now()}`,
+        id: action.id || `p-${Date.now()}`,
         author: state.currentUser,
         content: action.content,
         timestamp: new Date().toISOString(),
@@ -262,6 +262,26 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       const newLikedPosts = { ...state.likedPosts, [action.postId]: !isLiked };
       if (isLiked) delete newLikedPosts[action.postId];
       return { ...state, groups: newGroups, likedPosts: newLikedPosts };
+    }
+
+    case 'INCREMENT_POST_LIKES': {
+      const newPosts = state.posts.map(p =>
+        p.id === action.postId ? { ...p, likes: p.likes + 1 } : p
+      );
+      return { ...state, posts: newPosts };
+    }
+
+    case 'INCREMENT_GROUP_POST_LIKES': {
+      const newGroups = state.groups.map(g => {
+        if (g.id !== action.groupId) return g;
+        return {
+          ...g,
+          posts: g.posts.map(p =>
+            p.id === action.postId ? { ...p, likes: p.likes + 1 } : p
+          ),
+        };
+      });
+      return { ...state, groups: newGroups };
     }
 
     case 'ADD_COMMENT': {

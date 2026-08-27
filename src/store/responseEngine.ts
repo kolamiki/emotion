@@ -1,6 +1,6 @@
 import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis } from '../types';
-import { hasAIPersonality, getAIPersonality, fetchAIResponse } from '../services/aiChatService';
-import { responsesData, usersData } from '../mockData';
+import { hasAIPersonality, getAIPersonality, fetchAIResponse, fetchAIPostComment } from '../services/aiChatService';
+import { responsesData, usersData, groupsData } from '../mockData';
 
 type Dispatch = React.Dispatch<AppAction>;
 
@@ -1007,22 +1007,263 @@ function executeRuleBasedResponse(
 }
 
 /**
- * Schedule a simulated comment response on a new post.
+ * Schedule multiple simulated comments (2-5) and auto-likes on a new feed post.
  */
 export function schedulePostCommentResponse(
   dispatch: Dispatch,
   postId: string,
   postContent: string,
-  currentUserId: string
+  currentUserId: string,
+  currentUserName?: string
 ): void {
-  const matched = matchPostCommentResponse(postContent, currentUserId);
-  const responseOption = matched ?? getFallbackPostCommentResponse(currentUserId);
+  // 1. Schedule simulated likes from fictional users (3 to 7 likes)
+  scheduleSimulatedLikes(dispatch, postId, false);
 
-  const author = getUserById(responseOption.authorId);
-  if (!author) return;
+  // 2. Select 2 to 5 distinct commenters
+  const candidateUsers = selectDiverseCommenters(currentUserId, undefined, postContent);
+  const count = Math.min(candidateUsers.length, Math.floor(Math.random() * 3) + 2); // 2 to 4 (or 5)
 
-  const totalDelay = responseOption.delayBeforeTyping + responseOption.typingDuration;
+  const baseDelays = [3000, 8500, 17000, 28000, 42000];
 
+  for (let i = 0; i < count; i++) {
+    const author = candidateUsers[i];
+    const delay = baseDelays[i] + Math.floor(Math.random() * 2500);
+
+    if (hasAIPersonality(author.id)) {
+      fetchAIPostComment(author.id, postContent, currentUserName)
+        .then(aiComment => {
+          const fallbackMatched = matchPostCommentResponse(postContent, currentUserId) ?? getFallbackPostCommentResponse(currentUserId);
+          const textToUse = aiComment || (fallbackMatched ? fallbackMatched.text : 'Super post! 👍');
+
+          setTimeout(() => {
+            const comment: Comment = {
+              id: `ai-c-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              author: {
+                id: author.id,
+                name: author.name,
+                avatarUrl: author.avatarUrl,
+              },
+              text: textToUse,
+              timestamp: new Date().toISOString(),
+            };
+
+            dispatch({ type: 'ADD_COMMENT', postId, comment });
+
+            dispatch({
+              type: 'ADD_NOTIFICATION',
+              notification: {
+                id: `notif-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+                message: `${author.name} skomentował(a) Twój post.`,
+                isRead: false,
+                timestamp: new Date().toISOString(),
+                type: 'comment',
+                link: { type: 'post', postId },
+              },
+            });
+          }, delay);
+        })
+        .catch(() => {
+          executeRuleBasedPostComment(dispatch, postId, author, 'Bardzo ciekawe! 👍', delay);
+        });
+    } else {
+      const fallbackMatched = matchPostCommentResponse(postContent, currentUserId) ?? getFallbackPostCommentResponse(currentUserId);
+      const textToUse = fallbackMatched ? fallbackMatched.text : 'Dzięki za podzielenie się! 🔥';
+      executeRuleBasedPostComment(dispatch, postId, author, textToUse, delay);
+    }
+  }
+}
+
+/**
+ * Schedule multiple simulated comments (2-5) and auto-likes on a group post.
+ */
+export function scheduleGroupPostCommentResponse(
+  dispatch: Dispatch,
+  groupId: string,
+  postId: string,
+  postContent: string,
+  currentUserId: string,
+  currentUserName?: string
+): void {
+  // 1. Resolve group details for full contextual awareness
+  const currentGroup = (groupsData as any[]).find(g => g.id === groupId);
+  const groupInfo = currentGroup ? { name: currentGroup.name, description: currentGroup.description } : undefined;
+
+  // 2. Schedule simulated likes from group members (2 to 6 likes)
+  scheduleSimulatedLikes(dispatch, postId, true, groupId);
+
+  // 3. Select 2 to 5 distinct commenters for this specific group
+  const candidateUsers = selectDiverseCommenters(currentUserId, groupId, postContent);
+  const count = Math.min(candidateUsers.length, Math.floor(Math.random() * 3) + 2); // 2 to 4 (or 5)
+
+  const baseDelays = [3000, 8500, 17000, 28000, 42000];
+
+  for (let i = 0; i < count; i++) {
+    const author = candidateUsers[i];
+    const delay = baseDelays[i] + Math.floor(Math.random() * 2500);
+
+    if (hasAIPersonality(author.id)) {
+      fetchAIPostComment(author.id, postContent, currentUserName, groupInfo)
+        .then(aiComment => {
+          const fallbackMatched = matchPostCommentResponse(postContent, currentUserId) ?? getFallbackPostCommentResponse(currentUserId);
+          const textToUse = aiComment || (fallbackMatched ? fallbackMatched.text : 'Ciekawy punkt widzenia!');
+
+          setTimeout(() => {
+            const comment: Comment = {
+              id: `ai-gc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              author: {
+                id: author.id,
+                name: author.name,
+                avatarUrl: author.avatarUrl,
+              },
+              text: textToUse,
+              timestamp: new Date().toISOString(),
+            };
+
+            dispatch({ type: 'ADD_GROUP_COMMENT', groupId, postId, comment });
+          }, delay);
+        })
+        .catch(() => {
+          setTimeout(() => {
+            const comment: Comment = {
+              id: `auto-gc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              author: {
+                id: author.id,
+                name: author.name,
+                avatarUrl: author.avatarUrl,
+              },
+              text: 'Zgadzam się z przedmówcą! 👍',
+              timestamp: new Date().toISOString(),
+            };
+
+            dispatch({ type: 'ADD_GROUP_COMMENT', groupId, postId, comment });
+          }, delay);
+        });
+    } else {
+      const fallbackMatched = matchPostCommentResponse(postContent, currentUserId) ?? getFallbackPostCommentResponse(currentUserId);
+      const textToUse = fallbackMatched ? fallbackMatched.text : 'Świetny wątek w tej grupie!';
+      setTimeout(() => {
+        const comment: Comment = {
+          id: `auto-gc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+          author: {
+            id: author.id,
+            name: author.name,
+            avatarUrl: author.avatarUrl,
+          },
+          text: textToUse,
+          timestamp: new Date().toISOString(),
+        };
+
+        dispatch({ type: 'ADD_GROUP_COMMENT', groupId, postId, comment });
+      }, delay);
+    }
+  }
+}
+
+/**
+ * Helper to select unique, varied commenters for a post or group post across all groups.
+ */
+function selectDiverseCommenters(
+  currentUserId: string,
+  groupId?: string,
+  _postContent?: string
+): any[] {
+  const eligible = allUsers.filter(u => u.id !== currentUserId && u.isOnline !== false);
+
+  // Preferred list prioritizing AI personalities
+  let aiUsers = eligible.filter(u => hasAIPersonality(u.id));
+  const otherUsers = eligible.filter(u => !hasAIPersonality(u.id));
+
+  // Context-specific prioritization based on group topic
+  if (groupId === 'g_anty_prime') {
+    // STOP Szarlatanom: Kornel, Weronika, Damian (Profesor Prime u14 is completely excluded)
+    aiUsers = aiUsers.filter(u => u.id !== 'u14');
+    aiUsers.sort((a, b) => {
+      const antiOrder = ['u_kornel', 'u_weronika', 'u_damian'];
+      const idxA = antiOrder.indexOf(a.id);
+      const idxB = antiOrder.indexOf(b.id);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
+      return 0;
+    });
+  } else if (groupId === 'g1') {
+    // Filmowe polecajki: Marinette, Gaston, Kasia, Piotr
+    aiUsers.sort((a, b) => (a.id === 'u_marinette' ? -1 : b.id === 'u_marinette' ? 1 : 0));
+  } else if (groupId === 'g2') {
+    // Szukam pracy: Piotr, Anna, Kasia, Gaston
+    aiUsers.sort((a, b) => (a.id === 'u3' ? -1 : b.id === 'u3' ? 1 : 0));
+  } else if (groupId === 'g3') {
+    // Kupię, sprzedam, zamienię: Kasia, Anna, Piotr
+    aiUsers.sort((a, b) => (a.id === 'u4' ? -1 : b.id === 'u4' ? 1 : 0));
+  } else if (groupId === 'g4') {
+    // Mat-Fiz LO: Anna, Kasia, Piotr, Jan
+    aiUsers.sort((a, b) => (a.id === 'u2' ? -1 : b.id === 'u2' ? 1 : 0));
+  } else if (groupId === 'g5') {
+    // Techno newsy: Gaston, Matylda, Kasia, Piotr
+    aiUsers.sort((a, b) => (a.id === 'u_gaston' ? -1 : b.id === 'u_gaston' ? 1 : 0));
+  }
+
+  // Shuffle the arrays slightly for organic variety
+  const shuffledAI = [...aiUsers].sort(() => Math.random() - 0.3);
+  const shuffledOther = [...otherUsers].sort(() => Math.random() - 0.5);
+
+  const combined = [...shuffledAI, ...shuffledOther];
+
+  // Return unique users
+  return Array.from(new Set(combined));
+}
+
+/**
+ * Schedule automated likes by fictional users over time.
+ */
+function scheduleSimulatedLikes(
+  dispatch: Dispatch,
+  postId: string,
+  isGroup: boolean,
+  groupId?: string
+): void {
+  const likerCandidates = allUsers.filter(u => u.id !== 'u1');
+  const shuffled = [...likerCandidates].sort(() => Math.random() - 0.5);
+  const likeCount = Math.floor(Math.random() * 4) + 3; // 3 to 6 likes
+
+  const likeDelays = [2000, 5000, 11000, 18000, 27000, 39000, 52000];
+
+  for (let i = 0; i < likeCount && i < shuffled.length; i++) {
+    const liker = shuffled[i];
+    const delay = likeDelays[i] + Math.floor(Math.random() * 2000);
+
+    setTimeout(() => {
+      if (isGroup && groupId) {
+        dispatch({ type: 'INCREMENT_GROUP_POST_LIKES', groupId, postId });
+      } else {
+        dispatch({ type: 'INCREMENT_POST_LIKES', postId });
+
+        // Add like notification for the first 2 likes
+        if (i < 2) {
+          dispatch({
+            type: 'ADD_NOTIFICATION',
+            notification: {
+              id: `notif-like-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+              message: `${liker.name} polubił(a) Twój post.`,
+              isRead: false,
+              timestamp: new Date().toISOString(),
+              type: 'like',
+              link: { type: 'post', postId },
+            },
+          });
+        }
+      }
+    }, delay);
+  }
+}
+
+function executeRuleBasedPostComment(
+  dispatch: Dispatch,
+  postId: string,
+  author: any,
+  text: string,
+  delay: number
+): void {
   setTimeout(() => {
     const comment: Comment = {
       id: `auto-c-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
@@ -1031,58 +1272,24 @@ export function schedulePostCommentResponse(
         name: author.name,
         avatarUrl: author.avatarUrl,
       },
-      text: responseOption.text,
+      text,
       timestamp: new Date().toISOString(),
     };
 
     dispatch({ type: 'ADD_COMMENT', postId, comment });
 
-    // Also add a notification
     dispatch({
       type: 'ADD_NOTIFICATION',
       notification: {
-        id: `notif-${Date.now()}`,
+        id: `notif-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
         message: `${author.name} skomentował(a) Twój post.`,
         isRead: false,
         timestamp: new Date().toISOString(),
         type: 'comment',
+        link: { type: 'post', postId },
       },
     });
-  }, totalDelay);
-}
-
-/**
- * Schedule a simulated comment response on a group post.
- */
-export function scheduleGroupPostCommentResponse(
-  dispatch: Dispatch,
-  groupId: string,
-  postId: string,
-  postContent: string,
-  currentUserId: string
-): void {
-  const matched = matchPostCommentResponse(postContent, currentUserId);
-  const responseOption = matched ?? getFallbackPostCommentResponse(currentUserId);
-
-  const author = getUserById(responseOption.authorId);
-  if (!author) return;
-
-  const totalDelay = responseOption.delayBeforeTyping + responseOption.typingDuration;
-
-  setTimeout(() => {
-    const comment: Comment = {
-      id: `auto-gc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
-      author: {
-        id: author.id,
-        name: author.name,
-        avatarUrl: author.avatarUrl,
-      },
-      text: responseOption.text,
-      timestamp: new Date().toISOString(),
-    };
-
-    dispatch({ type: 'ADD_GROUP_COMMENT', groupId, postId, comment });
-  }, totalDelay);
+  }, delay);
 }
 
 /**

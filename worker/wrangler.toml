@@ -6,7 +6,7 @@ compatibility_date = "2024-12-01"
 # Set your preferred model here. Options:
 # Gemini:  "gemini-1.5-flash"
 # Groq:    "llama-3.3-70b-versatile"  (or "llama-3.1-8b-instant" for cheaper/faster)
-AI_MODEL = "gemini-1.5-flash"
+AI_MODEL = "gemini-3.5-flash-lite"
 
 # Which provider to use: "gemini" or "groq"
 AI_PROVIDER = "gemini"

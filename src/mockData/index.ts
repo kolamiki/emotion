@@ -40,4 +40,5 @@ export const mockData: AppData = {
 export { default as responsesData } from './responses.json';
 export { usersData } from './processedUsers';
 export { default as scenariosData } from './scenarios.json';
+export { default as groupsData } from './groups.json';
 

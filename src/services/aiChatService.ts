@@ -166,12 +166,13 @@ export async function fetchAIResponse(
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
 
     const response = await fetch(AI_PROXY_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-App-Source': 'emotion-client',
       },
       body: JSON.stringify({
         personalityId: participantId,
@@ -184,24 +185,101 @@ export async function fetchAIResponse(
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      console.warn(`[AI Chat] Proxy returned ${response.status}, falling back to rule engine`);
+      const errText = await response.text().catch(() => '');
+      console.warn(`[AI Chat] Proxy error ${response.status}:`, errText);
       return null;
     }
 
     const data: AIResponsePayload = await response.json();
 
     if (!data.reply || data.reply.trim().length === 0) {
-      console.warn('[AI Chat] Empty reply from proxy, falling back');
+      console.warn('[AI Chat] Empty reply from proxy, falling back to rules');
       return null;
     }
 
     return data.reply.trim();
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
-      console.warn('[AI Chat] Request timed out, falling back to rule engine');
+      console.warn('[AI Chat] Request timed out (30s), falling back to rules');
     } else {
-      console.warn('[AI Chat] Network error, falling back to rule engine:', error);
+      console.warn('[AI Chat] Fetch failed (network/adblock/CORS issue):', error);
     }
+    return null;
+  }
+}
+
+/**
+ * Fetch an AI-generated comment for a social media post on the Feed or in a Group.
+ */
+export async function fetchAIPostComment(
+  participantId: string,
+  postContent: string,
+  currentUserName?: string,
+  groupInfo?: { name: string; description?: string }
+): Promise<string | null> {
+  if (!AI_PROXY_URL) return null;
+
+  const personality = getAIPersonality(participantId);
+  if (!personality) return null;
+
+  const basePrompt = buildSystemPrompt(personality, currentUserName);
+
+  const contextNote = groupInfo
+    ? `Post został opublikowany w grupie: "${groupInfo.name}" (${groupInfo.description || ''}). Twój komentarz powinien pasować do tematu grupy i treści posta.`
+    : `Post został opublikowany na głównej tablicy eMotion.`;
+
+  const commentSystemPrompt = `${basePrompt}
+
+## TWOJE ZADANIE SPECJALNE
+Znajomy właśnie opublikował nowy post.
+${contextNote}
+Napisz BARDZO KRÓTKI komentarz pod tym postem (dokładnie 1 lub 2 zwięzłe zdania, maksymalnie 25 słów) w roli swojej postaci.
+Bądź autentyczny/a — reaguj zgodnie ze swoją osobowością i stylem wypowiedzi w kontekście tej grupy/tablicy.
+NIGDY nie pisz długich esejów, nie przedstawiaj się, nie dodawaj podpisów. Pisz krótko i naturalnie jak w komentarzu w social mediach.`;
+
+  const messages: ChatMessagePayload[] = [
+    {
+      role: 'user',
+      content: groupInfo
+        ? `[Grupa: ${groupInfo.name}] Treść posta do skomentowania: "${postContent}"`
+        : `Treść posta do skomentowania: "${postContent}"`,
+    },
+  ];
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+    const response = await fetch(AI_PROXY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-App-Source': 'emotion-client',
+      },
+      body: JSON.stringify({
+        personalityId: participantId,
+        systemPrompt: commentSystemPrompt,
+        messages,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) return null;
+
+    const data: AIResponsePayload = await response.json();
+    if (!data.reply || data.reply.trim().length === 0) return null;
+
+    // Clean up any extraneous quotes around the reply
+    let cleanReply = data.reply.trim();
+    if (cleanReply.startsWith('"') && cleanReply.endsWith('"')) {
+      cleanReply = cleanReply.slice(1, -1).trim();
+    }
+
+    return cleanReply;
+  } catch (err) {
+    console.warn('[AI Comment] Error generating comment:', err);
     return null;
   }
 }
