@@ -298,8 +298,8 @@
   },
   {
     "id": "sc_matylda_friend_request",
-    "name": "Matylda Iggermann - weryfikacja znajomości",
-    "description": "Scenariusz uruchamiany przy próbie dodania Matyldy do znajomych. Matylda pyta na czacie, czy się znacie.",
+    "name": "Matylda Iggermann - konfrontacja i weryfikacja intencji",
+    "description": "Scenariusz uruchamiany przy próbie dodania Matyldy do znajomych. Matylda zarzuca szkalowanie Profesora i domaga się wyjaśnień.",
     "icon": "MessageSquare",
     "trigger": {
       "type": "manual"
@@ -309,7 +309,7 @@
         "action": "send_message",
         "fromId": "u_matylda",
         "toId": "u1",
-        "text": "Ej, a my się znamy?",
+        "text": "Serio? Masz tupet! Najpierw wrzucasz na tablicę chamski paszkwil na Profesora Prime'a, wyzywając go od szarlatanów, a teraz jak gdyby nigdy nic piszesz do mnie i dodajesz do znajomych? Lepiej usuń ten wpis albo napisz coś na swoją obronę, zanim Cię zablokuję.",
         "delayMs": 2000
       }
     ],

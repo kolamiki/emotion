@@ -11,9 +11,11 @@ import {
   ChevronRight,
   Trophy,
   AlertTriangle,
+  Compass,
 } from 'lucide-react';
 import styles from './LeftSidebar.module.css';
 import type { User, Group, ActiveView } from '../../types';
+import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 
 interface LeftSidebarProps {
   currentUser: User;
@@ -22,6 +24,11 @@ interface LeftSidebarProps {
   activeView: ActiveView;
   onNavigate: (view: ActiveView) => void;
   onViewProfile?: (userId: string) => void;
+  isBanned?: boolean;
+  isQuestActivated?: boolean;
+  questProgressPercent?: number;
+  activeQuestTitle?: string;
+  onOpenQuestTracker?: () => void;
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -41,7 +48,22 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   activeView,
   onNavigate,
   onViewProfile,
+  isBanned,
+  isQuestActivated,
+  questProgressPercent = 0,
+  activeQuestTitle = 'Śledztwo w toku',
+  onOpenQuestTracker,
 }) => {
+  const { levelInfo } = useDailyChallengeState();
+
+  const handleGroupClick = (groupId: string) => {
+    if (isBanned) {
+      alert('Dostęp do grup został zablokowany z powodu zawieszenia konta (§ 12.3 Regulaminu eMotion). Osiągnij Poziom 5 w Wyzwaniach Dnia, aby zdjąć blokadę.');
+      return;
+    }
+    onNavigate({ type: 'group', groupId });
+  };
+
   return (
     <nav className={styles.sidebar}>
       {/* Profile */}
@@ -51,9 +73,14 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
         style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
       >
         <img src={currentUser.avatarUrl} alt={currentUser.name} className={styles.profileAvatar} />
-        <div>
+        <div className={styles.profileMeta}>
           <div className={styles.profileName}>{currentUser.name}</div>
-          <div className={styles.profileLabel}>Twój profil</div>
+          <div className={styles.profileSubRow}>
+            <span className={styles.profileLabel}>Twój profil</span>
+            <span className={styles.levelBadgeMini}>
+              <Trophy size={10} /> Poz. {levelInfo.level}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -84,6 +111,31 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
         </div>
       </div>
 
+      {/* Quest Tracker (Activates after first interaction with Marinette) */}
+      {isQuestActivated && (
+        <div className={styles.questSection}>
+          <button
+            className={styles.questTrackerBtn}
+            onClick={onOpenQuestTracker}
+            title="Otwórz Dziennik Śledztwa i listę zadań"
+          >
+            <div className={styles.questTrackerIconWrap}>
+              <Compass size={20} className={styles.questCompassIcon} />
+            </div>
+            <div className={styles.questTrackerText}>
+              <div className={styles.questTrackerTitleRow}>
+                <span className={styles.questTrackerLabel}>Zadania</span>
+                <span className={styles.questTrackerProgressBadge}>{questProgressPercent}%</span>
+              </div>
+              <div className={styles.questTrackerDesc}>
+                {activeQuestTitle}
+              </div>
+            </div>
+            <ChevronRight size={16} className={styles.questTrackerChevron} />
+          </button>
+        </div>
+      )}
+
       {/* Favorites */}
       {favorites.length > 0 && (
         <div className={styles.section}>
@@ -93,8 +145,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
             return (
               <div
                 key={fav.id}
-                className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-                onClick={() => onNavigate({ type: 'group', groupId: fav.id })}
+                className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
+                onClick={() => handleGroupClick(fav.id)}
+                title={isBanned ? "Konto zawieszone — grupy zablokowane (§ 12.3 ToS)" : fav.name}
               >
                 <div
                   className={styles.navIcon}
@@ -117,8 +170,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           return (
             <div
               key={group.id}
-              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-              onClick={() => onNavigate({ type: 'group', groupId: group.id })}
+              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
+              onClick={() => handleGroupClick(group.id)}
+              title={isBanned ? "Konto zawieszone — grupy zablokowane (§ 12.3 ToS)" : group.name}
             >
               <div
                 className={styles.navIcon}
@@ -144,8 +198,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           return (
             <div
               key={group.id}
-              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-              onClick={() => onNavigate({ type: 'group', groupId: group.id })}
+              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
+              onClick={() => handleGroupClick(group.id)}
+              title={isBanned ? "Konto zawieszone — grupy zablokowane (§ 12.3 ToS)" : group.name}
             >
               <div
                 className={styles.navIcon}

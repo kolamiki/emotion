@@ -71,7 +71,7 @@ export interface AppNotification {
   message: string;
   isRead: boolean;
   timestamp: string;
-  type: 'like' | 'comment' | 'group' | 'mention' | 'friend';
+  type: 'like' | 'comment' | 'group' | 'mention' | 'friend' | 'system' | 'chat';
   link?: NotificationLink;
 }
 
@@ -211,6 +211,9 @@ export interface AppState {
   pendingFriends: Set<string>;
   matyldaLikesActive: boolean;
   pendingGroupJoins: Set<string>;
+  isBanned?: boolean;
+  bannedReason?: string;
+  primeChatUnlocked?: boolean;
 }
 
 export type AppAction =
@@ -239,4 +242,6 @@ export type AppAction =
   | { type: 'REMOVE_FRIEND'; userId: string }
   | { type: 'ACTIVATE_MATYLDA_LIKES' }
   | { type: 'SET_GROUP_PENDING_JOIN'; groupId: string }
-  | { type: 'APPROVE_GROUP_JOIN'; groupId: string };
+  | { type: 'APPROVE_GROUP_JOIN'; groupId: string }
+  | { type: 'SET_BANNED'; isBanned: boolean; reason?: string }
+  | { type: 'UNLOCK_PRIME_CHAT' };

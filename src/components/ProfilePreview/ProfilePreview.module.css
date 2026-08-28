@@ -126,6 +126,42 @@
   color: var(--success);
 }
 
+.challengeBadgeWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  padding: 0 20px;
+}
+
+.challengeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.tier_bronze {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.tier_silver {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.tier_gold {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  box-shadow: 0 1px 4px rgba(245, 158, 11, 0.15);
+}
+
 .bio {
   font-size: 0.88rem;
   color: var(--text-secondary);

@@ -1,0 +1,438 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  padding: 20px;
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalContent {
+  width: 100%;
+  max-width: 740px;
+  max-height: 86vh;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #111827;
+  animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Header */
+.modalHeader {
+  padding: 24px 28px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f3f5;
+  position: relative;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.headerTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.headerIconBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #f5f3ff;
+  border: 1px solid #ede9fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c2bd9;
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+}
+
+.headerSubtitle {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.closeBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.closeBtn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+/* Progress Section */
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progressLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.progressPercent {
+  color: #6c2bd9;
+  font-weight: 700;
+}
+
+.progressBarBg {
+  height: 6px;
+  background: #f1f5f9;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #6c2bd9 0%, #8b5cf6 100%);
+  border-radius: 999px;
+  transition: width 0.4s ease-out;
+}
+
+/* Modal Body */
+.modalBody {
+  padding: 20px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  background: #fbfbfc;
+}
+
+.modalBody::-webkit-scrollbar {
+  width: 6px;
+}
+.modalBody::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+/* Stage Card */
+.stageCard {
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  transition: all 0.15s ease;
+}
+
+.stageCardActive {
+  border-color: #c4b5fd;
+  box-shadow: 0 4px 16px rgba(108, 43, 217, 0.06), 0 0 0 1px #ddd6fe;
+}
+
+.stageCardCompleted {
+  border-color: #e2e8f0;
+  background: #ffffff;
+}
+
+.stageCardLocked {
+  background: #f8fafc;
+  border-color: #edf2f7;
+  opacity: 0.75;
+}
+
+.stageHeader {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  background: #ffffff;
+}
+
+.stageCardLocked .stageHeader {
+  background: #f8fafc;
+}
+
+.stageHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.stageNumberBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.86rem;
+  flex-shrink: 0;
+}
+
+.stageCardActive .stageNumberBadge {
+  background: #6c2bd9;
+  color: #ffffff;
+}
+
+.stageCardCompleted .stageNumberBadge {
+  background: #059669;
+  color: #ffffff;
+}
+
+.stageCardLocked .stageNumberBadge {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+
+.stageInfo {
+  min-width: 0;
+}
+
+.stageTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stageTitle {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.stageSubtitle {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.stageHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  color: #64748b;
+}
+
+.statusPill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+}
+
+.statusPillActive {
+  background: #f5f3ff;
+  color: #6c2bd9;
+  border: 1px solid #ddd6fe;
+}
+
+.statusPillCompleted {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.statusPillLocked {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+/* Stage Details (Subtasks) */
+.stageDetails {
+  padding: 4px 18px 16px 64px;
+  border-top: 1px solid #f1f5f9;
+  background: #fcfcfd;
+}
+
+.stageDesc {
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.5;
+  margin: 12px 0 14px;
+}
+
+.subtaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subtaskItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.subtaskItemCompleted {
+  background: #f8fafc;
+  border-color: #edf2f7;
+}
+
+.subtaskCheckbox {
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: #059669;
+}
+
+.subtaskCheckboxIncomplete {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.subtaskContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.subtaskTitle {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+.subtaskItemCompleted .subtaskTitle {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.subtaskDescription {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+.subtaskHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  color: #6c2bd9;
+  background: #f5f3ff;
+  border: 1px solid #ede9fe;
+  padding: 3px 9px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Footer */
+.modalFooter {
+  padding: 14px 28px;
+  background: #ffffff;
+  border-top: 1px solid #f1f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerHint {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.closeActionBtn {
+  background: #0f172a;
+  border: 1px solid #0f172a;
+  color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.closeActionBtn:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .stageDetails {
+    padding-left: 18px;
+  }
+  .headerTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .modalBody {
+    padding: 16px;
+  }
+}

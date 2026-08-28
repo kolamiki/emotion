@@ -1,8 +1,24 @@
 import { useEffect, useRef } from 'react';
-import { X, MessageCircle, UserPlus, UserCheck, MapPin, Calendar, Users, FileText } from 'lucide-react';
+import { X, MessageCircle, UserPlus, UserCheck, MapPin, Calendar, Users, FileText, Trophy } from 'lucide-react';
 import styles from './ProfilePreview.module.css';
 import type { User, Group, Post } from '../../types';
 import { BLOCKED_FRIEND_IDS } from '../../types';
+import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
+
+// Fictional user challenge levels for lore consistency
+const CHARACTER_CHALLENGE_LEVELS: Record<string, { level: number; tierName: string; tier: 'bronze' | 'silver' | 'gold'; totalXp: number }> = {
+  'u14': { level: 42, tierName: 'Złoto', tier: 'gold', totalXp: 9800 },
+  'u_matylda': { level: 19, tierName: 'Srebro', tier: 'silver', totalXp: 3950 },
+  'u_damian': { level: 12, tierName: 'Srebro', tier: 'silver', totalXp: 2150 },
+  'u_kornel': { level: 8, tierName: 'Brąz', tier: 'bronze', totalXp: 680 },
+  'u_marinette': { level: 4, tierName: 'Brąz', tier: 'bronze', totalXp: 310 },
+  'u_natalie': { level: 6, tierName: 'Brąz', tier: 'bronze', totalXp: 490 },
+  'u_gaston': { level: 2, tierName: 'Brąz', tier: 'bronze', totalXp: 80 },
+  'u_weronika': { level: 7, tierName: 'Brąz', tier: 'bronze', totalXp: 580 },
+  'u3': { level: 5, tierName: 'Brąz', tier: 'bronze', totalXp: 410 },
+  'u5': { level: 9, tierName: 'Brąz', tier: 'bronze', totalXp: 740 },
+  'u10': { level: 15, tierName: 'Srebro', tier: 'silver', totalXp: 2850 },
+};
 
 interface ProfilePreviewProps {
   user: User;
@@ -28,6 +44,12 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   onOpenChat,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const { levelInfo: currentLevelInfo } = useDailyChallengeState();
+
+  const isCurrentUser = user.id === currentUserId;
+  const userLevel = isCurrentUser
+    ? currentLevelInfo
+    : (CHARACTER_CHALLENGE_LEVELS[user.id] || { level: 3, tierName: 'Brąz', tier: 'bronze', totalXp: 220 });
 
   // Close on Escape
   useEffect(() => {
@@ -37,8 +59,6 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
-
-  const isCurrentUser = user.id === currentUserId;
 
   // Find groups this user belongs to
   const userGroups = groups.filter(g =>
@@ -121,6 +141,14 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
               <Calendar size={14} />
               <span>Dołączył(a) {formatJoinDate()}</span>
             </div>
+          </div>
+        </div>
+
+        {/* Daily Challenge Level Badge (Above Stats) */}
+        <div className={styles.challengeBadgeWrap}>
+          <div className={`${styles.challengeBadge} ${styles['tier_' + userLevel.tier]}`}>
+            <Trophy size={14} strokeWidth={2.2} />
+            <span>Wyzwania Dnia: <strong>Poziom {userLevel.level}</strong> ({userLevel.tierName})</span>
           </div>
         </div>
 
@@ -214,8 +242,10 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
               </button>
             )}
             <button
-              className={`${styles.actionBtn} ${styles.actionBtnMessage}`}
+              className={`${styles.actionBtn} ${styles.actionBtnMessage} ${!isFriend ? styles.actionBtnDisabled : ''}`}
               onClick={handleMessageClick}
+              disabled={!isFriend}
+              title={!isFriend ? 'Wiadomości mogą wysyłać tylko znajomi' : ''}
             >
               <MessageCircle size={16} />
               Wyślij wiadomość

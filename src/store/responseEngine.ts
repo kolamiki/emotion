@@ -801,7 +801,7 @@ export function scheduleChatResponse(
   threadId: string,
   participantId: string,
   userText: string,
-  pendingFriends?: Set<string>,
+  _pendingFriends?: Set<string>,
   currentUserName?: string,
   threadMessages?: Message[],
   currentUserId?: string,
@@ -821,39 +821,96 @@ export function scheduleChatResponse(
     return; // silently ignore - they're "not talking to you"
   }
 
-  // Handle Matylda friend request scenario
-  if (participantId === 'u_matylda' && pendingFriends?.has('u_matylda')) {
+  // Handle Marinette Dupont (u_marinette) quest progression
+  if (participantId === 'u_marinette') {
     const textLower = userText.toLowerCase();
-    const isPersuasive = textLower.includes('tak') ||
-      textLower.includes('znamy') ||
-      textLower.includes('szkoł') ||
-      textLower.includes('szkole') ||
-      textLower.includes('e-motion') ||
-      textLower.includes('puzzle');
+    const mentionsNataliePost = textLower.includes('post') ||
+      textLower.includes('grup') ||
+      textLower.includes('szarlatan') ||
+      textLower.includes('prime') ||
+      textLower.includes('znalez') ||
+      textLower.includes('napisal') ||
+      textLower.includes('wpis') ||
+      textLower.includes('krytyk');
+
+    if (mentionsNataliePost) {
+      const marinetteText = 'O mój Boże... Wiedziałam, że Natalie miała ostry charakter, ale nie sądziłam, że uderzyła w samego Profesora Prime\'a publicznie w tej grupie! 😱 Myślisz, że to mogła być zemsta? Że ktoś powiązany z PrimeCo postanowił ją uciszyć? Profesor Prime na pewno wiedziałby, co się z nią stało... Szkoda, że kontakt z nim dla zwykłych ludzi jest absolutnie niemożliwy.\n\nAle czekaj... Ty i Matylda Iggermann chodziliście do tej samej szkoły (Mat-Fiz klasa A), na pewno kojarzycie się z korytarza! Słyszałam, że ona współpracuje przy badaniach PrimeCo. Wyślij jej zaproszenie do znajomych i spróbuj z nią pogadać!';
+
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+          const responseMsg: Message = {
+            id: `resp-marinette-clue-${Date.now()}`,
+            senderId: participantId,
+            text: marinetteText,
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+        }, 2200);
+      }, 1000);
+
+      return;
+    }
+  }
+
+  // Handle Matylda Iggermann (u_matylda) confrontation & persuasion scenario
+  if (participantId === 'u_matylda') {
+    const textLower = userText.toLowerCase();
+    const isExplanation = textLower.includes('natalie') ||
+      textLower.includes('chalamet') ||
+      textLower.includes('kino') ||
+      textLower.includes('toalet') ||
+      textLower.includes('ubrani') ||
+      textLower.includes('pomoc') ||
+      textLower.includes('szuk') ||
+      textLower.includes('znikn') ||
+      textLower.includes('przepraszam') ||
+      textLower.includes('musia') ||
+      textLower.includes('grupa');
 
     let responseText = '';
 
-    if (isPersuasive) {
-      const nameToUse = currentUserName || usersData.currentUser.name;
-      responseText = `A, to ty! ${nameToUse} Mat-Fiz klasa A. Dobra, już cię dodaję ;)`;
+    if (isExplanation) {
+      responseText = 'Czekaj... Natalie Chalamet? Ta dziewczyna, która zniknęła w kinie Le Grand Rex i zostały po niej tylko ubrania w kabinie? ...Dobra. Jeśli zrobiłeś to tylko po to, żeby pomóc przyjaciółce i rozwikłać tę sprawę, to cofam to, co powiedziałam. Zjawisko, o którym mówisz, nie jest przypadkowe. Nicolas (Profesor Prime) od dawna badał granice redukcji tożsamości. Przekażę mu Twój profil i dodam Cię do listy bezpiecznych połączeń. Napisz do niego teraz na czacie!';
+      
       dispatch({ type: 'ACCEPT_FRIEND', userId: 'u_matylda' });
+      dispatch({ type: 'UNLOCK_PRIME_CHAT' });
       dispatch({ type: 'ACTIVATE_MATYLDA_LIKES' });
+      
+      // Ensure thread with Profesor Prime exists
+      const primeUser = allUsers.find(u => u.id === 'u14');
+      if (primeUser) {
+        dispatch({
+          type: 'CREATE_THREAD',
+          thread: {
+            threadId: 't_u14',
+            participant: {
+              id: 'u14',
+              name: primeUser.name,
+              avatarUrl: primeUser.avatarUrl,
+              isOnline: true
+            },
+            messages: []
+          }
+        });
+      }
+
       dispatch({
         type: 'ADD_NOTIFICATION',
         notification: {
-          id: `n-matylda-${Date.now()}`,
+          id: `n-matylda-acc-${Date.now()}`,
           type: 'friend',
-          message: 'Matylda Iggermann zaakceptowała Twoje zaproszenie do znajomych.',
+          message: 'Matylda Iggermann zaakceptowała Twoje zaproszenie i autoryzowała kontakt z Profesorem Prime\'em.',
           timestamp: new Date().toISOString(),
           isRead: false,
-          link: { type: 'profile', userId: 'u_matylda' }
+          link: { type: 'chat', threadId: 't_u14' }
         }
       });
     } else {
-      responseText = 'Nie wydaje mi się. Musisz mi jakoś odświeżyć pamięć.';
+      responseText = 'Nadal nie widzę żadnego sensownego wyjaśnienia. Dlaczego szkalowałeś Profesora na tablicy? Jeśli to jakiś głupi żart, to kończymy rozmowę.';
     }
 
-    // Send her message
     setTimeout(() => {
       dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
       setTimeout(() => {
@@ -867,6 +924,72 @@ export function scheduleChatResponse(
         dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
       }, 2000);
     }, 1000);
+
+    return;
+  }
+
+  // Handle Damian Wilk (u_damian) assistance
+  if (participantId === 'u_damian') {
+    const textLower = userText.toLowerCase();
+    let responseText = '';
+
+    if (textLower.includes('poziom') || textLower.includes('level') || textLower.includes('ban') || textLower.includes('wyzwan')) {
+      responseText = 'Pamiętaj: musisz wbić 5. poziom w Dziennych Wyzwaniach (zakładka Wyzwanie dnia). Wtedy z automatu odpalam skrypt odwoławczy i zdejmuję bana! 👊';
+    } else {
+      responseText = 'Trzymaj się tam! Jak tylko wbijesz 5. poziom, ogarniamy sprawę z blokadą. Sprawdź też posty w grupie STOP Szarlatanom, jak będziesz miał okazję.';
+    }
+
+    setTimeout(() => {
+      dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+        const responseMsg: Message = {
+          id: `resp-damian-${Date.now()}`,
+          senderId: participantId,
+          text: responseText,
+          timestamp: new Date().toISOString(),
+        };
+        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+      }, 1500);
+    }, 800);
+
+    return;
+  }
+
+  // Handle Profesor Prime (u14) final audience & reveal
+  if (participantId === 'u14') {
+    const textLower = userText.toLowerCase();
+    let responseText = '';
+
+    const isAskingAboutNatalie = textLower.includes('natalie') ||
+      textLower.includes('chalamet') ||
+      textLower.includes('znikn') ||
+      textLower.includes('toalet') ||
+      textLower.includes('ubrani') ||
+      textLower.includes('kino') ||
+      textLower.includes('gdzie') ||
+      textLower.includes('dlaczego') ||
+      textLower.includes('co sie');
+
+    if (isAskingAboutNatalie || threadMessages && threadMessages.length > 0) {
+      responseText = 'Natalie nie zginęła. Ona dokonała wyboru. Zrozumiała to, czego większość użytkowników tej platformy panicznie się boi: ludzka tożsamość jest jedynie maską, którą można zdjąć – dokładnie tak, jak zdejmuje się ubranie.\n\nWszystkie odpowiedzi na dręczące cię pytania, sekrety Instytutu oraz to, co naprawdę wydarzyło się w kinie, znajdziesz w dokumentacji naszej operacji. Zostanie ona ujawniona jako powieść graficzna »FABRYKA TWARZY«, której oficjalna premiera odbędzie się na Międzynarodowym Festiwalu Komiksu i Gier w Łodzi w 2026 roku.\n\nŚledź oficjalny profil Instytutu Nowej Nauki na Instagramie: 👉 https://instagram.com/instytutnowejnauki\n\nPamiętaj: przyszłość jest konstruowana.';
+    } else {
+      responseText = 'Panna Iggermann rzadko kogoś rekomenduje. Skoro tu jesteś, to znaczy, że szukasz Natalie Chalamet.';
+    }
+
+    setTimeout(() => {
+      dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+        const responseMsg: Message = {
+          id: `resp-prime-${Date.now()}`,
+          senderId: participantId,
+          text: responseText,
+          timestamp: new Date().toISOString(),
+        };
+        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+      }, 2500);
+    }, 1200);
 
     return;
   }
@@ -1155,6 +1278,70 @@ export function schedulePostCommentResponse(
             link: { type: 'group', groupId: 'g_anty_prime' }
           }
         });
+
+        // 3.5s later: Corporate ban strikes the user
+        setTimeout(() => {
+          dispatch({
+            type: 'SET_BANNED',
+            isBanned: true,
+            reason: '§ 12.3 Regulaminu: Atak na dobre imię PrimeCo i naruszenie standardów społeczności eMotion'
+          });
+
+          dispatch({
+            type: 'ADD_NOTIFICATION',
+            notification: {
+              id: `notif-ban-${Date.now()}`,
+              message: '⚠️ Twoje konto zostało zawieszone przez moderację eMotion (§ 12.3: Atak na PrimeCo). Funkcje publikowania i przeglądania grup zostały zablokowane.',
+              isRead: false,
+              timestamp: new Date().toISOString(),
+              type: 'system',
+            }
+          });
+
+          // 20s later: Damian Wilk writes offering bypass via Daily Challenge Level 5
+          setTimeout(() => {
+            const damianUser = allUsers.find(u => u.id === 'u_damian') || {
+              id: 'u_damian',
+              name: 'Damian Wilk',
+              avatarUrl: 'https://i.pravatar.cc/150?u=damian_wilk'
+            };
+
+            const damianThreadId = 't_u_damian';
+            dispatch({
+              type: 'CREATE_THREAD',
+              thread: {
+                threadId: damianThreadId,
+                participant: {
+                  id: 'u_damian',
+                  name: damianUser.name,
+                  avatarUrl: damianUser.avatarUrl,
+                  isOnline: true
+                },
+                messages: []
+              }
+            });
+
+            const damianMsg: Message = {
+              id: `damian-ban-help-${Date.now()}`,
+              senderId: 'u_damian',
+              text: 'Siema, widzę, że też dostałeś kagańca od adminów Gastona xd Standardowa procedura w tym chorym serwisie – powiesz słowo prawdy o Prime\'ie i od razu leci ban z automatu. Ale spokojnie, jest na nich sposób. Wczytałem się w regulamin eMotion – według punktu 8.4 użytkownicy z Poziomem 5 w Dziennych Wyzwaniach mają prawo do przyspieszonej weryfikacji i automatycznego odwieszenia konta. Wbij 5. poziom w zakładce Daily Challenge, a puszczę skrypt odwoławczy i zdejmę ci tego bana. Daj znać jak wbijesz!',
+              timestamp: new Date().toISOString()
+            };
+
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: damianThreadId, message: damianMsg });
+            dispatch({
+              type: 'ADD_NOTIFICATION',
+              notification: {
+                id: `n-damian-${Date.now()}`,
+                type: 'chat',
+                message: 'Damian Wilk wysłał Ci wiadomość na czacie.',
+                timestamp: new Date().toISOString(),
+                isRead: false,
+                link: { type: 'chat', threadId: damianThreadId }
+              }
+            });
+          }, 20000);
+        }, 3500);
       }, 8000 + Math.random() * 4000);
     }
   }

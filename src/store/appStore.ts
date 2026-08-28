@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { AppState, AppAction, Post } from '../types';
+import type { AppState, AppAction, Post, MessageThread } from '../types';
 import { mockData, usersData } from '../mockData';
 
 /* === localStorage helpers === */
@@ -36,6 +36,9 @@ export function persistState(state: AppState) {
       pendingFriends: Array.from(state.pendingFriends),
       matyldaLikesActive: state.matyldaLikesActive,
       pendingGroupJoins: Array.from(state.pendingGroupJoins),
+      isBanned: state.isBanned,
+      bannedReason: state.bannedReason,
+      primeChatUnlocked: state.primeChatUnlocked,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
   } catch {
@@ -66,6 +69,9 @@ export function getInitialState(): AppState {
     pendingFriends: new Set(),
     matyldaLikesActive: false,
     pendingGroupJoins: new Set(),
+    isBanned: persisted?.isBanned ?? false,
+    bannedReason: persisted?.bannedReason ?? undefined,
+    primeChatUnlocked: persisted?.primeChatUnlocked ?? false,
   };
 
   if (persisted) {
@@ -95,10 +101,54 @@ export function getInitialState(): AppState {
     }
     const dedupedMessages = Array.from(messagesByParticipant.values());
 
+    // Smart merge for groups: always take latest base posts & comments, preserve user created posts and membership
+    const mergedGroups = base.groups.map(baseGroup => {
+      const persistedGroup = (persisted.groups || []).find(g => g.id === baseGroup.id);
+      if (!persistedGroup) return baseGroup;
+
+      const basePostIds = new Set(baseGroup.posts.map(p => p.id));
+      const userCreatedPosts = persistedGroup.posts.filter(p => !basePostIds.has(p.id));
+
+      const updatedBasePosts = baseGroup.posts.map(basePost => {
+        const persistedPost = persistedGroup.posts.find(p => p.id === basePost.id);
+        if (!persistedPost) return basePost;
+
+        const baseCommentIds = new Set(basePost.comments.map(c => c.id));
+        const userAddedComments = persistedPost.comments.filter(c => !baseCommentIds.has(c.id));
+
+        return {
+          ...basePost,
+          likes: Math.max(basePost.likes, persistedPost.likes),
+          comments: [...basePost.comments, ...userAddedComments],
+        };
+      });
+
+      return {
+        ...baseGroup,
+        isMember: persistedGroup.isMember ?? baseGroup.isMember,
+        posts: [...updatedBasePosts, ...userCreatedPosts],
+      };
+    });
+
+    // Smart merge for feed posts
+    const basePostIds = new Set(base.posts.map(p => p.id));
+    const userCreatedFeedPosts = (persisted.posts || []).filter(p => !basePostIds.has(p.id));
+    const updatedBaseFeedPosts = base.posts.map(basePost => {
+      const persistedPost = (persisted.posts || []).find(p => p.id === basePost.id);
+      if (!persistedPost) return basePost;
+      const baseCommentIds = new Set(basePost.comments.map(c => c.id));
+      const userAddedComments = persistedPost.comments.filter(c => !baseCommentIds.has(c.id));
+      return {
+        ...basePost,
+        likes: Math.max(basePost.likes, persistedPost.likes),
+        comments: [...basePost.comments, ...userAddedComments],
+      };
+    });
+
     const stateToReturn = {
       ...base,
-      posts: mergeArrays(base.posts, persisted.posts),
-      groups: mergeArrays(base.groups, persisted.groups),
+      posts: [...userCreatedFeedPosts, ...updatedBaseFeedPosts],
+      groups: mergedGroups,
       messages: dedupedMessages,
       notifications: mergeArrays(base.notifications, persisted.notifications),
       likedPosts: persisted.likedPosts ?? base.likedPosts,
@@ -323,11 +373,39 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     }
 
     case 'ADD_RESPONSE_MESSAGE': {
-      const newMessages = state.messages.map(t =>
-        t.threadId === action.threadId
-          ? { ...t, messages: [...t.messages, action.message].slice(-MAX_MESSAGES_PER_THREAD) }
-          : t
+      const senderId = action.message.senderId;
+      const targetThreadIndex = state.messages.findIndex(
+        t => t.threadId === action.threadId || t.participant.id === senderId
       );
+
+      if (targetThreadIndex === -1) {
+        const participantUser = usersData.allUsers.find(u => u.id === senderId) || {
+          id: senderId,
+          name: senderId === 'u_marinette' ? 'Marinette Dupont' : senderId === 'u_damian' ? 'Damian Wilk' : senderId === 'u_matylda' ? 'Matylda Iggermann' : senderId,
+          avatarUrl: senderId === 'u_marinette' ? 'https://i.pravatar.cc/150?u=marinette' : `https://i.pravatar.cc/150?u=${senderId}`,
+          isOnline: true,
+        };
+        const newThread: MessageThread = {
+          threadId: action.threadId,
+          participant: {
+            id: participantUser.id,
+            name: participantUser.name,
+            avatarUrl: participantUser.avatarUrl,
+            isOnline: participantUser.isOnline ?? true,
+          },
+          messages: [action.message],
+        };
+        return { ...state, messages: [...state.messages, newThread] };
+      }
+
+      const targetThread = state.messages[targetThreadIndex];
+      const msgAlreadyExists = targetThread.messages.some(m => m.id === action.message.id);
+      const updatedMessages = msgAlreadyExists
+        ? targetThread.messages
+        : [...targetThread.messages, action.message].slice(-MAX_MESSAGES_PER_THREAD);
+
+      const updatedThread = { ...targetThread, messages: updatedMessages };
+      const newMessages = state.messages.map((t, idx) => idx === targetThreadIndex ? updatedThread : t);
       return { ...state, messages: newMessages };
     }
 
@@ -369,8 +447,10 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     }
 
     case 'CREATE_THREAD': {
-      // Don't create duplicate threads
-      const exists = state.messages.some(m => m.threadId === action.thread.threadId);
+      // Don't create duplicate threads by threadId OR by participant ID
+      const exists = state.messages.some(
+        m => m.threadId === action.thread.threadId || m.participant.id === action.thread.participant.id
+      );
       if (exists) return state;
       return { ...state, messages: [...state.messages, action.thread] };
     }
@@ -487,6 +567,21 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         g.id === action.groupId ? { ...g, isMember: true } : g
       );
       return { ...state, pendingGroupJoins: newPending, groups: newGroups };
+    }
+
+    case 'SET_BANNED': {
+      return {
+        ...state,
+        isBanned: action.isBanned,
+        bannedReason: action.reason,
+      };
+    }
+
+    case 'UNLOCK_PRIME_CHAT': {
+      return {
+        ...state,
+        primeChatUnlocked: true,
+      };
     }
 
     default:

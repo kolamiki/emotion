@@ -14,9 +14,10 @@ interface GroupViewProps {
   onPostCreated?: () => void;
   pendingGroupJoins?: Set<string>;
   onRequestGroupJoin?: (groupId: string) => void;
+  isBanned?: boolean;
 }
 
-export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated, pendingGroupJoins, onRequestGroupJoin }) => {
+export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated, pendingGroupJoins, onRequestGroupJoin, isBanned }) => {
   const [newGroupPostText, setNewGroupPostText] = useState('');
 
   const isRestricted = !!group.isRestricted;
@@ -36,6 +37,10 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
   };
 
   const handlePublishGroupPost = () => {
+    if (isBanned) {
+      alert('Konto zawieszone (§ 12.3 Regulaminu eMotion). Publikowanie postów w grupach jest zablokowane.');
+      return;
+    }
     if (!newGroupPostText.trim()) return;
 
     const newPost = {
@@ -220,16 +225,17 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
                 <img src={currentUser.avatarUrl} alt={currentUser.name} className={styles.groupComposeAvatar} />
                 <textarea
                   className={styles.groupComposeTextarea}
-                  placeholder={`Co chcesz powiedzieć w ${group.name}?`}
+                  placeholder={isBanned ? "Konto zawieszone — publikowanie w grupach zablokowane (§ 12.3 ToS)" : `Co chcesz powiedzieć w ${group.name}?`}
                   value={newGroupPostText}
                   onChange={e => setNewGroupPostText(e.target.value)}
                   rows={2}
+                  disabled={isBanned}
                 />
               </div>
               <div className={styles.groupComposeFooter}>
                 <button
                   className={styles.groupComposePublishBtn}
-                  disabled={!newGroupPostText.trim()}
+                  disabled={isBanned || !newGroupPostText.trim()}
                   onClick={handlePublishGroupPost}
                 >
                   Opublikuj
@@ -256,6 +262,7 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
               formatTime={formatTime}
               onViewProfile={onViewProfile}
               onPostCreated={onPostCreated}
+              isBanned={isBanned}
             />
           ))}
         </>
@@ -274,6 +281,7 @@ interface GroupPostCardProps {
   formatTime: (ts: string) => string;
   onViewProfile?: (userId: string) => void;
   onPostCreated?: () => void;
+  isBanned?: boolean;
 }
 
 const GroupPostCard: React.FC<GroupPostCardProps> = ({
@@ -285,16 +293,25 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
   formatTime,
   onViewProfile,
   onPostCreated,
+  isBanned,
 }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleLike = () => {
+    if (isBanned) {
+      alert('Konto zawieszone (§ 12.3 Regulaminu). Polubienia są zablokowane.');
+      return;
+    }
     dispatch({ type: 'TOGGLE_LIKE_GROUP_POST', groupId, postId: post.id });
   };
 
   const handleAddComment = () => {
+    if (isBanned) {
+      alert('Konto zawieszone (§ 12.3 Regulaminu). Komentowanie postów w grupach jest zablokowane.');
+      return;
+    }
     if (!commentText.trim()) return;
     const comment: Comment = {
       id: `user-gc-${Date.now()}`,
@@ -425,16 +442,17 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
             <input
               className={styles.gpCommentInput}
               type="text"
-              placeholder="Napisz komentarz..."
+              placeholder={isBanned ? "Konto zawieszone — komentowanie zablokowane" : "Napisz komentarz..."}
               value={commentText}
               onChange={e => setCommentText(e.target.value)}
               onKeyDown={handleCommentKeyDown}
+              disabled={isBanned}
               autoFocus
             />
             <button
               className={styles.gpCommentSendBtn}
               onClick={handleAddComment}
-              disabled={!commentText.trim()}
+              disabled={isBanned || !commentText.trim()}
             >
               <Send size={14} />
             </button>

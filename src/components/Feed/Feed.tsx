@@ -14,9 +14,10 @@ interface FeedProps {
   onViewProfile?: (userId: string) => void;
   highlightedPostId?: string | null;
   onClearHighlight?: () => void;
+  isBanned?: boolean;
 }
 
-export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, dispatch, matyldaLikesActive, onOpenCreatePost, onViewProfile, highlightedPostId, onClearHighlight }) => {
+export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, dispatch, matyldaLikesActive, onOpenCreatePost, onViewProfile, highlightedPostId, onClearHighlight, isBanned }) => {
   const [visibleCount, setVisibleCount] = useState(5);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -80,9 +81,17 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
     return () => clearTimeout(timer);
   }, [highlightedPostId]);
 
+  const handleTeaserClick = () => {
+    if (isBanned) {
+      alert('Publikowanie postów jest zablokowane z powodu zawieszenia konta (§ 12.3 Regulaminu). Aby zdjąć blokadę, osiągnij Poziom 5 w Dziennych Wyzwaniach.');
+      return;
+    }
+    onOpenCreatePost();
+  };
+
   return (
     <div className={styles.feed}>
-      <div className={styles.createTeaser} onClick={onOpenCreatePost}>
+      <div className={styles.createTeaser} onClick={handleTeaserClick}>
         <img
           src={currentUser.avatarUrl}
           alt={currentUser.name}
@@ -94,7 +103,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
         />
         <div className={styles.createInput}>
-          Co słychać, {currentUser.name.split(' ')[0]}?
+          {isBanned ? 'Konto zawieszone — publikowanie zablokowane' : `Co słychać, ${currentUser.name.split(' ')[0]}?`}
         </div>
       </div>
 
@@ -107,6 +116,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           dispatch={dispatch}
           matyldaLikesActive={matyldaLikesActive}
           onViewProfile={onViewProfile}
+          isBanned={isBanned}
         />
       ))}
 
@@ -127,9 +137,10 @@ interface PostCardProps {
   dispatch: React.Dispatch<AppAction>;
   matyldaLikesActive: boolean;
   onViewProfile?: (userId: string) => void;
+  isBanned?: boolean;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, matyldaLikesActive, onViewProfile }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, matyldaLikesActive, onViewProfile, isBanned }) => {
   const [popping, setPopping] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -137,6 +148,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleLike = () => {
+    if (isBanned) {
+      alert('Konto zawieszone (§ 12.3 Regulaminu). Polubienia są zablokowane.');
+      return;
+    }
     if (!isLiked) {
       setPopping(true);
       setTimeout(() => setPopping(false), 350);
@@ -145,6 +160,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
   };
 
   const handleAddComment = () => {
+    if (isBanned) {
+      alert('Konto zawieszone (§ 12.3 Regulaminu). Dodawanie komentarzy jest zablokowane.');
+      return;
+    }
     if (!commentText.trim()) return;
     const comment: Comment = {
       id: `user-c-${Date.now()}`,
@@ -356,16 +375,17 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
             <input
               className={styles.commentInput}
               type="text"
-              placeholder="Napisz komentarz..."
+              placeholder={isBanned ? "Konto zawieszone — komentowanie zablokowane" : "Napisz komentarz..."}
               value={commentText}
               onChange={e => setCommentText(e.target.value)}
               onKeyDown={handleCommentKeyDown}
+              disabled={isBanned}
               autoFocus
             />
             <button
               className={styles.commentSendBtn}
               onClick={handleAddComment}
-              disabled={!commentText.trim()}
+              disabled={isBanned || !commentText.trim()}
             >
               <Send size={14} />
             </button>

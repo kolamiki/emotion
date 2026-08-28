@@ -71,11 +71,29 @@ export interface PuzzleCollection {
   items: any[];
 }
 
+export interface PuzzleCategoryMeta {
+  type: PuzzleType;
+  title: string;
+  shortDesc: string;
+  categoryTag: string;
+  accentColor: string;
+}
+
+export const PUZZLE_CATEGORIES: PuzzleCategoryMeta[] = [
+  { type: 'crossword', title: 'Krzyżówka', shortDesc: 'Technologia & Internet', categoryTag: 'Słownictwo', accentColor: '#4F46E5' },
+  { type: 'sudoku', title: 'Sudoku', shortDesc: 'Kombinatoryka & Liczby 9x9', categoryTag: 'Logika', accentColor: '#0D9488' },
+  { type: 'wordsearch', title: 'Wykreślanka', shortDesc: 'Spostrzegawczość & Analiza tekstu', categoryTag: 'Percepcja', accentColor: '#7C3AED' },
+  { type: 'rebus', title: 'Rebus', shortDesc: 'Skojarzenia, popkultura i kino', categoryTag: 'Kojarzenie', accentColor: '#D97706' },
+  { type: 'quiz', title: 'Quiz Wiedzy', shortDesc: 'Nauka, kultura i historia', categoryTag: 'Wiedza', accentColor: '#DB2777' },
+  { type: 'memory', title: 'Memory', shortDesc: 'Pamięć robocza & Symbole', categoryTag: 'Pamięć', accentColor: '#0284C7' },
+  { type: 'architect', title: 'Bombowa Szkoła', shortDesc: 'Matematyka dyskretna & Saper', categoryTag: 'Dedukcja', accentColor: '#DC2626' },
+];
+
 export const dailyPuzzles: Record<number, PuzzleCollection> = {
   0: {
     dayOfWeek: 0,
     type: 'crossword',
-    title: 'Niedzielna Krzyżówka',
+    title: 'Krzyżówka',
     description: 'Rozwiąż hasła i odgadnij wszystkie słowa z dziedziny technologii i Internetu!',
     items: [
       {
@@ -112,7 +130,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   1: {
     dayOfWeek: 1,
     type: 'sudoku',
-    title: 'Poniedziałkowe Sudoku',
+    title: 'Sudoku',
     description: 'Wypełnij planszę 9x9 cyframi od 1 do 9 tak, aby nie powtarzały się w wierszu, kolumnie ani bloku 3x3.',
     items: [
       {
@@ -170,7 +188,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   2: {
     dayOfWeek: 2,
     type: 'wordsearch',
-    title: 'Wtorkowa Wykreślanka',
+    title: 'Wykreślanka',
     description: 'Znajdź wszystkie ukryte słowa w gąszczu liter. Słowa mogą biec poziomo, pionowo oraz po skosie (w obu kierunkach)!',
     items: [
       {
@@ -246,7 +264,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   3: {
     dayOfWeek: 3,
     type: 'rebus',
-    title: 'Środowy Rebus',
+    title: 'Rebus',
     description: 'Odgadnij 5 rebusów jak najszybciej. Podpowiedź dodaje 20s kary, pominięcie 90s.',
     items: [
       // === PRZYSŁOWIA ===
@@ -301,7 +319,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   4: {
     dayOfWeek: 4,
     type: 'quiz',
-    title: 'Czwartkowy Quiz Wiedzy',
+    title: 'Quiz Wiedzy',
     description: 'Odpowiedz poprawnie na 10 pytań z różnych dziedzin. Błędna odpowiedź dodaje +30s kary! Możesz użyć koła ratunkowego 50/50 (+15s).',
     items: [
       {
@@ -341,7 +359,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   5: {
     dayOfWeek: 5,
     type: 'memory',
-    title: 'Piątkowe Memory',
+    title: 'Memory',
     description: 'Odszukaj wszystkie pasujące pary kart w jak najmniejszej liczbie ruchów!',
     items: [
       {
@@ -377,7 +395,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
   6: {
     dayOfWeek: 6,
     type: 'architect',
-    title: 'Sobotnia Zagadka - Bombowa Szkoła',
+    title: 'Bombowa Szkoła',
     description: 'Rajciu! Jakiś nicpoń podłożył bomby w pobliskich szkołach i grozi ich wysadzeniem. Na szczęście zdobyłeś plany rozmieszczenia ładunków, dzięki czemu wiesz ile bomb jest w każdym rzędzie oraz kolumnie. Wskaż miejsca bomb i przekaż je saperom. Pamiętaj, że terrorysta działał zgodnie z zasadami BHP i ułożył ładunki tak, aby nie mogły się stykać.',
     items: [
       {

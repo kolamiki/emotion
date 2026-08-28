@@ -57,11 +57,26 @@ function generateFakeTimes(): number[] {
   });
 }
 
-const formatLeaderboardTime = (seconds: number): string => {
+export const formatLeaderboardTime = (seconds: number): string => {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
   return `${m}:${s.toString().padStart(2, '0')}`;
 };
+
+/**
+ * Calculates rank position (1 to 10+) of the user for scoring purposes.
+ */
+export function computeLeaderboardRank(userTimeSeconds: number): number {
+  if (userTimeSeconds >= 999999) return 11;
+  const fakeTimes = generateFakeTimes();
+  let rank = 2; // Profesor Prime is always ahead of user (#1)
+  for (let i = 1; i < fakeTimes.length; i++) {
+    if (fakeTimes[i] < userTimeSeconds) {
+      rank++;
+    }
+  }
+  return Math.min(rank, 11);
+}
 
 export const Leaderboard: React.FC<LeaderboardProps> = ({
   userTimeSeconds,

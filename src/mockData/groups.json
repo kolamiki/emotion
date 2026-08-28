@@ -69,10 +69,51 @@
           "name": "Natalie Chalamet",
           "avatarUrl": "https://i.pravatar.cc/150?u=natalie"
         },
-        "content": "Kolejny Marvel, kolejne rozczarowanie. Jak długo jeszcze będziemy karmieni tymi płaskimi jak karton postaciami i fabułą pisaną chyba przez AI na najniższych ustawieniach? Szkoda na to popcornu, a co dopiero pieniędzy.",
-        "timestamp": "2026-06-03T10:00:00Z",
-        "likes": 2,
-        "comments": []
+        "content": "Kolejny głośny seans w Le Grand Rex i kolejne totalne dno. Obejrzałam przedpremierowo ten cały wychwalany pod niebiosa film o 'nowej tożsamości' i przeznaczeniu. Przecież to ordynarna propaganda sponsorowana przez ludzi z PrimeCo, żeby przygotować społeczeństwo na pełną inwigilację i posłuszeństwo! Scenariusz pisany na kolanie, aktorzy drewniani jak meble z marketu. Każdy, kto daje temu więcej niż 1/10, ma chyba wyprany mózg przez korporacyjny marketing. Dno, dno i jeszcze raz dno.",
+        "timestamp": "2026-06-03T18:00:00Z",
+        "likes": 4,
+        "comments": [
+          {
+            "id": "gc_natalie_1_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Natalie, ty zawsze musisz wsadzić kij w mrowisko i doszukiwać się spisków korporacji? 😂 To był zwykły film rozrywkowy.",
+            "timestamp": "2026-06-03T18:15:00Z"
+          },
+          {
+            "id": "gc_natalie_1_2",
+            "author": {
+              "id": "u_kornel",
+              "name": "Kornel Zagórski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+            },
+            "text": "Tomek nie ma pojęcia o czym mówi, a Natalie trafiła w punkt. PrimeCo forsuje tę narrację od miesięcy. Natalie, zapraszamy do nas na grupę 'STOP Szarlatanom' – potrzebujemy takich bezkompromisowych głosów!",
+            "timestamp": "2026-06-03T18:25:00Z"
+          },
+          {
+            "id": "gc_natalie_1_3",
+            "author": {
+              "id": "u_damian",
+              "name": "Damian Wilk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+            },
+            "text": "Szacunek za odwagę Natalie! Niewielu ma jaja, żeby otwarcie punktować tych szarlatanów z PrimeCo. Dawaj do STOP Szarlatanom, tam nikt nie założy ci kagańca 🔥",
+            "timestamp": "2026-06-03T18:40:00Z"
+          },
+          {
+            "id": "gc_natalie_1_4",
+            "author": {
+              "id": "u_weronika",
+              "name": "Weronika Skalska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+            },
+            "text": "PrimeCo przejmuje kina, media i uniwersytety. Dobrze, że ktoś wreszcie nazywa rzeczy po imieniu i nie daje sobie mydlić oczu.",
+            "timestamp": "2026-06-03T18:50:00Z"
+          }
+        ]
       }
     ],
     "isMember": true
@@ -456,6 +497,16 @@
             },
             "text": "Mieszkam niedaleko tego kina. Jeśli zorganizujemy grupę poszukiwawczą na przyległych ulicach, dajcie znać na priv – dołączę natychmiast!",
             "timestamp": "2026-06-03T20:46:00Z"
+          },
+          {
+            "id": "gc_missing_1_5",
+            "author": {
+              "id": "u7",
+              "name": "Michał Dąbrowski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+            },
+            "text": "Nie chcę siać paniki, ale to mi cuchnie porwaniem na zlecenie albo zemstą... Kojarzycie w ogóle jej aktywność w sieci? Wystarczy wejść do grupy 'Filmowe polecajki' i poczytać jej posty. Ta samozwańcza 'krytyczka filmowa' jedzie wyłącznie na hejcie i kontrowersji, bezczelnie obrażała ludzi i wylewała pomyje na każdego. Prześledźcie jej wpisy w 'Filmowych polecajkach' – założę się, że narobiła sobie tam potężnych wrogów.",
+            "timestamp": "2026-06-03T20:52:00Z"
           }
         ]
       },
@@ -773,6 +824,39 @@
             },
             "text": "Żadnych recenzji naukowych, wszystko utajnione jako 'tajemnica przedsiębiorstwa'. Klasyka manipulacji.",
             "timestamp": "2026-06-03T14:25:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_anti_natalie",
+        "author": {
+          "id": "u_natalie",
+          "name": "Natalie Chalamet",
+          "avatarUrl": "https://i.pravatar.cc/150?u=natalie"
+        },
+        "content": "Zastanawia mnie jedno: jak to możliwe, że na świecie wciąż wybuchają wojny, szaleją pandemie i dochodzi do katastrof naturalnych, skoro po paryskich salonach przechadza się facet w garniturze za 20 tysięcy euro, który rzekomo 'widzi przyszłość'? Przestańmy udawać. Albo Profesor Prime to zwykły naciągacz z dobrym marketingiem, albo PrimeCo cynicznie pozwala ludziom cierpieć, żeby zarabiać na ich strachu. Jedno i drugie go dyskwalifikuje.",
+        "timestamp": "2026-05-15T14:30:00Z",
+        "likes": 142,
+        "comments": [
+          {
+            "id": "gc_anti_natalie_1",
+            "author": {
+              "id": "u_kornel",
+              "name": "Kornel Zagórski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+            },
+            "text": "W samo sedno Natalie. Determinizm PrimeCo to ideologiczna pułapka na naiwnych.",
+            "timestamp": "2026-05-15T15:00:00Z"
+          },
+          {
+            "id": "gc_anti_natalie_2",
+            "author": {
+              "id": "u_damian",
+              "name": "Damian Wilk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+            },
+            "text": "Klasa wypowiedź 🔥 Uważaj na siebie, bo za takie słowa PrimeCo lubi uciszać ludzi xd",
+            "timestamp": "2026-05-15T15:25:00Z"
           }
         ]
       }

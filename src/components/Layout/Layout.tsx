@@ -14,18 +14,29 @@ import { useAppStore } from '../../store/appStore';
 import { ScenarioManager } from '../../store/scenarioEngine';
 import { scheduleGroupJoinAdminResponse } from '../../store/responseEngine';
 import { usersData } from '../../mockData';
-import type { ActiveView, MessageThread, NotificationLink } from '../../types';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import type { ActiveView, MessageThread, NotificationLink, Message } from '../../types';
+import { ChevronRight, ChevronLeft, AlertTriangle } from 'lucide-react';
+import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
+import { useQuestSystem } from '../../hooks/useQuestSystem';
+import { ToastContainer } from '../Toast/ToastContainer';
+import { QuestModal } from '../QuestTracker/QuestModal';
 
 export const Layout: React.FC = () => {
   const { state, dispatch } = useAppStore();
+  const { levelInfo } = useDailyChallengeState();
+  const { questState, toasts, dismissToast } = useQuestSystem(state);
   const [activeChats, setActiveChats] = useState<string[]>([]);
   const [activeView, setActiveView] = useState<ActiveView>({ type: 'feed' });
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [viewedUserId, setViewedUserId] = useState<string | null>(null);
   const [isScenarioPanelOpen, setIsScenarioPanelOpen] = useState(false);
+  const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
+
+  // Message tracking for automatic chat popups
+  const seenMessageIdsRef = useRef<Set<string>>(new Set());
+  const isInitialMountRef = useRef(true);
 
   // Scenario Manager ref - stable reference across renders
   const scenarioManagerRef = useRef<ScenarioManager | null>(null);
@@ -50,13 +61,53 @@ export const Layout: React.FC = () => {
     }
   }, [state]);
 
+  // Auto-open incoming chat messages immediately in window for player immersion
+  useEffect(() => {
+    if (isInitialMountRef.current) {
+      state.messages.forEach(thread => {
+        thread.messages.forEach(msg => seenMessageIdsRef.current.add(msg.id));
+      });
+      isInitialMountRef.current = false;
+      return;
+    }
+
+    state.messages.forEach(thread => {
+      thread.messages.forEach(msg => {
+        if (!seenMessageIdsRef.current.has(msg.id)) {
+          seenMessageIdsRef.current.add(msg.id);
+          if (msg.senderId !== state.currentUser.id) {
+            handleOpenChat(thread.threadId);
+          }
+        }
+      });
+    });
+  }, [state.messages, state.currentUser.id]);
+
+  // Auto-unban monitoring: Level 5 in daily challenges triggers Damian's unban
+  useEffect(() => {
+    if (state.isBanned && levelInfo.level >= 5) {
+      dispatch({ type: 'SET_BANNED', isBanned: false });
+
+      setTimeout(() => {
+        const damianThreadId = 't_u_damian';
+        const damianMsg: Message = {
+          id: `damian-unban-${Date.now()}`,
+          senderId: 'u_damian',
+          text: 'Pięknie! Skrypt odwoławczy przeszedł pomyślnie i ban został zdjęty! 🚀 Masz znowu pełen dostęp do serwisu. Wejdź teraz do grupy STOP Szarlatanom i przejrzyj posty – znajdziesz tam coś bardzo ciekawego o Natalie...',
+          timestamp: new Date().toISOString(),
+        };
+        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: damianThreadId, message: damianMsg });
+      }, 1000);
+    }
+  }, [state.isBanned, levelInfo.level, dispatch]);
+
   // Manage max active chats based on window size
   useEffect(() => {
     const handleResize = () => {
       const maxChats = window.innerWidth <= 768 ? 1 : 2;
       setActiveChats(prev => {
         if (prev.length > maxChats) {
-          return prev.slice(-maxChats);
+          return prev.slice(0, maxChats);
         }
         return prev;
       });
@@ -72,8 +123,9 @@ export const Layout: React.FC = () => {
     setActiveChats(prev => {
       const maxChats = window.innerWidth <= 768 ? 1 : 2;
       const withoutNew = prev.filter(id => id !== threadId);
-      const next = [...withoutNew, threadId];
-      return next.slice(-maxChats);
+      // Place newest chat at index 0 so it is always first/most prominent
+      const next = [threadId, ...withoutNew];
+      return next.slice(0, maxChats);
     });
     dispatch({ type: 'MARK_THREAD_READ', threadId });
   };
@@ -82,7 +134,56 @@ export const Layout: React.FC = () => {
     setActiveChats(prev => prev.filter(id => id !== threadId));
   };
 
+  // Track if Marinette's Filmowe polecajki reaction has fired
+  const marinetteFilmClueTriggeredRef = useRef<boolean>(false);
+
+  // Reactive Marinette trigger: when in Filmowe polecajki (g1) AND missing post is liked
+  useEffect(() => {
+    if (activeView.type === 'group' && activeView.groupId === 'g1' && !marinetteFilmClueTriggeredRef.current) {
+      const isMissingPostLiked = !!state.likedPosts['gp_missing_1'];
+
+      if (isMissingPostLiked) {
+        marinetteFilmClueTriggeredRef.current = true;
+        const existingMarinette = state.messages.find(m => m.participant.id === 'u_marinette');
+        const marinetteThreadId = existingMarinette ? existingMarinette.threadId : 't_u_marinette';
+
+        setTimeout(() => {
+          const msg1: Message = {
+            id: `marinette-clue-1-${Date.now()}`,
+            senderId: 'u_marinette',
+            text: 'Hej! Dziękuję Ci bardzo za zaangażowanie i polubienie mojego posta w grupie poszukiwawczej! 💛 Czy udało Ci się natrafić na jakieś poszlaki albo tropy w sprawie Natalie?',
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: marinetteThreadId, message: msg1 });
+
+          setTimeout(() => {
+            const msg2: Message = {
+              id: `marinette-clue-2-${Date.now()}`,
+              senderId: 'u_marinette',
+              text: 'Widziałam te okropne komentarze sugerujące porwanie z zemsty... Nie rozumiem ludzi, którzy tak piszą. Natalie była naprawdę sympatyczną dziewczyną! Fakt, miewała ostry język i nie gryzła się w niego, ale to nie przekreśla jej joako osoby.',
+              timestamp: new Date().toISOString(),
+            };
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: marinetteThreadId, message: msg2 });
+          }, 3500);
+        }, 1500);
+      }
+    }
+  }, [activeView, state.likedPosts, state.messages, dispatch]);
+
+  // Auto-redirect out of group if banned
+  useEffect(() => {
+    if (state.isBanned && activeView.type === 'group') {
+      setActiveView({ type: 'feed' });
+    }
+  }, [state.isBanned, activeView.type]);
+
   const handleNavigate = (view: ActiveView) => {
+    // If user is banned and tries to navigate to a group, block it
+    if (view.type === 'group' && state.isBanned) {
+      alert('Dostęp do grup został zablokowany z powodu zawieszenia konta (§ 12.3 Regulaminu eMotion).');
+      return;
+    }
+
     // If a component registered a navigation block, ask for confirmation
     if (typeof window !== 'undefined' && (window as any).confirmNavigation) {
       if (!(window as any).confirmNavigation()) {
@@ -190,6 +291,10 @@ export const Layout: React.FC = () => {
       : usersData.allUsers.find(u => u.id === viewedUserId))
     : null;
 
+  // Active quest stage for LeftSidebar display
+  const activeStage = questState.stages.find(s => s.isActive);
+  const activeQuestTitle = activeStage ? `Rozdział ${activeStage.stageNumber}: ${activeStage.title}` : 'Dziennik Śledztwa';
+
   return (
     <div className={styles.layoutContainer}>
       <TopBar
@@ -227,6 +332,11 @@ export const Layout: React.FC = () => {
             activeView={activeView}
             onNavigate={handleNavigate}
             onViewProfile={handleViewProfile}
+            isBanned={state.isBanned}
+            isQuestActivated={questState.isActivated}
+            questProgressPercent={questState.activeStagePercent}
+            activeQuestTitle={activeQuestTitle}
+            onOpenQuestTracker={() => setIsQuestModalOpen(true)}
           />
         </aside>
 
@@ -240,6 +350,22 @@ export const Layout: React.FC = () => {
 
         <section className={styles.middleColumn}>
           <div className={styles.feedContainer}>
+            {state.isBanned && (
+              <div className={styles.banBanner}>
+                <div className={styles.banBannerContent}>
+                  <AlertTriangle size={20} className={styles.banBannerIcon} />
+                  <div>
+                    <strong className={styles.banBannerTitle}>
+                      Konto zawieszone (§ 12.3 Regulaminu eMotion)
+                    </strong>
+                    <p className={styles.banBannerText}>
+                      Twoje konto zostało tymczasowo zablokowane z powodu publikacji treści naruszających dobre imię PrimeCo. Publikowanie postów, komentarzy i przeglądanie grup zostało zawieszone. Dostępne pozostają: Czat oraz Wyzwania Dnia (§ 8.4 ToS).
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {activeView.type === 'feed' && (
               <Feed
                 posts={state.posts}
@@ -251,6 +377,7 @@ export const Layout: React.FC = () => {
                 onViewProfile={handleViewProfile}
                 highlightedPostId={highlightedPostId}
                 onClearHighlight={() => setHighlightedPostId(null)}
+                isBanned={state.isBanned}
               />
             )}
             {activeView.type === 'group' && currentGroup && (
@@ -269,6 +396,7 @@ export const Layout: React.FC = () => {
                 }}
                 pendingGroupJoins={state.pendingGroupJoins}
                 onRequestGroupJoin={handleRequestGroupJoin}
+                isBanned={state.isBanned}
               />
             )}
             {activeView.type === 'friends' && (
@@ -336,6 +464,20 @@ export const Layout: React.FC = () => {
         isOpen={isScenarioPanelOpen}
         onClose={() => setIsScenarioPanelOpen(false)}
         scenarioManager={scenarioManagerRef.current}
+      />
+
+      {/* Quest Tracker Modal Dialog */}
+      <QuestModal
+        isOpen={isQuestModalOpen}
+        onClose={() => setIsQuestModalOpen(false)}
+        questState={questState}
+      />
+
+      {/* Floating Quest Toasts */}
+      <ToastContainer
+        toasts={toasts}
+        onDismiss={dismissToast}
+        onClickToast={() => setIsQuestModalOpen(true)}
       />
     </div>
   );

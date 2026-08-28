@@ -39,11 +39,37 @@
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.profileMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profileSubRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .profileLabel {
   font-size: 0.75rem;
   color: var(--text-muted);
+}
+
+.levelBadgeMini {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(108, 43, 217, 0.08);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(108, 43, 217, 0.18);
 }
 
 /* === Section Panel === */
@@ -54,6 +80,100 @@
   box-shadow: var(--shadow-sm);
   overflow: hidden;
   flex-shrink: 0;
+}
+
+/* === Quest Tracker Card / Button === */
+.questSection {
+  background: #ffffff;
+  border: 1px solid rgba(108, 43, 217, 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 8px rgba(108, 43, 217, 0.04);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.questSection:hover {
+  border-color: rgba(108, 43, 217, 0.4);
+  box-shadow: 0 4px 12px rgba(108, 43, 217, 0.08);
+  transform: translateY(-1px);
+}
+
+.questTrackerBtn {
+  width: 100%;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-primary);
+}
+
+.questTrackerIconWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f5f3ff;
+  border: 1px solid #ede9fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c2bd9;
+  flex-shrink: 0;
+}
+
+.questCompassIcon {
+  color: #6c2bd9;
+}
+
+.questTrackerText {
+  flex: 1;
+  min-width: 0;
+}
+
+.questTrackerTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.questTrackerLabel {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.questTrackerProgressBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #6c2bd9;
+  background: #f5f3ff;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid #ede9fe;
+}
+
+.questTrackerDesc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.questTrackerChevron {
+  color: var(--text-muted);
+  transition: transform 0.15s;
+}
+
+.questTrackerBtn:hover .questTrackerChevron {
+  transform: translateX(2px);
+  color: #6c2bd9;
 }
 
 .sectionHeader {
@@ -89,6 +209,15 @@
 
 .navItemActive:hover {
   background: var(--primary-lighter);
+}
+
+.navItemDisabled {
+  opacity: 0.55;
+  cursor: not-allowed !important;
+}
+
+.navItemDisabled:hover {
+  background: transparent !important;
 }
 
 .navIcon {
