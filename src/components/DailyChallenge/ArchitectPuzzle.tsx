@@ -52,6 +52,9 @@ function isOrthogonal(a: [number, number], b: [number, number]): boolean {
 
 export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzle, onSolved }) => {
   const { size, houses, rowClues, colClues } = puzzle;
+  const numRows = Array.isArray(rowClues) ? rowClues.length : (typeof size === 'number' ? size : (size as any).rows);
+  const numCols = Array.isArray(colClues) ? colClues.length : (typeof size === 'number' ? size : (size as any).cols);
+  const totalCols = numCols + 1;
 
   // Grid state: tracks placed tanks
   const [tanks, setTanks] = useState<Set<string>>(new Set());
@@ -223,7 +226,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
 
     // 1. Check tank count matches total houses
     if (tankList.length !== houses.length) {
-      setErrorMsg(`Umieść dokładnie ${houses.length} zbiorników (obecnie: ${tankList.length})`);
+      setErrorMsg(`Umieść dokładnie ${houses.length} bomb (obecnie: ${tankList.length})`);
       return;
     }
 
@@ -231,7 +234,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     const touching = findTouchingTanks();
     if (touching.size > 0) {
       setErrorCells(touching);
-      setErrorMsg('Zbiorniki nie mogą się stykać - ani bokiem, ani rogiem!');
+      setErrorMsg('Bomby nie mogą się stykać - ani bokiem, ani rogiem!');
       return;
     }
 
@@ -239,7 +242,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     for (const tank of tankList) {
       if (!isAdjacentToHouse(tank, houses)) {
         setErrorCells(new Set([`${tank[0]},${tank[1]}`]));
-        setErrorMsg('Każdy zbiornik musi stać obok domku (góra/dół/lewo/prawo)');
+        setErrorMsg('Każda bomba musi stać obok szkoły (góra/dół/lewo/prawo)');
         return;
       }
     }
@@ -282,7 +285,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     for (let r = 0; r < size; r++) {
       const count = getTankCountForRow(r);
       if (count !== rowClues[r]) {
-        setErrorMsg(`Wiersz ${r + 1}: oczekiwano ${rowClues[r]} zbiorników, masz ${count}`);
+        setErrorMsg(`Wiersz ${r + 1}: oczekiwano ${rowClues[r]} bomb, masz ${count}`);
         return;
       }
     }
@@ -291,7 +294,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
     for (let c = 0; c < size; c++) {
       const count = getTankCountForCol(c);
       if (count !== colClues[c]) {
-        setErrorMsg(`Kolumna ${c + 1}: oczekiwano ${colClues[c]} zbiorników, masz ${count}`);
+        setErrorMsg(`Kolumna ${c + 1}: oczekiwano ${colClues[c]} bomb, masz ${count}`);
         return;
       }
     }
@@ -344,7 +347,13 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
       </div>
 
       {/* Grid */}
-      <div className={styles.gridWrapper} style={{ position: 'relative' }}>
+      <div
+        className={styles.gridWrapper}
+        style={{
+          position: 'relative',
+          '--grid-cols': totalCols,
+        } as React.CSSProperties}
+      >
         {/* Column clues */}
         <div className={styles.colCluesRow}>
           {colClues.map((clue, c) => {
@@ -363,7 +372,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
         </div>
 
         {/* Grid rows */}
-        {Array.from({ length: size }, (_, row) => {
+        {Array.from({ length: numRows }, (_, row) => {
           const rowCount = getTankCountForRow(row);
           const rowSatisfied = rowCount === rowClues[row];
           const rowOver = rowCount > rowClues[row];
@@ -378,7 +387,7 @@ export const ArchitectPuzzleComponent: React.FC<ArchitectPuzzleProps> = ({ puzzl
               </div>
 
               {/* Cells */}
-              {Array.from({ length: size }, (_, col) => {
+              {Array.from({ length: numCols }, (_, col) => {
                 const key = `${row},${col}`;
                 const isHouse = houseSet.has(key);
                 const isTank = tanks.has(key);

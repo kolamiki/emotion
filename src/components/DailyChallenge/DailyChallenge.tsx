@@ -14,7 +14,6 @@ import {
   Sparkles,
   Medal,
   Award,
-  Flame,
   Check,
 } from 'lucide-react';
 import styles from './DailyChallenge.module.css';
@@ -411,7 +410,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
                     </span>
                   </div>
                   <span className={styles.totalXpSubtext}>
-                    Łączny dorobek: <strong>{overallXp} XP</strong>
+                    Łączne doświadczenie: <strong>{overallXp} XP</strong>
                   </span>
                 </div>
               </div>
@@ -421,10 +420,10 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
                   <Check size={14} strokeWidth={2.5} color="var(--success, #10b981)" />
                   Ukończono dziś: <strong>{completedTodayCount}/{totalChallengesCount}</strong>
                 </div>
-                <div className={styles.statItem}>
+                {/* <div className={styles.statItem}>
                   <Flame size={14} strokeWidth={2.5} color="#d97706" />
                   Wymóg weryfikacji: <strong>Poziom 5</strong>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -445,7 +444,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
             </div>
 
             {/* Tier Legend */}
-            <div className={styles.tierLegend}>
+            {/* <div className={styles.tierLegend}>
               <span className={styles.legendItem}>
                 <strong>Brąz:</strong> Poz. 1–10
               </span>
@@ -458,7 +457,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
               <span className={styles.legendItem}>
                 <strong>Punktacja:</strong> Top 10 w rankingu (10–100 XP)
               </span>
-            </div>
+            </div> */}
           </div>
 
           {/* Section: 7 Challenges */}
@@ -522,9 +521,8 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
 
                   {/* Action Button */}
                   <button
-                    className={`${styles.actionBtn} ${
-                      isCompleted || isGaveUp ? styles.btnSecondary : styles.btnPrimary
-                    }`}
+                    className={`${styles.actionBtn} ${isCompleted || isGaveUp ? styles.btnSecondary : styles.btnPrimary
+                      }`}
                     onClick={() => handleSelectCategory(category.type)}
                   >
                     {isCompleted ? 'Zobacz Wynik' : isGaveUp ? 'Zobacz Tabelę' : 'Rozpocznij'}

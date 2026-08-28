@@ -8,7 +8,8 @@
   align-items: center;
   gap: 1.5rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 680px;
+  box-sizing: border-box;
 }
 
 .rulesBox {
@@ -20,6 +21,7 @@
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  box-sizing: border-box;
 }
 
 .rulesBox h4 {
@@ -92,7 +94,10 @@
   flex-direction: column;
   align-items: center;
   gap: 0;
-  --cell-size: clamp(28px, 9vw, 44px);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  --cell-size: min(calc((100vw - 44px) / var(--grid-cols, 12)), 40px);
 }
 
 /* === Column Clues (top) === */
@@ -100,18 +105,20 @@
   display: flex;
   gap: 0;
   margin-left: var(--cell-size); /* offset for row clues */
+  width: fit-content;
 }
 
 .colClue {
   width: var(--cell-size);
-  height: 28px;
+  height: clamp(20px, var(--cell-size), 28px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(0.7rem, 2.3vw, 0.85rem);
+  font-size: clamp(0.68rem, calc(var(--cell-size) * 0.44), 0.88rem);
   font-weight: 700;
   color: var(--text-secondary);
   transition: color 0.3s;
+  box-sizing: border-box;
 }
 
 .colClueSatisfied {
@@ -127,6 +134,7 @@
   display: flex;
   gap: 0;
   align-items: center;
+  width: fit-content;
 }
 
 .rowClue {
@@ -135,10 +143,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(0.7rem, 2.3vw, 0.85rem);
+  font-size: clamp(0.68rem, calc(var(--cell-size) * 0.44), 0.88rem);
   font-weight: 700;
   color: var(--text-secondary);
   transition: color 0.3s;
+  box-sizing: border-box;
 }
 
 .rowClueSatisfied {
@@ -230,20 +239,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: calc(var(--cell-size) * 0.55);
   animation: tankAppear 0.25s ease-out;
 }
 
 /* === House icon === */
 .houseIcon {
-  font-size: 1.5rem;
+  font-size: calc(var(--cell-size) * 0.64);
   line-height: 1;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* === Tank icon === */
 .tankIcon {
+  font-size: calc(var(--cell-size) * 0.6);
   color: var(--primary);
   animation: tankAppear 0.25s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes tankAppear {
@@ -263,33 +280,41 @@
 /* === Connection line (from house to tank) === */
 .connectionLine {
   position: absolute;
-  background: var(--primary);
-  opacity: 0.4;
+  background: #10b981;
   z-index: 1;
   pointer-events: none;
+  opacity: 0.85;
 }
 
 .connectionLineH {
   height: 3px;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
+  top: calc(50% - 1.5px);
 }
 
 .connectionLineV {
   width: 3px;
-  height: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 1.5px);
 }
 
-/* === Check Button === */
-.actionsRow {
+/* === Validation status === */
+.validationArea {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 0.75rem;
   width: 100%;
-  justify-content: center;
   margin-top: 0.5rem;
+}
+
+.tanksRemaining {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.tanksRemaining strong {
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .checkBtn {
@@ -366,29 +391,25 @@
 }
 
 /* === Responsive === */
-@media (max-width: 500px) {
-  .cell,
-  .rowClue {
-    width: 36px;
-    height: 36px;
+@media (max-width: 768px) {
+  .architectContainer {
+    width: 100%;
+    padding: 0 2px;
+    gap: 1rem;
   }
 
-  .colClue {
-    width: 36px;
-    height: 28px;
-    font-size: 0.75rem;
+  .gridWrapper {
+    --cell-size: min(calc((100vw - 28px) / var(--grid-cols, 12)), 36px);
   }
 
-  .colCluesRow {
-    margin-left: 36px;
+  .rulesBox {
+    padding: 0.85rem 1rem;
+    font-size: 0.8rem;
   }
+}
 
-  .rowClue {
-    width: 36px;
-    font-size: 0.75rem;
-  }
-
-  .houseIcon {
-    font-size: 1.2rem;
+@media (max-width: 480px) {
+  .gridWrapper {
+    --cell-size: min(calc((100vw - 20px) / var(--grid-cols, 12)), 32px);
   }
 }
