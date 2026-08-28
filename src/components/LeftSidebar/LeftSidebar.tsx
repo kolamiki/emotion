@@ -65,7 +65,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   };
 
   return (
-    <nav className={styles.sidebar}>
+    <nav className={styles.sidebar} id="tour-sidebar-left">
       {/* Profile */}
       <div
         className={styles.profileCard}
@@ -102,6 +102,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
             Znajomi
           </button>
           <button
+            id="tour-daily-challenge"
             className={`${styles.quickNavBtn} ${activeView.type === 'daily_challenge' ? styles.quickNavBtnActive : ''}`}
             onClick={() => onNavigate({ type: 'daily_challenge' })}
           >
@@ -163,7 +164,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
       )}
 
       {/* Groups */}
-      <div className={styles.section}>
+      <div className={styles.section} id="tour-groups">
         <div className={styles.sectionHeader}>Twoje Grupy</div>
         {groups.filter(g => g.isMember && !favorites.some(f => f.id === g.id)).map(group => {
           const isActive = activeView.type === 'group' && activeView.groupId === group.id;

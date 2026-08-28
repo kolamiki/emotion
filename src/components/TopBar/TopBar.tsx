@@ -256,7 +256,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   return (
     <>
-      <header className={styles.topbar}>
+      <header className={styles.topbar} id="tour-topbar">
         {/* Logo */}
         <div className={styles.logo} onClick={onNavigateHome}>
           <img src={getAssetUrl('/logo.png')} alt="e-Motion" className={styles.logoImage} />

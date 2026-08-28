@@ -318,7 +318,7 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
       'Doceniam humor, pomaga choć na sekundę zapomnieć o tym całym stresie...',
     ],
     question: [
-      'Wyszła do toalety podczas seansu i już nie wróciła... W kabinie zostały tylko jej rzeczy i telefon 📱',
+      'Wyszła do toalety po filmie i już nie wróciła... W kabinie zostały tylko jej rzeczy i telefon 📱',
       'Próbuję rozmawiać ze wszystkimi, którzy byli wtedy w kinie. Każdy szczegół może mieć znaczenie!',
       'Myślę, że musimy przeszukać okolicę kina i sprawdzić nagrania z monitoringu, jeśli to możliwe.',
     ],

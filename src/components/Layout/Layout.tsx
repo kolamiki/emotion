@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Layout.module.css';
 import { TopBar } from '../TopBar/TopBar';
 import { LeftSidebar } from '../LeftSidebar/LeftSidebar';
@@ -20,6 +20,7 @@ import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 import { useQuestSystem } from '../../hooks/useQuestSystem';
 import { ToastContainer } from '../Toast/ToastContainer';
 import { QuestModal } from '../QuestTracker/QuestModal';
+import { TutorialOverlay, type TourStep } from '../Tutorial/TutorialOverlay';
 
 export const Layout: React.FC = () => {
   const { state, dispatch } = useAppStore();
@@ -34,6 +35,16 @@ export const Layout: React.FC = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
 
+  // Check IS_DEV mode for tutorial
+  const isDevMode =
+    import.meta.env.IS_DEV === 'true' ||
+    import.meta.env.VITE_IS_DEV === 'true';
+
+  const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(() => {
+    if (isDevMode) return false;
+    return localStorage.getItem('emotion-tutorial-completed') !== 'true';
+  });
+
   // Message tracking for automatic chat popups
   const seenMessageIdsRef = useRef<Set<string>>(new Set());
   const isInitialMountRef = useRef(true);
@@ -45,7 +56,11 @@ export const Layout: React.FC = () => {
   useEffect(() => {
     const manager = new ScenarioManager(dispatch, () => state);
     scenarioManagerRef.current = manager;
-    manager.startTimerScenarios();
+
+    // Start timer scenarios only if tutorial is NOT currently open
+    if (!isTutorialOpen) {
+      manager.startTimerScenarios();
+    }
 
     return () => {
       manager.destroy();
@@ -53,6 +68,24 @@ export const Layout: React.FC = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
+  const handleTourStepChange = useCallback((_stepIndex: number, step: TourStep) => {
+    if (window.innerWidth <= 768) {
+      if (step.requiresMobileSidebar) {
+        setIsMobileSidebarOpen(true);
+      } else {
+        setIsMobileSidebarOpen(false);
+      }
+    }
+  }, []);
+
+  const handleCompleteTutorial = () => {
+    localStorage.setItem('emotion-tutorial-completed', 'true');
+    setIsTutorialOpen(false);
+    setIsMobileSidebarOpen(false);
+    // Start scenario timer (e.g. Marinette 30s delay) after tutorial closes
+    scenarioManagerRef.current?.startTimerScenarios();
+  };
 
   // Keep the getState closure up to date
   useEffect(() => {
@@ -348,7 +381,7 @@ export const Layout: React.FC = () => {
           {isMobileSidebarOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
         </button>
 
-        <section className={styles.middleColumn}>
+        <section className={styles.middleColumn} id="tour-feed">
           <div className={styles.feedContainer}>
             {state.isBanned && (
               <div className={styles.banBanner}>
@@ -417,7 +450,7 @@ export const Layout: React.FC = () => {
           </div>
         </section>
 
-        <aside className={styles.rightColumn}>
+        <aside className={styles.rightColumn} id="tour-friends">
           <RightSidebar
             messages={state.messages}
             readThreads={state.readThreads}
@@ -478,6 +511,13 @@ export const Layout: React.FC = () => {
         toasts={toasts}
         onDismiss={dismissToast}
         onClickToast={() => setIsQuestModalOpen(true)}
+      />
+
+      {/* Interactive Onboarding Spotlight Tutorial */}
+      <TutorialOverlay
+        isOpen={isTutorialOpen}
+        onComplete={handleCompleteTutorial}
+        onStepChange={handleTourStepChange}
       />
     </div>
   );

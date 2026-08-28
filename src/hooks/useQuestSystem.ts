@@ -9,6 +9,7 @@ export function useQuestSystem(state: AppState) {
   const [toasts, setToasts] = useState<QuestToastItem[]>([]);
   const seenCompletedSubtasksRef = useRef<Set<string>>(new Set());
   const seenCompletedStagesRef = useRef<Set<string>>(new Set());
+  const hasShownQuestStartToastRef = useRef(false);
   const hasInitializedRef = useRef(false);
 
   const questState: QuestState = useMemo(() => {
@@ -16,8 +17,22 @@ export function useQuestSystem(state: AppState) {
     const damianThread = state.messages.find(t => t.participant.id === 'u_damian');
     const primeThread = state.messages.find(t => t.participant.id === 'u14');
 
-    // Activation condition: player received first message from Marinette or interacted
-    const isActivated = Boolean(marinetteThread && marinetteThread.messages.length > 0);
+    // Activation condition: player received the second message from Marinette asking to check the post or has interacted
+    const hasMarinettePostClue = Boolean(
+      marinetteThread && (
+        marinetteThread.messages.some(m => m.senderId === 'u_marinette' && (
+          m.text.includes('Dodałam post') ||
+          m.text.includes('Dodałam apel') ||
+          m.text.includes('Szukam osoby') ||
+          m.text.includes('toalet') ||
+          m.text.includes('kabin') ||
+          m.text.includes('post w grupie')
+        )) ||
+        marinetteThread.messages.filter(m => m.senderId === 'u_marinette').length >= 2 ||
+        marinetteThread.messages.some(m => m.senderId === state.currentUser.id)
+      )
+    );
+    const isActivated = hasMarinettePostClue;
 
     // Stage 1 subtasks
     const s1_sub1 = Boolean(marinetteThread && marinetteThread.messages.some(m => m.senderId === state.currentUser.id));
@@ -72,7 +87,7 @@ export function useQuestSystem(state: AppState) {
         stageNumber: 1,
         title: 'Zniknięcie w Grand Rex',
         subtitle: 'Tajemniczy telefon i pusta kabina',
-        description: 'Twoja znajoma Marinette szuka zaginionej przyjaciółki, Natalie Chalamet, która zniknęła podczas seansu w kinie.',
+        description: 'Twoja znajoma Marinette szuka zaginionej przyjaciółki, Natalie Chalamet, która zniknęła w kinie.',
         rewardText: 'Dostęp do grupy poszukiwawczej i pierwsze poszlaki',
         icon: 'AlertTriangle',
         isCompleted: s1_completed,
@@ -329,12 +344,13 @@ export function useQuestSystem(state: AppState) {
     };
   }, [state, levelInfo.level]);
 
-  // Handle toast notifications for newly completed tasks & stages
+  // Handle toast notifications for quest activation, newly completed tasks & stages
   useEffect(() => {
-    if (!questState.isActivated) return;
-
     // First mount initialization to avoid blasting toasts on reload
     if (!hasInitializedRef.current) {
+      if (questState.isActivated) {
+        hasShownQuestStartToastRef.current = true;
+      }
       questState.stages.forEach(st => {
         if (st.isCompleted) seenCompletedStagesRef.current.add(st.id);
         st.subtasks.forEach(sub => {
@@ -345,7 +361,25 @@ export function useQuestSystem(state: AppState) {
       return;
     }
 
+    if (!questState.isActivated) return;
+
     const newToasts: QuestToastItem[] = [];
+
+    // Trigger quest started notification if newly activated
+    if (questState.isActivated && !hasShownQuestStartToastRef.current) {
+      hasShownQuestStartToastRef.current = true;
+      const stage1 = questState.stages[0];
+      const firstPendingSubtask = stage1?.subtasks.find(s => !s.isCompleted) || stage1?.subtasks[0];
+      newToasts.push({
+        id: `toast-quest-start-${Date.now()}`,
+        type: 'quest_activated',
+        category: 'Rozpoczęto Zadanie! 🎯',
+        title: stage1?.title || 'Zniknięcie w Grand Rex',
+        description: firstPendingSubtask
+          ? `Pierwszy cel: ${firstPendingSubtask.title}`
+          : 'Odpowiedz Marinette na czacie',
+      });
+    }
 
     questState.stages.forEach(st => {
       st.subtasks.forEach(sub => {
