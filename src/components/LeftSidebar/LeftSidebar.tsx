@@ -58,7 +58,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   const handleGroupClick = (groupId: string) => {
     if (isBanned) {
-      alert('Dostęp do grup został zablokowany z powodu zawieszenia konta (§ 12.3 Regulaminu eMotion). Osiągnij Poziom 5 w Wyzwaniach Dnia, aby zdjąć blokadę.');
+      alert('Dostęp do grup został zablokowany z powodu zawieszenia konta (§ 12.3 Regulaminu eMotion).');
       return;
     }
     onNavigate({ type: 'group', groupId });

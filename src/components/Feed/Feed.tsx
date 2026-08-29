@@ -83,7 +83,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
 
   const handleTeaserClick = () => {
     if (isBanned) {
-      alert('Publikowanie postów jest zablokowane z powodu zawieszenia konta (§ 12.3 Regulaminu). Aby zdjąć blokadę, osiągnij Poziom 5 w Dziennych Wyzwaniach.');
+      alert('Publikowanie postów jest zablokowane z powodu zawieszenia konta (§ 12.3 Regulaminu).');
       return;
     }
     onOpenCreatePost();

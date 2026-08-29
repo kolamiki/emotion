@@ -834,21 +834,37 @@ export function scheduleChatResponse(
       textLower.includes('krytyk');
 
     if (mentionsNataliePost) {
-      const marinetteText = 'O mój Boże... Wiedziałam, że Natalie miała ostry charakter, ale nie sądziłam, że uderzyła w samego Profesora Prime\'a publicznie w tej grupie! 😱 Myślisz, że to mogła być zemsta? Że ktoś powiązany z PrimeCo postanowił ją uciszyć? Profesor Prime na pewno wiedziałby, co się z nią stało... Szkoda, że kontakt z nim dla zwykłych ludzi jest absolutnie niemożliwy.\n\nAle czekaj... Ty i Matylda Iggermann chodziliście do tej samej szkoły (Mat-Fiz klasa A), na pewno kojarzycie się z korytarza! Słyszałam, że ona współpracuje przy badaniach PrimeCo. Wyślij jej zaproszenie do znajomych i spróbuj z nią pogadać!';
+      const messagesToSend = [
+        { text: 'O mój Boże... Wiedziałam, że Natalie miała ostry charakter, ale nie sądziłam, że uderzyła w samego Profesora Prime\'a publicznie w tej grupie! 😱', typingDelay: 600, typingDuration: 1800 },
+        { text: 'Myślisz, że to mogła być zemsta? Że ktoś powiązany z PrimeCo postanowił ją uciszyć?', typingDelay: 900, typingDuration: 1400 },
+        { text: 'Profesor Prime na pewno wiedziałby, co się z nią stało... Szkoda, że kontakt z nim dla zwykłych ludzi jest absolutnie niemożliwy.', typingDelay: 1000, typingDuration: 1600 },
+        { text: 'Ale czekaj... Ty i Matylda Iggermann chodziliście do tej samej szkoły, na pewno kojarzycie się z korytarza!', typingDelay: 1100, typingDuration: 1500 },
+        { text: 'Podobno pracuje w PrimeCo, albo robi tam doktorat. Już nie pamiętam... ', typingDelay: 1000, typingDuration: 1700 },
+        { text: 'Spróbujesz z nią pogadać? Pomoc Profesora w tej sprawie będzie bezcenna.', typingDelay: 1000, typingDuration: 1700 },
+      ];
 
-      setTimeout(() => {
-        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+      let cumulativeTime = 0;
+      messagesToSend.forEach((item, index) => {
+        cumulativeTime += item.typingDelay;
+        const startTypingTime = cumulativeTime;
+        cumulativeTime += item.typingDuration;
+        const sendMsgTime = cumulativeTime;
+
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        }, startTypingTime);
+
         setTimeout(() => {
           dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
           const responseMsg: Message = {
-            id: `resp-marinette-clue-${Date.now()}`,
+            id: `resp-marinette-clue-${index + 1}-${Date.now()}`,
             senderId: participantId,
-            text: marinetteText,
+            text: item.text,
             timestamp: new Date().toISOString(),
           };
           dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
-        }, 2200);
-      }, 1000);
+        }, sendMsgTime);
+      });
 
       return;
     }
@@ -869,63 +885,95 @@ export function scheduleChatResponse(
       textLower.includes('musia') ||
       textLower.includes('grupa');
 
-    let responseText = '';
-
     if (isExplanation) {
-      responseText = 'Czekaj... Natalie Chalamet? Ta dziewczyna, która zniknęła w kinie Le Grand Rex i zostały po niej tylko ubrania w kabinie? ...Dobra. Jeśli zrobiłeś to tylko po to, żeby pomóc przyjaciółce i rozwikłać tę sprawę, to cofam to, co powiedziałam. Zjawisko, o którym mówisz, nie jest przypadkowe. Nicolas (Profesor Prime) od dawna badał granice redukcji tożsamości. Przekażę mu Twój profil i dodam Cię do listy bezpiecznych połączeń. Napisz do niego teraz na czacie!';
-      
-      dispatch({ type: 'ACCEPT_FRIEND', userId: 'u_matylda' });
-      dispatch({ type: 'UNLOCK_PRIME_CHAT' });
-      dispatch({ type: 'ACTIVATE_MATYLDA_LIKES' });
-      
-      // Ensure thread with Profesor Prime exists
-      const primeUser = allUsers.find(u => u.id === 'u14');
-      if (primeUser) {
-        dispatch({
-          type: 'CREATE_THREAD',
-          thread: {
-            threadId: 't_u14',
-            participant: {
-              id: 'u14',
-              name: primeUser.name,
-              avatarUrl: primeUser.avatarUrl,
-              isOnline: true
-            },
-            messages: []
+      const messagesToSend = [
+        { text: 'Czekaj... Natalie Chalamet? Ta dziewczyna, która zniknęła w kinie Le Grand Rex.', typingDelay: 600, typingDuration: 1800 },
+        { text: 'Pff...', typingDelay: 500, typingDuration: 1000 },
+        { text: 'Dobra. Jeśli zrobiłeś to tylko po to, żeby pomóc przyjaciółce, to cofam to, co powiedziałam.', typingDelay: 900, typingDuration: 1600 },
+        { text: 'Profesor Prime zajmował się kiedyś sprawami zniknięć. Co prawda ograniczał się wtedy tylko do psów, ale...', typingDelay: 1000, typingDuration: 1800 },
+        { text: 'Sorry... to chyba było nie na miejscu.', typingDelay: 1000, typingDuration: 1800 },
+        { text: 'Sorry...', typingDelay: 1000, typingDuration: 1800 },
+        { text: 'Przekażę mu Twój profil i dodam Cię do listy bezpiecznych połączeń. Powinien się z tobą skontaktować. A jak nie będzie dawać znaku, to ', typingDelay: 900, typingDuration: 1500 },
+      ];
+
+      let cumulativeTime = 0;
+      messagesToSend.forEach((item, index) => {
+        cumulativeTime += item.typingDelay;
+        const startTypingTime = cumulativeTime;
+        cumulativeTime += item.typingDuration;
+        const sendMsgTime = cumulativeTime;
+
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        }, startTypingTime);
+
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+          const responseMsg: Message = {
+            id: `resp-matylda-${index + 1}-${Date.now()}`,
+            senderId: participantId,
+            text: item.text,
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+
+          // On last message: unlock permissions and notify
+          if (index === messagesToSend.length - 1) {
+            dispatch({ type: 'ACCEPT_FRIEND', userId: 'u_matylda' });
+            dispatch({ type: 'UNLOCK_PRIME_CHAT' });
+            dispatch({ type: 'ACTIVATE_MATYLDA_LIKES' });
+
+            // Ensure thread with Profesor Prime exists
+            const primeUser = allUsers.find(u => u.id === 'u14');
+            if (primeUser) {
+              dispatch({
+                type: 'CREATE_THREAD',
+                thread: {
+                  threadId: 't_u14',
+                  participant: {
+                    id: 'u14',
+                    name: primeUser.name,
+                    avatarUrl: primeUser.avatarUrl,
+                    isOnline: true
+                  },
+                  messages: []
+                }
+              });
+            }
+
+            dispatch({
+              type: 'ADD_NOTIFICATION',
+              notification: {
+                id: `n-matylda-acc-${Date.now()}`,
+                type: 'friend',
+                message: 'Matylda Iggermann zaakceptowała Twoje zaproszenie i autoryzowała kontakt z Profesorem Prime\'em.',
+                timestamp: new Date().toISOString(),
+                isRead: false,
+                link: { type: 'chat', threadId: 't_u14' }
+              }
+            });
           }
-        });
-      }
-
-      dispatch({
-        type: 'ADD_NOTIFICATION',
-        notification: {
-          id: `n-matylda-acc-${Date.now()}`,
-          type: 'friend',
-          message: 'Matylda Iggermann zaakceptowała Twoje zaproszenie i autoryzowała kontakt z Profesorem Prime\'em.',
-          timestamp: new Date().toISOString(),
-          isRead: false,
-          link: { type: 'chat', threadId: 't_u14' }
-        }
+        }, sendMsgTime);
       });
+
+      return;
     } else {
-      responseText = 'Nadal nie widzę żadnego sensownego wyjaśnienia. Dlaczego szkalowałeś Profesora na tablicy? Jeśli to jakiś głupi żart, to kończymy rozmowę.';
-    }
-
-    setTimeout(() => {
-      dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
       setTimeout(() => {
-        dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
-        const responseMsg: Message = {
-          id: `resp-matylda-${Date.now()}`,
-          senderId: participantId,
-          text: responseText,
-          timestamp: new Date().toISOString(),
-        };
-        dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
-      }, 2000);
-    }, 1000);
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+          const responseMsg: Message = {
+            id: `resp-matylda-${Date.now()}`,
+            senderId: participantId,
+            text: 'Nadal nie widzę żadnego sensownego wyjaśnienia. Dlaczego szkalowałeś Profesora na tablicy? Jeśli to jakiś głupi żart, to kończymy rozmowę.',
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+        }, 2000);
+      }, 1000);
 
-    return;
+      return;
+    }
   }
 
   // Handle Damian Wilk (u_damian) assistance
@@ -965,16 +1013,12 @@ export function scheduleChatResponse(
       textLower.includes('chalamet') ||
       textLower.includes('znikn') ||
       textLower.includes('toalet') ||
-      textLower.includes('ubrani') ||
-      textLower.includes('kino') ||
-      textLower.includes('gdzie') ||
-      textLower.includes('dlaczego') ||
-      textLower.includes('co sie');
+      textLower.includes('kino');
 
     if (isAskingAboutNatalie || threadMessages && threadMessages.length > 0) {
-      responseText = 'Natalie nie zginęła. Ona dokonała wyboru. Zrozumiała to, czego większość użytkowników tej platformy panicznie się boi: ludzka tożsamość jest jedynie maską, którą można zdjąć – dokładnie tak, jak zdejmuje się ubranie.\n\nWszystkie odpowiedzi na dręczące cię pytania, sekrety Instytutu oraz to, co naprawdę wydarzyło się w kinie, znajdziesz w dokumentacji naszej operacji. Zostanie ona ujawniona jako powieść graficzna »FABRYKA TWARZY«, której oficjalna premiera odbędzie się na Międzynarodowym Festiwalu Komiksu i Gier w Łodzi w 2026 roku.\n\nŚledź oficjalny profil Instytutu Nowej Nauki na Instagramie: 👉 https://instagram.com/instytutnowejnauki\n\nPamiętaj: przyszłość jest konstruowana.';
+      responseText = 'Natalie... cóż. To jedna z wielu zagadek, z którymi ostatnio musiałem się zmierzyć. Odpowiedź na pytanie "co sie stało z Natalie?" jest o wiele bardziej skomplikowana niż myślisz. Zamiast odpowiadać Ci na czacie, powiem Ci, że ta historia została udokumentowana na kartach komiksu "Fabryka Twarzy". Premiera pierwszej, darmowej części odbędzie się na Międzynarodowym Festiwalu Komiksu i Gier w Łodzi w 2026 roku. A jeżeli chcesz poznać więcej szczegółów na temat Nowej Nauki zapraszamy do zaobserwowania naszego profilu na Instagramie. \n\nhttps://www.instytutnowejnauki.pl \n\nPozdrawiam, \n Profesor Prime';
     } else {
-      responseText = 'Panna Iggermann rzadko kogoś rekomenduje. Skoro tu jesteś, to znaczy, że szukasz Natalie Chalamet.';
+      responseText = 'Matylda rzadko kogoś rekomenduje. Skoro tu jesteś, to znaczy, że szukasz Natalie Chalamet.';
     }
 
     setTimeout(() => {
@@ -1219,6 +1263,9 @@ export function schedulePostCommentResponse(
       norm.includes('bzdur') ||
       norm.includes('inwigilac') ||
       norm.includes('primeco') ||
+      norm.includes('kup') ||
+      norm.includes('kurw') ||
+      norm.includes('chu') ||
       norm.includes('sciem');
 
     if (isAntiPrime) {
@@ -1321,24 +1368,56 @@ export function schedulePostCommentResponse(
               }
             });
 
-            const damianMsg: Message = {
-              id: `damian-ban-help-${Date.now()}`,
-              senderId: 'u_damian',
-              text: 'Siema, widzę, że też dostałeś kagańca od adminów Gastona xd Standardowa procedura w tym chorym serwisie – powiesz słowo prawdy o Prime\'ie i od razu leci ban z automatu. Ale spokojnie, jest na nich sposób. Wczytałem się w regulamin eMotion – według punktu 8.4 użytkownicy z Poziomem 5 w Dziennych Wyzwaniach mają prawo do przyspieszonej weryfikacji i automatycznego odwieszenia konta. Wbij 5. poziom w zakładce Daily Challenge, a puszczę skrypt odwoławczy i zdejmę ci tego bana. Daj znać jak wbijesz!',
-              timestamp: new Date().toISOString()
-            };
+            const messagesToSend = [
+              { text: 'siema', typingDelay: 600, typingDuration: 700 },
+              { text: 'widzę, że ktoś dostał kagańca od adminów Gastona', typingDelay: 900, typingDuration: 1400 },
+              { text: 'xd', typingDelay: 500, typingDuration: 500 },
+              { text: 'klasyk. powiesz słowo prawdy i od razu leci ban', typingDelay: 600, typingDuration: 1000 },
+              { text: 'ale chill, jest na to sposób', typingDelay: 1100, typingDuration: 2000 },
+              { text: 'czytałeś kiedyś regulaminy? setki stron, które akceptujesz wchodząc na serwisy, potrafią skrywać prawdziwe perełki.', typingDelay: 1300, typingDuration: 2600 },
+              { text: 'pamietasz jak wyszło, że subsrybencji pewnego stramingu nie mogą ubiegać o odszkodowanie w przypadku wypadku w parku rozrywki? ', typingDelay: 1300, typingDuration: 2600 },
+              { text: 'xd ', typingDelay: 500, typingDuration: 500 },
+              { text: 'nie inaczej jest w eMotion. kiedyś przycisnęło mnie na kiblu i przestudiowałem ten regulamin i... mam nadzieję, że siedzisz, bo to co za chwilę przeczytasz, to jakiś absurd xd ', typingDelay: 1300, typingDuration: 2600 },
+              { text: 'według punktu 8.4 regulaminu, użytkownicy z Poziomem 5 w Dziennych Wyzwaniach mają prawo do przyspieszonej weryfikacji i automatycznego odwieszenia konta. czaisz? ', typingDelay: 1300, typingDuration: 2600 },
+              { text: 'wbij 5. poziom w zakładce Daily Challenge i puszczę skrypt, ktory zdejmie mi bana. nie pytaj jak dziala ', typingDelay: 1300, typingDuration: 2600 },
+              { text: 'powodzenia', typingDelay: 1300, typingDuration: 2600 },
+            ];
 
-            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: damianThreadId, message: damianMsg });
-            dispatch({
-              type: 'ADD_NOTIFICATION',
-              notification: {
-                id: `n-damian-${Date.now()}`,
-                type: 'chat',
-                message: 'Damian Wilk wysłał Ci wiadomość na czacie.',
-                timestamp: new Date().toISOString(),
-                isRead: false,
-                link: { type: 'chat', threadId: damianThreadId }
-              }
+            let cumulativeTime = 0;
+            messagesToSend.forEach((item, index) => {
+              cumulativeTime += item.typingDelay;
+              const startTypingTime = cumulativeTime;
+              cumulativeTime += item.typingDuration;
+              const sendMsgTime = cumulativeTime;
+
+              setTimeout(() => {
+                dispatch({ type: 'SET_TYPING', threadId: damianThreadId, isTyping: true });
+              }, startTypingTime);
+
+              setTimeout(() => {
+                dispatch({ type: 'SET_TYPING', threadId: damianThreadId, isTyping: false });
+                const damianMsg: Message = {
+                  id: `damian-ban-help-${index + 1}-${Date.now()}`,
+                  senderId: 'u_damian',
+                  text: item.text,
+                  timestamp: new Date().toISOString()
+                };
+                dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: damianThreadId, message: damianMsg });
+
+                if (index === 0) {
+                  dispatch({
+                    type: 'ADD_NOTIFICATION',
+                    notification: {
+                      id: `n-damian-${Date.now()}`,
+                      type: 'chat',
+                      message: 'Damian Wilk wysłał Ci wiadomość na czacie.',
+                      timestamp: new Date().toISOString(),
+                      isRead: false,
+                      link: { type: 'chat', threadId: damianThreadId }
+                    }
+                  });
+                }
+              }, sendMsgTime);
             });
           }, 20000);
         }, 3500);
