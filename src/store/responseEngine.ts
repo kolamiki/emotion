@@ -823,17 +823,36 @@ export function scheduleChatResponse(
 
   // Handle Marinette Dupont (u_marinette) quest progression
   if (participantId === 'u_marinette') {
-    const textLower = userText.toLowerCase();
-    const mentionsNataliePost = textLower.includes('post') ||
-      textLower.includes('grup') ||
-      textLower.includes('szarlatan') ||
-      textLower.includes('prime') ||
-      textLower.includes('znalez') ||
-      textLower.includes('napisal') ||
-      textLower.includes('wpis') ||
-      textLower.includes('krytyk');
+    // Check if player is specifically discussing Natalie's anti-Prime manifest / STOP Szarlatanom findings (Quest Stage 5)
+    const mentionsNatalieAntiPrime =
+      /\b(szarlatan|szarlatanom|szarlatanami|prime|primeco|manifest)\b/i.test(userText) ||
+      (/\b(odkry[łl]em|znalaz[łl]em|widzia[łl]em|przeczyta[łl]em)\b/i.test(userText) &&
+       /\b(post|wpis|artyku[łl]|manifest|krytyk\w*)\b/i.test(userText) &&
+       !/\b(postaram|pomog\w*)\b/i.test(userText));
 
-    if (mentionsNataliePost) {
+    const alreadySentMatyldaClue = Boolean(
+      threadMessages?.some(m => m.senderId === 'u_marinette' && (m.text.includes('Matyld') || m.text.includes('Iggermann')))
+    );
+
+    if (mentionsNatalieAntiPrime) {
+      if (alreadySentMatyldaClue) {
+        // If already told about Matylda, just send a short reminder
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+            const responseMsg: Message = {
+              id: `resp-marinette-remind-${Date.now()}`,
+              senderId: participantId,
+              text: 'Pamiętaj, spróbuj odezwać się do Matyldy Iggermann! Skoro chodziła z Tobą do szkoły i ma kontakt z PrimeCo, może nam pomóc dotrzeć do prawdy.',
+              timestamp: new Date().toISOString(),
+            };
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+          }, 1600);
+        }, 800);
+        return;
+      }
+
       const messagesToSend = [
         { text: 'O mój Boże... Wiedziałam, że Natalie miała ostry charakter, ale nie sądziłam, że uderzyła w samego Profesora Prime\'a publicznie w tej grupie! 😱', typingDelay: 600, typingDuration: 1800 },
         { text: 'Myślisz, że to mogła być zemsta? Że ktoś powiązany z PrimeCo postanowił ją uciszyć?', typingDelay: 900, typingDuration: 1400 },
@@ -865,6 +884,29 @@ export function scheduleChatResponse(
           dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
         }, sendMsgTime);
       });
+
+      return;
+    }
+
+    // If the player is responding to the initial disappearance notification (Stage 1)
+    const isEarlyHelpOffer =
+      /\b(pomog\w*|postaram\w*|sprawdz\w*|jasne|pewnie|dobrze|trzymaj\w*|przykro|wsp\xF3\u0142czuj\w*|szukam)\b/i.test(userText) ||
+      (threadMessages && threadMessages.filter(m => m.senderId === currentUserId).length <= 1);
+
+    if (isEarlyHelpOffer && !alreadySentMatyldaClue) {
+      setTimeout(() => {
+        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+          const responseMsg: Message = {
+            id: `resp-marinette-support-${Date.now()}`,
+            senderId: participantId,
+            text: 'Dziękuję za chęć pomocy! 💛 Sprawdź proszę grupę „Szukam osoby - pomoc” i zerknij na mój apel ze szczegółami. Każda poszlaka może być na wagę złota!',
+            timestamp: new Date().toISOString(),
+          };
+          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+        }, 1800);
+      }, 800);
 
       return;
     }

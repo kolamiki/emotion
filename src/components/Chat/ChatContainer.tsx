@@ -27,9 +27,21 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   onClose,
   onViewProfile,
 }) => {
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const visibleThreads = isMobile && threads.length > 0 ? [threads[threads.length - 1]] : threads;
+
   return (
     <div className={styles.chatContainer}>
-      {threads.map(thread => (
+      {visibleThreads.map(thread => (
         <ChatWindow
           key={thread.threadId}
           thread={thread}
@@ -72,6 +84,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 }) => {
   const [inputText, setInputText] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -79,6 +92,18 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       dispatch({ type: 'MARK_THREAD_READ', threadId: thread.threadId });
     }
   }, [thread.messages, isTyping, dispatch, thread.threadId]);
+
+  const adjustTextareaHeight = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputText(e.target.value);
+    adjustTextareaHeight();
+  };
 
   const handleSend = () => {
     if (!inputText.trim()) return;
@@ -91,13 +116,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     };
     dispatch({ type: 'SEND_MESSAGE', threadId: thread.threadId, message: newMsg });
     setInputText('');
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
 
     // Schedule auto-response (pass full thread messages + user ID for AI context)
     const allMessages = [...thread.messages, newMsg];
     scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName, allMessages, currentUserId, pendingGroupJoins);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
@@ -166,12 +194,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       </div>
 
       <div className={styles.chatInputArea}>
-        <input
+        <textarea
+          ref={textareaRef}
+          rows={1}
           className={styles.chatInput}
-          type="text"
-          placeholder="Aa"
+          placeholder="Napisz wiadomość..."
           value={inputText}
-          onChange={e => setInputText(e.target.value)}
+          onChange={handleInputChange}
           onKeyDown={handleKeyDown}
         />
         <button className={styles.chatSendBtn} onClick={handleSend} disabled={!inputText.trim()}>

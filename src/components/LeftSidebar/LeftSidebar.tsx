@@ -29,6 +29,7 @@ interface LeftSidebarProps {
   questProgressPercent?: number;
   activeQuestTitle?: string;
   onOpenQuestTracker?: () => void;
+  hasQuestAttention?: boolean;
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -53,6 +54,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   questProgressPercent = 0,
   activeQuestTitle = 'Śledztwo w toku',
   onOpenQuestTracker,
+  hasQuestAttention = false,
 }) => {
   const { levelInfo } = useDailyChallengeState();
 
@@ -114,13 +116,13 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
       {/* Quest Tracker (Activates after first interaction with Marinette) */}
       {isQuestActivated && (
-        <div className={styles.questSection}>
+        <div className={`${styles.questSection} ${hasQuestAttention ? styles.questSectionAttention : ''}`}>
           <button
-            className={styles.questTrackerBtn}
+            className={`${styles.questTrackerBtn} ${hasQuestAttention ? styles.questTrackerBtnAttention : ''}`}
             onClick={onOpenQuestTracker}
             title="Otwórz Dziennik Śledztwa i listę zadań"
           >
-            <div className={styles.questTrackerIconWrap}>
+            <div className={`${styles.questTrackerIconWrap} ${hasQuestAttention ? styles.questTrackerIconWrapAttention : ''}`}>
               <Compass size={20} className={styles.questCompassIcon} />
             </div>
             <div className={styles.questTrackerText}>

@@ -69,7 +69,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                   role="button"
                   tabIndex={0}
                 >
-                  <img src={avatar} alt="Avatar option" />
+                  <div className={styles.avatarImgWrap}>
+                    <img src={avatar} alt="Avatar option" />
+                  </div>
                   {isSelected && (
                     <div className={styles.selectedBadge}>
                       <Check size={12} strokeWidth={3} />

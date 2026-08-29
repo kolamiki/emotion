@@ -39,6 +39,62 @@ export const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose, questSt
     return activeStage ? activeStage.id : questState.stages[0]?.id || null;
   });
 
+  const overlayRef = React.useRef<HTMLDivElement>(null);
+  const bodyRef = React.useRef<HTMLDivElement>(null);
+
+  // Lock body scrolling when modal is open
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    // Only hide overflow on body — do NOT set touch-action on body,
+    // as it cascades through the entire DOM tree and kills scrolling everywhere
+    const scrollY = window.scrollY;
+    const originalOverflow = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
+    const originalTop = document.body.style.top;
+    const originalWidth = document.body.style.width;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.position = originalPosition;
+      document.body.style.top = originalTop;
+      document.body.style.width = originalWidth;
+      window.scrollTo(0, scrollY);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  // Prevent touchmove on the overlay itself (but allow scrolling inside modalBody)
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const overlay = overlayRef.current;
+    if (!overlay) return;
+
+    const handleTouchMove = (e: TouchEvent) => {
+      // Only block if the touch is directly on the overlay (dimmed background)
+      // Allow scrolling inside the modal body
+      const modalBody = bodyRef.current;
+      if (modalBody && modalBody.contains(e.target as Node)) {
+        // Allow — this is inside the scrollable content
+        return;
+      }
+      e.preventDefault();
+    };
+
+    overlay.addEventListener('touchmove', handleTouchMove, { passive: false });
+    return () => overlay.removeEventListener('touchmove', handleTouchMove);
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const toggleStage = (stageId: string) => {
@@ -63,7 +119,11 @@ export const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose, questSt
   const progressFill = activeStage ? questState.activeStagePercent : 100;
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
+    <div
+      ref={overlayRef}
+      className={styles.modalOverlay}
+      onClick={onClose}
+    >
       <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
         {/* Header */}
         <div className={styles.modalHeader}>
@@ -100,7 +160,7 @@ export const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose, questSt
         </div>
 
         {/* Body - Stages List */}
-        <div className={styles.modalBody}>
+        <div ref={bodyRef} className={styles.modalBody}>
           {visibleStages.map((stage: QuestStage) => {
             const isExpanded = expandedStageId === stage.id || stage.isActive;
             const cardClass = stage.isCompleted

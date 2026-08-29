@@ -682,6 +682,10 @@
     box-shadow: var(--shadow-lg);
   }
 
+  .searchInput {
+    font-size: 16px;
+  }
+
   .mobileSearchWrapperOpen .mobileSearchBackdrop {
     display: block;
     position: fixed;

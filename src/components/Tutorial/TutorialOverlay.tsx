@@ -97,6 +97,7 @@ interface SpotlightRect {
   left: number;
   width: number;
   height: number;
+  borderRadius: string;
 }
 
 export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
@@ -146,15 +147,27 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
     element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
 
     const rect = element.getBoundingClientRect();
-    const padding = 8;
+    const computed = window.getComputedStyle(element);
+    const computedRadius = computed.borderRadius;
 
-    const top = Math.max(0, rect.top - padding);
-    const left = Math.max(0, rect.left - padding);
-    const width = Math.min(window.innerWidth - left, rect.width + padding * 2);
-    const height = Math.min(window.innerHeight - top, rect.height + padding * 2);
+    // Detect if target is a round action button / avatar (e.g. 50% border radius or actionBtn in TopBar)
+    const isCircular =
+      computedRadius === '50%' ||
+      computedRadius.endsWith('%') ||
+      element.classList.contains('actionBtn') ||
+      (rect.width <= 56 && Math.abs(rect.width - rect.height) <= 8 && parseInt(computedRadius, 10) >= 16);
+
+    const padding = isCircular ? 4 : 8;
+
+    // Ensure safe bounds from viewport edges (especially status bar / top edge on mobile)
+    const top = Math.max(3, rect.top - padding);
+    const left = Math.max(3, rect.left - padding);
+    const width = Math.min(window.innerWidth - left - 3, rect.width + padding * 2);
+    const height = Math.min(window.innerHeight - top - 3, rect.height + padding * 2);
+    const borderRadius = isCircular ? '50%' : '14px';
 
     if (width > 0 && height > 0) {
-      setSpotlightRect({ top, left, width, height });
+      setSpotlightRect({ top, left, width, height, borderRadius });
     } else {
       setSpotlightRect(null);
     }
@@ -343,6 +356,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
             left: `${spotlightRect.left}px`,
             width: `${spotlightRect.width}px`,
             height: `${spotlightRect.height}px`,
+            borderRadius: spotlightRect.borderRadius,
           }}
         />
       )}

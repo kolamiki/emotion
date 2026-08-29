@@ -45,6 +45,18 @@ export const Layout: React.FC = () => {
     return localStorage.getItem('emotion-tutorial-completed') !== 'true';
   });
 
+  const [hasOpenedQuestTracker, setHasOpenedQuestTracker] = useState<boolean>(() => {
+    return localStorage.getItem('emotion-quest-tracker-opened') === 'true';
+  });
+
+  const handleOpenQuestTracker = () => {
+    setIsQuestModalOpen(true);
+    if (!hasOpenedQuestTracker) {
+      setHasOpenedQuestTracker(true);
+      localStorage.setItem('emotion-quest-tracker-opened', 'true');
+    }
+  };
+
   // Message tracking for automatic chat popups
   const seenMessageIdsRef = useRef<Set<string>>(new Set());
   const isInitialMountRef = useRef(true);
@@ -327,6 +339,7 @@ export const Layout: React.FC = () => {
   // Active quest stage for LeftSidebar display
   const activeStage = questState.stages.find(s => s.isActive);
   const activeQuestTitle = activeStage ? `Rozdział ${activeStage.stageNumber}: ${activeStage.title}` : 'Dziennik Śledztwa';
+  const hasQuestAttention = Boolean(questState.isActivated && !hasOpenedQuestTracker);
 
   return (
     <div className={styles.layoutContainer}>
@@ -369,14 +382,16 @@ export const Layout: React.FC = () => {
             isQuestActivated={questState.isActivated}
             questProgressPercent={questState.activeStagePercent}
             activeQuestTitle={activeQuestTitle}
-            onOpenQuestTracker={() => setIsQuestModalOpen(true)}
+            onOpenQuestTracker={handleOpenQuestTracker}
+            hasQuestAttention={hasQuestAttention}
           />
         </aside>
 
         {/* Mobile Toggle Button */}
         <button
-          className={`${styles.mobileMenuBtn} ${isMobileSidebarOpen ? styles.mobileMenuBtnOpen : ''}`}
+          className={`${styles.mobileMenuBtn} ${isMobileSidebarOpen ? styles.mobileMenuBtnOpen : ''} ${hasQuestAttention && !isMobileSidebarOpen ? styles.mobileMenuBtnAttention : ''}`}
           onClick={() => setIsMobileSidebarOpen(prev => !prev)}
+          title={hasQuestAttention ? "Nowe zadanie fabularne! Otwórz menu" : "Menu"}
         >
           {isMobileSidebarOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
         </button>
@@ -510,7 +525,7 @@ export const Layout: React.FC = () => {
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}
-        onClickToast={() => setIsQuestModalOpen(true)}
+        onClickToast={handleOpenQuestTracker}
       />
 
       {/* Interactive Onboarding Spotlight Tutorial */}
