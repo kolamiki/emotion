@@ -132,7 +132,7 @@ export function getInitialState(): AppState {
 
     // Smart merge for feed posts
     const basePostIds = new Set(base.posts.map(p => p.id));
-    const userCreatedFeedPosts = (persisted.posts || []).filter(p => !basePostIds.has(p.id));
+    const userCreatedFeedPosts = (persisted.posts || []).filter(p => !basePostIds.has(p.id) && p.id !== 'p6');
     const updatedBaseFeedPosts = base.posts.map(basePost => {
       const persistedPost = (persisted.posts || []).find(p => p.id === basePost.id);
       if (!persistedPost) return basePost;

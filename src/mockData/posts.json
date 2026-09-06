@@ -80,6 +80,51 @@
     "shares": 14
   },
   {
+    "id": "p_user_1",
+    "author": {
+      "id": "u1",
+      "name": "Jan Kowalski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "isOnline": true
+    },
+    "content": "Kupiłem ekspres kolbowy, żeby 'zaoszczędzić na kawiarniach na mieście'. Po dwóch tygodniach: waga z dokładnością do 0.1g, młynek żarnowy za miliony monet, trzy paczki ziaren z Etiopii i oglądanie na YouTube poradników o dystrybucji igłowej o 2 w nocy. Zaoszczędzone środki: -1200 zł. Ale espresso ma nuty jaśminu i bergamotki, więc chyba wygrałem życie? ☕🤡",
+    "timestamp": "2026-06-03T12:15:00Z",
+    "likes": 38,
+    "comments": [
+      {
+        "id": "c_usr1_1",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "text": "Hahaha witamy w króliczej norze speciality! Daj znać jak zaczniesz filtrować wodę przez minerały wulkaniczne 😂",
+        "timestamp": "2026-06-03T12:22:00Z"
+      },
+      {
+        "id": "c_usr1_2",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "Wpadam jutro na to burżujskie espresso, przygotuj filiżankę!",
+        "timestamp": "2026-06-03T12:35:00Z"
+      },
+      {
+        "id": "c_usr1_3",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "text": "Wpadaj, tylko muszę najpierw odmierzyć dokładnie 18.2 grama co do ziarenka xD",
+        "timestamp": "2026-06-03T12:40:00Z"
+      }
+    ],
+    "shares": 3
+  },
+  {
     "id": "p_michel_1",
     "author": {
       "id": "u7",
@@ -260,6 +305,41 @@
     "shares": 8
   },
   {
+    "id": "p_user_2",
+    "author": {
+      "id": "u1",
+      "name": "Jan Kowalski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "isOnline": true
+    },
+    "content": "Algorytmy social mediów to stan umysłu. Przez 3 sekundy zawiesiłem wzrok na filmiku o czyszczeniu dywanów parownicą, a teraz mój feed to wyłącznie renowacja starych chodników, polerowanie reflektorów i gość, który myje myjką ciśnieniową nagrobki w Ohio. Dlaczego to jest tak hipnotyzujące i czemu oglądam to od godziny? 🧼💀",
+    "timestamp": "2026-06-02T14:20:00Z",
+    "likes": 52,
+    "comments": [
+      {
+        "id": "c_usr2_1",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "text": "To i tak lepiej niż ja – kliknęłam raz w przepis na chleb na zakwasie i teraz eMotion uważa, że powinnam otworzyć rzemieślniczą piekarnię w Bieszczadach 🥖",
+        "timestamp": "2026-06-02T14:32:00Z"
+      },
+      {
+        "id": "c_usr2_2",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "text": "Myjka ciśnieniowa to najczystsza forma dopaminy, zero wstydu, wszyscy tam byliśmy 🤝",
+        "timestamp": "2026-06-02T14:45:00Z"
+      }
+    ],
+    "shares": 5
+  },
+  {
     "id": "p_natalia_1",
     "author": {
       "id": "u10",
@@ -398,6 +478,41 @@
       }
     ],
     "shares": 51
+  },
+  {
+    "id": "p_user_3",
+    "author": {
+      "id": "u1",
+      "name": "Jan Kowalski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "isOnline": true
+    },
+    "content": "Składanie mebli z paczki bez instrukcji to współczesny test charakteru. Zostały mi cztery śrubki, dwa kołki i jeden metalowy kątownik o nieznanym przeznaczeniu. Komoda stoi, wygląda stabilnie, dopóki nikt na nią głośniej nie oddycha. Daję jej 3 dni. 🔨📦😅",
+    "timestamp": "2026-05-31T18:15:00Z",
+    "likes": 44,
+    "comments": [
+      {
+        "id": "c_usr3_1",
+        "author": {
+          "id": "u6",
+          "name": "Marta Lewandowska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+        },
+        "text": "Te 'nadmiarowe' śrubki to zawsze te, które trzymają całą konstrukcję w pionie. Czekam na telefon w nocy jak runie z hukiem 😂",
+        "timestamp": "2026-05-31T18:28:00Z"
+      },
+      {
+        "id": "c_usr3_2",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "text": "Dopóki nikt nie kładzie na niej nic cięższego niż pilot od telewizora, jesteśmy bezpieczni!",
+        "timestamp": "2026-05-31T18:35:00Z"
+      }
+    ],
+    "shares": 2
   },
   {
     "id": "p_piotr_1",

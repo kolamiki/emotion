@@ -231,8 +231,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
       <div className={styles.postHeader}>
         <div className={styles.avatarWrap}>
           <img
-            src={post.author.avatarUrl}
-            alt={post.author.name}
+            src={post.author.id === currentUser.id ? currentUser.avatarUrl : post.author.avatarUrl}
+            alt={post.author.id === currentUser.id ? currentUser.name : post.author.name}
             className={styles.postAvatar}
             onClick={() => onViewProfile && onViewProfile(post.author.id)}
             style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -241,7 +241,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
         </div>
         <div className={styles.postMeta}>
           <div className={styles.postAuthor}>
-            {post.author.name}
+            {post.author.id === currentUser.id ? currentUser.name : post.author.name}
             {isModerated && <span className={styles.moderatedBadge}>Zmoderowano</span>}
           </div>
           <div className={styles.postTime}>{formatTime(post.timestamp)}</div>
@@ -359,15 +359,17 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
           {visibleComments.map((comment: Comment) => (
             <div key={comment.id} className={styles.commentItem}>
               <img
-                src={comment.author.avatarUrl}
-                alt={comment.author.name}
+                src={comment.author.id === currentUser.id ? currentUser.avatarUrl : comment.author.avatarUrl}
+                alt={comment.author.id === currentUser.id ? currentUser.name : comment.author.name}
                 className={styles.commentAvatar}
                 onClick={() => onViewProfile && onViewProfile(comment.author.id)}
                 style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
               />
               <div>
                 <div className={styles.commentBubble}>
-                  <div className={styles.commentAuthor}>{comment.author.name}</div>
+                  <div className={styles.commentAuthor}>
+                    {comment.author.id === currentUser.id ? currentUser.name : comment.author.name}
+                  </div>
                   <div className={styles.commentText}>{comment.text}</div>
                 </div>
                 <div className={styles.commentTime}>{formatTime(comment.timestamp)}</div>
