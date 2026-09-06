@@ -7,6 +7,7 @@ export interface User {
   bio?: string;
   location?: string;
   joinDate?: string;
+  fictionalCharacter?: boolean;
 }
 
 export interface Comment {

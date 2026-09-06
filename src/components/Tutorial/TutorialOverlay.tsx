@@ -208,6 +208,20 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
     };
   }, [isOpen, currentStepIndex, updateSpotlightPosition]);
 
+  const handleNext = useCallback(() => {
+    if (currentStepIndex < TOUR_STEPS.length - 1) {
+      setCurrentStepIndex(prev => prev + 1);
+    } else {
+      onComplete();
+    }
+  }, [currentStepIndex, onComplete]);
+
+  const handlePrev = useCallback(() => {
+    if (currentStepIndex > 0) {
+      setCurrentStepIndex(prev => prev - 1);
+    }
+  }, [currentStepIndex]);
+
   // Keyboard navigation
   useEffect(() => {
     if (!isOpen) return;
@@ -227,23 +241,9 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  });
+  }, [isOpen, handleNext, handlePrev, onComplete]);
 
   if (!isOpen) return null;
-
-  const handleNext = () => {
-    if (currentStepIndex < TOUR_STEPS.length - 1) {
-      setCurrentStepIndex(prev => prev + 1);
-    } else {
-      onComplete();
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentStepIndex > 0) {
-      setCurrentStepIndex(prev => prev - 1);
-    }
-  };
 
   // Compute card style based on placement & spotlight position
   const getCardStyle = (): React.CSSProperties => {
@@ -293,8 +293,8 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
       };
     }
 
-    let top = 0;
-    let left = 0;
+    let top: number;
+    let left: number;
 
     switch (currentStep.placement) {
       case 'bottom': {

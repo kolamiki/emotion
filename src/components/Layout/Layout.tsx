@@ -179,6 +179,32 @@ export const Layout: React.FC = () => {
     setActiveChats(prev => prev.filter(id => id !== threadId));
   };
 
+  const handleOpenChatWithUser = (userId: string) => {
+    const existingThread = state.messages.find(m => m.participant.id === userId);
+    if (existingThread) {
+      handleOpenChat(existingThread.threadId);
+      return;
+    }
+
+    const targetUser = usersData.allUsers.find(u => u.id === userId);
+    if (!targetUser) return;
+
+    const newThreadId = `t_${userId}`;
+    const newThread: MessageThread = {
+      threadId: newThreadId,
+      participant: {
+        id: targetUser.id,
+        name: targetUser.name || 'Użytkownik',
+        avatarUrl: targetUser.avatarUrl,
+        isOnline: targetUser.isOnline ?? false,
+      },
+      messages: [],
+    };
+
+    dispatch({ type: 'CREATE_THREAD', thread: newThread });
+    handleOpenChat(newThreadId);
+  };
+
   // Track if Marinette's Filmowe polecajki reaction has fired
   const marinetteFilmClueTriggeredRef = useRef<boolean>(false);
 
@@ -278,8 +304,24 @@ export const Layout: React.FC = () => {
     }
   };
 
+  const pendingFriendTimersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
+
+  // Clean up friend timers on unmount
+  useEffect(() => {
+    const timers = pendingFriendTimersRef.current;
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+      timers.clear();
+    };
+  }, []);
+
   const handleToggleFriend = (userId: string) => {
-    if (state.friends.has(userId)) {
+    if (state.friends.has(userId) || state.pendingFriends.has(userId)) {
+      const existingTimer = pendingFriendTimersRef.current.get(userId);
+      if (existingTimer) {
+        clearTimeout(existingTimer);
+        pendingFriendTimersRef.current.delete(userId);
+      }
       dispatch({ type: 'REMOVE_FRIEND', userId });
     } else {
       dispatch({ type: 'ADD_PENDING_FRIEND', userId });
@@ -290,7 +332,8 @@ export const Layout: React.FC = () => {
         }
       } else {
         // Domyślny timer dla innych użytkowników
-        setTimeout(() => {
+        const timer = setTimeout(() => {
+          pendingFriendTimersRef.current.delete(userId);
           dispatch({ type: 'ACCEPT_FRIEND', userId });
 
           const user = usersData.allUsers.find(u => u.id === userId);
@@ -308,6 +351,7 @@ export const Layout: React.FC = () => {
             });
           }
         }, 15000);
+        pendingFriendTimersRef.current.set(userId, timer);
       }
     }
   };
@@ -454,6 +498,7 @@ export const Layout: React.FC = () => {
                 friends={state.friends}
                 pendingFriends={state.pendingFriends}
                 onToggleFriend={handleToggleFriend}
+                onOpenChat={handleOpenChatWithUser}
               />
             )}
             {activeView.type === 'daily_challenge' && (
@@ -470,7 +515,9 @@ export const Layout: React.FC = () => {
             messages={state.messages}
             readThreads={state.readThreads}
             currentUserId={state.currentUser.id}
+            friends={state.friends}
             onOpenChat={handleOpenChat}
+            onOpenChatUser={handleOpenChatWithUser}
             onViewProfile={handleViewProfile}
           />
         </aside>
@@ -498,13 +545,7 @@ export const Layout: React.FC = () => {
           pendingFriends={state.pendingFriends}
           onToggleFriend={handleToggleFriend}
           onClose={() => setViewedUserId(null)}
-          onOpenChat={(userId) => {
-            // Find or create chat thread
-            const existingThread = state.messages.find(m => m.participant.id === userId);
-            if (existingThread) {
-              handleOpenChat(existingThread.threadId);
-            }
-          }}
+          onOpenChat={handleOpenChatWithUser}
         />
       )}
 

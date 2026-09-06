@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import type { PuzzleType } from '../components/DailyChallenge/puzzles';
 
 export type ChallengeStatus = 'unplayed' | 'completed' | 'gave_up';
@@ -169,48 +169,51 @@ const createInitialState = (): DailyChallengeStorageState => ({
   dailyAttempts: createDefaultDailyAttempts(),
 });
 
-export const useDailyChallengeState = () => {
-  const [state, setState] = useState<DailyChallengeStorageState>(createInitialState);
-  const [isLoaded, setIsLoaded] = useState(false);
+const loadInitialState = (): DailyChallengeStorageState => {
+  const today = getTodayString();
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored) as DailyChallengeStorageState;
 
-  // Load state from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as DailyChallengeStorageState;
-        const today = getTodayString();
-
-        // Check if stored data is from today, or a new day
-        if (parsed.date === today) {
-          // Ensure all categories exist
-          const mergedCatStats = { ...createDefaultCategoryStats(), ...parsed.categoryStats };
-          const mergedDailyAttempts = { ...createDefaultDailyAttempts(), ...parsed.dailyAttempts };
-          setState({
-            ...parsed,
-            categoryStats: mergedCatStats,
-            dailyAttempts: mergedDailyAttempts,
-          });
-        } else {
-          // New day: keep overall XP and category stats, but reset daily attempts
-          const mergedCatStats = { ...createDefaultCategoryStats(), ...parsed.categoryStats };
-          const resetDailyAttempts = createDefaultDailyAttempts();
-          const newState: DailyChallengeStorageState = {
-            date: today,
-            overallXp: parsed.overallXp || 0,
-            categoryStats: mergedCatStats,
-            dailyAttempts: resetDailyAttempts,
-          };
-          setState(newState);
+      // Check if stored data is from today, or a new day
+      if (parsed.date === today) {
+        // Ensure all categories exist
+        const mergedCatStats = { ...createDefaultCategoryStats(), ...parsed.categoryStats };
+        const mergedDailyAttempts = { ...createDefaultDailyAttempts(), ...parsed.dailyAttempts };
+        return {
+          ...parsed,
+          categoryStats: mergedCatStats,
+          dailyAttempts: mergedDailyAttempts,
+        };
+      } else {
+        // New day: keep overall XP and category stats, but reset daily attempts
+        const mergedCatStats = { ...createDefaultCategoryStats(), ...parsed.categoryStats };
+        const resetDailyAttempts = createDefaultDailyAttempts();
+        const newState: DailyChallengeStorageState = {
+          date: today,
+          overallXp: parsed.overallXp || 0,
+          categoryStats: mergedCatStats,
+          dailyAttempts: resetDailyAttempts,
+        };
+        try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+        } catch {
+          // ignore
         }
+        return newState;
       }
-    } catch (e) {
-      console.error('Error reading daily challenge state:', e);
-    } finally {
-      setIsLoaded(true);
     }
-  }, []);
+  } catch (e) {
+    console.error('Error reading daily challenge state:', e);
+  }
+
+  return createInitialState();
+};
+
+export const useDailyChallengeState = () => {
+  const [state, setState] = useState<DailyChallengeStorageState>(loadInitialState);
+  const isLoaded = true;
 
   // Save to localStorage when state changes
   const saveState = useCallback((newState: DailyChallengeStorageState) => {

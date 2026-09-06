@@ -11,7 +11,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   // Persist state changes to localStorage
   useEffect(() => {
     persistState(state);
-  }, [state.posts, state.groups, state.messages, state.notifications, state.likedPosts]);
+  }, [state]);
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>

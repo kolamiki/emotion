@@ -1,11 +1,15 @@
+import React, { useMemo } from 'react';
 import styles from './RightSidebar.module.css';
 import type { MessageThread, ReadThreads } from '../../types';
+import { usersData } from '../../mockData';
 
 interface RightSidebarProps {
   messages: MessageThread[];
   readThreads: ReadThreads;
   currentUserId: string;
+  friends?: Set<string>;
   onOpenChat: (threadId: string) => void;
+  onOpenChatUser?: (userId: string) => void;
   onViewProfile?: (userId: string) => void;
 }
 
@@ -22,53 +26,114 @@ const trendingTopics = [
   { label: 'Sport', tag: '#Mundial', count: '100.2k postów' },
 ];
 
-export const RightSidebar: React.FC<RightSidebarProps> = ({ messages, readThreads, currentUserId, onOpenChat, onViewProfile }) => {
-  const isThreadUnread = (thread: MessageThread): boolean => {
-    const lastReadTs = readThreads[thread.threadId];
-    const otherMessages = thread.messages.filter(m => m.senderId !== currentUserId);
-    if (otherMessages.length === 0) return false;
-    if (!lastReadTs) return true;
-    const lastOtherMsg = otherMessages[otherMessages.length - 1];
-    return new Date(lastOtherMsg.timestamp) > new Date(lastReadTs);
-  };
+export const RightSidebar: React.FC<RightSidebarProps> = ({
+  messages,
+  readThreads,
+  currentUserId,
+  friends,
+  onOpenChat,
+  onOpenChatUser,
+  onViewProfile,
+}) => {
+  const contacts = useMemo(() => {
+    const isThreadUnread = (thread: MessageThread): boolean => {
+      const lastReadTs = readThreads[thread.threadId];
+      const otherMessages = thread.messages.filter(m => m.senderId !== currentUserId);
+      if (otherMessages.length === 0) return false;
+      if (!lastReadTs) return true;
+      const lastOtherMsg = otherMessages[otherMessages.length - 1];
+      return new Date(lastOtherMsg.timestamp) > new Date(lastReadTs);
+    };
+
+    const contactMap = new Map<string, {
+      userId: string;
+      name: string;
+      avatarUrl: string;
+      isOnline: boolean;
+      threadId?: string;
+      unread: boolean;
+    }>();
+
+    // Add all existing message threads
+    for (const thread of messages) {
+      contactMap.set(thread.participant.id, {
+        userId: thread.participant.id,
+        name: thread.participant.name,
+        avatarUrl: thread.participant.avatarUrl,
+        isOnline: !!thread.participant.isOnline,
+        threadId: thread.threadId,
+        unread: isThreadUnread(thread),
+      });
+    }
+
+    // Add friends from state.friends who might not have a message thread yet
+    if (friends) {
+      for (const friendId of friends) {
+        if (!contactMap.has(friendId)) {
+          const user = usersData.allUsers.find(u => u.id === friendId);
+          if (user) {
+            contactMap.set(user.id, {
+              userId: user.id,
+              name: user.name,
+              avatarUrl: user.avatarUrl,
+              isOnline: !!user.isOnline,
+              unread: false,
+            });
+          }
+        }
+      }
+    }
+
+    const list = Array.from(contactMap.values());
+    return list.sort((a, b) => {
+      if (a.unread !== b.unread) return a.unread ? -1 : 1;
+      if (a.isOnline !== b.isOnline) return a.isOnline ? -1 : 1;
+      return a.name.localeCompare(b.name, 'pl');
+    });
+  }, [messages, friends, readThreads, currentUserId]);
 
   return (
     <div className={styles.rightSidebar}>
       {/* Contacts */}
       <div className={styles.panel}>
-        <div className={styles.panelHeader}>Kontakty</div>
-        {messages.map(thread => {
-          const unread = isThreadUnread(thread);
-          return (
+        <div className={styles.panelHeader}>Kontakty ({contacts.length})</div>
+        {contacts.map(contact => (
           <div
-            key={thread.threadId}
+            key={contact.userId}
             className={styles.contactItem}
-            onClick={() => onOpenChat(thread.threadId)}
+            onClick={() => {
+              if (onOpenChatUser) {
+                onOpenChatUser(contact.userId);
+              } else if (contact.threadId) {
+                onOpenChat(contact.threadId);
+              }
+            }}
           >
             <div className={styles.contactAvatarWrap}>
               <img
-                src={thread.participant.avatarUrl}
-                alt={thread.participant.name}
+                src={contact.avatarUrl}
+                alt={contact.name}
                 className={styles.contactAvatar}
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (onViewProfile) onViewProfile(thread.participant.id);
+                  if (onViewProfile) onViewProfile(contact.userId);
                 }}
                 style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
               />
-              <div className={thread.participant.isOnline ? styles.contactOnline : styles.contactOffline} />
+              <div className={contact.isOnline ? styles.contactOnline : styles.contactOffline} />
             </div>
-            <span className={`${styles.contactName} ${unread ? styles.contactNameUnread : ''}`}>{thread.participant.name}</span>
-            {unread ? (
+            <span className={`${styles.contactName} ${contact.unread ? styles.contactNameUnread : ''}`}>
+              {contact.name}
+            </span>
+            {contact.unread ? (
               <span className={styles.unreadBadge} />
             ) : (
               <span className={styles.contactStatus}>
-                {thread.participant.isOnline ? 'Online' : 'Offline'}
+                {contact.isOnline ? 'Online' : 'Offline'}
               </span>
             )}
           </div>
-          );
-        })}
+        ))}
       </div>
 
       {/* Recent Activity */}

@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { X, MessageCircle, UserPlus, UserCheck, MapPin, Calendar, Users, FileText, Trophy } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { X, MessageCircle, UserPlus, UserMinus, UserCheck, Clock, MapPin, Calendar, Users, FileText, Trophy } from 'lucide-react';
 import styles from './ProfilePreview.module.css';
 import type { User, Group, Post } from '../../types';
 import { BLOCKED_FRIEND_IDS } from '../../types';
@@ -94,10 +94,10 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   };
 
   const isFriend = friends.has(user.id);
+  const [showConfirmUnfriend, setShowConfirmUnfriend] = useState(false);
 
   const handleToggleFriend = () => {
-    if (!isFriend && BLOCKED_FRIEND_IDS.has(user.id)) return;
-    if (pendingFriends.has(user.id)) return;
+    if (!isFriend && !pendingFriends.has(user.id) && BLOCKED_FRIEND_IDS.has(user.id)) return;
     onToggleFriend(user.id);
   };
 
@@ -215,20 +215,45 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
         {!isCurrentUser && (
           <div className={styles.actionsRow}>
             {isFriend ? (
-              <button 
-                className={`${styles.actionBtn} ${styles.actionBtnFriend}`}
-                onClick={handleToggleFriend}
-              >
-                <UserCheck size={16} />
-                Znajomi
-              </button>
+              showConfirmUnfriend ? (
+                <div className={styles.confirmUnfriendWrap}>
+                  <button 
+                    className={`${styles.actionBtn} ${styles.actionBtnDanger}`}
+                    onClick={() => {
+                      setShowConfirmUnfriend(false);
+                      handleToggleFriend();
+                    }}
+                  >
+                    <UserMinus size={16} />
+                    Potwierdź usunięcie
+                  </button>
+                  <button 
+                    className={`${styles.actionBtn} ${styles.actionBtnSecondary}`}
+                    onClick={() => setShowConfirmUnfriend(false)}
+                  >
+                    Anuluj
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  className={`${styles.actionBtn} ${styles.actionBtnFriend}`}
+                  onClick={() => setShowConfirmUnfriend(true)}
+                  title="Kliknij, aby usunąć ze znajomych"
+                >
+                  <UserCheck size={16} />
+                  Znajomi
+                </button>
+              )
             ) : pendingFriends.has(user.id) ? (
               <button 
-                className={`${styles.actionBtn} ${styles.actionBtnDisabled}`}
-                disabled
+                className={`${styles.actionBtn} ${styles.actionBtnPending}`}
+                onClick={handleToggleFriend}
+                title="Kliknij, aby anulować zaproszenie"
               >
-                <UserPlus size={16} />
-                Zaproszenie wysłane
+                <Clock size={16} className={styles.pendingIconDefault} />
+                <X size={16} className={styles.pendingIconHover} />
+                <span className={styles.pendingTextDefault}>Zaproszenie wysłane</span>
+                <span className={styles.pendingTextHover}>Anuluj zaproszenie</span>
               </button>
             ) : (
               <button 

@@ -6,6 +6,69 @@
 
 .header {
   margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.headerContent {
+  flex: 1;
+  min-width: 240px;
+}
+
+.searchWrap {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 36px 10px 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-bg);
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput:focus {
+  border-color: var(--primary, #6c2bd9);
+  box-shadow: 0 0 0 3px rgba(108, 43, 217, 0.15);
+}
+
+.clearSearchBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.clearSearchBtn:hover {
+  color: var(--text-primary);
+  background: var(--hover-bg);
 }
 
 .title {
@@ -128,23 +191,25 @@
 
 .cardActions {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   margin-top: auto;
+  flex-wrap: wrap;
 }
 
 .actionBtn {
-  flex: 1;
+  flex: 1 1 115px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 6px;
+  padding: 9px 12px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
+  white-space: nowrap;
 }
 
 .primaryBtn {
@@ -170,4 +235,79 @@
   color: var(--text-muted);
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.confirmBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(239, 68, 68, 0.06);
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  animation: fadeIn 0.15s ease;
+}
+
+.confirmPrompt {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.confirmButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.dangerBtn {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.dangerBtn:hover {
+  background: #dc2626;
+}
+
+.pendingBtn {
+  background: var(--hover-bg);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.pendingBtn .pendingIconHover,
+.pendingBtn .pendingTextHover {
+  display: none;
+}
+
+.pendingBtn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.pendingBtn:hover .pendingIconDefault,
+.pendingBtn:hover .pendingTextDefault {
+  display: none;
+}
+
+.pendingBtn:hover .pendingIconHover,
+.pendingBtn:hover .pendingTextHover {
+  display: inline-flex;
+}
+
+.emptyState {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  background: var(--surface-bg);
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  grid-column: 1 / -1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
 }

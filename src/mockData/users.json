@@ -6,7 +6,8 @@
     "isOnline": true,
     "bio": "Tu będzie opis wpisany przez użytkownika na ekranie logowania",
     "location": "Warszawa, Polska",
-    "joinDate": "styczeń 2025"
+    "joinDate": "styczeń 2025",
+    "fictionalCharacter": false
   },
   "allUsers": [
     {
@@ -16,17 +17,19 @@
       "isOnline": true,
       "bio": "Tu będzie opis wpisany przez użytkownika na ekranie logowania",
       "location": "Warszawa, Polska",
-      "joinDate": "styczeń 2025"
+      "joinDate": "styczeń 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u2",
-      "name": "",
+      "name": "Anna Nowak",
       "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true,
       "isFriend": true,
       "bio": "Entuzjastka jogi, podróży i zdrowego stylu życia. Szukam inspiracji w każdym dniu! 🧘‍♀️✈️",
       "location": "Kraków, Polska",
-      "joinDate": "marzec 2025"
+      "joinDate": "marzec 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u3",
@@ -36,7 +39,8 @@
       "isFriend": true,
       "bio": "Biegacz, planszówkowicz, miłośnik gór. Weekend bez szlaku to stracony weekend. ⛰️🎲",
       "location": "Zakopane, Polska",
-      "joinDate": "luty 2025"
+      "joinDate": "luty 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u4",
@@ -46,7 +50,8 @@
       "isFriend": true,
       "bio": "Graphic designer & UX enthusiast. Tworzę piękne rzeczy i dzielę się inspiracjami. 🎨✨",
       "location": "Wrocław, Polska",
-      "joinDate": "kwiecień 2025"
+      "joinDate": "kwiecień 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u5",
@@ -56,7 +61,8 @@
       "isFriend": false,
       "bio": "Senior developer by day, bug creator by night. 12 lat w branży i wciąż się uczę. 💻🐛",
       "location": "Gdańsk, Polska",
-      "joinDate": "maj 2025"
+      "joinDate": "maj 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u6",
@@ -66,7 +72,8 @@
       "isFriend": false,
       "bio": "Podróżniczka, fotografka amatorka, miłośniczka architektury. Ostatnio zakochana w Barcelonie. 📸🇪🇸",
       "location": "Barcelona, Hiszpania",
-      "joinDate": "styczeń 2026"
+      "joinDate": "styczeń 2026",
+      "fictionalCharacter": false
     },
     {
       "id": "u7",
@@ -76,7 +83,8 @@
       "isFriend": false,
       "bio": "DevOps engineer z pasją do automatyzacji. Kubernetes, Docker, CI/CD - to mój świat. 🐳⚙️",
       "location": "Poznań, Polska",
-      "joinDate": "czerwiec 2025"
+      "joinDate": "czerwiec 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u8",
@@ -86,7 +94,8 @@
       "isFriend": false,
       "bio": "Copywriterka i content creatorka. Słowa to moja supermoc! ✍️📖",
       "location": "Łódź, Polska",
-      "joinDate": "lipiec 2025"
+      "joinDate": "lipiec 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u9",
@@ -96,7 +105,8 @@
       "isFriend": false,
       "bio": "Fotograf krajobrazu i miłośnik dronów. Najlepsze ujęcia robię o wschodzie słońca. 📷🌄",
       "location": "Zakopane, Polska",
-      "joinDate": "sierpień 2025"
+      "joinDate": "sierpień 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u10",
@@ -106,7 +116,8 @@
       "isFriend": true,
       "bio": "Data scientist z zamiłowaniem do wizualizacji danych. Python + R = ❤️ 📊🧠",
       "location": "Warszawa, Polska",
-      "joinDate": "wrzesień 2025"
+      "joinDate": "wrzesień 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u11",
@@ -116,7 +127,8 @@
       "isFriend": false,
       "bio": "Muzykiem jestem i gram na gitarze. W wolnym czasie tworzę muzykę elektroniczną. 🎸🎧",
       "location": "Katowice, Polska",
-      "joinDate": "październik 2025"
+      "joinDate": "październik 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u12",
@@ -126,7 +138,8 @@
       "isFriend": false,
       "bio": "Fitness trenerka i dietetyczka. Pomagam ludziom żyć zdrowiej i szczęśliwiej! 💪🥗",
       "location": "Sopot, Polska",
-      "joinDate": "grudzień 2025"
+      "joinDate": "grudzień 2025",
+      "fictionalCharacter": false
     },
     {
       "id": "u13",
@@ -136,7 +149,8 @@
       "isFriend": false,
       "bio": "Anonimowy użytkownik",
       "location": " nieznane",
-      "joinDate": "grudzień 2025"
+      "joinDate": "grudzień 2025",
+      "fictionalCharacter": true
     },
     {
       "id": "u14",
@@ -146,7 +160,8 @@
       "isFriend": false,
       "bio": "Widzi przyszłość, kieruje PrimeCo i figuruje w mediach jako Profesor Prime. Lubi dobry film i dobrą kawę. Nie lubi - pisać o sobie w trzeciej osobie, ale zmusza go do tego dział PR.",
       "location": "Paryż, Polska",
-      "joinDate": "wrzesień 2022"
+      "joinDate": "wrzesień 2022",
+      "fictionalCharacter": true
     },
     {
       "id": "u_natalie",
@@ -156,7 +171,8 @@
       "isFriend": false,
       "bio": "Kinoman, krytyk z misją ratowania ludzi przed złym kinem. Mój sarkazm to tarcza przed słabymi scenariuszami.",
       "location": "Paryż, Francja",
-      "joinDate": "marzec 2024"
+      "joinDate": "marzec 2024",
+      "fictionalCharacter": false
     },
     {
       "id": "u_marinette",
@@ -166,7 +182,8 @@
       "isFriend": true,
       "bio": "Uwielbiam kino, spacery po mieście i moich przyjaciół. Często gubię klucze, ale tym razem zgubiłam kogoś znacznie cenniejszego...",
       "location": "Paryż, Francja",
-      "joinDate": "kwiecień 2024"
+      "joinDate": "kwiecień 2024",
+      "fictionalCharacter": false
     },
     {
       "id": "u_matylda",
@@ -176,7 +193,8 @@
       "isFriend": false,
       "bio": "Lubię matmę, dlatego liczę, że szybko skończę doktorat i odzyskam czas na komiksy, filmy i gry. Taka tam ze mnie studentka.",
       "location": "Paryż, Francja",
-      "joinDate": "wrzesień 2022"
+      "joinDate": "wrzesień 2022",
+      "fictionalCharacter": true
     },
     {
       "id": "u_gaston",
@@ -186,7 +204,8 @@
       "isFriend": false,
       "bio": "Przedsięborce, główny twórca aplikacji eMotion. STOP HEJT!",
       "location": "Paryż, Francja",
-      "joinDate": "styczeń 2026"
+      "joinDate": "styczeń 2026",
+      "fictionalCharacter": true
     },
     {
       "id": "u_behrmann",
@@ -196,7 +215,8 @@
       "isFriend": false,
       "bio": "Genetyk, kynopsycholog i behawiorysta. Lubię psy i chętnie pomogę w diagnozie zachowania Twojego pupila.",
       "location": "Düsseldorf, Niemcy",
-      "joinDate": "wrzesień 2022"
+      "joinDate": "wrzesień 2022",
+      "fictionalCharacter": true
     },
     {
       "id": "u_kornel",
@@ -206,7 +226,8 @@
       "isFriend": false,
       "bio": "Inżynier społeczny i demaskator korporacyjnych mitów. 'Nowa Nauka' to cyfrowe kłamstwo mające podzielić ludzi na lepszych i gorszych.",
       "location": "Warszawa, Polska",
-      "joinDate": "styczeń 2024"
+      "joinDate": "styczeń 2024",
+      "fictionalCharacter": false
     },
     {
       "id": "u_weronika",
@@ -216,7 +237,8 @@
       "isFriend": false,
       "bio": "Działaczka na rzecz równości cyfrowej. PrimeCo bogaci się na wykluczeniu zwykłych ludzi. Czas zdemaskować 'proroka' Prime'a!",
       "location": "Kraków, Polska",
-      "joinDate": "luty 2024"
+      "joinDate": "luty 2024",
+      "fictionalCharacter": false
     },
     {
       "id": "u_damian",
@@ -226,7 +248,8 @@
       "isFriend": false,
       "bio": "Zero litości dla szarlatanów w garniturach. Przepowiadanie przyszłości? To zwykły algorytmiczny szwindel i insider trading.",
       "location": "Poznań, Polska",
-      "joinDate": "kwiecień 2024"
+      "joinDate": "kwiecień 2024",
+      "fictionalCharacter": false
     }
   ]
 }

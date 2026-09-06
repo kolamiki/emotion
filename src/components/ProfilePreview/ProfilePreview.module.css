@@ -350,6 +350,60 @@
   color: #fff;
 }
 
+.confirmUnfriendWrap {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.actionBtnDanger {
+  background: #fee2e2;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+}
+
+.actionBtnDanger:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.actionBtnSecondary {
+  background: var(--gray-100);
+  color: var(--text-secondary);
+}
+
+.actionBtnSecondary:hover {
+  background: var(--gray-200);
+}
+
+.actionBtnPending {
+  background: var(--gray-100);
+  color: var(--text-secondary);
+  border: 1px solid var(--gray-300);
+  transition: all 0.2s ease;
+}
+
+.actionBtnPending .pendingIconHover,
+.actionBtnPending .pendingTextHover {
+  display: none;
+}
+
+.actionBtnPending:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.actionBtnPending:hover .pendingIconDefault,
+.actionBtnPending:hover .pendingTextDefault {
+  display: none;
+}
+
+.actionBtnPending:hover .pendingIconHover,
+.actionBtnPending:hover .pendingTextHover {
+  display: inline-flex;
+}
+
 .actionBtnMessage {
   background: var(--gray-100);
   color: var(--text-primary);
