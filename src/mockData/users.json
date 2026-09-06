@@ -26,7 +26,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true,
       "isFriend": true,
-      "bio": "Entuzjastka jogi, podróży i zdrowego stylu życia. Szukam inspiracji w każdym dniu! 🧘‍♀️✈️",
+      "bio": "Nauczycielka angielskiego w szkole podstawowej w Krakowie. Po godzinach joga, książki i próba niezwariowania przy tablicy 🧘‍♀️📚☕",
       "location": "Kraków, Polska",
       "joinDate": "marzec 2025",
       "fictionalCharacter": false
@@ -37,7 +37,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u3",
       "isOnline": false,
       "isFriend": true,
-      "bio": "Biegacz, planszówkowicz, miłośnik gór. Weekend bez szlaku to stracony weekend. ⛰️🎲",
+      "bio": "Fizjoterapeuta i instruktor wspinaczki w Zakopanem. W tygodniu nastawiam kręgosłupy, w weekendy uciekam na tatrzańskie szlaki ⛰️🧗‍♂️",
       "location": "Zakopane, Polska",
       "joinDate": "luty 2025",
       "fictionalCharacter": false
@@ -48,7 +48,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u4",
       "isOnline": true,
       "isFriend": true,
-      "bio": "Graphic designer & UX enthusiast. Tworzę piękne rzeczy i dzielę się inspiracjami. 🎨✨",
+      "bio": "Lekarka weterynarii w lecznicy dla małych zwierząt we Wrocławiu. Kawoszka, w wiecznym niedoczasie, sercem zawsze ze zwierzakami 🐾☕",
       "location": "Wrocław, Polska",
       "joinDate": "kwiecień 2025",
       "fictionalCharacter": false
@@ -59,7 +59,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u5",
       "isOnline": true,
       "isFriend": false,
-      "bio": "Senior developer by day, bug creator by night. 12 lat w branży i wciąż się uczę. 💻🐛",
+      "bio": "Stolarz i renowator starych mebli w Gdańsku 🪵 Drewno z odzysku ma duszę, w przeciwieństwie do płyty wiórowej. Wolny czas na rybach.",
       "location": "Gdańsk, Polska",
       "joinDate": "maj 2025",
       "fictionalCharacter": false
@@ -70,7 +70,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u6",
       "isOnline": false,
       "isFriend": false,
-      "bio": "Podróżniczka, fotografka amatorka, miłośniczka architektury. Ostatnio zakochana w Barcelonie. 📸🇪🇸",
+      "bio": "Tłumaczka hiszpańskiego, wiecznie z walizką między Barceloną a Warszawą. Zbieram vintage plakaty i dobre espresso ☕📖",
       "location": "Barcelona, Hiszpania",
       "joinDate": "styczeń 2026",
       "fictionalCharacter": false
@@ -81,7 +81,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u7",
       "isOnline": true,
       "isFriend": false,
-      "bio": "DevOps engineer z pasją do automatyzacji. Kubernetes, Docker, CI/CD - to mój świat. 🐳⚙️",
+      "bio": "Ratownik medyczny w Poznaniu 🚑 Dyżury 24h, czarna kawa i zero cierpliwości do głupoty. Po dyżurze rower i góry.",
       "location": "Poznań, Polska",
       "joinDate": "czerwiec 2025",
       "fictionalCharacter": false
@@ -92,7 +92,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u8",
       "isOnline": true,
       "isFriend": false,
-      "bio": "Copywriterka i content creatorka. Słowa to moja supermoc! ✍️📖",
+      "bio": "Księgarka w niezależnej księgarni w Łodzi 📚 Kot, herbata z miodem i wieczna walka z kurzem na półkach. Nie czytam bestsellerów z TikToka.",
       "location": "Łódź, Polska",
       "joinDate": "lipiec 2025",
       "fictionalCharacter": false
@@ -103,7 +103,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u9",
       "isOnline": true,
       "isFriend": false,
-      "bio": "Fotograf krajobrazu i miłośnik dronów. Najlepsze ujęcia robię o wschodzie słońca. 📷🌄",
+      "bio": "Leśnik i ratownik ochotnik z Podhala 🌲 Czasem puszczam drona nad lasem, częściej wyciągam nieprzygotowanych turystów z chaszczy.",
       "location": "Zakopane, Polska",
       "joinDate": "sierpień 2025",
       "fictionalCharacter": false
@@ -114,7 +114,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u10",
       "isOnline": true,
       "isFriend": true,
-      "bio": "Data scientist z zamiłowaniem do wizualizacji danych. Python + R = ❤️ 📊🧠",
+      "bio": "Magister farmacji w Warszawie 💊 Przetrwałam dyżury nocne w aptece, więc nic mnie już nie zaskoczy. Po godzinach ceramika i ogród.",
       "location": "Warszawa, Polska",
       "joinDate": "wrzesień 2025",
       "fictionalCharacter": false
@@ -125,7 +125,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u11",
       "isOnline": false,
       "isFriend": false,
-      "bio": "Muzykiem jestem i gram na gitarze. W wolnym czasie tworzę muzykę elektroniczną. 🎸🎧",
+      "bio": "Nauczyciel gitary i akustyk w Katowicach 🎸 Wychowany na śląskim bluesie, wieczorami lutuję kable i zbieram stare winyle.",
       "location": "Katowice, Polska",
       "joinDate": "październik 2025",
       "fictionalCharacter": false
@@ -136,7 +136,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=u12",
       "isOnline": true,
       "isFriend": false,
-      "bio": "Fitness trenerka i dietetyczka. Pomagam ludziom żyć zdrowiej i szczęśliwiej! 💪🥗",
+      "bio": "Instruktorka pływania i ratowniczka WOPR w Sopocie 🌊 Morze o każdej porze roku (tak, zimą też). Bez ściemy i fit-kołczingu.",
       "location": "Sopot, Polska",
       "joinDate": "grudzień 2025",
       "fictionalCharacter": false
@@ -147,8 +147,8 @@
       "avatarUrl": "/avatars/anonim.png",
       "isOnline": false,
       "isFriend": false,
-      "bio": "Anonimowy użytkownik",
-      "location": " nieznane",
+      "bio": "[Tożsamość zanonimizowana na podstawie art. 17 RODO lub decyzji Zespołu ds. Bezpieczeństwa e-Motion]",
+      "location": "nieznane",
       "joinDate": "grudzień 2025",
       "fictionalCharacter": true
     },

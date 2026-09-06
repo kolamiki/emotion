@@ -47,20 +47,104 @@
             },
             "text": "Zgadzam się, muzyka Zimmera robi niesamowite wrażenie w kinie IMAX.",
             "timestamp": "2026-05-27T09:15:00Z"
+          },
+          {
+            "id": "gc1_2",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "E tam, pierwsza połowa rozwleczona niemiłosiernie. Prawie zasnęłam w fotelu.",
+            "timestamp": "2026-05-27T09:30:00Z"
+          },
+          {
+            "id": "gc1_3",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Marta, to kino kontemplacyjne, a nie Transformersy z wybuchami co 3 sekundy!",
+            "timestamp": "2026-05-27T09:42:00Z"
           }
         ]
       },
       {
-        "id": "gp2",
+        "id": "gp_cinema_rage",
         "author": {
-          "id": "u1",
-          "name": "Jan Kowalski",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "content": "Szukam czegoś lekkiego na wieczór, najlepiej komedia z lat 90. Macie jakieś sprawdzone tytuły?",
-        "timestamp": "2026-05-26T15:00:00Z",
-        "likes": 7,
-        "comments": []
+        "content": "Ludzie, czy wy do kina przychodzicie oglądać film czy świecić ekranem telefonu prosto w oczy wszystkim dookoła i żreć nachosy z sosem serowym jak świnie w korycie?! Wczoraj na seansie gość przez 2 godziny odpisywał na maile przy jasności ekranu 100%. Zwróciłem uwagę, to jeszcze usłyszałem, że 'jestem przewrażliwiony boomer'. Kiedy obsługa kin zacznie wreszcie wypraszać takich pajaców ze sali?!",
+        "timestamp": "2026-06-02T20:10:00Z",
+        "likes": 64,
+        "comments": [
+          {
+            "id": "gc_cr_1",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "Piotrek, 100% racji! Ja już przestałem chodzić w piątki i weekendy, bo to jest bydło nie publiczność. Tylko seanse w środku tygodnia o 14:00 mają sens.",
+            "timestamp": "2026-06-02T20:25:00Z"
+          },
+          {
+            "id": "gc_cr_2",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Płacę za bilet 45 zł to mam prawo sprawdzić telefon jak dostaję pilną wiadomość. Nie przesadzajcie z tym terroryzmem kinowym.",
+            "timestamp": "2026-06-02T20:38:00Z"
+          },
+          {
+            "id": "gc_cr_3",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Tomek, inni też zapłacili 45 zł za bilet po to, żeby być w ciemnej sali, a nie oglądać twój ekran! Wyjdź na korytarz jak masz pilne sprawy.",
+            "timestamp": "2026-06-02T20:45:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_g1",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Ten wpis został usunięty przez Moderatora grupy 'Filmowe polecajki'. Powód: Wulgaryzmy, agresja słowna oraz groźby karalne pod adresem pracowników kina i reżysera (§ 4 ust. 2 Regulaminu Forum). Użytkownik otrzymał ostrzeżenie 2/3.]",
+        "timestamp": "2026-06-01T22:00:00Z",
+        "likes": 3,
+        "comments": [
+          {
+            "id": "gc_mod_g1_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Dzięki Piotr za usunięcie. Facetowi już kompletnie peron odjechał w tych wyzwiskach.",
+            "timestamp": "2026-06-01T22:15:00Z"
+          },
+          {
+            "id": "gc_mod_g1_2",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Nie będzie tolerancji dla hejtu w tej grupie. Dyskutujemy o kinie z kulturą albo wcale.",
+            "timestamp": "2026-06-01T22:20:00Z"
+          }
+        ]
       },
       {
         "id": "gp_natalie_1",
@@ -122,9 +206,9 @@
     "id": "g2",
     "name": "Szukam pracy",
     "icon": "Gamepad2",
-    "description": "Grupa dla osób szukających pracy. Dzielimy się ofertami, pomagamy sobie nawzajem.",
+    "description": "Grupa dla osób szukających pracy. Dzielimy się ofertami, ostrzegamy przed Januszexami i pomagamy sobie nawzajem.",
     "coverColor": "#FF6B6B",
-    "membersCount": 583,
+    "membersCount": 1583,
     "members": [
       {
         "id": "u3",
@@ -141,25 +225,68 @@
     ],
     "posts": [
       {
-        "id": "gp3",
+        "id": "gp_job_rant",
         "author": {
-          "id": "u3",
-          "name": "Piotr Wiśniewski",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
-        "content": "Cześć! Szukam pracy jako Junior Frontend Developer. Znam React, TypeScript i Tailwinda. Posiadam rok doświadczenia. Ktoś słyszał o rekrutacjach?",
-        "timestamp": "2026-05-27T10:30:00Z",
-        "likes": 24,
+        "content": "Ogłoszenie z dzisiaj w centrum: 'Młody, dynamiczny zespół poszukuje asystenta ds. marketingu. Wymagania: biegły angielski i niemiecki, 3 lata doświadczenia, dyspozycyjność w weekendy, własny laptop i samochód. Oferujemy: owocowe czwartki, kartę MultiSport i umowę zlecenie na 1/4 etatu z wynagrodzeniem 900 zł netto'. Czy rekruterom w tym kraju już do reszty odebrało poczucie wstydu?! Błagam, szanujmy się i nie aplikujcie na takie żałosne ochłapy!",
+        "timestamp": "2026-06-02T13:00:00Z",
+        "likes": 98,
         "comments": [
           {
-            "id": "gc2",
+            "id": "gc_jr_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Zapomnieli dopisać w benefitach: 'Młody zespół i kawa z ekspresu przelewowego' xDDD Januszex w czystej postaci.",
+            "timestamp": "2026-06-02T13:15:00Z"
+          },
+          {
+            "id": "gc_jr_2",
+            "author": {
+              "id": "u7",
+              "name": "Michał Dąbrowski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+            },
+            "text": "Najgorsze jest to, że dopóki studenci będą na to aplikować, dopóty takie 'firmy' będą bezczelnie żerować na darmowej pracy.",
+            "timestamp": "2026-06-02T13:32:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_g2",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Oferta usunięta przez Administratora Piotra Wiśniewskiego. Powód: Oferowanie pracy bez umowy, brak jawnych widełek płacowych oraz podejrzenie oszustwa finansowego (wymóg wpłaty 'kaucji rekrutacyjnej' 150 zł za materiały szkoleniowe). Zgłoszone do moderacji globalnej.]",
+        "timestamp": "2026-06-01T15:00:00Z",
+        "likes": 5,
+        "comments": [
+          {
+            "id": "gc_mod_g2_1",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Przypominam: w tej grupie posty bez widełek płacowych lub z podejrzanymi linkami wylatują z automatu!",
+            "timestamp": "2026-06-01T15:05:00Z"
+          },
+          {
+            "id": "gc_mod_g2_2",
             "author": {
               "id": "u2",
               "name": "Anna Nowak",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
-            "text": "Odezwij się na priv, u mnie w firmie akurat kogoś szukają!",
-            "timestamp": "2026-05-27T10:45:00Z"
+            "text": "Dzięki Piotr za czujność, próbowali wcisnąć ten sam scam na innej grupie.",
+            "timestamp": "2026-06-01T15:18:00Z"
           }
         ]
       }
@@ -170,7 +297,7 @@
     "id": "g3",
     "name": "Kupię, sprzedam, zamienię",
     "icon": "Palette",
-    "description": "Grupa dla osób szukających pracy. Dzielimy się ofertami, pomagamy sobie nawzajem.",
+    "description": "Lokalny pchli targ. Oferty, okazje i przestrogi przed internetowymi naciągaczami.",
     "coverColor": "#F59E0B",
     "membersCount": 892,
     "members": [
@@ -189,13 +316,46 @@
     ],
     "posts": [
       {
+        "id": "gp_vinted_drama",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "content": "Wystawiłam wózek dziecięcy po siostrzeńcu za 180 zł (nowy kosztował 1400 zł, stan igła). Pierwsza wiadomość od 'kupującego': 'Daję 30 zł z wysyłką na pani koszt, a jak pani nie pasuje to niech pani pamięta, że mam horom curke i serca pani nie ma'.\n\nLudzie, czy wam już resztki przyzwoitości wyłączyło?! Nie oddam za darmo, nie zarezerwuję do dziesiątego 'jak wpadnie wypłata' i nie przywiozę taksówką na drugi koniec województwa! Szanujmy swój czas! 🤦‍♀️🤬",
+        "timestamp": "2026-06-02T18:00:00Z",
+        "likes": 87,
+        "comments": [
+          {
+            "id": "gc_vd_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Klasyka gatunku! Mi facet proponował zamianę spawarki wartej 2 koła na... worek orzechów włoskich i używane radio samochodowe z 2003 roku xDD",
+            "timestamp": "2026-06-02T18:14:00Z"
+          },
+          {
+            "id": "gc_vd_2",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "Najlepsi są ci co piszą 'aktualne?', odpisujesz w sekundę że tak, a oni zapadają się pod ziemię i znikają na zawsze w czasoprzestrzeni.",
+            "timestamp": "2026-06-02T18:25:00Z"
+          }
+        ]
+      },
+      {
         "id": "gp4",
         "author": {
           "id": "u4",
           "name": "Kasia Zielińska",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "content": "Sprzedam konsolę PlayStation 5 z dwoma padami. Stan idealny, mało używana. Cena: 1800 zł. Odbiór osobisty w centrum.",
+        "content": "Sprzedam konsolę PlayStation 5 z dwoma padami. Stan idealny, mało używana. Cena: 1750 zł. Odbiór osobisty w centrum lub wysyłka po przedpłacie.",
         "timestamp": "2026-05-27T11:00:00Z",
         "likes": 31,
         "comments": [
@@ -206,22 +366,43 @@
               "name": "Marta Lewandowska",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
-            "text": "Czy cena podlega negocjacji? Dam 1600 zł i jestem dzisiaj.",
+            "text": "Czy cena podlega negocjacji? Dam 1400 zł i jestem dzisiaj pod blokiem.",
             "timestamp": "2026-05-27T11:20:00Z"
+          },
+          {
+            "id": "gc3_2",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Marta, za 1400 to mogę ci sprzedać jednego pada i kabel zasilający 😂 Cena ostateczna to 1650 zł.",
+            "timestamp": "2026-05-27T11:35:00Z"
           }
         ]
       },
       {
-        "id": "gp5",
+        "id": "gp_mod_g3",
         "author": {
-          "id": "u6",
-          "name": "Marta Lewandowska",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
         },
-        "content": "Kupię rower miejski damski w dobrym stanie. Najlepiej z koszykiem. Budżet do 800 zł.",
+        "content": "[Ogłoszenie zablokowane i usunięte przez Moderatora. Powód: Próba wyłudzenia danych logowania do bankowości elektronicznej przez fałszywe linki do 'odbioru pieniędzy z kuriera DPD/InPost' (Phishing). Sprawa przekazana do zespołu Bezpieczeństwa e-Motion]",
         "timestamp": "2026-05-26T16:00:00Z",
-        "likes": 9,
-        "comments": []
+        "likes": 8,
+        "comments": [
+          {
+            "id": "gc_mod_g3_1",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "Uważajcie na takie linki! Typ wysyłał na WhatsAppie spreparowaną stronę bramki płatniczej.",
+            "timestamp": "2026-05-26T16:20:00Z"
+          }
+        ]
       }
     ],
     "isMember": true
@@ -230,7 +411,7 @@
     "id": "g4",
     "name": "Mat-Fiz LO - klasa A",
     "icon": "BookOpen",
-    "description": "Wiadomo",
+    "description": "Nasza stara klasa licealna. Wspomnienia, spotkania rocznikowe i wzajemne docinki.",
     "coverColor": "#8B5E3C",
     "membersCount": 30,
     "members": [
@@ -255,94 +436,105 @@
           "name": "Jan Kowalski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
-        "content": "Ej, piwko w sobotę?",
+        "content": "Ej, piwko w sobotę w starym pubie Pod Baryłką?",
         "timestamp": "2026-05-30T12:00:00Z",
         "likes": 14,
         "comments": [
           {
-            "id": "gc3",
+            "id": "gc3_lo",
             "author": {
               "id": "u6",
               "name": "Marta Lewandowska",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
-            "text": "git",
+            "text": "git, wpadnę na jedno",
             "timestamp": "2026-05-30T12:20:00Z"
           },
           {
-            "id": "gc4",
+            "id": "gc4_lo",
             "author": {
               "id": "u2",
               "name": "Anna Nowak",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
-            "text": "odpadam",
+            "text": "odpadam, mam sprawdziany do oceny :(",
             "timestamp": "2026-05-30T12:32:00Z"
           },
           {
-            "id": "gc4",
+            "id": "gc5_lo",
             "author": {
               "id": "u3",
               "name": "Piotr Wiśniewski",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
-            "text": "w następną chętnie",
+            "text": "w następną chętnie, w tę mam dyżur na ściance",
             "timestamp": "2026-05-30T12:32:00Z"
           },
           {
-            "id": "gc5",
+            "id": "gc6_lo",
             "author": {
               "id": "u1",
               "name": "Jan Kowalski",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
-            "text": "dobra, to kto będzie?",
+            "text": "dobra, to kto będzie ten będzie, rezerwuję stolik na 20:00.",
             "timestamp": "2026-05-30T12:35:00Z"
           }
         ]
       },
       {
-        "id": "gp7",
+        "id": "gp_reunion_feud",
         "author": {
           "id": "u2",
           "name": "Anna Nowak",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
-        "content": "mata jutro o 12:30 jak cos :)",
-        "timestamp": "2026-05-27T07:00:00Z",
-        "likes": 14,
-        "comments": []
-      },
-      {
-        "id": "gp8",
-        "author": {
-          "id": "u1",
-          "name": "Jan Kowalski",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
-        },
-        "content": "ma ktoś pytania z maty?",
-        "timestamp": "2026-05-27T07:00:00Z",
-        "likes": 14,
+        "content": "Słuchajcie, mija 8 lat od matury, zróbmy wreszcie to oficjalne spotkanie rocznikowe! Tylko błagam, bez wykrętów i marudzenia, ustalmy jeden wspólny termin w czerwcu.",
+        "timestamp": "2026-06-01T19:00:00Z",
+        "likes": 19,
         "comments": [
           {
-            "id": "gc4",
+            "id": "gc_rf_1",
             "author": {
-              "id": "u3",
-              "name": "Piotr Wiśniewski",
-              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
-            "text": "priv",
-            "timestamp": "2026-05-30T12:32:00Z"
+            "text": "Jak znowu mamy przez 4 godziny słuchać o tym kto ile zarabia w korpo i czyje dziecko ma lepsze oceny, to ja szczerze dziękuję.",
+            "timestamp": "2026-06-01T19:15:00Z"
           },
           {
-            "id": "gc4",
+            "id": "gc_rf_2",
             "author": {
               "id": "u4",
               "name": "Kasia Zielińska",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
-            "text": "Co za świnia! Weź się podziel.",
-            "timestamp": "2026-05-30T12:32:00Z"
+            "text": "Marta, nie dramatyzuj znowu, ostatnio było super dopóki ktoś nie zaczął dyskutować o polityce xD Ja chętnie przyjdę!",
+            "timestamp": "2026-06-01T19:28:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_g4",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Wpis usunięty przez administratora Jana Kowalskiego. Powód: Wywlekanie prywatnych animozji z liceum, obrażanie dawnych nauczycieli i naruszenie zasad grupy. Zachowajmy trochę klasy.]",
+        "timestamp": "2026-05-28T21:00:00Z",
+        "likes": 6,
+        "comments": [
+          {
+            "id": "gc_mod_g4_1",
+            "author": {
+              "id": "u2",
+              "name": "Anna Nowak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+            },
+            "text": "Dzięki Janek, żenujące to już było...",
+            "timestamp": "2026-05-28T21:10:00Z"
           }
         ]
       }
@@ -353,7 +545,7 @@
     "id": "g5",
     "name": "Techno newsy z pierwszej ręki",
     "icon": "Footprints",
-    "description": "Nowinki z branży IT prosto na Twój ekran. Bez spamu, bez polityki - tylko czysta technologia.",
+    "description": "Nowinki technologiczne, sprzęt, soft i gorące dyskusje o przyszłości cyfrowego świata.",
     "coverColor": "#2E3A87",
     "membersCount": 14005,
     "members": [
@@ -366,35 +558,91 @@
     ],
     "posts": [
       {
+        "id": "gp_ai_hype",
+        "author": {
+          "id": "u7",
+          "name": "Michał Dąbrowski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+        },
+        "content": "Czy tylko mnie skręca z żenady od wciskania hasła 'AI' do dosłownie każdego sprzętu domowego? Szczoteczka do zębów z AI, czajnik z AI, lodówka z AI, a nowy smartfon za 7500 zł wiesza się przy przełączaniu obiektywów w aparacie. 95% tego 'sztucznego intelektu' to zwykły algorytm z dopisanym hasłem marketingowym, żeby wyciągnąć od naiwnych klientów dwa razy więcej kasy. Dokąd ten świat zmierza?",
+        "timestamp": "2026-06-02T16:00:00Z",
+        "likes": 112,
+        "comments": [
+          {
+            "id": "gc_ai_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Święte słowa! Moja 'inteligentna' pralka ostatnio zablokowała drzwi na 3 godziny, bo 'analizowała optymalny profil płukania z chmury' xDDD Postęp stulecia.",
+            "timestamp": "2026-06-02T16:15:00Z"
+          },
+          {
+            "id": "gc_ai_2",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "Zaraz zlecą się korpo-ewangeliści i ci wyjaśnią, że jesteś technofobem i nie rozumiesz 'cyfrowej transformacji dobrostanu' xD",
+            "timestamp": "2026-06-02T16:28:00Z"
+          }
+        ]
+      },
+      {
         "id": "gp7",
         "author": {
           "id": "u3",
           "name": "Piotr Wiśniewski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "content": "Uwaga, uwaga! Właśnie wyszedł iOS 21.2. Aktualizacja waży 6GB, więc uzbroicie się w cierpliwość. Najciekawsze nowości: tryb oszczędzania baterii, tryb focus, ulepszona Siri oraz całkowicie nowy design aplikacji aparatu. Kto już instalował? ",
+        "content": "Uwaga, wyszedł iOS 21.2. Aktualizacja waży ponad 6GB. Najważniejsze zmiany: nowy tryb oszczędzania energii, zmiana interfejsu aparatu i głębsza integracja z chmurą e-Motion. Ktoś już instalował? Jak bateria?",
         "timestamp": "2026-05-27T06:00:00Z",
-        "likes": 11,
+        "likes": 21,
         "comments": [
           {
-            "id": "gc4",
+            "id": "gc4_tech",
             "author": {
               "id": "u4",
               "name": "Kasia Zielińska",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
-            "text": "Apple to gówno",
+            "text": "Apple to dno i wyciąganie kasy za kabelki, nic nowego od 5 lat.",
             "timestamp": "2026-05-30T12:32:00Z"
           },
           {
-            "id": "gc5",
+            "id": "gc5_tech",
             "author": {
               "id": "u1",
               "name": "Jan Kowalski",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
-            "text": "Czekam aż zlecą się wszystkie androidy XD",
+            "text": "Czekam aż zlecą się wszyscy fanboje Androida i zaczną pisać elaboraty xD",
             "timestamp": "2026-05-30T12:32:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_g5",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Post usunięty przez Zespół Bezpieczeństwa e-Motion. Powód: Rozpowszechnianie linków do złośliwego oprogramowania (zainfekowane cracki do pakietów graficznych zawierające koparkę kryptowalut Monero) - § 15.2 ToS. Adres IP zgłoszony do zablokowania.]",
+        "timestamp": "2026-05-25T11:00:00Z",
+        "likes": 4,
+        "comments": [
+          {
+            "id": "gc_mod_g5_1",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Mam nadzieję, że nikt nie pobrał tego pliku... Zwykły trojan.",
+            "timestamp": "2026-05-25T11:12:00Z"
           }
         ]
       }
@@ -511,6 +759,39 @@
         ]
       },
       {
+        "id": "gp_mod_szukam",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Wpis usunięty przez Administratora Olę Kamińską. Powód: Celowe wprowadzanie w błąd służb ratunkowych, publikowanie fałszywych doniesień o rzekomym 'odnalezieniu' oraz naruszenie spokoju rodziny zaginionej (§ 9 Regulaminu Grupy). Użytkownik zablokowany bezterminowo]",
+        "timestamp": "2026-06-03T21:15:00Z",
+        "likes": 12,
+        "comments": [
+          {
+            "id": "gc_msz_1",
+            "author": {
+              "id": "u8",
+              "name": "Ola Kamińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+            },
+            "text": "Ostrzegam wszystkich: każdy kolejny troll żerujący na zaginięciu Natalie wylatuje natychmiast z banem i zgłoszeniem do organów ścigania!",
+            "timestamp": "2026-06-03T21:20:00Z"
+          },
+          {
+            "id": "gc_msz_2",
+            "author": {
+              "id": "u_marinette",
+              "name": "Marinette Dupont",
+              "avatarUrl": "https://i.pravatar.cc/150?u=marinette"
+            },
+            "text": "Dziękuję Olu... Płakać mi się chciało jak czytałam te kłamstwa. Bardzo wam dziękuję za wsparcie!",
+            "timestamp": "2026-06-03T21:26:00Z"
+          }
+        ]
+      },
+      {
         "id": "gp_missing_2",
         "author": {
           "id": "u8",
@@ -609,11 +890,44 @@
     "id": "g_garden",
     "name": "Mój Piękny Ogród",
     "icon": "Coffee",
-    "description": "Grupa dla miłośników ogrodnictwa. Dzielimy się poradami, jak pielęgnować rośliny i uprawiać warzywa.",
+    "description": "Grupa dla miłośników ogrodnictwa, działkowców ROD i domowych roślin. Dzielimy się poradami i rozwiązujemy sąsiedzkie spory.",
     "coverColor": "#4ADE80",
     "membersCount": 2341,
     "members": [],
     "posts": [
+      {
+        "id": "gp_garden_feud",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "content": "Drodzy sąsiedzi z Rodzinnych Ogródków Działkowych! Jeśli jeszcze raz zobaczę, że ktoś przerzuca wyplewiony podagrycznik i wiadra ślimaków nagich przez siatkę na moją działkę, to całe to tałatajstwo wysypię wam z powrotem prosto na świeżo polakierowaną altanę! Miejcie trochę ludzkiej przyzwoitości i zróbcie sobie kompostownik, a nie robicie ze mnie wysypisko!",
+        "timestamp": "2026-06-02T17:00:00Z",
+        "likes": 53,
+        "comments": [
+          {
+            "id": "gc_gf_1",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Oho, zaczyna się coroczna Bitwa pod Grunwaldem na ROD-zie! 😂 Na ślimaki polecam pułapki piwne, działa cuda bez chemii.",
+            "timestamp": "2026-06-02T17:15:00Z"
+          },
+          {
+            "id": "gc_gf_2",
+            "author": {
+              "id": "u1",
+              "name": "Jan Kowalski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+            },
+            "text": "A sąsiad kosi trawę spalinówką w niedzielę o 6:45 rano, bo 'taki ma biorytm'. Człowiek na działce nie ma ani chwili spokoju.",
+            "timestamp": "2026-06-02T17:30:00Z"
+          }
+        ]
+      },
       {
         "id": "gp_garden_1",
         "author": {
@@ -621,16 +935,16 @@
           "name": "Kasia Zielińska",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "content": "Moje pomidory zaczynają żółknąć od spodu. Czy to może być brak wapnia? Co polecacie na szybki ratunek?",
+        "content": "Moje pomidory malinowe zaczynają żółknąć od spodu liści. Czy to może być brak wapnia, czy to ta przeklęta zaraza ziemniaczana? Co polecacie na szybki ratunek?",
         "timestamp": "2026-06-02T10:00:00Z",
         "likes": 14,
         "comments": [
           {
             "id": "gc_garden_2",
             "author": {
-              "id": "u1",
+              "id": "u3",
               "name": "Piotr Wiśniewski",
-              "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "To chyba znak, aby znaleźć inne hobby. Nie wszyscy muszą mieć rękę do roślin. Pozdrawiam serdecznie.",
             "timestamp": "2026-06-02T10:30:00Z"
@@ -642,8 +956,31 @@
               "name": "Marta Lewandowska",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
-            "text": "Nie słuchaj Piotra. To prawdopodobnie sucha zgnilizna wierzchołkowa. Oprysk saletrą wapniową powinien pomóc!",
+            "text": "Nie słuchaj Piotra, on się zna na kamieniach w Tatrach a nie na pomidorach. To sucha zgnilizna wierzchołkowa! Oprysk saletrą wapniową załatwi sprawę.",
             "timestamp": "2026-06-02T10:45:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_garden",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Post usunięty przez Moderatora grupy 'Mój Piękny Ogród'. Powód: Groźby zniszczenia mienia pod adresem zarządu ROD oraz naruszenie regulaminu Polskiego Związku Działkowców (§ 3 pkt 7)]",
+        "timestamp": "2026-05-29T14:00:00Z",
+        "likes": 2,
+        "comments": [
+          {
+            "id": "gc_mod_gar_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Wojny działkowe weszły na poziom prokuratury xD",
+            "timestamp": "2026-05-29T14:15:00Z"
           }
         ]
       }
@@ -654,11 +991,44 @@
     "id": "g_sports",
     "name": "Bieganie i Aktywność",
     "icon": "Footprints",
-    "description": "Wymiana doświadczeń biegowych, plany treningowe i wspólne motywowanie się do działania.",
+    "description": "Wymiana doświadczeń biegowych, plany treningowe i gorące spory o pierwszeństwo na trasach.",
     "coverColor": "#3B82F6",
     "membersCount": 4120,
     "members": [],
     "posts": [
+      {
+        "id": "gp_sports_war",
+        "author": {
+          "id": "u7",
+          "name": "Michał Dąbrowski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+        },
+        "content": "Apel do kolarzy i hulajnogarzy w Parku Miejskim: alejki spacerowe to NIE jest tor wyścigowy Tour de France! Wczoraj facet w obcisłym trykocie przeleciał 40 km/h o 5 centymetrów od wózka z niemowlakiem, drąc się: 'Z drogi, rekord życiowy robię!'. Jeśli chcecie pobijać rekordy prędkości, zapraszam na szosę za miasto, a nie między spacerujące rodziny z dziećmi!",
+        "timestamp": "2026-06-03T10:00:00Z",
+        "likes": 84,
+        "comments": [
+          {
+            "id": "gc_sw_1",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "A biegacze w wielkich słuchawkach wygłuszających, którzy nie słyszą dzwonka i nagle robią nawrotkę w lewo bez spojrzenia za siebie? Każda strona ma swoje za uszami.",
+            "timestamp": "2026-06-03T10:15:00Z"
+          },
+          {
+            "id": "gc_sw_2",
+            "author": {
+              "id": "u7",
+              "name": "Michał Dąbrowski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+            },
+            "text": "Piotrek, biegacz biegnie 10 km/h i waży 75 kg. Rowerzysta na szosówce jedzie 40 km/h i może zabić dziecko na miejscu. Czujesz tę drobną różnicę w fizyce uderzenia?",
+            "timestamp": "2026-06-03T10:25:00Z"
+          }
+        ]
+      },
       {
         "id": "gp_sports_1",
         "author": {
@@ -666,7 +1036,7 @@
           "name": "Piotr Wiśniewski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "content": "Ktoś biega jutro rano w parku? Mam w planie spokojne 10km w tempie 5:30. Zapraszam do wspólnego treningu! 🏃‍♂️",
+        "content": "Ktoś biega jutro rano w parku? Mam w planie spokojne 12km w tempie 5:20. Zapraszam do wspólnego treningu! 🏃‍♂️",
         "timestamp": "2026-06-03T08:00:00Z",
         "likes": 22,
         "comments": [
@@ -681,6 +1051,29 @@
             "timestamp": "2026-06-03T08:15:00Z"
           }
         ]
+      },
+      {
+        "id": "gp_mod_sports",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Wpis usunięty przez Moderatora. Powód: Oferowanie i reklama nielegalnych substancji wspomagających (sterydy anaboliczne, nieatestowane spalacze tłuszczu) - naruszenie § 6 Zasad Grupy Sportowej.]",
+        "timestamp": "2026-05-30T15:00:00Z",
+        "likes": 1,
+        "comments": [
+          {
+            "id": "gc_mod_sp_1",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "Promowanie dopingu w grupie amatorów to kryminał. Won stąd.",
+            "timestamp": "2026-05-30T15:10:00Z"
+          }
+        ]
       }
     ],
     "isMember": false
@@ -689,11 +1082,54 @@
     "id": "g_childcare",
     "name": "Rodzice i Dzieci",
     "icon": "Users",
-    "description": "Wsparcie dla rodziców, porady dotyczące wychowania i kreatywnych zabaw.",
+    "description": "Wsparcie dla rodziców, porady dotyczące wychowania, żłobkowe dramaty i kreatywne zabawy.",
     "coverColor": "#F472B6",
     "membersCount": 8590,
     "members": [],
     "posts": [
+      {
+        "id": "gp_madki_war",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "content": "Drogie Mamy, muszę to z siebie wyrzucić, bo zaraz pęknę. Dlaczego wciąż przyprowadzacie do przedszkola dzieci z zielonym katarzem do pasa i duszącym kaszlem, napojone rano syropem przeciwgorączkowym, żeby 'jakoś dotrwały do obiadu'?! Efekt? Moje dziecko po dwóch dniach zdrowia znowu leży w łóżku z zapaleniem oskrzeli. Czy wy naprawdę nie myślicie o innych dzieciach i ich rodzinach?!",
+        "timestamp": "2026-06-03T11:00:00Z",
+        "likes": 92,
+        "comments": [
+          {
+            "id": "gc_mw_1",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Aniu, a co mają zrobić rodzice, którzy pracują w firmach, gdzie za trzecie L4 w miesiącu grozi dyscyplinarka? System wsparcia opieki w tym kraju nie istnieje.",
+            "timestamp": "2026-06-03T11:15:00Z"
+          },
+          {
+            "id": "gc_mw_2",
+            "author": {
+              "id": "u10",
+              "name": "Natalia Wójcik",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u10"
+            },
+            "text": "Jako farmaceutka powiem jedno: maskowanie infekcji lekami przeciwgorączkowymi i wysyłanie osłabionego malucha do skupiska zarazków to przede wszystkim krzywda dla samego dziecka! Powikłania po niedoleczonych infekcjach bywają dramatyczne.",
+            "timestamp": "2026-06-03T11:28:00Z"
+          },
+          {
+            "id": "gc_mw_3",
+            "author": {
+              "id": "u2",
+              "name": "Anna Nowak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+            },
+            "text": "Dokładnie Natalia! O to mi chodzi. Krzywdzicie własne dzieci i przy okazji 20 innych w grupie.",
+            "timestamp": "2026-06-03T11:35:00Z"
+          }
+        ]
+      },
       {
         "id": "gp_childcare_1",
         "author": {
@@ -701,7 +1137,7 @@
           "name": "Anna Nowak",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
-        "content": "Macie jakieś pomysły na zabawy w domu dla 3-latka? Pogoda dzisiaj nie dopisuje, a powoli kończą mi się pomysły. 🌧️🎨",
+        "content": "Macie jakieś sprawdzone pomysły na zabawy w domu dla 3-latka? Pogoda dzisiaj pod psem, leje od rana, a powoli kończą mi się pomysły. 🌧️🎨",
         "timestamp": "2026-06-03T09:00:00Z",
         "likes": 35,
         "comments": [
@@ -712,8 +1148,31 @@
               "name": "Jan Kowalski",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
-            "text": "Polecam budowanie bazy z koców i krzeseł! U nas zawsze działa na kilka godzin.",
+            "text": "Polecam budowanie bazy z koców i krzeseł! U nas zawsze działa na kilka godzin spokoju.",
             "timestamp": "2026-06-03T09:20:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_childcare",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Post usunięty przez Zespół Moderacji. Powód: Publikacja wizerunku cudzych małoletnich dzieci bez zgody ich opiekunów prawnych oraz mowa nienawiści w sekcji komentarzy (§ 11 Regulaminu Ochrony Dzieci). Sprawa przekazana do Rzecznika Praw Dziecka.]",
+        "timestamp": "2026-05-28T16:00:00Z",
+        "likes": 15,
+        "comments": [
+          {
+            "id": "gc_mod_ch_1",
+            "author": {
+              "id": "u2",
+              "name": "Anna Nowak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+            },
+            "text": "Dziękuję za natychmiastową reakcję. Fotografowanie cudzych dzieci na placu zabaw to obrzydliwe przekroczenie granic.",
+            "timestamp": "2026-05-28T16:10:00Z"
           }
         ]
       }
@@ -778,6 +1237,39 @@
             },
             "text": "Najgorsze jest to, że PrimeCo na podstawie tych pseudonaukowych prognoz decyduje, kto dostanie kredyt, awans czy ubezpieczenie. Dzielą nas na kasty!",
             "timestamp": "2026-06-03T11:22:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_mod_anti",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "[Ten wpis został usunięty przez Administratora Kornela Zagórskiego. Powód: Wykryto skoordynowany astroturfing i trolling korporacyjny z adresu IP powiązanego z agencją PR obsługującą PrimeCo. Próba dyskredytacji ruchu i zastraszania świadków. Wasze korporacyjne sztuczki u nas nie przejdą!]",
+        "timestamp": "2026-06-03T11:40:00Z",
+        "likes": 39,
+        "comments": [
+          {
+            "id": "gc_mod_anti_1",
+            "author": {
+              "id": "u_damian",
+              "name": "Damian Wilk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+            },
+            "text": "Haha, panika na salonach Prime'a! Wynajmują płatne farmy trolli, żeby uciszać dyskusję. Brawo Kornel za natychmiastowego bana!",
+            "timestamp": "2026-06-03T11:48:00Z"
+          },
+          {
+            "id": "gc_mod_anti_2",
+            "author": {
+              "id": "u_weronika",
+              "name": "Weronika Skalska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+            },
+            "text": "To tylko dowodzi, jak bardzo boją się prawdy. Nie damy się zastraszyć!",
+            "timestamp": "2026-06-03T11:55:00Z"
           }
         ]
       },

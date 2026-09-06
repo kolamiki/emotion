@@ -237,39 +237,39 @@
       "triggers": ["hej", "cześć", "siema", "witaj", "hello", "hi"],
       "responses": [
         {
-          "text": "Hej! ✨ Właśnie pracuję nad czymś fajnym, chcesz zobaczyć?",
+          "text": "Hej! 🐾 Właśnie zeszłam z dyżuru w lecznicy, co tam słychać?",
           "delayBeforeTyping": 1000,
           "typingDuration": 2500,
           "sentiment": "positive",
-          "topic": "design"
+          "topic": "general"
         },
         {
-          "text": "Cześć! Jak dobrze że piszesz, potrzebuję Twojej opinii o czymś 🎨",
+          "text": "Cześć! Jak dobrze że piszesz, potrzebuję chwili na oderwanie się od pracy ☕",
           "delayBeforeTyping": 800,
           "typingDuration": 2800,
           "sentiment": "positive",
-          "topic": "design"
+          "topic": "general"
         }
       ]
     },
     {
-      "id": "cr-kasia-design",
+      "id": "cr-kasia-pets",
       "participantId": "u4",
-      "triggers": ["design", "projekt", "grafika", "ui", "ux", "figma", "kolory", "font"],
+      "triggers": ["pies", "kot", "piesek", "kotek", "zwierzak", "zwierzęta", "pupil", "weterynarz", "lecznica"],
       "responses": [
         {
-          "text": "To mój ulubiony temat! Ostatnio eksperymentuję z glassmorphism + ciepła paleta 🎨",
+          "text": "Uwielbiam zwierzęta! Opowiedz mi o swoim pupilu, co to za słodziak? 🐾",
           "delayBeforeTyping": 800,
           "typingDuration": 3000,
           "sentiment": "positive",
-          "topic": "design"
+          "topic": "pets"
         },
         {
-          "text": "Tak! Widziałeś trendy na 2026? Organiczne kształty wracają mocno ✨",
+          "text": "Pamiętaj tylko: żadnej czekolady, rodzynek ani kości z kurczaka! Za dużo takich pacjentów operuję na ostrym dyżurze 🐕",
           "delayBeforeTyping": 1200,
           "typingDuration": 2500,
           "sentiment": "positive",
-          "topic": "design"
+          "topic": "pets"
         }
       ]
     },
@@ -279,14 +279,14 @@
       "triggers": ["jak się masz", "co słychać", "co tam", "co u ciebie"],
       "responses": [
         {
-          "text": "Fantastycznie! Właśnie skończyłam nowy projekt i jestem z siebie dumna 🌟",
+          "text": "Dobrze! Zakończyłam pomyślnie trudny zabieg i uratowaliśmy małego psiaka, więc humor 10/10 🌟🐾",
           "delayBeforeTyping": 600,
           "typingDuration": 2500,
           "sentiment": "positive",
           "topic": "mood"
         },
         {
-          "text": "Hmm, trochę kreatywny kryzys, ale kawa pomaga ☕ A u Ciebie?",
+          "text": "Trochę zmęczona po 10 godzinach na nogach, ale trzecia kawa trzyma mnie przy życiu ☕ A u Ciebie?",
           "delayBeforeTyping": 1500,
           "typingDuration": 2200,
           "sentiment": "neutral",
@@ -307,7 +307,7 @@
           "topic": "general"
         },
         {
-          "text": "Jesteś za słodki! 💕 Wrzucę więcej na profil wkrótce!",
+          "text": "Dzięki! Przekażę też buziaki pacjentom w lecznicy! 💕🐾",
           "delayBeforeTyping": 800,
           "typingDuration": 2000,
           "sentiment": "positive",
@@ -321,14 +321,14 @@
       "triggers": ["problem", "nie działa", "błąd", "trudne", "ciężko"],
       "responses": [
         {
-          "text": "Ojej... Chcesz żebym Ci narysowała coś na pocieszenie? 🎨💛 Czasem sztuka pomaga!",
+          "text": "Ojej... Trzymaj się ciepło! 💛 Wiesz co najlepiej pomaga na dołek? Spacer z psem albo chwila z mruczącym kotem na kolanach 🐾",
           "delayBeforeTyping": 800,
           "typingDuration": 2500,
           "sentiment": "negative",
-          "topic": "design"
+          "topic": "general"
         },
         {
-          "text": "Hej, przytulam wirtualnie! 🤗 Kreatywny kryzys to normalka, przejdzie!",
+          "text": "Hej, przytulam wirtualnie! 🤗 Po ciężkim dniu zawsze w końcu wychodzi słońce, wiem coś o tym!",
           "delayBeforeTyping": 600,
           "typingDuration": 2200,
           "sentiment": "negative",

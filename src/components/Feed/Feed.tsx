@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Heart, MessageCircle, Share2, Send, Loader2 } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Send, Loader2, ShieldAlert } from 'lucide-react';
 import styles from './Feed.module.css';
 import type { Post, User, Comment, AppAction, LikedPosts } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
@@ -224,8 +224,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
     if (displayLikes === 0) displayLikes = 1;
   }
 
+  const isModerated = post.author.id === 'u13' || post.content.startsWith('[');
+
   return (
-    <article className={styles.postCard} data-post-id={post.id}>
+    <article className={`${styles.postCard} ${isModerated ? styles.moderatedCard : ''}`} data-post-id={post.id}>
       <div className={styles.postHeader}>
         <div className={styles.avatarWrap}>
           <img
@@ -238,13 +240,21 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
           {post.author.isOnline && <div className={styles.avatarOnline} />}
         </div>
         <div className={styles.postMeta}>
-          <div className={styles.postAuthor}>{post.author.name}</div>
+          <div className={styles.postAuthor}>
+            {post.author.name}
+            {isModerated && <span className={styles.moderatedBadge}>Zmoderowano</span>}
+          </div>
           <div className={styles.postTime}>{formatTime(post.timestamp)}</div>
         </div>
       </div>
 
       <div className={styles.postContent}>
-        {post.content.length > 168 && !isExpanded ? (
+        {isModerated ? (
+          <div className={styles.moderatedNotice}>
+            <ShieldAlert size={18} className={styles.moderatedIcon} />
+            <div className={styles.moderatedText}>{post.content}</div>
+          </div>
+        ) : post.content.length > 168 && !isExpanded ? (
           <>
             {post.content.slice(0, 168)}...{' '}
             <span

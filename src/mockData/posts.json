@@ -9,187 +9,519 @@
     },
     "content": "Czy tylko ja uważam, że nowe produkcje cierpią na chroniczny brak oryginalności? Właśnie wyszłam z kina. Dwie godziny życia, których nikt mi nie odda. 🎬🙄",
     "timestamp": "2026-06-03T14:00:00Z",
-    "likes": 2,
-    "comments": [],
-    "shares": 0
-  },
-  {
-    "id": "p1",
-    "author": {
-      "id": "u2",
-      "name": "Anna Nowak",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
-      "isOnline": true
-    },
-    "content": "Cześć wszystkim! Właśnie dołączyłam do e-Motion. Pierwszy dzień na nowej platformie i już czuję się jak w domu! 🚀",
-    "timestamp": "2026-05-27T10:00:00Z",
-    "likes": 5,
+    "likes": 24,
     "comments": [
       {
-        "id": "c1",
+        "id": "c_nat_1",
+        "author": {
+          "id": "u_damian",
+          "name": "Damian Wilk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+        },
+        "text": "W punkt Natalie. Komercyjna papka sponsorowana przez korporacje, żeby uśpić czujność i wcisnąć ludziom tani konsumpcjonizm.",
+        "timestamp": "2026-06-03T14:12:00Z"
+      },
+      {
+        "id": "c_nat_2",
+        "author": {
+          "id": "u_kornel",
+          "name": "Kornel Zagórski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+        },
+        "text": "PrimeCo pompuje w to miliony euro, a recenzenci na ich garnuszku pieją z zachwytu. Dobrze, że ktoś jeszcze ma odwagę mówić prawdę.",
+        "timestamp": "2026-06-03T14:25:00Z"
+      }
+    ],
+    "shares": 5
+  },
+  {
+    "id": "p_gaston_1",
+    "author": {
+      "id": "u_gaston",
+      "name": "Gaston Desole",
+      "avatarUrl": "/avatars/gaston.png",
+      "isOnline": true
+    },
+    "content": "Jako założyciel e-Motion z dumą ogłaszam wdrożenie Nowego Kodeksu Wzajemnego Szacunku (v4.2). Nasza misja to platforma wolna od toksyczności, gdzie algorytmy emocjonalne chronią dobrostan psychiczny każdego użytkownika. Wszelkie przejawy mowy nienawiści, dezinformacji oraz agresji będą natychmiast eliminowane przez systemy automatycznej kwarantanny. Budujmy bezpieczny internet! 🤝✨ #StopHejt #eMotion #CyfrowyDobrostan",
+    "timestamp": "2026-06-03T13:30:00Z",
+    "likes": 47,
+    "comments": [
+      {
+        "id": "c_gas_1",
+        "author": {
+          "id": "u_kornel",
+          "name": "Kornel Zagórski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+        },
+        "text": "Czyli w skrócie: każdy, kto krytykuje monopol i zadaje niewygodne pytania o powiązania z PrimeCo, dostaje bana pod płaszczykiem 'mowy nienawiści'? Piękna nowomowa, panie Gaston.",
+        "timestamp": "2026-06-03T13:38:00Z"
+      },
+      {
+        "id": "c_gas_2",
+        "author": {
+          "id": "u_damian",
+          "name": "Damian Wilk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+        },
+        "text": "'Algorytmy chroniące dobrostan' – większego korporacyjnego bełkotu dawno nie czytałem. Zwykła cenzura prewencyjna ubrana w różowe barwy.",
+        "timestamp": "2026-06-03T13:45:00Z"
+      },
+      {
+        "id": "c_gas_3",
+        "author": {
+          "id": "u_weronika",
+          "name": "Weronika Skalska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+        },
+        "text": "Gaston, powiedz lepiej kiedy ujawnicie audyt algorytmów profilowania emocjonalnego, o który wnioskują organizacje obywatelskie!",
+        "timestamp": "2026-06-03T13:52:00Z"
+      }
+    ],
+    "shares": 14
+  },
+  {
+    "id": "p_michel_1",
+    "author": {
+      "id": "u7",
+      "name": "Michał Dąbrowski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u7",
+      "isOnline": true
+    },
+    "content": "Godzina 3:20 w nocy. Wezwanie z kodem 1, sygnały, pędzimy przez całe miasto, adrenalina pod sufit, wpadamy z torbą reanimacyjną na 4. piętro... 'Panie ratowniku, bo mnie od trzech tygodni swędzi mały palec u stopy, a do przychodni są kolejki'.\n\nLudzie, błagam was na wszystko: karetka pogotowia ratunkowego to NIE jest mobilna przychodnia ani darmowa taksówka na SOR! Przez takie bezmyślne wezwania ktoś z zatrzymaniem krążenia czy udarem może nie doczekać pomocy. Trochę odpowiedzialności za innych!",
+    "timestamp": "2026-06-03T11:45:00Z",
+    "likes": 164,
+    "comments": [
+      {
+        "id": "c_mich_1",
+        "author": {
+          "id": "u10",
+          "name": "Natalia Wójcik",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u10"
+        },
+        "text": "Michał, u mnie na nocnym dyżurze w aptece to samo. Przychodzi facet o 2:40 w nocy, dzwoni dzwonkiem jak opętany... po gumy do żucia i witaminę C, po czym ma pretensje, że doliczam opłatę nocną 🤦‍♀️",
+        "timestamp": "2026-06-03T11:58:00Z"
+      },
+      {
+        "id": "c_mich_2",
         "author": {
           "id": "u3",
           "name": "Piotr Wiśniewski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "text": "Witamy na pokładzie! 🎉",
-        "timestamp": "2026-05-27T10:05:00Z"
+        "text": "Za nieuzasadnione wezwanie powinien być automatyczny rachunek na 3000 zł i problem skończyłby się w tydzień.",
+        "timestamp": "2026-06-03T12:10:00Z"
+      },
+      {
+        "id": "c_mich_3",
+        "author": {
+          "id": "u9",
+          "name": "Bartek Nowicki",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u9"
+        },
+        "text": "W górach identycznie – wzywają GOPR i śmigłowiec, bo 'się zmęczyli' 2 km przed schroniskiem i im zimno w tenisówkach. Ręce i nogi opadają.",
+        "timestamp": "2026-06-03T12:20:00Z"
+      }
+    ],
+    "shares": 42
+  },
+  {
+    "id": "p_mod_1",
+    "author": {
+      "id": "u13",
+      "name": "Anonimowy użytkownik",
+      "avatarUrl": "/avatars/anonim.png",
+      "isOnline": false
+    },
+    "content": "[Treść została usunięta przez Zespół Moderacji Społeczności e-Motion z powodu naruszenia § 12 ust. 4 Regulaminu Serwisu: Zakaz publikowania danych wrażliwych bez zgody (doxxing), pomówień oraz agresji werbalnej wobec członków społeczności. Sprawa została przekazana do wewnętrznego Działu Zgodności i Prawa (Sprawa #MOD-99418)]",
+    "timestamp": "2026-06-03T09:15:00Z",
+    "likes": 6,
+    "comments": [
+      {
+        "id": "c_mod1_1",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "I bardzo dobrze, że to poleciało. Doxxowanie ludzi z osiedla i wrzucanie ich numerów telefonów pod wymyślonym pretekstem to już było dno.",
+        "timestamp": "2026-06-03T09:22:00Z"
+      },
+      {
+        "id": "c_mod1_2",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "text": "Cenzura wchodzi na pełnej xD Nawet nie zdążyłem doczytać o co poszła ta afera i kto kogo obraził.",
+        "timestamp": "2026-06-03T09:30:00Z"
+      },
+      {
+        "id": "c_mod1_3",
+        "author": {
+          "id": "u6",
+          "name": "Marta Lewandowska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+        },
+        "text": "Tomek, facet wypisywał chore groźby pod adresem dziewczyn ze zdjęć. Cieszę się, że administracja w końcu go zablokowała.",
+        "timestamp": "2026-06-03T09:41:00Z"
       }
     ],
     "shares": 1
   },
   {
-    "id": "p2",
-    "author": {
-      "id": "u3",
-      "name": "Piotr Wiśniewski",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
-      "isOnline": false
-    },
-    "content": "Dziś piękna pogoda na spacer. Pozdrowienia z gór! ⛰️ Kto chętny na weekend w Tatrach?",
-    "timestamp": "2026-05-27T08:30:00Z",
-    "likes": 12,
-    "comments": [
-      {
-        "id": "c2",
-        "author": {
-          "id": "u4",
-          "name": "Kasia Zielińska",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
-        },
-        "text": "Ja jestem chętna!",
-        "timestamp": "2026-05-27T08:45:00Z"
-      },
-      {
-        "id": "c3",
-        "author": {
-          "id": "u1",
-          "name": "Jan Kowalski",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
-        },
-        "text": "Dopisuję się do listy 👋",
-        "timestamp": "2026-05-27T09:00:00Z"
-      }
-    ],
-    "shares": 3
-  },
-  {
-    "id": "p3",
+    "id": "p_kasia_1",
     "author": {
       "id": "u4",
       "name": "Kasia Zielińska",
       "avatarUrl": "https://i.pravatar.cc/150?u=u4",
       "isOnline": true
     },
-    "content": "Właśnie skończyłam nowy projekt graficzny! 🎨 Pracowałam nad nim 3 miesiące. Efekt końcowy przeszedł moje oczekiwania. Dajcie znać, co myślicie!",
-    "timestamp": "2026-05-27T07:15:00Z",
-    "likes": 28,
+    "content": "Gorący apel z nocnego dyżuru w lecznicy: BŁAGAM WAS, nie dokarmiajcie psów kośćmi z kurczaka ani słodyczami! Od rana wyciągamy z żołądków ostre odłamki kości i tabliczki czekolady, bo 'piesek tak ładnie prosił przy obiedzie'. Kończy się bólem, pilną operacją za kilka tysięcy i gigantycznym stresem dla zwierzaka. Jeśli naprawdę kochacie swoje pupile, kupcie im porządny przysmak funkcyjny albo zabierzcie na 2-godzinny spacer do lasu! 🐾🛑",
+    "timestamp": "2026-06-02T21:10:00Z",
+    "likes": 138,
     "comments": [
       {
-        "id": "c4",
+        "id": "c_kas_1",
         "author": {
           "id": "u5",
           "name": "Tomek Krawczyk",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
-        "text": "Wygląda profesjonalnie! 👏",
-        "timestamp": "2026-05-27T07:30:00Z"
+        "text": "Kasiu, mów to mojej teściowej... 'Przecież pies na wsi zawsze jadł resztki z zupy i dożył 15 lat'. Ręce i cycki opadają.",
+        "timestamp": "2026-06-02T21:20:00Z"
       },
       {
-        "id": "c5",
+        "id": "c_kas_2",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "text": "Tomek, przyślij ją do mnie na dyżur na godzinę, niech zobaczy jak wygląda perforacja jelita u szczeniaka, to natychmiast zmieni podejście.",
+        "timestamp": "2026-06-02T21:26:00Z"
+      },
+      {
+        "id": "c_kas_3",
         "author": {
           "id": "u2",
           "name": "Anna Nowak",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
-        "text": "Super robota Kasiu!",
-        "timestamp": "2026-05-27T07:35:00Z"
-      },
-      {
-        "id": "c6",
-        "author": {
-          "id": "u6",
-          "name": "Marta Lewandowska",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
-        },
-        "text": "Kiedy możemy zobaczyć więcej?",
-        "timestamp": "2026-05-27T08:00:00Z"
+        "text": "Udostępniam dalej! Ludzie wciąż powtarzają te szkodliwe mity...",
+        "timestamp": "2026-06-02T21:40:00Z"
       }
     ],
-    "shares": 8
+    "shares": 35
   },
   {
-    "id": "p4",
+    "id": "p_tomek_1",
     "author": {
       "id": "u5",
       "name": "Tomek Krawczyk",
       "avatarUrl": "https://i.pravatar.cc/150?u=u5",
       "isOnline": true
     },
-    "content": "Programuję już 12 godzin bez przerwy. Kawy wypite: 5. Bugi naprawione: 1. Bugi stworzone: 7. Takie życie developera. 💻",
-    "timestamp": "2026-05-26T23:45:00Z",
-    "likes": 42,
+    "content": "Prawie trzy tygodnie szlifowania, bejcowania i pasowania dębowych belek ze stuletniej stodoły z Mazur. Klienci chcieli 'coś z duszą i charakterem' do kamienicy. Stół waży chyba ze 130 kilo, czterech chłopa wnosiło to na 3. piętro bez windy, ale efekt końcowy wynagradza każdą kroplę potu. Prawdziwe drewno żyje własnym życiem – żaden laminowany paździerz z marketu nigdy tego nie zastąpi! 🪵☕",
+    "timestamp": "2026-06-02T16:40:00Z",
+    "likes": 89,
     "comments": [
       {
-        "id": "c7",
-        "author": {
-          "id": "u3",
-          "name": "Piotr Wiśniewski",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
-        },
-        "text": "Znam ten ból 😅",
-        "timestamp": "2026-05-27T00:00:00Z"
-      },
-      {
-        "id": "c8",
+        "id": "c_tom_1",
         "author": {
           "id": "u1",
           "name": "Jan Kowalski",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
-        "text": "Idź spać, jutro będzie lepiej!",
-        "timestamp": "2026-05-27T00:15:00Z"
+        "text": "Petarda robota Tomek! Ile za taki bierzesz na zamówienie? Bo u mnie ten tani stolik chwieje się od samego patrzenia na kubek kawy xD",
+        "timestamp": "2026-06-02T16:55:00Z"
+      },
+      {
+        "id": "c_tom_2",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "text": "Dzięki Janek! Zależy od wymiarów i grubości blatu, odezwij się na priv to ci rozrysuję opcje.",
+        "timestamp": "2026-06-02T17:05:00Z"
+      },
+      {
+        "id": "c_tom_3",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "text": "Cudowny! Aż czuć zapach naturalnego wosku i drewna przez monitor 😍",
+        "timestamp": "2026-06-02T17:20:00Z"
       }
     ],
-    "shares": 5
+    "shares": 8
   },
   {
-    "id": "p5",
+    "id": "p_natalia_1",
+    "author": {
+      "id": "u10",
+      "name": "Natalia Wójcik",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u10",
+      "isOnline": true
+    },
+    "content": "Dzisiejsza scenka z apteki, autentyk:\n– Poproszę antybiotyk bez recepty, ten mocny, bo mnie w gardle drapie od wczoraj.\n– Dzień dobry. Antybiotyki są wyłącznie na receptę lekarską, zresztą na infekcję wirusową antybiotyk nie pomoże.\n– Ale ja wiem lepiej co mi jest! Pan doktor w telewizji śniadaniowej mówił, że trzeba brać od razu!\n– Proszę skonsultować się z lekarzem rodzinnym.\n– 'Pani jest bezczelna i odmawia ratowania życia, napiszę skargę do izby aptekarskiej i do mediów!'\n\nKurtyna. Drodzy pacjenci, antybiotykooporność to nie teoria spiskowa, tylko śmiertelne zagrożenie. Jak tak dalej pójdzie, to za 10 lat znowu będziemy umierać na zapalenie zęba...",
+    "timestamp": "2026-06-02T12:00:00Z",
+    "likes": 142,
+    "comments": [
+      {
+        "id": "c_natw_1",
+        "author": {
+          "id": "u7",
+          "name": "Michał Dąbrowski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+        },
+        "text": "U nas na SORze hit sezonu to: 'Panie doktorze, wypiszcie antybiotyk profilaktycznie, bo w sobotę mam wesele szwagra i muszę być zdrowy' xDDD",
+        "timestamp": "2026-06-02T12:15:00Z"
+      },
+      {
+        "id": "c_natw_2",
+        "author": {
+          "id": "u8",
+          "name": "Ola Kamińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+        },
+        "text": "Podziwiam Waszą anielską cierpliwość... Ja bym po tygodniu za tym okienkiem chyba zwariowała.",
+        "timestamp": "2026-06-02T12:30:00Z"
+      }
+    ],
+    "shares": 19
+  },
+  {
+    "id": "p_ola_1",
+    "author": {
+      "id": "u8",
+      "name": "Ola Kamińska",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u8",
+      "isOnline": true
+    },
+    "content": "Przyszła dzisiaj do naszej księgarni dziewczyna ze statywem i lampą pierścieniową. Wzięła z półki 12 najdroższych wydań klasyki w twardej oprawie, ułożyła w malowniczy stosik przy oknie, pozowała przez 40 minut z kubkiem kawy, robiąc maślane miny do rolek na TikToka... po czym zostawiła cały ten bałagan na parapecie i wyszła ze słowami: 'Dzięki, materiał na cały miesiąc nagrany!'.\n\nCzy my jako społeczeństwo jeszcze w ogóle czytamy książki, czy literatura stała się już tylko darmowym rekwizytem meblowym do budowania fałszywego wizerunku intelektualisty w sieci? 📖☕🤦‍♀️",
+    "timestamp": "2026-06-01T17:30:00Z",
+    "likes": 115,
+    "comments": [
+      {
+        "id": "c_ola_1",
+        "author": {
+          "id": "u11",
+          "name": "Jakub Mazur",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u11"
+        },
+        "text": "Olu, w świecie muzyki to samo! Ludzie kupują płyty winylowe za 180 zł, wieszają w ramkach na ścianie dla 'estetyki retro', a nawet nie mają gramofonu w domu xD Pozerstwo level master.",
+        "timestamp": "2026-06-01T17:45:00Z"
+      },
+      {
+        "id": "c_ola_2",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "text": "Niestety w szkołach widzę to samo u dzieciaków – ważne, żeby okładka ładnie wyszła na relacji. Smutne to jest bardzo.",
+        "timestamp": "2026-06-01T18:00:00Z"
+      }
+    ],
+    "shares": 27
+  },
+  {
+    "id": "p_mod_2",
+    "author": {
+      "id": "u13",
+      "name": "Anonimowy użytkownik",
+      "avatarUrl": "/avatars/anonim.png",
+      "isOnline": false
+    },
+    "content": "[Wpis zablokowany decyzją Administratora Bezpieczeństwa Treści. Powód: Rozpowszechnianie niezarejestrowanych instrumentów finansowych, piramid finansowych oraz linków wyłudzających dane uwierzytelniające (Phishing). Konto autora zostało skierowane na procedurę weryfikacji tożsamości zgodnie z dyrektywą eIDAS / § 8.3 Regulaminu]",
+    "timestamp": "2026-06-01T14:00:00Z",
+    "likes": 2,
+    "comments": [
+      {
+        "id": "c_mod2_1",
+        "author": {
+          "id": "u7",
+          "name": "Michał Dąbrowski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+        },
+        "text": "Kolejny 'gwarantowany zysk 300% w 48 godzin dzięki tajnemu botowi z Dubaju'. Prawie mój starszy sąsiad dał się na to nabrać w zeszłym miesiącu.",
+        "timestamp": "2026-06-01T14:15:00Z"
+      },
+      {
+        "id": "c_mod2_2",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "text": "Dziwię się, że ludzie w 2026 roku wciąż wierzą w darmowe pieniądze z internetu...",
+        "timestamp": "2026-06-01T14:28:00Z"
+      }
+    ],
+    "shares": 0
+  },
+  {
+    "id": "p_bartek_1",
+    "author": {
+      "id": "u9",
+      "name": "Bartek Nowicki",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u9",
+      "isOnline": true
+    },
+    "content": "Trzeci raz w tym tygodniu: 'turyści' wjechali ciężkim SUV-em w głąb ścisłego rezerwatu przyrody, bo 'Google Maps tak pokazał najkrótszą drogę na polanę', po czym zawiesili auto na pniaku w błocie po same progi. Jak zapytałem kierowcę, czy widział wielką tablicę 'Zakaz wjazdu – Park Narodowy', usłyszałem ze szczerym uśmiechem: 'No widziałem, ale myślałem, że to tylko dla traktorów'.\n\nMandat 1500 zł, koszt wyciągarki leśnej i punkty karne. Może następnym razem nawigacja pokaże drogę do odrobiny zdrowego rozsądku. Szanujcie las, to dom zwierząt, a nie tor offroadowy! 🌲🐗",
+    "timestamp": "2026-06-01T09:30:00Z",
+    "likes": 182,
+    "comments": [
+      {
+        "id": "c_bar_1",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "1500 zł to śmiech na sali dla kogoś w aucie za pół miliona. Powinno być 10 000 zł i miesiąc prac społecznych przy sprzątaniu szlaków z butelek i puszek!",
+        "timestamp": "2026-06-01T09:45:00Z"
+      },
+      {
+        "id": "c_bar_2",
+        "author": {
+          "id": "u2",
+          "name": "Anna Nowak",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+        },
+        "text": "Porażająca bezmyślność... Biedne sarny i lisy, taki hałas w środku okresu lęgowego.",
+        "timestamp": "2026-06-01T10:02:00Z"
+      }
+    ],
+    "shares": 51
+  },
+  {
+    "id": "p_piotr_1",
+    "author": {
+      "id": "u3",
+      "name": "Piotr Wiśniewski",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+      "isOnline": false
+    },
+    "content": "Rzut oka na mój grafik w gabinecie fizjoterapii na ten tydzień: 85% pacjentów to ludzie w wieku 24-35 lat ze zmasakrowanym odcinkiem szyjnym i lędźwiowym od 10 godzin siedzenia zgarbionym przed monitorem i scrollowania telefonu ze zwieszoną głową.\n\nPrzestańcie kupować cudowne maści i pistolety do masażu z telezakupów za 600 zł. Wstańcie od biurka co 45 minut, zróbcie 15 przysiadów, rozciągnijcie klatkę piersiową i wyjdźcie wieczorem na godzinny marsz! Wasze stawy i kręgosłup podziękują wam za 10 lat. Ruch to życie, tabletki tego nie załatwią. 🚶‍♂️🦴",
+    "timestamp": "2026-05-31T18:00:00Z",
+    "likes": 96,
+    "comments": [
+      {
+        "id": "c_pio_1",
+        "author": {
+          "id": "u5",
+          "name": "Tomek Krawczyk",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+        },
+        "text": "Właśnie się odruchowo wyprostowałem na krześle czytając to... Za późno stary, łupie w krzyżu od poniedziałku xD",
+        "timestamp": "2026-05-31T18:15:00Z"
+      },
+      {
+        "id": "c_pio_2",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "Tomek, bo zamiast dźwigać te dębowe bale z nóg na ugiętych kolanach, szarpiesz z prostych pleców! Wpadnij na konsultację to ci pokażę wzorce ruchowe.",
+        "timestamp": "2026-05-31T18:22:00Z"
+      },
+      {
+        "id": "c_pio_3",
+        "author": {
+          "id": "u4",
+          "name": "Kasia Zielińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+        },
+        "text": "Potwierdzam... po 8 godzinach stania pochyloną nad stołem operacyjnym czuję się jak 90-letnia staruszka.",
+        "timestamp": "2026-05-31T18:40:00Z"
+      }
+    ],
+    "shares": 16
+  },
+  {
+    "id": "p_marta_1",
     "author": {
       "id": "u6",
       "name": "Marta Lewandowska",
       "avatarUrl": "https://i.pravatar.cc/150?u=u6",
       "isOnline": false
     },
-    "content": "Właśnie wróciłam z Barcelony! To miasto ma niesamowitą energię. Polecam każdemu odwiedzić dzielnicę Gotic i oczywiście Sagrada Família. Gaudi to geniusz! 🇪🇸✨",
-    "timestamp": "2026-05-26T18:00:00Z",
-    "likes": 35,
+    "content": "Dopiero co wylądowałam z Barcelony, wsiadam do pociągu Intercity w Warszawie i od razu uderza mnie ten specyficzny, swojski folklor: pan obok rozmawia na głośnomówiącym o swojej kolonoskopii, naprzeciwko ktoś wyciąga kanapkę z jajkiem na twardo i kiełbasą krakowską, a klimatyzacja działa w trybie 'Syberia zimą'. Kocham ten kraj całym sercem, nigdzie indziej nie ma tylu intensywnych bodźców na metr kwadratowy! 😂🚄🇵🇱",
+    "timestamp": "2026-05-31T14:30:00Z",
+    "likes": 128,
     "comments": [
       {
-        "id": "c9",
+        "id": "c_mar_1",
         "author": {
           "id": "u4",
           "name": "Kasia Zielińska",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "text": "Zazdroszczę! Muszę tam pojechać 😍",
-        "timestamp": "2026-05-26T18:30:00Z"
+        "text": "Witamy w macierzy Marta! 😂 Jajko na twardo w PKP to dziedzictwo narodowe UNESCO, nie marudź!",
+        "timestamp": "2026-05-31T14:45:00Z"
+      },
+      {
+        "id": "c_mar_2",
+        "author": {
+          "id": "u1",
+          "name": "Jan Kowalski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+        },
+        "text": "Przynajmniej nie ma opóźnienia 180 minut z powodu 'awarii sieci trakcyjnej', to już sukces na europejską skalę!",
+        "timestamp": "2026-05-31T14:52:00Z"
+      },
+      {
+        "id": "c_mar_3",
+        "author": {
+          "id": "u6",
+          "name": "Marta Lewandowska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+        },
+        "text": "Janek nie zapeszaj, właśnie stanęliśmy w szczerym polu przed Iławą i stoimy od 15 minut...",
+        "timestamp": "2026-05-31T15:08:00Z"
       }
     ],
-    "shares": 2
+    "shares": 12
   },
   {
-    "id": "p6",
+    "id": "p_anna_1",
     "author": {
-      "id": "u1",
-      "name": "Jan Kowalski",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "id": "u2",
+      "name": "Anna Nowak",
+      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true
     },
-    "content": "Kto pamięta jeszcze czasy bez social media? Ja ledwo, ale wspomnienia z podwórka są nie do zastąpienia. Chociaż ta platforma jest naprawdę fajna 😄",
-    "timestamp": "2026-05-26T14:00:00Z",
-    "likes": 15,
-    "comments": [],
-    "shares": 0
+    "content": "Sprawdzam kartkówki z angielskiego z 6. klasy i po prostu muszę się podzielić: na pytanie 'Translate: He is a sensible and calm person', uczeń napisał: 'On jest sensowny i ma wywalone'. W sumie... czy to nie jest najpiękniejsza życiowa definicja spokoju ducha? Zostawiłam pełny punkt za kreatywność! 🇬🇧📝😂",
+    "timestamp": "2026-05-30T16:20:00Z",
+    "likes": 175,
+    "comments": [
+      {
+        "id": "c_ann_1",
+        "author": {
+          "id": "u8",
+          "name": "Ola Kamińska",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+        },
+        "text": "Hahaha, złoto! Dzieciaki mają czasami niesamowity instynkt językowy 👏",
+        "timestamp": "2026-05-30T16:35:00Z"
+      },
+      {
+        "id": "c_ann_2",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "text": "Dobre! Mój nowy życiowy cel: być sensownym i mieć wywalone.",
+        "timestamp": "2026-05-30T16:50:00Z"
+      }
+    ],
+    "shares": 31
   }
 ]

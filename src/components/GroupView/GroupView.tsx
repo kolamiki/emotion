@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2 } from 'lucide-react';
+import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2, ShieldAlert } from 'lucide-react';
 import styles from './GroupView.module.css';
 import type { Group, User, Comment, AppAction, LikedPosts } from '../../types';
 import { scheduleGroupPostCommentResponse } from '../../store/responseEngine';
@@ -341,8 +341,10 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
     }
   };
 
+  const isModerated = post.author.id === 'u13' || post.content.startsWith('[');
+
   return (
-    <div className={styles.groupPost}>
+    <div className={`${styles.groupPost} ${isModerated ? styles.moderatedCard : ''}`}>
       <div className={styles.gpHeader}>
         <img
           src={post.author.avatarUrl}
@@ -352,12 +354,20 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
           style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
         />
         <div>
-          <div className={styles.gpAuthor}>{post.author.name}</div>
+          <div className={styles.gpAuthor}>
+            {post.author.name}
+            {isModerated && <span className={styles.moderatedBadge}>Zmoderowano</span>}
+          </div>
           <div className={styles.gpTime}>{formatTime(post.timestamp)}</div>
         </div>
       </div>
       <div className={styles.gpContent}>
-        {post.content.length > 168 && !isExpanded ? (
+        {isModerated ? (
+          <div className={styles.moderatedNotice}>
+            <ShieldAlert size={18} className={styles.moderatedIcon} />
+            <div className={styles.moderatedText}>{post.content}</div>
+          </div>
+        ) : post.content.length > 168 && !isExpanded ? (
           <>
             {post.content.slice(0, 168)}...{' '}
             <span
