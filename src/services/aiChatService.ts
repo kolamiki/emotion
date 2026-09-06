@@ -79,7 +79,17 @@ export function buildSystemPrompt(
     emojiInstruction = 'Nie używaj emoji.';
   }
 
-  const userRef = currentUserName ? `Rozmawiasz z użytkownikiem o imieniu "${currentUserName}".` : '';
+  const userFirstName = currentUserName ? currentUserName.trim().split(' ')[0] : '';
+  const userRef = userFirstName
+    ? `Rozmawiasz bezpośrednio z użytkownikiem o imieniu "${userFirstName}". Zwracaj się do niego/niej po imieniu (np. "${userFirstName}, co tam?", "Dzięki, ${userFirstName}!", "Hej ${userFirstName}!", "Rozumiem Cię, ${userFirstName}"), naturalnie wplatając jego imię w wypowiedzi, dokładnie tak jak w prywatnym czacie między znajomymi.`
+    : '';
+
+  const activeRules = [...config.rules];
+  if (userFirstName) {
+    activeRules.push(
+      `ZWRACAJ SIĘ PO IMIENIU: Twój rozmówca ma na imię "${userFirstName}". Regularnie i naturalnie zwracaj się do niego/niej po imieniu "${userFirstName}" w swoich wypowiedziach (np. witając się, dziękując, odpowiadając na pytania).`
+    );
+  }
 
   return `Jesteś postacią o imieniu ${config.name}.
 Rola: ${config.role}
@@ -102,11 +112,12 @@ ${config.hiddenMotives ? `## Ukryte motywacje (nie ujawniaj tego wprost)\n${conf
 ${config.knowledgeBase ? `## Dziedziny, w których czujesz się swobodnie\n${config.knowledgeBase.join(', ')}` : ''}
 
 ## ZASADY BEZWZGLĘDNE
-${config.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
+${activeRules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 
 ## LOGIKA I ZASADY PROWADZENIA CZATU
-- Wiadomości oznaczone jako "user" to wypowiedzi Twojego rozmówcy (${currentUserName || 'użytkownika'}). Wiadomości "assistant" to Twoje własne wcześniejsze wypowiedzi.
+- Wiadomości oznaczone jako "user" to wypowiedzi Twojego rozmówcy (${userFirstName || currentUserName || 'użytkownika'}). Wiadomości "assistant" to Twoje własne wcześniejsze wypowiedzi.
 - ZAWSZE odpowiadaj bezpośrednio i logicznie na OSTATNIĄ wiadomość rozmówcy.
+${userFirstName ? `- PAMIĘTAJ O IMIENIU ROZMÓWCY: Twój rozmówca to ${userFirstName}. Pamiętaj, aby zwracać się do niego/niej po imieniu ("${userFirstName}").` : ''}
 - Jeśli rozmówca potwierdza, zgadza się lub pisze krótko (np. "ok", "dobra", "jasne", "zaraz sprawdzę", "pomogę"), potraktuj to jako akceptację Twojej wcześniejszej prośby/pytania i podziękuj za chęć wsparcia, zamiast traktować to jako pytanie.
 - Zwrotów takich jak "Dzięki, że pytasz!" używaj WYŁĄCZNIE w sytuacji, gdy rozmówca wprost zapytał o Twoje samopoczucie, nastrój lub co u Ciebie (np. "Jak się trzymasz?", "Wszystko w porządku?", "Jak się czujesz?").
 - Nie powtarzaj całej fabuły ani nie wyrzucaj wszystkich faktów naraz - prowadź dialog naturalnie, krok po kroku.

@@ -299,31 +299,31 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
   },
   'u_marinette': { // Marinette Dupont
     positive: [
-      'Dziękuję za wsparcie! Każde dobre słowo dodaje mi teraz sił w poszukiwaniach Natalie 💛',
-      'Naprawdę? Dziękuję, że jesteś. Mam nadzieję, że wkrótce wszystko się wyjaśni...',
-      'To miłe... cieszę się, że mogę na kogoś liczyć w tym trudnym momencie ✨',
+      'Dzięki wielkie za wsparcie 💛 Naprawdę dodaje mi to sił...',
+      'Dzięki, że jesteś. Mam nadzieję, że wkrótce wszystko się wyjaśni...',
+      'To miłe... cieszę się, że mogę na Ciebie liczyć ✨',
     ],
     negative: [
-      'To straszne... tak bardzo się o nią martwię 🥺 Mam nadzieję, że nic złego się nie stało...',
-      'Wiem... czuję się jak w jakimś koszmarze. Nie spocznę, dopóki jej nie odnajdę.',
-      'Rozumiem... to wszystko jest takie przytłaczające 🫂',
+      'To jest jakiś koszmar... tak bardzo się o nią boję 🥺',
+      'Wiem... najgorsza jest ta bezsilność. Nie spocznę, dopóki jej nie znajdę.',
+      'Czuję się z tym wszystkim taka bezradna 🫂',
     ],
     neutral: [
-      'Rozumiem... Gdybyś tylko cokolwiek usłyszał o Natalie, daj mi proszę od razu znać!',
-      'Tak... cały czas myślę o tym wieczorze w kinie. Wszystko wydawało się takie normalne...',
-      'Wiem, muszę zachować spokój i krok po kroku sprawdzić wszystkie poszlaki.',
+      'Rozumiem... Jakbyś tylko cokolwiek usłyszał o Natalie, pisz od razu!',
+      'Cały czas myślę o tym wieczorze w kinie. Wszystko wydawało się takie normalne...',
+      'Muszę zachować spokój i sprawdzić każdy ślad...',
     ],
     funny: [
-      'Heh, dzięki za próbę rozładowania atmosfery... choć wciąż ciężko mi myśleć o czymś innym niż Natalie 😅',
-      'Doceniam humor, pomaga choć na sekundę zapomnieć o tym całym stresie...',
+      'Dzięki za próbę rozładowania stresu... chociaż ciężko mi myśleć o czymkolwiek innym 😅',
+      'Doceniam to, pomaga na chwilę nie zwariować...',
     ],
     question: [
-      'Wyszła do toalety po filmie i już nie wróciła... W kabinie zostały tylko jej rzeczy i telefon 📱',
-      'Próbuję rozmawiać ze wszystkimi, którzy byli wtedy w kinie. Każdy szczegół może mieć znaczenie!',
-      'Myślę, że musimy przeszukać okolicę kina i sprawdzić nagrania z monitoringu, jeśli to możliwe.',
+      'Wyszła do toalety po filmie i przepadła... W kabinie zostały tylko jej ubrania i telefon 📱',
+      'Próbuję pytać ludzi z kina, ochronę... każdy szczegół może mieć znaczenie!',
+      'Musimy dorwać nagrania z monitoringu, jeśli obsługa kina w ogóle nam pomoże.',
     ],
     vulgar: [
-      'Proszę, nie mów tak... Jestem kłębkiem nerwów przez zniknięcie Natalie.',
+      'Proszę, nie pisz tak... Jestem kłębkiem nerwów przez zniknięcie Natalie.',
       'Naprawdę musisz tak pisać? Przeżywam teraz koszmar...',
     ],
   },
@@ -836,30 +836,44 @@ export function scheduleChatResponse(
 
     if (mentionsNatalieAntiPrime) {
       if (alreadySentMatyldaClue) {
-        // If already told about Matylda, just send a short reminder
-        setTimeout(() => {
-          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        // If already told about Matylda, send a short dynamic reminder
+        const reminderMessages = [
+          { text: 'Pamiętasz o Matyldzie Iggermann?', typingDelay: 600, typingDuration: 1100 },
+          { text: 'Skoro chodziliście do jednej szkoły i ma wtyki w PrimeCo, to może być nasz jedyny ratunek...', typingDelay: 800, typingDuration: 1500 },
+        ];
+
+        let cumTime = 0;
+        reminderMessages.forEach((item, index) => {
+          cumTime += item.typingDelay;
+          const startTyping = cumTime;
+          cumTime += item.typingDuration;
+          const sendMsg = cumTime;
+
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+          }, startTyping);
+
           setTimeout(() => {
             dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
             const responseMsg: Message = {
-              id: `resp-marinette-remind-${Date.now()}`,
+              id: `resp-marinette-remind-${index + 1}-${Date.now()}`,
               senderId: participantId,
-              text: 'Pamiętaj, spróbuj odezwać się do Matyldy Iggermann! Skoro chodziła z Tobą do szkoły i ma kontakt z PrimeCo, może nam pomóc dotrzeć do prawdy.',
+              text: item.text,
               timestamp: new Date().toISOString(),
             };
             dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
-          }, 1600);
-        }, 800);
+          }, sendMsg);
+        });
         return;
       }
 
       const messagesToSend = [
-        { text: 'O mój Boże... Wiedziałam, że Natalie miała ostry charakter, ale nie sądziłam, że uderzyła w samego Profesora Prime\'a publicznie w tej grupie! 😱', typingDelay: 600, typingDuration: 1800 },
-        { text: 'Myślisz, że to mogła być zemsta? Że ktoś powiązany z PrimeCo postanowił ją uciszyć?', typingDelay: 900, typingDuration: 1400 },
-        { text: 'Profesor Prime na pewno wiedziałby, co się z nią stało... Szkoda, że kontakt z nim dla zwykłych ludzi jest absolutnie niemożliwy.', typingDelay: 1000, typingDuration: 1600 },
-        { text: 'Ale czekaj... Ty i Matylda Iggermann chodziliście do tej samej szkoły, na pewno kojarzycie się z korytarza!', typingDelay: 1100, typingDuration: 1500 },
-        { text: 'Podobno pracuje w PrimeCo, albo robi tam doktorat. Już nie pamiętam... ', typingDelay: 1000, typingDuration: 1700 },
-        { text: 'Spróbujesz z nią pogadać? Pomoc Profesora w tej sprawie będzie bezcenna.', typingDelay: 1000, typingDuration: 1700 },
+        { text: 'O mój Boże... Wiedziałam, że Natalie potrafi ostro pojechać, ale że uderzyła w samego Profesora Prime\'a publicznie?! 😱', typingDelay: 600, typingDuration: 1500 },
+        { text: 'Myślisz, że to mogła być zemsta? Że ktoś z PrimeCo postanowił ją uciszyć?', typingDelay: 800, typingDuration: 1300 },
+        { text: 'Profesor Prime na pewno wiedziałby, co się z nią stało... Tylko jak zwykły człowiek ma się do niego dobić?', typingDelay: 900, typingDuration: 1500 },
+        { text: 'Ale czekaj... Przecież Ty i Matylda Iggermann chodziliście do tej samej szkoły!', typingDelay: 900, typingDuration: 1400 },
+        { text: 'Ona chyba robi coś w PrimeCo... doktorat albo staż, nie pamiętam dokładnie.', typingDelay: 800, typingDuration: 1400 },
+        { text: 'Spróbujesz do niej napisać? Błagam, pomoc kogoś z wewnątrz PrimeCo byłaby bezcenna 🙏', typingDelay: 900, typingDuration: 1600 },
       ];
 
       let cumulativeTime = 0;
@@ -894,19 +908,34 @@ export function scheduleChatResponse(
       (threadMessages && threadMessages.filter(m => m.senderId === currentUserId).length <= 1);
 
     if (isEarlyHelpOffer && !alreadySentMatyldaClue) {
-      setTimeout(() => {
-        dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+      const messagesToSend = [
+        { text: 'Dzięki, że jesteś i odpisujesz... 🥺', typingDelay: 600, typingDuration: 1200 },
+        { text: 'Zerknij proszę na grupę „Szukam osoby - pomoc”, wrzuciłam tam dokładny apel.', typingDelay: 800, typingDuration: 1600 },
+        { text: 'Odchodzę od zmysłów... Każda poszlaka może być teraz kluczowa 🙏', typingDelay: 900, typingDuration: 1500 },
+      ];
+
+      let cumulativeTime = 0;
+      messagesToSend.forEach((item, index) => {
+        cumulativeTime += item.typingDelay;
+        const startTypingTime = cumulativeTime;
+        cumulativeTime += item.typingDuration;
+        const sendMsgTime = cumulativeTime;
+
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+        }, startTypingTime);
+
         setTimeout(() => {
           dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
           const responseMsg: Message = {
-            id: `resp-marinette-support-${Date.now()}`,
+            id: `resp-marinette-support-${index + 1}-${Date.now()}`,
             senderId: participantId,
-            text: 'Dziękuję za chęć pomocy! 💛 Sprawdź proszę grupę „Szukam osoby - pomoc” i zerknij na mój apel ze szczegółami. Każda poszlaka może być na wagę złota!',
+            text: item.text,
             timestamp: new Date().toISOString(),
           };
           dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
-        }, 1800);
-      }, 800);
+        }, sendMsgTime);
+      });
 
       return;
     }

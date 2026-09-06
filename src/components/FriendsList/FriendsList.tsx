@@ -30,7 +30,7 @@ function normalizeSearch(text: string): string {
 }
 
 const EXCLUDED_RECOMMENDATION_IDS = new Set([
-  'u_gaston',    // Gaston Desole
+  'u_gaston',    // Gaston De Sole
   'u14',         // Nicolas de La Hire
   'u_matylda',   // Matylda Iggermann
   'u13',         // Anonimowy użytkownik

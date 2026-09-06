@@ -1,6 +1,8 @@
 export interface User {
   id: string;
   name: string;
+  firstName?: string;
+  lastName?: string;
   avatarUrl: string;
   isOnline?: boolean;
   isFriend?: boolean;
@@ -115,9 +117,10 @@ export interface ContextAnalysis {
 
 /** User IDs that cannot be added as friends */
 export const BLOCKED_FRIEND_IDS: ReadonlySet<string> = new Set([
-  'u14',       // Nicolas de La Hire
+  'u13',        // Anonimowy użytkownik
+  'u14',        // Nicolas de La Hire
   'u_behrmann', // Helmut Behrmann
-  'u_gaston',   // Gaston Desole
+  'u_gaston',   // Gaston De Sole
 ]);
 
 /* === Response System Types === */

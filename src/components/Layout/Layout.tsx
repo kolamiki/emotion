@@ -14,7 +14,7 @@ import { useAppStore } from '../../store/appStore';
 import { ScenarioManager } from '../../store/scenarioEngine';
 import { scheduleGroupJoinAdminResponse } from '../../store/responseEngine';
 import { usersData } from '../../mockData';
-import type { ActiveView, MessageThread, NotificationLink, Message } from '../../types';
+import { BLOCKED_FRIEND_IDS, type ActiveView, type MessageThread, type NotificationLink, type Message } from '../../types';
 import { ChevronRight, ChevronLeft, AlertTriangle } from 'lucide-react';
 import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 import { useQuestSystem } from '../../hooks/useQuestSystem';
@@ -219,23 +219,29 @@ export const Layout: React.FC = () => {
         const marinetteThreadId = existingMarinette ? existingMarinette.threadId : 't_u_marinette';
 
         setTimeout(() => {
-          const msg1: Message = {
-            id: `marinette-clue-1-${Date.now()}`,
-            senderId: 'u_marinette',
-            text: 'Hej! Dziękuję Ci bardzo za zaangażowanie i polubienie mojego posta w grupie poszukiwawczej! 💛 Czy udało Ci się natrafić na jakieś poszlaki albo tropy w sprawie Natalie?',
-            timestamp: new Date().toISOString(),
-          };
-          dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: marinetteThreadId, message: msg1 });
+          const msgs = [
+            { text: 'Hej! Dzięki wielkie za polubienie mojego posta w grupie poszukiwawczej! 💛', delay: 0 },
+            { text: 'Udało Ci się może natrafić na jakieś poszlaki albo tropy w sprawie Natalie?', delay: 2000 },
+            { text: 'Widziałam te okropne komentarze sugerujące porwanie z zemsty...', delay: 2500 },
+            { text: 'Nie rozumiem ludzi, którzy tak piszą. Natalie miewała ostry język i nie gryzła się w niego, ale to nie powód, żeby nagle zniknąć!', delay: 3000 },
+          ];
 
-          setTimeout(() => {
-            const msg2: Message = {
-              id: `marinette-clue-2-${Date.now()}`,
-              senderId: 'u_marinette',
-              text: 'Widziałam te okropne komentarze sugerujące porwanie z zemsty... Nie rozumiem ludzi, którzy tak piszą. Natalie była naprawdę sympatyczną dziewczyną! Fakt, miewała ostry język i nie gryzła się w niego, ale to nie przekreśla jej joako osoby.',
-              timestamp: new Date().toISOString(),
-            };
-            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: marinetteThreadId, message: msg2 });
-          }, 3500);
+          let cumDelay = 0;
+          msgs.forEach((m, idx) => {
+            cumDelay += m.delay;
+            setTimeout(() => {
+              dispatch({
+                type: 'ADD_RESPONSE_MESSAGE',
+                threadId: marinetteThreadId,
+                message: {
+                  id: `marinette-clue-${idx + 1}-${Date.now()}`,
+                  senderId: 'u_marinette',
+                  text: m.text,
+                  timestamp: new Date().toISOString(),
+                }
+              });
+            }, cumDelay);
+          });
         }, 1500);
       }
     }
@@ -316,6 +322,8 @@ export const Layout: React.FC = () => {
   }, []);
 
   const handleToggleFriend = (userId: string) => {
+    if (BLOCKED_FRIEND_IDS.has(userId)) return;
+
     if (state.friends.has(userId) || state.pendingFriends.has(userId)) {
       const existingTimer = pendingFriendTimersRef.current.get(userId);
       if (existingTimer) {
@@ -526,7 +534,7 @@ export const Layout: React.FC = () => {
       <ChatContainer
         threads={activeThreads}
         currentUserId={state.currentUser.id}
-        currentUserName={state.currentUser.name}
+        currentUserName={state.currentUser.firstName || state.currentUser.name.split(' ')[0]}
         typing={state.typing}
         dispatch={dispatch}
         onClose={handleCloseChat}

@@ -11,24 +11,29 @@ const AVATARS = [
 ];
 
 interface WelcomeScreenProps {
-  onComplete: (data: { name: string; avatarUrl: string; bio: string; location: string; joinDate: string }) => void;
+  onComplete: (data: { name: string; firstName: string; lastName: string; avatarUrl: string; bio: string; location: string; joinDate: string }) => void;
 }
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [bio, setBio] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    const cleanFirst = firstName.trim();
+    const cleanLast = lastName.trim();
+    if (!cleanFirst || !cleanLast) return;
 
     onComplete({
-      name: name.trim(),
+      name: `${cleanFirst} ${cleanLast}`,
+      firstName: cleanFirst,
+      lastName: cleanLast,
       avatarUrl: selectedAvatar,
       bio: bio.trim(),
       location: 'Polska',
-      joinDate: 'sierpień 2024',
+      joinDate: 'marzec 2025',
     });
   };
 
@@ -43,17 +48,30 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           </p>
         </div>
 
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Twoje imię i nazwisko</label>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="np. Jan Kowalski"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            autoFocus
-            required
-          />
+        <div className={styles.nameRow}>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Imię</label>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="np. Anna"
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+              autoFocus
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Nazwisko</label>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="np. Kowalska"
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+              required
+            />
+          </div>
         </div>
 
         <div className={styles.formGroup}>
@@ -96,7 +114,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         <button 
           type="submit" 
           className={styles.submitBtn}
-          disabled={!name.trim()}
+          disabled={!firstName.trim() || !lastName.trim()}
         >
           Rozpocznij
         </button>

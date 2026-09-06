@@ -11,19 +11,19 @@
       {
         "id": "m1",
         "senderId": "u2",
-        "text": "Hej, widziałeś nowy projekt?",
+        "text": "Hej, masz chwilę pogadać?",
         "timestamp": "2026-05-27T11:20:00Z"
       },
       {
         "id": "m2",
         "senderId": "u1",
-        "text": "Tak, wygląda super!",
+        "text": "Tak, co tam słychać?",
         "timestamp": "2026-05-27T11:22:00Z"
       },
       {
         "id": "m3",
         "senderId": "u2",
-        "text": "Muszę Ci coś pokazać, wpadnij wieczorem 😄",
+        "text": "Muszę Ci coś opowiedzieć, wpadnij wieczorem na herbatę 😄",
         "timestamp": "2026-05-27T11:25:00Z"
       }
     ]
@@ -57,13 +57,13 @@
       {
         "id": "m5",
         "senderId": "u4",
-        "text": "Hej Janek! Właśnie zeszłam z ostrego dyżuru w lecznicy, co tam słychać? 🐾☕",
+        "text": "Hej! Właśnie zeszłam z ostrego dyżuru w lecznicy, co tam słychać? 🐾☕",
         "timestamp": "2026-05-27T07:30:00Z"
       },
       {
         "id": "m6",
         "senderId": "u1",
-        "text": "Jeszcze nie, ale zaraz sprawdzę!",
+        "text": "Hej! U mnie spokojnie, odpoczywam po pracy 😄",
         "timestamp": "2026-05-27T07:35:00Z"
       }
     ]

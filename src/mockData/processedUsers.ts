@@ -1,3 +1,4 @@
+import type { User } from '../types';
 import rawUsersData from './users.json';
 import { getAssetUrl } from '../utils/assetUrl';
 
@@ -6,7 +7,7 @@ function resolveAvatarUrl(url: string): string {
   return getAssetUrl(url);
 }
 
-export const usersData = {
+export const usersData: { currentUser: User; allUsers: User[] } = {
   ...rawUsersData,
   currentUser: {
     ...rawUsersData.currentUser,
@@ -15,5 +16,5 @@ export const usersData = {
   allUsers: rawUsersData.allUsers.map(user => ({
     ...user,
     avatarUrl: resolveAvatarUrl(user.avatarUrl),
-  })),
+  })) as User[],
 };

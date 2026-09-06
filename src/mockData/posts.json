@@ -7,7 +7,7 @@
       "avatarUrl": "https://i.pravatar.cc/150?u=natalie",
       "isOnline": false
     },
-    "content": "Czy tylko ja uważam, że nowe produkcje cierpią na chroniczny brak oryginalności? Właśnie wyszłam z kina. Dwie godziny życia, których nikt mi nie odda. 🎬🙄",
+    "content": "Właśnie wyszłam z przedpremierowego seansu w Le Grand Rex i przysięgam, dawno mnie tak coś nie rozwścieczyło. Dwie godziny ordynarnego prania mózgu ubranego w ładne kadry i patetyczną muzyczkę. Dialogi jak z korpo-prezentacji, zero emocji, za to pełno nachalnego wciskania 'jedynej słusznej wizji przyszłości'. A najgorsze, że połowa sali biła brawo, bo dostali darmowego szampana przy wejściu... Jeśli to ma być ta wielka rewolucja kulturowa, to ja wysiadam. Idę na mocnego drinka, żeby o tym zapomnieć. 🎬🤮🍸",
     "timestamp": "2026-06-03T14:00:00Z",
     "likes": 24,
     "comments": [
@@ -38,7 +38,7 @@
     "id": "p_gaston_1",
     "author": {
       "id": "u_gaston",
-      "name": "Gaston Desole",
+      "name": "Gaston De Sole",
       "avatarUrl": "/avatars/gaston.png",
       "isOnline": true
     },
@@ -243,7 +243,7 @@
           "name": "Tomek Krawczyk",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
-        "text": "Dzięki Janek! Zależy od wymiarów i grubości blatu, odezwij się na priv to ci rozrysuję opcje.",
+        "text": "Dzięki wielkie! Zależy od wymiarów i grubości blatu, odezwij się na priv to ci rozrysuję opcje.",
         "timestamp": "2026-06-02T17:05:00Z"
       },
       {
@@ -483,7 +483,7 @@
           "name": "Marta Lewandowska",
           "avatarUrl": "https://i.pravatar.cc/150?u=u6"
         },
-        "text": "Janek nie zapeszaj, właśnie stanęliśmy w szczerym polu przed Iławą i stoimy od 15 minut...",
+        "text": "Nie zapeszaj, właśnie stanęliśmy w szczerym polu przed Iławą i stoimy od 15 minut...",
         "timestamp": "2026-05-31T15:08:00Z"
       }
     ],

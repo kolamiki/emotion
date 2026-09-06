@@ -273,21 +273,63 @@
         "action": "send_message",
         "fromId": "u_marinette",
         "toId": "u1",
-        "text": "Hej, jesteś tam? Błagam, pomóż mi... Natalie zniknęła w kinie Grand Rex! 😱",
+        "text": "hej, jesteś tam?",
         "delayMs": 0
       },
       {
         "action": "send_message",
         "fromId": "u_marinette",
         "toId": "u1",
-        "text": "Po filmie poszła do toalety i przepadła bez śladu... Znalazłam w kabinie jej porzucone ubrania i telefon! 😭 Dodałam apel w grupie 'Szukam osoby - pomoc' ze szczegółami, zerkniesz tam proszę?",
-        "delayMs": 4000
+        "text": "dobra, ewentualnie przeczytasz później...",
+        "delayMs": 3200
+      },
+      {
+        "action": "send_message",
+        "fromId": "u_marinette",
+        "toId": "u1",
+        "text": "jest sprawa... dosyć mocna...",
+        "delayMs": 2800
+      },
+      {
+        "action": "send_message",
+        "fromId": "u_marinette",
+        "toId": "u1",
+        "text": "kojarzysz Natalie?",
+        "delayMs": 2400
+      },
+      {
+        "action": "send_message",
+        "fromId": "u_marinette",
+        "toId": "u1",
+        "text": "byłyśmy razem w kinie Grand Rex",
+        "delayMs": 2800
+      },
+      {
+        "action": "send_message",
+        "fromId": "u_marinette",
+        "toId": "u1",
+        "text": "poszła w trakcie do toalety i... przepadła bez śladu 😭",
+        "delayMs": 3200
+      },
+      {
+        "action": "send_message",
+        "fromId": "u_marinette",
+        "toId": "u1",
+        "text": "znalazłam w kabinie tylko jej telefon i... porzucone ubrania. Przysięgam, same ciuchy na podłodze!",
+        "delayMs": 3800
+      },
+      {
+        "action": "send_message",
+        "fromId": "u_marinette",
+        "toId": "u1",
+        "text": "dodałam apel w grupie 'Szukam osoby - pomoc' ze szczegółami... błagam, zerkniesz tam? Może cokolwiek kojarzysz... 🙏 z góry dzięki i sorry za spam",
+        "delayMs": 3800
       },
       {
         "action": "add_notification",
         "message": "Marinette opublikowała post w grupie 'Szukam osoby - pomoc'.",
         "notifType": "group",
-        "delayMs": 6000,
+        "delayMs": 1500,
         "link": {
           "type": "group",
           "groupId": "g_szukam"
