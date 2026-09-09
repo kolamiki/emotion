@@ -46,7 +46,7 @@ export const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose, questSt
   React.useEffect(() => {
     if (!isOpen) return;
 
-    // Only hide overflow on body — do NOT set touch-action on body,
+    // Only hide overflow on body - do NOT set touch-action on body,
     // as it cascades through the entire DOM tree and kills scrolling everywhere
     const scrollY = window.scrollY;
     const originalOverflow = document.body.style.overflow;
@@ -85,7 +85,7 @@ export const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose, questSt
       // Allow scrolling inside the modal body
       const modalBody = bodyRef.current;
       if (modalBody && modalBody.contains(e.target as Node)) {
-        // Allow — this is inside the scrollable content
+        // Allow - this is inside the scrollable content
         return;
       }
       e.preventDefault();

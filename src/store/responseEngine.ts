@@ -805,7 +805,8 @@ export function scheduleChatResponse(
   currentUserName?: string,
   threadMessages?: Message[],
   currentUserId?: string,
-  _pendingGroupJoins?: Set<string>
+  _pendingGroupJoins?: Set<string>,
+  hasAntiPrimePost?: boolean
 ): void {
   // If the participant is offline, they do not respond to messages (except active group admins)
   const participant = getUserById(participantId);
@@ -942,7 +943,8 @@ export function scheduleChatResponse(
   }
 
   // Handle Matylda Iggermann (u_matylda) confrontation & persuasion scenario
-  if (participantId === 'u_matylda') {
+  // Only activate confrontation mode if the user actually published an anti-Prime post
+  if (participantId === 'u_matylda' && hasAntiPrimePost) {
     const textLower = userText.toLowerCase();
     const isExplanation = textLower.includes('natalie') ||
       textLower.includes('chalamet') ||
@@ -1045,6 +1047,101 @@ export function scheduleChatResponse(
 
       return;
     }
+  }
+
+  // Handle Matylda friendly path (no anti-Prime post — she asks where they know each other)
+  if (participantId === 'u_matylda' && !hasAntiPrimePost) {
+    // Only intercept while Matylda hasn't accepted yet (still in pending)
+    if (_pendingFriends?.has('u_matylda')) {
+      const textLower = userText.toLowerCase();
+      const mentionsSchool = textLower.includes('szkoł') ||
+        textLower.includes('liceum') ||
+        textLower.includes('klas') ||
+        textLower.includes('mat-fiz') ||
+        textLower.includes('matfiz') ||
+        textLower.includes('lekcj') ||
+        textLower.includes('matematyk') ||
+        textLower.includes('fizyk') ||
+        textLower.includes('lo ') ||
+        textLower.includes('mat fiz') ||
+        textLower.includes('gimn') ||
+        textLower.includes('rocznik');
+
+      if (mentionsSchool) {
+        // User mentioned school — Matylda remembers and accepts!
+        const messagesToSend = [
+          { text: 'Mat-fiz?! Czekaj... o matko, teraz kojarzę! 😮', typingDelay: 600, typingDuration: 1500 },
+          { text: 'Sorry, mam tyle na głowie z tym doktoratem, że czasem zapominam własne imię 😅', typingDelay: 800, typingDuration: 1600 },
+          { text: 'Jasne, dodaję! Dawno się nie widzieliśmy, co u Ciebie? 😊', typingDelay: 700, typingDuration: 1400 },
+        ];
+
+        let cumulativeTime = 0;
+        messagesToSend.forEach((item, index) => {
+          cumulativeTime += item.typingDelay;
+          const startTypingTime = cumulativeTime;
+          cumulativeTime += item.typingDuration;
+          const sendMsgTime = cumulativeTime;
+
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+          }, startTypingTime);
+
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+            const responseMsg: Message = {
+              id: `resp-matylda-friendly-${index + 1}-${Date.now()}`,
+              senderId: participantId,
+              text: item.text,
+              timestamp: new Date().toISOString(),
+            };
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+
+            // On last message: accept friend request
+            if (index === messagesToSend.length - 1) {
+              dispatch({ type: 'ACCEPT_FRIEND', userId: 'u_matylda' });
+              dispatch({
+                type: 'ADD_NOTIFICATION',
+                notification: {
+                  id: `n-matylda-friendly-acc-${Date.now()}`,
+                  type: 'friend',
+                  message: 'Matylda Iggermann zaakceptowała Twoje zaproszenie do znajomych.',
+                  timestamp: new Date().toISOString(),
+                  isRead: false,
+                  link: { type: 'profile', userId: 'u_matylda' }
+                }
+              });
+            }
+          }, sendMsgTime);
+        });
+
+        return;
+      } else {
+        // User didn't mention school — Matylda asks again
+        const confusedResponses = [
+          'Hmm... nadal nie kojarzę 😅 Z jakiejś szkoły? Uczelni? Podpowiedz mi!',
+          'Serio nie mogę sobie przypomnieć... Z jakiegoś liceum? Studiów? 🤔',
+          'Przepraszam, ale kompletna pustka 😅 Może z jakiejś klasy? Szkoły?',
+        ];
+        const randomResponse = confusedResponses[Math.floor(Math.random() * confusedResponses.length)];
+
+        setTimeout(() => {
+          dispatch({ type: 'SET_TYPING', threadId, isTyping: true });
+          setTimeout(() => {
+            dispatch({ type: 'SET_TYPING', threadId, isTyping: false });
+            const responseMsg: Message = {
+              id: `resp-matylda-confused-${Date.now()}`,
+              senderId: participantId,
+              text: randomResponse,
+              timestamp: new Date().toISOString(),
+            };
+            dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId, message: responseMsg });
+          }, 2000);
+        }, 1000);
+
+        return;
+      }
+    }
+    // If Matylda already accepted (not in pendingFriends), fall through to AI personality
   }
 
   // Handle Damian Wilk (u_damian) assistance

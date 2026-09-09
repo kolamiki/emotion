@@ -12,6 +12,7 @@ import {
   Trophy,
   AlertTriangle,
   Compass,
+  BookOpen,
 } from 'lucide-react';
 import styles from './LeftSidebar.module.css';
 import type { User, Group, ActiveView } from '../../types';
@@ -40,6 +41,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Footprints: <Footprints size={16} />,
   Cpu: <Cpu size={16} />,
   AlertTriangle: <AlertTriangle size={16} />,
+  BookOpen: <BookOpen size={16} />,
 };
 
 export const LeftSidebar: React.FC<LeftSidebarProps> = ({
@@ -150,7 +152,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                 key={fav.id}
                 className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
                 onClick={() => handleGroupClick(fav.id)}
-                title={isBanned ? "Konto zawieszone — grupy zablokowane (§ 12.3 ToS)" : fav.name}
+                title={isBanned ? "Konto zawieszone - grupy zablokowane (§ 12.3 ToS)" : fav.name}
               >
                 <div
                   className={styles.navIcon}
@@ -175,7 +177,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
               key={group.id}
               className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
               onClick={() => handleGroupClick(group.id)}
-              title={isBanned ? "Konto zawieszone — grupy zablokowane (§ 12.3 ToS)" : group.name}
+              title={isBanned ? "Konto zawieszone - grupy zablokowane (§ 12.3 ToS)" : group.name}
             >
               <div
                 className={styles.navIcon}
@@ -203,7 +205,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
               key={group.id}
               className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
               onClick={() => handleGroupClick(group.id)}
-              title={isBanned ? "Konto zawieszone — grupy zablokowane (§ 12.3 ToS)" : group.name}
+              title={isBanned ? "Konto zawieszone - grupy zablokowane (§ 12.3 ToS)" : group.name}
             >
               <div
                 className={styles.navIcon}

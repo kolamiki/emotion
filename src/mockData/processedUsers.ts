@@ -3,6 +3,7 @@ import rawUsersData from './users.json';
 import { getAssetUrl } from '../utils/assetUrl';
 
 function resolveAvatarUrl(url: string): string {
+  if (!url) return '';
   if (url.startsWith('http')) return url;
   return getAssetUrl(url);
 }

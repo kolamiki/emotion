@@ -308,14 +308,14 @@
         "action": "send_message",
         "fromId": "u_marinette",
         "toId": "u1",
-        "text": "poszła w trakcie do toalety i... przepadła bez śladu 😭",
+        "text": "po filmie poszła do toalety i... przepadła bez śladu 😭",
         "delayMs": 3200
       },
       {
         "action": "send_message",
         "fromId": "u_marinette",
         "toId": "u1",
-        "text": "znalazłam w kabinie tylko jej telefon i... porzucone ubrania. Przysięgam, same ciuchy na podłodze!",
+        "text": "znalazłam w kabinie tylko jej telefon i porzucone ubrania",
         "delayMs": 3800
       },
       {
@@ -353,6 +353,25 @@
         "toId": "u1",
         "text": "Serio? Masz tupet! Najpierw wrzucasz na tablicę chamski paszkwil na Profesora Prime'a, wyzywając go od szarlatanów, a teraz jak gdyby nigdy nic piszesz do mnie i dodajesz do znajomych? Lepiej usuń ten wpis albo napisz coś na swoją obronę, zanim Cię zablokuję.",
         "delayMs": 2000
+      }
+    ],
+    "enabled": true
+  },
+  {
+    "id": "sc_matylda_friendly_request",
+    "name": "Matylda Iggermann - pytanie o znajomość",
+    "description": "Scenariusz uruchamiany przy próbie dodania Matyldy do znajomych, gdy użytkownik nie opublikował anty-Prime posta. Matylda pyta skąd się znają.",
+    "icon": "MessageSquare",
+    "trigger": {
+      "type": "manual"
+    },
+    "steps": [
+      {
+        "action": "send_message",
+        "fromId": "u_matylda",
+        "toId": "u1",
+        "text": "Hej! Dzięki za zaproszenie, ale... przepraszam, skąd się znamy? 🤔 Kompletna pustka w głowie.",
+        "delayMs": 3000
       }
     ],
     "enabled": true

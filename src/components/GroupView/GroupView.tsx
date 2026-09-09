@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2, ShieldAlert } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2, ShieldAlert, ChevronDown, ChevronUp } from 'lucide-react';
 import styles from './GroupView.module.css';
 import type { Group, User, Comment, AppAction, LikedPosts } from '../../types';
 import { scheduleGroupPostCommentResponse } from '../../store/responseEngine';
+import { usersData } from '../../mockData';
 
 interface GroupViewProps {
   group: Group;
@@ -19,6 +20,13 @@ interface GroupViewProps {
 
 export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated, pendingGroupJoins, onRequestGroupJoin, isBanned }) => {
   const [newGroupPostText, setNewGroupPostText] = useState('');
+  const [isMembersExpanded, setIsMembersExpanded] = useState(false);
+
+  useEffect(() => {
+    setIsMembersExpanded(false);
+  }, [group.id]);
+
+  const visibleMembers = isMembersExpanded ? group.members : group.members.slice(0, 4);
 
   const isRestricted = !!group.isRestricted;
   const isLocked = isRestricted && !group.isMember;
@@ -165,8 +173,8 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
 
       {/* Members Panel */}
       <div className={styles.membersPanel}>
-        <div className={styles.sectionTitle}>Członkowie ({group.members.length})</div>
-        {group.members.map(member => (
+        <div className={styles.sectionTitle}>Liderzy ({group.members.length})</div>
+        {visibleMembers.map(member => (
           <div key={member.id} className={styles.memberRow}>
             <img
               src={member.avatarUrl}
@@ -184,6 +192,25 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
             )}
           </div>
         ))}
+
+        {group.members.length > 4 && (
+          <button
+            className={styles.toggleMembersBtn}
+            onClick={() => setIsMembersExpanded(!isMembersExpanded)}
+          >
+            {isMembersExpanded ? (
+              <>
+                <ChevronUp size={14} />
+                Zwiń
+              </>
+            ) : (
+              <>
+                <ChevronDown size={14} />
+                Pokaż wszystkich ({group.members.length})
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       {/* Locked Content Overlay - for restricted groups when not a member */}
@@ -225,7 +252,7 @@ export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedP
                 <img src={currentUser.avatarUrl} alt={currentUser.name} className={styles.groupComposeAvatar} />
                 <textarea
                   className={styles.groupComposeTextarea}
-                  placeholder={isBanned ? "Konto zawieszone — publikowanie w grupach zablokowane (§ 12.3 ToS)" : `Co chcesz powiedzieć w ${group.name}?`}
+                  placeholder={isBanned ? "Konto zawieszone - publikowanie w grupach zablokowane (§ 12.3 ToS)" : `Co chcesz powiedzieć w ${group.name}?`}
                   value={newGroupPostText}
                   onChange={e => setNewGroupPostText(e.target.value)}
                   rows={2}
@@ -306,6 +333,44 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
     }
     dispatch({ type: 'TOGGLE_LIKE_GROUP_POST', groupId, postId: post.id });
   };
+
+  const likedUsers = (() => {
+    const list: { id: string; name: string; avatarUrl: string }[] = [];
+
+    // If current user liked this post, include currentUser
+    if (isLiked) {
+      list.push({
+        id: currentUser.id,
+        name: currentUser.name,
+        avatarUrl: currentUser.avatarUrl,
+      });
+    }
+
+    if (post.likedBy && post.likedBy.length > 0) {
+      for (const item of post.likedBy) {
+        const found = usersData.allUsers.find(u => u.id === item || u.name === item);
+        if (found) {
+          if (!list.some(u => u.id === found.id)) {
+            list.push({
+              id: found.id,
+              name: found.name,
+              avatarUrl: found.avatarUrl,
+            });
+          }
+        } else {
+          list.push({
+            id: item,
+            name: item,
+            avatarUrl: '',
+          });
+        }
+      }
+    }
+
+    return list;
+  })();
+
+  const totalLikes = post.likes + (isLiked ? 1 : 0);
 
   const handleAddComment = () => {
     if (isBanned) {
@@ -397,9 +462,34 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
         )}
       </div>
 
-      {(post.likes > 0 || post.comments.length > 0) && (
+      {(totalLikes > 0 || post.comments.length > 0) && (
         <div className={styles.gpStats}>
-          <span>{post.likes > 0 ? `${post.likes} polubień` : ''}</span>
+          {likedUsers.length > 0 ? (
+            <div className={styles.gpLikesWrap}>
+              <span className={styles.gpHeartBadge}>
+                <Heart size={10} fill="#fff" strokeWidth={0} />
+              </span>
+              <div className={styles.gpAvatarStack}>
+                {likedUsers.map(u => (
+                  <img
+                    key={u.id}
+                    src={u.avatarUrl}
+                    alt={u.name}
+                    title={u.name}
+                    className={styles.gpLikeAvatar}
+                    onClick={() => onViewProfile && onViewProfile(u.id)}
+                  />
+                ))}
+              </div>
+              {totalLikes > likedUsers.length && (
+                <span className={styles.gpLikesCount}>+{totalLikes - likedUsers.length}</span>
+              )}
+            </div>
+          ) : totalLikes > 0 ? (
+            <span>{totalLikes} polubień</span>
+          ) : (
+            <span />
+          )}
           <span>{post.comments.length > 0 ? `${post.comments.length} komentarzy` : ''}</span>
         </div>
       )}
@@ -452,7 +542,7 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
             <input
               className={styles.gpCommentInput}
               type="text"
-              placeholder={isBanned ? "Konto zawieszone — komentowanie zablokowane" : "Napisz komentarz..."}
+              placeholder={isBanned ? "Konto zawieszone - komentowanie zablokowane" : "Napisz komentarz..."}
               value={commentText}
               onChange={e => setCommentText(e.target.value)}
               onKeyDown={handleCommentKeyDown}

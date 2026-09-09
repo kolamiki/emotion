@@ -12,6 +12,7 @@ interface ChatContainerProps {
   dispatch: React.Dispatch<AppAction>;
   pendingFriends: Set<string>;
   pendingGroupJoins?: Set<string>;
+  hasAntiPrimePost?: boolean;
   onClose: (threadId: string) => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -24,6 +25,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   dispatch,
   pendingFriends,
   pendingGroupJoins,
+  hasAntiPrimePost,
   onClose,
   onViewProfile,
 }) => {
@@ -53,6 +55,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
           pendingGroupJoins={pendingGroupJoins}
           onClose={() => onClose(thread.threadId)}
           onViewProfile={onViewProfile}
+          hasAntiPrimePost={hasAntiPrimePost}
         />
       ))}
     </div>
@@ -67,6 +70,7 @@ interface ChatWindowProps {
   dispatch: React.Dispatch<AppAction>;
   pendingFriends: Set<string>;
   pendingGroupJoins?: Set<string>;
+  hasAntiPrimePost?: boolean;
   onClose: () => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -79,6 +83,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   dispatch,
   pendingFriends,
   pendingGroupJoins,
+  hasAntiPrimePost,
   onClose,
   onViewProfile,
 }) => {
@@ -122,7 +127,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
     // Schedule auto-response (pass full thread messages + user ID for AI context)
     const allMessages = [...thread.messages, newMsg];
-    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName, allMessages, currentUserId, pendingGroupJoins);
+    scheduleChatResponse(dispatch, thread.threadId, thread.participant.id, text, pendingFriends, currentUserName, allMessages, currentUserId, pendingGroupJoins, hasAntiPrimePost);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

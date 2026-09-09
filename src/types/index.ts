@@ -10,6 +10,9 @@ export interface User {
   location?: string;
   joinDate?: string;
   fictionalCharacter?: boolean;
+  hiddenFromSearch?: boolean;
+  canAddFriend?: boolean;
+  canMessage?: boolean;
 }
 
 export interface Comment {
@@ -43,6 +46,7 @@ export interface GroupPost {
   timestamp: string;
   likes: number;
   comments: Comment[];
+  likedBy?: string[];
 }
 
 export interface Group {
@@ -117,10 +121,24 @@ export interface ContextAnalysis {
 
 /** User IDs that cannot be added as friends */
 export const BLOCKED_FRIEND_IDS: ReadonlySet<string> = new Set([
-  'u13',        // Anonimowy użytkownik
-  'u14',        // Nicolas de La Hire
-  'u_behrmann', // Helmut Behrmann
-  'u_gaston',   // Gaston De Sole
+  'u13',            // Anonimowy użytkownik
+  'u14',            // Nicolas de La Hire
+  'u_behrmann',     // Helmut Behrmann
+  'u_gaston',       // Gaston De Sole
+  'u_szymon_wilk',  // Szymon Wilk
+  'u_jakub_lange',  // Jakub Lange
+]);
+
+/** User IDs that cannot be found in search */
+export const HIDDEN_SEARCH_USER_IDS: ReadonlySet<string> = new Set([
+  // 'u_szymon_wilk',  // Szymon Wilk
+  // 'u_jakub_lange',  // Jakub Lange
+]);
+
+/** User IDs that cannot be messaged */
+export const BLOCKED_MESSAGE_USER_IDS: ReadonlySet<string> = new Set([
+  'u_szymon_wilk',  // Szymon Wilk
+  'u_jakub_lange',  // Jakub Lange
 ]);
 
 /* === Response System Types === */

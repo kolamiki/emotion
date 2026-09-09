@@ -11,6 +11,7 @@ import { getAssetUrl } from '../utils/assetUrl';
  * External URLs (https://) are left as-is.
  */
 function resolveAvatarUrl(url: string): string {
+  if (!url) return '';
   if (url.startsWith('http')) return url;
   return getAssetUrl(url);
 }

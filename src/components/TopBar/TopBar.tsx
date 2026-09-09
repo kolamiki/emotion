@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import styles from './TopBar.module.css';
 import type { User, AppNotification, MessageThread, AppAction, Group, ActiveView, ReadThreads, NotificationLink } from '../../types';
+import { HIDDEN_SEARCH_USER_IDS } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
 import { usersData } from '../../mockData';
 
@@ -137,6 +138,9 @@ export const TopBar: React.FC<TopBarProps> = ({
 
     const normalized = normalizeText(query);
     const userResults = usersData.allUsers.filter(user => {
+      if (user.hiddenFromSearch || HIDDEN_SEARCH_USER_IDS.has(user.id)) {
+        return false;
+      }
       const normalizedName = normalizeText(user.name);
       const normalizedBio = normalizeText(user.bio || '');
       const normalizedLocation = normalizeText(user.location || '');

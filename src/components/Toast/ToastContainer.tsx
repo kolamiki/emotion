@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, Trophy, X, Sparkles } from 'lucide-react';
+import { CheckCircle2, Trophy, X } from 'lucide-react';
 import styles from './ToastContainer.module.css';
 
 export interface QuestToastItem {
@@ -32,15 +32,15 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onDismis
               onDismiss(toast.id);
             }}
           >
-            <div className={styles.toastIconWrap}>
-              {toast.type === 'stage_completed' ? (
-                <Trophy size={20} />
-              ) : toast.type === 'quest_activated' ? (
-                <Sparkles size={20} />
-              ) : (
-                <CheckCircle2 size={20} />
-              )}
-            </div>
+            {toast.type !== 'quest_activated' && (
+              <div className={styles.toastIconWrap}>
+                {toast.type === 'stage_completed' ? (
+                  <Trophy size={20} />
+                ) : (
+                  <CheckCircle2 size={20} />
+                )}
+              </div>
+            )}
             <div className={styles.toastBody}>
               <div className={styles.toastCategory}>
                 {toast.category || (isStage ? 'Ukończono Rozdział' : 'Zrealizowano Cel')}

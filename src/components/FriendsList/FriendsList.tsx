@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { UserPlus, UserMinus, MessageCircle, MapPin, Calendar, Search, X, Clock } from 'lucide-react';
 import styles from './FriendsList.module.css';
 import { usersData } from '../../mockData';
-import { BLOCKED_FRIEND_IDS } from '../../types';
+import { BLOCKED_FRIEND_IDS, BLOCKED_MESSAGE_USER_IDS } from '../../types';
 import type { User } from '../../types';
 
 interface FriendsListProps {
@@ -30,16 +30,19 @@ function normalizeSearch(text: string): string {
 }
 
 const EXCLUDED_RECOMMENDATION_IDS = new Set([
-  'u_gaston',    // Gaston De Sole
-  'u14',         // Nicolas de La Hire
-  'u_matylda',   // Matylda Iggermann
-  'u13',         // Anonimowy użytkownik
-  'u_behrmann',  // Helmut Behrmann
+  'u_gaston',       // Gaston De Sole
+  'u14',            // Nicolas de La Hire
+  'u_matylda',      // Matylda Iggermann
+  'u13',            // Anonimowy użytkownik
+  'u_behrmann',     // Helmut Behrmann
+  'u_szymon_wilk',  // Szymon Wilk
+  'u_jakub_lange',  // Jakub Lange
+  'u_ojciec_lange', // Ojciec Lange
 ]);
 
 function isExcludedFromRecommendations(user: User): boolean {
-  // Exclude any fictional characters marked in users.json
-  if (user.fictionalCharacter) return true;
+  // Exclude any fictional characters or blocked characters marked in users.json
+  if (user.fictionalCharacter || user.hiddenFromSearch || user.canAddFriend === false) return true;
   if (EXCLUDED_RECOMMENDATION_IDS.has(user.id)) return true;
   const lower = user.name.toLowerCase();
   if (lower.includes('gaston')) return true;
@@ -47,6 +50,8 @@ function isExcludedFromRecommendations(user: User): boolean {
   if (lower.includes('matyld')) return true;
   if (lower.includes('anonim')) return true;
   if (lower.includes('behrmann') || lower.includes('helmut')) return true;
+  if (lower.includes('szymon') && lower.includes('wilk')) return true;
+  if (lower.includes('lange')) return true;
   return false;
 }
 
@@ -97,7 +102,8 @@ export const FriendsList: React.FC<FriendsListProps> = ({
 
   const handleToggleFriend = (e: React.MouseEvent, userId: string) => {
     e.stopPropagation();
-    if (!friends.has(userId) && !pendingFriends.has(userId) && BLOCKED_FRIEND_IDS.has(userId)) return;
+    const targetUser = usersData.allUsers.find(u => u.id === userId);
+    if (!friends.has(userId) && !pendingFriends.has(userId) && (BLOCKED_FRIEND_IDS.has(userId) || targetUser?.canAddFriend === false)) return;
     onToggleFriend(userId);
   };
 
@@ -173,7 +179,7 @@ export const FriendsList: React.FC<FriendsListProps> = ({
               </div>
             ) : (
               <>
-                {onOpenChat && (
+                {onOpenChat && !BLOCKED_MESSAGE_USER_IDS.has(user.id) && user.canMessage !== false && (
                   <button 
                     className={`${styles.actionBtn} ${styles.primaryBtn}`}
                     onClick={(e) => {

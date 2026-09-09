@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { X, MessageCircle, UserPlus, UserMinus, UserCheck, Clock, MapPin, Calendar, Users, FileText, Trophy } from 'lucide-react';
 import styles from './ProfilePreview.module.css';
 import type { User, Group, Post } from '../../types';
-import { BLOCKED_FRIEND_IDS } from '../../types';
+import { BLOCKED_FRIEND_IDS, BLOCKED_MESSAGE_USER_IDS } from '../../types';
 import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 
 // Fictional user challenge levels for lore consistency
@@ -86,18 +86,22 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   const formatLocation = () => user.location || 'Polska';
   const getBio = () => user.bio || 'Użytkownik e-Motion';
 
+  const isFriend = friends.has(user.id);
+  const [showConfirmUnfriend, setShowConfirmUnfriend] = useState(false);
+
+  const isFriendBlocked = BLOCKED_FRIEND_IDS.has(user.id) || user.canAddFriend === false;
+  const isMessageBlocked = BLOCKED_MESSAGE_USER_IDS.has(user.id) || user.canMessage === false;
+
   const handleMessageClick = () => {
+    if (isMessageBlocked) return;
     if (onOpenChat) {
       onOpenChat(user.id);
     }
     onClose();
   };
 
-  const isFriend = friends.has(user.id);
-  const [showConfirmUnfriend, setShowConfirmUnfriend] = useState(false);
-
   const handleToggleFriend = () => {
-    if (!isFriend && !pendingFriends.has(user.id) && BLOCKED_FRIEND_IDS.has(user.id)) return;
+    if (!isFriend && !pendingFriends.has(user.id) && isFriendBlocked) return;
     onToggleFriend(user.id);
   };
 
@@ -257,20 +261,26 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
               </button>
             ) : (
               <button 
-                className={`${styles.actionBtn} ${styles.actionBtnAdd} ${BLOCKED_FRIEND_IDS.has(user.id) ? styles.actionBtnDisabled : ''}`}
+                className={`${styles.actionBtn} ${styles.actionBtnAdd} ${isFriendBlocked ? styles.actionBtnDisabled : ''}`}
                 onClick={handleToggleFriend}
-                disabled={BLOCKED_FRIEND_IDS.has(user.id)}
-                title={BLOCKED_FRIEND_IDS.has(user.id) ? 'Ten użytkownik zablokował możliwość wysyłania zaproszeń' : ''}
+                disabled={isFriendBlocked}
+                title={isFriendBlocked ? 'Ten użytkownik zablokował możliwość wysyłania zaproszeń' : ''}
               >
                 <UserPlus size={16} />
                 Dodaj do znajomych
               </button>
             )}
             <button
-              className={`${styles.actionBtn} ${styles.actionBtnMessage} ${!isFriend ? styles.actionBtnDisabled : ''}`}
+              className={`${styles.actionBtn} ${styles.actionBtnMessage} ${!isFriend || isMessageBlocked ? styles.actionBtnDisabled : ''}`}
               onClick={handleMessageClick}
-              disabled={!isFriend}
-              title={!isFriend ? 'Wiadomości mogą wysyłać tylko znajomi' : ''}
+              disabled={!isFriend || isMessageBlocked}
+              title={
+                isMessageBlocked
+                  ? 'Nie można wysłać wiadomości do tego użytkownika'
+                  : !isFriend
+                  ? 'Wiadomości mogą wysyłać tylko znajomi'
+                  : ''
+              }
             >
               <MessageCircle size={16} />
               Wyślij wiadomość

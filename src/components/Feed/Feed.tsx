@@ -103,7 +103,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
         />
         <div className={styles.createInput}>
-          {isBanned ? 'Konto zawieszone — publikowanie zablokowane' : `Co słychać, ${currentUser.name.split(' ')[0]}?`}
+          {isBanned ? 'Konto zawieszone - publikowanie zablokowane' : `Co słychać, ${currentUser.name.split(' ')[0]}?`}
         </div>
       </div>
 
@@ -387,7 +387,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
             <input
               className={styles.commentInput}
               type="text"
-              placeholder={isBanned ? "Konto zawieszone — komentowanie zablokowane" : "Napisz komentarz..."}
+              placeholder={isBanned ? "Konto zawieszone - komentowanie zablokowane" : "Napisz komentarz..."}
               value={commentText}
               onChange={e => setCommentText(e.target.value)}
               onKeyDown={handleCommentKeyDown}

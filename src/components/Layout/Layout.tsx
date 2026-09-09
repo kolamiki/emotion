@@ -14,7 +14,7 @@ import { useAppStore } from '../../store/appStore';
 import { ScenarioManager } from '../../store/scenarioEngine';
 import { scheduleGroupJoinAdminResponse } from '../../store/responseEngine';
 import { usersData } from '../../mockData';
-import { BLOCKED_FRIEND_IDS, type ActiveView, type MessageThread, type NotificationLink, type Message } from '../../types';
+import { BLOCKED_FRIEND_IDS, BLOCKED_MESSAGE_USER_IDS, type ActiveView, type MessageThread, type NotificationLink, type Message } from '../../types';
 import { ChevronRight, ChevronLeft, AlertTriangle } from 'lucide-react';
 import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
 import { useQuestSystem } from '../../hooks/useQuestSystem';
@@ -180,6 +180,8 @@ export const Layout: React.FC = () => {
   };
 
   const handleOpenChatWithUser = (userId: string) => {
+    if (BLOCKED_MESSAGE_USER_IDS.has(userId)) return;
+
     const existingThread = state.messages.find(m => m.participant.id === userId);
     if (existingThread) {
       handleOpenChat(existingThread.threadId);
@@ -187,7 +189,7 @@ export const Layout: React.FC = () => {
     }
 
     const targetUser = usersData.allUsers.find(u => u.id === userId);
-    if (!targetUser) return;
+    if (!targetUser || targetUser.canMessage === false) return;
 
     const newThreadId = `t_${userId}`;
     const newThread: MessageThread = {
@@ -323,6 +325,8 @@ export const Layout: React.FC = () => {
 
   const handleToggleFriend = (userId: string) => {
     if (BLOCKED_FRIEND_IDS.has(userId)) return;
+    const targetUser = usersData.allUsers.find(u => u.id === userId);
+    if (targetUser?.canAddFriend === false) return;
 
     if (state.friends.has(userId) || state.pendingFriends.has(userId)) {
       const existingTimer = pendingFriendTimersRef.current.get(userId);
@@ -334,9 +338,28 @@ export const Layout: React.FC = () => {
     } else {
       dispatch({ type: 'ADD_PENDING_FRIEND', userId });
 
-      if (userId === 'u_matylda') {
+      // Check if the user has actually published an anti-Prime post
+      const hasAntiPrimePost = state.posts.some(
+        p => p.author.id === state.currentUser.id &&
+          (p.content.toLowerCase().includes('prime') && (
+            p.content.toLowerCase().includes('szarlatan') ||
+            p.content.toLowerCase().includes('kupa') ||
+            p.content.toLowerCase().includes('chuj') ||
+            p.content.toLowerCase().includes('jebac') ||
+            p.content.toLowerCase().includes('dupa') ||
+            p.content.toLowerCase().includes('mem') ||
+            p.content.toLowerCase().includes('kurwa')))
+      );
+
+      if (userId === 'u_matylda' && hasAntiPrimePost) {
+        // User DID post against Prime — trigger hostile confrontation scenario
         if (scenarioManagerRef.current) {
           scenarioManagerRef.current.runScenario('sc_matylda_friend_request');
+        }
+      } else if (userId === 'u_matylda' && !hasAntiPrimePost) {
+        // User has NOT posted against Prime — Matylda asks where they know each other
+        if (scenarioManagerRef.current) {
+          scenarioManagerRef.current.runScenario('sc_matylda_friendly_request');
         }
       } else {
         // Domyślny timer dla innych użytkowników
@@ -541,6 +564,12 @@ export const Layout: React.FC = () => {
         onViewProfile={handleViewProfile}
         pendingFriends={state.pendingFriends}
         pendingGroupJoins={state.pendingGroupJoins}
+        hasAntiPrimePost={state.posts.some(
+          p => p.author.id === state.currentUser.id &&
+            (p.content.toLowerCase().includes('prime') ||
+              p.content.toLowerCase().includes('szarlatan') ||
+              p.content.toLowerCase().includes('la hire'))
+        )}
       />
 
       {viewedUser && (
