@@ -1358,5 +1358,214 @@
     "adminId": "u_kornel",
     "joinTaskType": "write_post_against",
     "joinTaskTarget": "prime"
+  },
+  {
+    "id": "g_polskie_komiksy",
+    "name": "Polskie komiksy - łączmy się",
+    "icon": "BookOpen",
+    "description": "Grupa miłośników rodzimego komiksu. Wspomnienia, klasyki, rarytasy z dawnych lat i współczesne perełki rysunkowe!",
+    "coverColor": "#1e3a5f",
+    "membersCount": 384,
+    "members": [
+      {
+        "id": "u_matylda",
+        "name": "Matylda Iggermann",
+        "avatarUrl": "/avatars/matylda.png",
+        "role": "admin"
+      },
+      {
+        "id": "u_jakub_lange",
+        "name": "Jakub Lange",
+        "avatarUrl": "/avatars/lange.png",
+        "role": "moderator"
+      },
+      {
+        "id": "u_szymon_wilk",
+        "name": "Szymon Wilk",
+        "avatarUrl": "/avatars/wilk.png",
+        "role": "member"
+      },
+      {
+        "id": "u8",
+        "name": "Ola Kamińska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u8",
+        "role": "member"
+      },
+      {
+        "id": "u5",
+        "name": "Tomek Krawczyk",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u5",
+        "role": "member"
+      },
+      {
+        "id": "u6",
+        "name": "Marta Lewandowska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u6",
+        "role": "member"
+      },
+      {
+        "id": "u3",
+        "name": "Piotr Wiśniewski",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+        "role": "member"
+      },
+      {
+        "id": "u_filip",
+        "name": "Filip Czarnecki",
+        "avatarUrl": "https://i.pravatar.cc/150?u=filip_czarnecki",
+        "role": "member"
+      },
+      {
+        "id": "u4",
+        "name": "Kasia Zielińska",
+        "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+        "role": "member"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp_nowy_fan_1",
+        "author": {
+          "id": "u_filip",
+          "name": "Filip Czarnecki",
+          "avatarUrl": "https://i.pravatar.cc/150?u=filip_czarnecki"
+        },
+        "content": "Dzień dobry grupo, dziękuje za przyjęcie. Od kilku dni zacząłem się interesować komiksami więc postanowiłem spróbować. Na próbę zamówiłem All-Star Superman, bo mega spodobał mi się ten nowy Superman Gunna i bardzo chciałem poznać komiksowy pierwowzór. Jeśli ktoś miałby coś godnego polecenia na start dla młodzieńca lat 16 to proszę o propozycje! A z jakich sklepów polecacie zamawiać? \nPozdrawiam!",
+        "timestamp": "2026-06-03T11:15:00Z",
+        "likes": 4,
+        "comments": [
+          {
+            "id": "gc_hater_1",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Czy ty w ogóle przeczytałeś nazwę tej grupy zanim cokolwiek tu nasmarowałeś? 'POLSKIE KOMIKSY'! Co tu robi ten amerykański superhero szrot dla dzieciarni? A ten nowy Superman Gunna to przecież kolorowy festiwal żenady dla gimbazy. Superman Snydera z Cavillem był o niebo lepszy - mroczny, z prawdziwą mitologią i dojrzałą wizją, a nie jakiś slapstickowy cyrk. No i wracając do meritum: wypad na fora DC, a nie zaśmiecaj grupy o polskiej klasyce!",
+            "timestamp": "2026-06-03T11:22:00Z"
+          },
+          {
+            "id": "gc_hater_2",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "16 lat i zero umiejętności czytania ze zrozumieniem. Następnym razem zamiast Supermana kup sobie elementarz i słownik. Poziom grupy leci na łeb na szyję przez takich ludzi...",
+            "timestamp": "2026-06-03T11:30:00Z"
+          },
+          {
+            "id": "gc_supporter_1",
+            "author": {
+              "id": "u_matylda",
+              "name": "Matylda Iggermann",
+              "avatarUrl": "/avatars/matylda.png"
+            },
+            "text": "Hej Filip, nie przejmuj się tymi zgredami w komentarzach! Każdy z nas od czegoś zaczynał. Co prawda ta grupa skupia się głównie na rodzimym komiksie, ale 'All-Star Superman' Granta Morrisona to absolutny majstersztyk i wybitny wybór na start przygody z medium. Czy to dobry komiks na start? Podyskutujemy po lekturze ;) Powodzenia!",
+            "timestamp": "2026-06-03T11:38:00Z"
+          },
+          {
+            "id": "gc_hater_3",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "Dramat... Ludzie tu dyskutują o Rosińskim, Baranowskim, Chmielewskim, a tu wlatuje dzieciak z facetem w niebieskich gaciach i jeszcze każe sobie linki do sklepów pod nos podstawiać. Google ci wyłączyli?",
+            "timestamp": "2026-06-03T11:45:00Z"
+          },
+          {
+            "id": "gc_supporter_2",
+            "author": {
+              "id": "u4",
+              "name": "Kasia Zielińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+            },
+            "text": "Fajnie, że w wieku 16 lat w ogóle sięgasz po papierowe albumy zamiast tylko bezmyślnie scrollować TikToka. Nie zrażaj się elitaryzmem 'prawdziwych koneserów' z góry wątku 😉 Witaj w świecie komiksów Filip, czytaj to co sprawia ci frajdę!",
+            "timestamp": "2026-06-03T11:55:00Z"
+          },
+          {
+            "id": "gc_hater_4",
+            "author": {
+              "id": "u8",
+              "name": "Ola Kamińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+            },
+            "text": "Jeśli szukasz trykociarzy z amerykańskich korpo-taśmociągów, to pomyliłeś fora. Tutaj rozmawiamy o europejskiej i polskiej tradycji komiksowej, a nie o franczyzach Warnera. Usuń ten post zanim admin da ci bana.",
+            "timestamp": "2026-06-03T12:05:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_wydzial7_1",
+        "author": {
+          "id": "u3",
+          "name": "Piotr Wiśniewski",
+          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+        },
+        "content": "Pytanie do osób obeznanych w temacie: czy 'Wydział 7' trzeba czytać bezwzględnie po kolei, czy można zacząć od środka? Chciałem sprawdzić tę serię, ale w księgarni mieli tylko zeszyty 16 i 17. Z góry dzięki za odpowiedź!",
+        "timestamp": "2026-06-03T16:20:00Z",
+        "likes": 2,
+        "likedBy": [
+          "Szymon Wilk",
+          "Jakub Lange"
+        ],
+        "comments": []
+      },
+      {
+        "id": "gp_thorgal_1",
+        "author": {
+          "id": "u_matylda",
+          "name": "Matylda Iggermann",
+          "avatarUrl": "/avatars/matylda.png"
+        },
+        "content": "Szybkie pytanie i luźna dyskusja do grupy: który tom Thorgala narysowany przez Grzegorza Rosińskiego uważacie za absolutnie najlepszy? Dla mnie bezkonkurencyjni są 'Łucznicy'. A jak to wygląda u Was?",
+        "timestamp": "2026-06-02T16:00:00Z",
+        "likes": 38,
+        "comments": [
+          {
+            "id": "gc_thorgal_1_1",
+            "author": {
+              "id": "u8",
+              "name": "Ola Kamińska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+            },
+            "text": "Dla mnie też zdecydowanie 'Łucznicy'. Po prostu idealny album od pierwszej do ostatniej planszy.",
+            "timestamp": "2026-06-02T16:20:00Z"
+          },
+          {
+            "id": "gc_thorgal_1_2",
+            "author": {
+              "id": "u5",
+              "name": "Tomek Krawczyk",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+            },
+            "text": "Ciężki wybór, bo forma Rosińskiego była wtedy wybitna, ale ja stawiam na 'Zdradzoną czarodziejkę'. Klasyczny, niepowtarzalny klimat.",
+            "timestamp": "2026-06-02T16:45:00Z"
+          },
+          {
+            "id": "gc_thorgal_1_3",
+            "author": {
+              "id": "u6",
+              "name": "Marta Lewandowska",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+            },
+            "text": "Mój głos idzie na 'Alinoë'. Niezwykle nastrojowy i najbardziej zapadający w pamięć tom z całej serii.",
+            "timestamp": "2026-06-02T17:10:00Z"
+          },
+          {
+            "id": "gc_thorgal_1_4",
+            "author": {
+              "id": "u3",
+              "name": "Piotr Wiśniewski",
+              "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+            },
+            "text": "U mnie na pierwszym miejscu zawsze będzie 'Gwiezdne dziecko'. Prawdziwy klasyk.",
+            "timestamp": "2026-06-02T17:35:00Z"
+          }
+        ]
+      }
+    ],
+    "isMember": false
   }
 ]

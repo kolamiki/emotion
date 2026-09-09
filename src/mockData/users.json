@@ -254,6 +254,45 @@
       "location": "Poznań, Polska",
       "joinDate": "kwiecień 2024",
       "fictionalCharacter": false
+    },
+    {
+      "id": "u_szymon_wilk",
+      "name": "Szymon Wilk",
+      "avatarUrl": "/avatars/wilk.png",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Porucznik milicji. Sól w kieszeni na wszelki wypadek.",
+      "location": "Polska",
+      "joinDate": "czerwiec 1972",
+      "fictionalCharacter": true,
+      "hiddenFromSearch": false,
+      "canAddFriend": false,
+      "canMessage": false
+    },
+    {
+      "id": "u_jakub_lange",
+      "name": "Jakub Lange",
+      "avatarUrl": "/avatars/lange.png",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Dominikanin z powołania. Detektyw z zamiłowania.",
+      "location": "Polska",
+      "joinDate": "maj 1963",
+      "fictionalCharacter": true,
+      "hiddenFromSearch": false,
+      "canAddFriend": false,
+      "canMessage": false
+    },
+    {
+      "id": "u_filip",
+      "name": "Filip Czarnecki",
+      "avatarUrl": "https://i.pravatar.cc/150?u=filip_czarnecki",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "16 lat. Dopiero zaczynam przygodę z komiksami. Szukam dobrych tomów na start!",
+      "location": "Warszawa, Polska",
+      "joinDate": "maj 2026",
+      "fictionalCharacter": false
     }
   ]
 }
