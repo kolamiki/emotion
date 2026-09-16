@@ -21,15 +21,15 @@ interface LeaderboardProps {
 // Fictional users for the leaderboard
 const fakeUsers = [
   { id: 'lb-1', name: 'Profesor Prime', avatarUrl: './avatars/prime.png' },
-  { id: 'lb-2', name: 'Piotr Wiśniewski', avatarUrl: 'https://i.pravatar.cc/150?u=u3' },
-  { id: 'lb-3', name: 'Tomek Krawczyk', avatarUrl: 'https://i.pravatar.cc/150?u=u5' },
-  { id: 'lb-4', name: 'Natalia Wójcik', avatarUrl: 'https://i.pravatar.cc/150?u=u10' },
-  { id: 'lb-5', name: 'Michał Dąbrowski', avatarUrl: 'https://i.pravatar.cc/150?u=u7' },
-  { id: 'lb-6', name: 'Marta Lewandowska', avatarUrl: 'https://i.pravatar.cc/150?u=u6' },
-  { id: 'lb-7', name: 'Bartek Nowicki', avatarUrl: 'https://i.pravatar.cc/150?u=u9' },
-  { id: 'lb-8', name: 'Ola Kamińska', avatarUrl: 'https://i.pravatar.cc/150?u=u8' },
-  { id: 'lb-9', name: 'Jakub Mazur', avatarUrl: 'https://i.pravatar.cc/150?u=u11' },
-  { id: 'lb-10', name: 'Karolina Szymańska', avatarUrl: 'https://i.pravatar.cc/150?u=u12' },
+  { id: 'lb-2', name: 'Pierre Dubois', avatarUrl: 'https://i.pravatar.cc/150?u=u3' },
+  { id: 'lb-3', name: 'Thomas Mercier', avatarUrl: 'https://i.pravatar.cc/150?u=u5' },
+  { id: 'lb-4', name: 'Élodie Perrin', avatarUrl: 'https://i.pravatar.cc/150?u=u10' },
+  { id: 'lb-5', name: 'Michel Bertrand', avatarUrl: 'https://i.pravatar.cc/150?u=u7' },
+  { id: 'lb-6', name: 'Manon Lambert', avatarUrl: 'https://i.pravatar.cc/150?u=u6' },
+  { id: 'lb-7', name: 'Bastien Renaud', avatarUrl: 'https://i.pravatar.cc/150?u=u9' },
+  { id: 'lb-8', name: 'Aurélie Morel', avatarUrl: 'https://i.pravatar.cc/150?u=u8' },
+  { id: 'lb-9', name: 'Jules Marchand', avatarUrl: 'https://i.pravatar.cc/150?u=u11' },
+  { id: 'lb-10', name: 'Caroline Guérin', avatarUrl: 'https://i.pravatar.cc/150?u=u12' },
 ];
 
 /**

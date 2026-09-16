@@ -15,7 +15,7 @@
         "id": "c_nat_1",
         "author": {
           "id": "u_damian",
-          "name": "Damian Wilk",
+          "name": "Damien Loup",
           "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
         },
         "text": "W punkt Natalie. Komercyjna papka sponsorowana przez korporacje, żeby uśpić czujność i wcisnąć ludziom tani konsumpcjonizm.",
@@ -25,7 +25,7 @@
         "id": "c_nat_2",
         "author": {
           "id": "u_kornel",
-          "name": "Kornel Zagórski",
+          "name": "Corentin Garnier",
           "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
         },
         "text": "PrimeCo pompuje w to miliony euro, a recenzenci na ich garnuszku pieją z zachwytu. Dobrze, że ktoś jeszcze ma odwagę mówić prawdę.",
@@ -50,7 +50,7 @@
         "id": "c_gas_1",
         "author": {
           "id": "u_kornel",
-          "name": "Kornel Zagórski",
+          "name": "Corentin Garnier",
           "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
         },
         "text": "Czyli w skrócie: każdy, kto krytykuje monopol i zadaje niewygodne pytania o powiązania z PrimeCo, dostaje bana pod płaszczykiem 'mowy nienawiści'? Piękna nowomowa, panie Gaston.",
@@ -60,17 +60,17 @@
         "id": "c_gas_2",
         "author": {
           "id": "u_damian",
-          "name": "Damian Wilk",
+          "name": "Damien Loup",
           "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
         },
-        "text": "'Algorytmy chroniące dobrostan' – większego korporacyjnego bełkotu dawno nie czytałem. Zwykła cenzura prewencyjna ubrana w różowe barwy.",
+        "text": "'Algorytmy chroniące dobrostan' - większego korporacyjnego bełkotu dawno nie czytałem. Zwykła cenzura prewencyjna ubrana w różowe barwy.",
         "timestamp": "2026-06-03T13:45:00Z"
       },
       {
         "id": "c_gas_3",
         "author": {
           "id": "u_weronika",
-          "name": "Weronika Skalska",
+          "name": "Véronique Roche",
           "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
         },
         "text": "Gaston, powiedz lepiej kiedy ujawnicie audyt algorytmów profilowania emocjonalnego, o który wnioskują organizacje obywatelskie!",
@@ -83,7 +83,7 @@
     "id": "p_user_1",
     "author": {
       "id": "u1",
-      "name": "Jan Kowalski",
+      "name": "Jean Laurent",
       "avatarUrl": "https://i.pravatar.cc/150?u=u1",
       "isOnline": true
     },
@@ -95,7 +95,7 @@
         "id": "c_usr1_1",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
         "text": "Hahaha witamy w króliczej norze speciality! Daj znać jak zaczniesz filtrować wodę przez minerały wulkaniczne 😂",
@@ -105,7 +105,7 @@
         "id": "c_usr1_2",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "text": "Wpadam jutro na to burżujskie espresso, przygotuj filiżankę!",
@@ -115,7 +115,7 @@
         "id": "c_usr1_3",
         "author": {
           "id": "u1",
-          "name": "Jan Kowalski",
+          "name": "Jean Laurent",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
         "text": "Wpadaj, tylko muszę najpierw odmierzyć dokładnie 18.2 grama co do ziarenka xD",
@@ -128,7 +128,7 @@
     "id": "p_michel_1",
     "author": {
       "id": "u7",
-      "name": "Michał Dąbrowski",
+      "name": "Michel Bertrand",
       "avatarUrl": "https://i.pravatar.cc/150?u=u7",
       "isOnline": true
     },
@@ -140,17 +140,17 @@
         "id": "c_mich_1",
         "author": {
           "id": "u10",
-          "name": "Natalia Wójcik",
+          "name": "Élodie Perrin",
           "avatarUrl": "https://i.pravatar.cc/150?u=u10"
         },
-        "text": "Michał, u mnie na nocnym dyżurze w aptece to samo. Przychodzi facet o 2:40 w nocy, dzwoni dzwonkiem jak opętany... po gumy do żucia i witaminę C, po czym ma pretensje, że doliczam opłatę nocną 🤦‍♀️",
+        "text": "Michel, u mnie na nocnym dyżurze w aptece to samo. Przychodzi facet o 2:40 w nocy, dzwoni dzwonkiem jak opętany... po gumy do żucia i witaminę C, po czym ma pretensje, że doliczam opłatę nocną 🤦‍♀️",
         "timestamp": "2026-06-03T11:58:00Z"
       },
       {
         "id": "c_mich_2",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "text": "Za nieuzasadnione wezwanie powinien być automatyczny rachunek na 3000 zł i problem skończyłby się w tydzień.",
@@ -160,10 +160,10 @@
         "id": "c_mich_3",
         "author": {
           "id": "u9",
-          "name": "Bartek Nowicki",
+          "name": "Bastien Renaud",
           "avatarUrl": "https://i.pravatar.cc/150?u=u9"
         },
-        "text": "W górach identycznie – wzywają GOPR i śmigłowiec, bo 'się zmęczyli' 2 km przed schroniskiem i im zimno w tenisówkach. Ręce i nogi opadają.",
+        "text": "W górach identycznie - wzywają GOPR i śmigłowiec, bo 'się zmęczyli' 2 km przed schroniskiem i im zimno w tenisówkach. Ręce i nogi opadają.",
         "timestamp": "2026-06-03T12:20:00Z"
       }
     ],
@@ -185,7 +185,7 @@
         "id": "c_mod1_1",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "text": "I bardzo dobrze, że to poleciało. Doxxowanie ludzi z osiedla i wrzucanie ich numerów telefonów pod wymyślonym pretekstem to już było dno.",
@@ -195,7 +195,7 @@
         "id": "c_mod1_2",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "text": "Cenzura wchodzi na pełnej xD Nawet nie zdążyłem doczytać o co poszła ta afera i kto kogo obraził.",
@@ -205,10 +205,10 @@
         "id": "c_mod1_3",
         "author": {
           "id": "u6",
-          "name": "Marta Lewandowska",
+          "name": "Manon Lambert",
           "avatarUrl": "https://i.pravatar.cc/150?u=u6"
         },
-        "text": "Tomek, facet wypisywał chore groźby pod adresem dziewczyn ze zdjęć. Cieszę się, że administracja w końcu go zablokowała.",
+        "text": "Thomas, facet wypisywał chore groźby pod adresem dziewczyn ze zdjęć. Cieszę się, że administracja w końcu go zablokowała.",
         "timestamp": "2026-06-03T09:41:00Z"
       }
     ],
@@ -218,7 +218,7 @@
     "id": "p_kasia_1",
     "author": {
       "id": "u4",
-      "name": "Kasia Zielińska",
+      "name": "Céline Girard",
       "avatarUrl": "https://i.pravatar.cc/150?u=u4",
       "isOnline": true
     },
@@ -230,7 +230,7 @@
         "id": "c_kas_1",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "text": "Kasiu, mów to mojej teściowej... 'Przecież pies na wsi zawsze jadł resztki z zupy i dożył 15 lat'. Ręce i cycki opadają.",
@@ -240,17 +240,17 @@
         "id": "c_kas_2",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "text": "Tomek, przyślij ją do mnie na dyżur na godzinę, niech zobaczy jak wygląda perforacja jelita u szczeniaka, to natychmiast zmieni podejście.",
+        "text": "Thomas, przyślij ją do mnie na dyżur na godzinę, niech zobaczy jak wygląda perforacja jelita u szczeniaka, to natychmiast zmieni podejście.",
         "timestamp": "2026-06-02T21:26:00Z"
       },
       {
         "id": "c_kas_3",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
         "text": "Udostępniam dalej! Ludzie wciąż powtarzają te szkodliwe mity...",
@@ -263,11 +263,11 @@
     "id": "p_tomek_1",
     "author": {
       "id": "u5",
-      "name": "Tomek Krawczyk",
+      "name": "Thomas Mercier",
       "avatarUrl": "https://i.pravatar.cc/150?u=u5",
       "isOnline": true
     },
-    "content": "Prawie trzy tygodnie szlifowania, bejcowania i pasowania dębowych belek ze stuletniej stodoły z Mazur. Klienci chcieli 'coś z duszą i charakterem' do kamienicy. Stół waży chyba ze 130 kilo, czterech chłopa wnosiło to na 3. piętro bez windy, ale efekt końcowy wynagradza każdą kroplę potu. Prawdziwe drewno żyje własnym życiem – żaden laminowany paździerz z marketu nigdy tego nie zastąpi! 🪵☕",
+    "content": "Prawie trzy tygodnie szlifowania, bejcowania i pasowania dębowych belek ze stuletniej stodoły z Mazur. Klienci chcieli 'coś z duszą i charakterem' do kamienicy. Stół waży chyba ze 130 kilo, czterech chłopa wnosiło to na 3. piętro bez windy, ale efekt końcowy wynagradza każdą kroplę potu. Prawdziwe drewno żyje własnym życiem - żaden laminowany paździerz z marketu nigdy tego nie zastąpi! 🪵☕",
     "timestamp": "2026-06-02T16:40:00Z",
     "likes": 89,
     "comments": [
@@ -275,17 +275,17 @@
         "id": "c_tom_1",
         "author": {
           "id": "u1",
-          "name": "Jan Kowalski",
+          "name": "Jean Laurent",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
-        "text": "Petarda robota Tomek! Ile za taki bierzesz na zamówienie? Bo u mnie ten tani stolik chwieje się od samego patrzenia na kubek kawy xD",
+        "text": "Petarda robota Thomas! Ile za taki bierzesz na zamówienie? Bo u mnie ten tani stolik chwieje się od samego patrzenia na kubek kawy xD",
         "timestamp": "2026-06-02T16:55:00Z"
       },
       {
         "id": "c_tom_2",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "text": "Dzięki wielkie! Zależy od wymiarów i grubości blatu, odezwij się na priv to ci rozrysuję opcje.",
@@ -295,7 +295,7 @@
         "id": "c_tom_3",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
         "text": "Cudowny! Aż czuć zapach naturalnego wosku i drewna przez monitor 😍",
@@ -308,7 +308,7 @@
     "id": "p_user_2",
     "author": {
       "id": "u1",
-      "name": "Jan Kowalski",
+      "name": "Jean Laurent",
       "avatarUrl": "https://i.pravatar.cc/150?u=u1",
       "isOnline": true
     },
@@ -320,17 +320,17 @@
         "id": "c_usr2_1",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
-        "text": "To i tak lepiej niż ja – kliknęłam raz w przepis na chleb na zakwasie i teraz eMotion uważa, że powinnam otworzyć rzemieślniczą piekarnię w Bieszczadach 🥖",
+        "text": "To i tak lepiej niż ja - kliknęłam raz w przepis na chleb na zakwasie i teraz eMotion uważa, że powinnam otworzyć rzemieślniczą piekarnię w Bieszczadach 🥖",
         "timestamp": "2026-06-02T14:32:00Z"
       },
       {
         "id": "c_usr2_2",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "text": "Myjka ciśnieniowa to najczystsza forma dopaminy, zero wstydu, wszyscy tam byliśmy 🤝",
@@ -343,11 +343,11 @@
     "id": "p_natalia_1",
     "author": {
       "id": "u10",
-      "name": "Natalia Wójcik",
+      "name": "Élodie Perrin",
       "avatarUrl": "https://i.pravatar.cc/150?u=u10",
       "isOnline": true
     },
-    "content": "Dzisiejsza scenka z apteki, autentyk:\n– Poproszę antybiotyk bez recepty, ten mocny, bo mnie w gardle drapie od wczoraj.\n– Dzień dobry. Antybiotyki są wyłącznie na receptę lekarską, zresztą na infekcję wirusową antybiotyk nie pomoże.\n– Ale ja wiem lepiej co mi jest! Pan doktor w telewizji śniadaniowej mówił, że trzeba brać od razu!\n– Proszę skonsultować się z lekarzem rodzinnym.\n– 'Pani jest bezczelna i odmawia ratowania życia, napiszę skargę do izby aptekarskiej i do mediów!'\n\nKurtyna. Drodzy pacjenci, antybiotykooporność to nie teoria spiskowa, tylko śmiertelne zagrożenie. Jak tak dalej pójdzie, to za 10 lat znowu będziemy umierać na zapalenie zęba...",
+    "content": "Dzisiejsza scenka z apteki, autentyk:\n- Poproszę antybiotyk bez recepty, ten mocny, bo mnie w gardle drapie od wczoraj.\n- Dzień dobry. Antybiotyki są wyłącznie na receptę lekarską, zresztą na infekcję wirusową antybiotyk nie pomoże.\n- Ale ja wiem lepiej co mi jest! Pan doktor w telewizji śniadaniowej mówił, że trzeba brać od razu!\n- Proszę skonsultować się z lekarzem rodzinnym.\n- 'Pani jest bezczelna i odmawia ratowania życia, napiszę skargę do izby aptekarskiej i do mediów!'\n\nKurtyna. Drodzy pacjenci, antybiotykooporność to nie teoria spiskowa, tylko śmiertelne zagrożenie. Jak tak dalej pójdzie, to za 10 lat znowu będziemy umierać na zapalenie zęba...",
     "timestamp": "2026-06-02T12:00:00Z",
     "likes": 142,
     "comments": [
@@ -355,7 +355,7 @@
         "id": "c_natw_1",
         "author": {
           "id": "u7",
-          "name": "Michał Dąbrowski",
+          "name": "Michel Bertrand",
           "avatarUrl": "https://i.pravatar.cc/150?u=u7"
         },
         "text": "U nas na SORze hit sezonu to: 'Panie doktorze, wypiszcie antybiotyk profilaktycznie, bo w sobotę mam wesele szwagra i muszę być zdrowy' xDDD",
@@ -365,7 +365,7 @@
         "id": "c_natw_2",
         "author": {
           "id": "u8",
-          "name": "Ola Kamińska",
+          "name": "Aurélie Morel",
           "avatarUrl": "https://i.pravatar.cc/150?u=u8"
         },
         "text": "Podziwiam Waszą anielską cierpliwość... Ja bym po tygodniu za tym okienkiem chyba zwariowała.",
@@ -378,7 +378,7 @@
     "id": "p_ola_1",
     "author": {
       "id": "u8",
-      "name": "Ola Kamińska",
+      "name": "Aurélie Morel",
       "avatarUrl": "https://i.pravatar.cc/150?u=u8",
       "isOnline": true
     },
@@ -390,7 +390,7 @@
         "id": "c_ola_1",
         "author": {
           "id": "u11",
-          "name": "Jakub Mazur",
+          "name": "Jules Marchand",
           "avatarUrl": "https://i.pravatar.cc/150?u=u11"
         },
         "text": "Olu, w świecie muzyki to samo! Ludzie kupują płyty winylowe za 180 zł, wieszają w ramkach na ścianie dla 'estetyki retro', a nawet nie mają gramofonu w domu xD Pozerstwo level master.",
@@ -400,10 +400,10 @@
         "id": "c_ola_2",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
-        "text": "Niestety w szkołach widzę to samo u dzieciaków – ważne, żeby okładka ładnie wyszła na relacji. Smutne to jest bardzo.",
+        "text": "Niestety w szkołach widzę to samo u dzieciaków - ważne, żeby okładka ładnie wyszła na relacji. Smutne to jest bardzo.",
         "timestamp": "2026-06-01T18:00:00Z"
       }
     ],
@@ -425,7 +425,7 @@
         "id": "c_mod2_1",
         "author": {
           "id": "u7",
-          "name": "Michał Dąbrowski",
+          "name": "Michel Bertrand",
           "avatarUrl": "https://i.pravatar.cc/150?u=u7"
         },
         "text": "Kolejny 'gwarantowany zysk 300% w 48 godzin dzięki tajnemu botowi z Dubaju'. Prawie mój starszy sąsiad dał się na to nabrać w zeszłym miesiącu.",
@@ -435,7 +435,7 @@
         "id": "c_mod2_2",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "text": "Dziwię się, że ludzie w 2026 roku wciąż wierzą w darmowe pieniądze z internetu...",
@@ -448,11 +448,11 @@
     "id": "p_bartek_1",
     "author": {
       "id": "u9",
-      "name": "Bartek Nowicki",
+      "name": "Bastien Renaud",
       "avatarUrl": "https://i.pravatar.cc/150?u=u9",
       "isOnline": true
     },
-    "content": "Trzeci raz w tym tygodniu: 'turyści' wjechali ciężkim SUV-em w głąb ścisłego rezerwatu przyrody, bo 'Google Maps tak pokazał najkrótszą drogę na polanę', po czym zawiesili auto na pniaku w błocie po same progi. Jak zapytałem kierowcę, czy widział wielką tablicę 'Zakaz wjazdu – Park Narodowy', usłyszałem ze szczerym uśmiechem: 'No widziałem, ale myślałem, że to tylko dla traktorów'.\n\nMandat 1500 zł, koszt wyciągarki leśnej i punkty karne. Może następnym razem nawigacja pokaże drogę do odrobiny zdrowego rozsądku. Szanujcie las, to dom zwierząt, a nie tor offroadowy! 🌲🐗",
+    "content": "Trzeci raz w tym tygodniu: 'turyści' wjechali ciężkim SUV-em w głąb ścisłego rezerwatu przyrody, bo 'Google Maps tak pokazał najkrótszą drogę na polanę', po czym zawiesili auto na pniaku w błocie po same progi. Jak zapytałem kierowcę, czy widział wielką tablicę 'Zakaz wjazdu - Park Narodowy', usłyszałem ze szczerym uśmiechem: 'No widziałem, ale myślałem, że to tylko dla traktorów'.\n\nMandat 1500 zł, koszt wyciągarki leśnej i punkty karne. Może następnym razem nawigacja pokaże drogę do odrobiny zdrowego rozsądku. Szanujcie las, to dom zwierząt, a nie tor offroadowy! 🌲🐗",
     "timestamp": "2026-06-01T09:30:00Z",
     "likes": 182,
     "comments": [
@@ -460,7 +460,7 @@
         "id": "c_bar_1",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "text": "1500 zł to śmiech na sali dla kogoś w aucie za pół miliona. Powinno być 10 000 zł i miesiąc prac społecznych przy sprzątaniu szlaków z butelek i puszek!",
@@ -470,7 +470,7 @@
         "id": "c_bar_2",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
         "text": "Porażająca bezmyślność... Biedne sarny i lisy, taki hałas w środku okresu lęgowego.",
@@ -483,7 +483,7 @@
     "id": "p_user_3",
     "author": {
       "id": "u1",
-      "name": "Jan Kowalski",
+      "name": "Jean Laurent",
       "avatarUrl": "https://i.pravatar.cc/150?u=u1",
       "isOnline": true
     },
@@ -495,7 +495,7 @@
         "id": "c_usr3_1",
         "author": {
           "id": "u6",
-          "name": "Marta Lewandowska",
+          "name": "Manon Lambert",
           "avatarUrl": "https://i.pravatar.cc/150?u=u6"
         },
         "text": "Te 'nadmiarowe' śrubki to zawsze te, które trzymają całą konstrukcję w pionie. Czekam na telefon w nocy jak runie z hukiem 😂",
@@ -505,7 +505,7 @@
         "id": "c_usr3_2",
         "author": {
           "id": "u1",
-          "name": "Jan Kowalski",
+          "name": "Jean Laurent",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
         "text": "Dopóki nikt nie kładzie na niej nic cięższego niż pilot od telewizora, jesteśmy bezpieczni!",
@@ -518,7 +518,7 @@
     "id": "p_piotr_1",
     "author": {
       "id": "u3",
-      "name": "Piotr Wiśniewski",
+      "name": "Pierre Dubois",
       "avatarUrl": "https://i.pravatar.cc/150?u=u3",
       "isOnline": false
     },
@@ -530,7 +530,7 @@
         "id": "c_pio_1",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "text": "Właśnie się odruchowo wyprostowałem na krześle czytając to... Za późno stary, łupie w krzyżu od poniedziałku xD",
@@ -540,17 +540,17 @@
         "id": "c_pio_2",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
-        "text": "Tomek, bo zamiast dźwigać te dębowe bale z nóg na ugiętych kolanach, szarpiesz z prostych pleców! Wpadnij na konsultację to ci pokażę wzorce ruchowe.",
+        "text": "Thomas, bo zamiast dźwigać te dębowe bale z nóg na ugiętych kolanach, szarpiesz z prostych pleców! Wpadnij na konsultację to ci pokażę wzorce ruchowe.",
         "timestamp": "2026-05-31T18:22:00Z"
       },
       {
         "id": "c_pio_3",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
         "text": "Potwierdzam... po 8 godzinach stania pochyloną nad stołem operacyjnym czuję się jak 90-letnia staruszka.",
@@ -563,7 +563,7 @@
     "id": "p_marta_1",
     "author": {
       "id": "u6",
-      "name": "Marta Lewandowska",
+      "name": "Manon Lambert",
       "avatarUrl": "https://i.pravatar.cc/150?u=u6",
       "isOnline": false
     },
@@ -575,17 +575,17 @@
         "id": "c_mar_1",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "text": "Witamy w macierzy Marta! 😂 Jajko na twardo w PKP to dziedzictwo narodowe UNESCO, nie marudź!",
+        "text": "Witamy w macierzy Manon! 😂 Jajko na twardo w PKP to dziedzictwo narodowe UNESCO, nie marudź!",
         "timestamp": "2026-05-31T14:45:00Z"
       },
       {
         "id": "c_mar_2",
         "author": {
           "id": "u1",
-          "name": "Jan Kowalski",
+          "name": "Jean Laurent",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
         "text": "Przynajmniej nie ma opóźnienia 180 minut z powodu 'awarii sieci trakcyjnej', to już sukces na europejską skalę!",
@@ -595,7 +595,7 @@
         "id": "c_mar_3",
         "author": {
           "id": "u6",
-          "name": "Marta Lewandowska",
+          "name": "Manon Lambert",
           "avatarUrl": "https://i.pravatar.cc/150?u=u6"
         },
         "text": "Nie zapeszaj, właśnie stanęliśmy w szczerym polu przed Iławą i stoimy od 15 minut...",
@@ -608,7 +608,7 @@
     "id": "p_anna_1",
     "author": {
       "id": "u2",
-      "name": "Anna Nowak",
+      "name": "Anne Moreau",
       "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true
     },
@@ -620,7 +620,7 @@
         "id": "c_ann_1",
         "author": {
           "id": "u8",
-          "name": "Ola Kamińska",
+          "name": "Aurélie Morel",
           "avatarUrl": "https://i.pravatar.cc/150?u=u8"
         },
         "text": "Hahaha, złoto! Dzieciaki mają czasami niesamowity instynkt językowy 👏",
@@ -630,7 +630,7 @@
         "id": "c_ann_2",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "text": "Dobre! Mój nowy życiowy cel: być sensownym i mieć wywalone.",

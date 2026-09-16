@@ -66,7 +66,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             <input
               className={styles.input}
               type="text"
-              placeholder="np. Kowalska"
+              placeholder="np. Laurent"
               value={lastName}
               onChange={e => setLastName(e.target.value)}
               required

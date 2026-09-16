@@ -35,7 +35,7 @@
       },
       {
         "action": "add_notification",
-        "message": "Tomek Krawczyk i Piotr Wiśniewski skomentowali Twój post w grupie Programiści React",
+        "message": "Thomas Mercier i Pierre Dubois skomentowali Twój post w grupie Programiści React",
         "notifType": "comment",
         "delayMs": 11000,
         "link": {

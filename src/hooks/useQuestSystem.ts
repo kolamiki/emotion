@@ -104,8 +104,8 @@ export function useQuestSystem(state: AppState) {
           {
             id: 'st_1_2',
             title: 'Dołącz do grupy „Szukam osoby - pomoc”',
-            description: 'Wyślij prośbę o dołączenie do grupy poszukiwawczej i uzyskaj akceptację Oli Kamińskiej.',
-            hint: 'Znajdź grupę w menu i odpowiedz Oli na pytania weryfikacyjne.',
+            description: 'Wyślij prośbę o dołączenie do grupy poszukiwawczej i uzyskaj akceptację Aurélie Morel.',
+            hint: 'Znajdź grupę w menu i odpowiedz Aurélie na pytania weryfikacyjne.',
             isCompleted: s1_sub2,
           },
           {
@@ -140,7 +140,7 @@ export function useQuestSystem(state: AppState) {
             id: 'st_2_2',
             title: 'Zbadaj komentarze grupy „STOP Szarlatanom”',
             description: 'Sprawdź, kto kontaktował się z Natalie pod jej wpisem uderzającym w PrimeCo.',
-            hint: 'Zwróć uwagę na komentarz Kornela Zagórskiego pod recenzją Natalie.',
+            hint: 'Zwróć uwagę na komentarz Corentina Garniera pod recenzją Natalie.',
             isCompleted: s2_sub2,
           },
         ],
@@ -150,7 +150,7 @@ export function useQuestSystem(state: AppState) {
         stageNumber: 3,
         title: 'W Paszczy Lwa',
         subtitle: 'Infiltracja grupy anty-PrimeCo',
-        description: 'Aby dowiedzieć się, co łączyło Natalie z oporem, musisz wkupić się w łaski Kornela Zagórskiego.',
+        description: 'Aby dowiedzieć się, co łączyło Natalie z oporem, musisz wkupić się w łaski Corentina Garniera.',
         rewardText: 'Przyjęcie do grupy oporu i corporate backlash',
         icon: 'ShieldAlert',
         isCompleted: s3_completed,
@@ -173,9 +173,9 @@ export function useQuestSystem(state: AppState) {
           },
           {
             id: 'st_3_3',
-            title: 'Uzyskaj akceptację Kornela Zagórskiego',
+            title: 'Uzyskaj akceptację Corentina Garniera',
             description: 'Poczekaj na weryfikację i dołącz do społeczności oporu.',
-            hint: 'Kornel zaakceptuje Twoje zgłoszenie po opublikowaniu postu.',
+            hint: 'Corentin zaakceptuje Twoje zgłoszenie po opublikowaniu postu.',
             isCompleted: s3_sub3,
           },
         ],
@@ -185,7 +185,7 @@ export function useQuestSystem(state: AppState) {
         stageNumber: 4,
         title: 'Korporacyjna Blokada',
         subtitle: 'ToS § 12.3 i luka prawna w wyzwaniach',
-        description: 'Twoje konto zostało zablokowane za szkalowanie PrimeCo. Damian Wilk zna sposób na obejście bana.',
+        description: 'Twoje konto zostało zablokowane za szkalowanie PrimeCo. Damien Loup zna sposób na obejście bana.',
         rewardText: 'Odwieszenie konta i powrót do serwisu',
         icon: 'Ban',
         isCompleted: s4_completed,
@@ -194,9 +194,9 @@ export function useQuestSystem(state: AppState) {
         subtasks: [
           {
             id: 'st_4_1',
-            title: 'Odbierz wiadomość od Damiana Wilka',
+            title: 'Odbierz wiadomość od Damiena Loupa',
             description: 'Dowiedz się o procedurze przyspieszonego odwołania z punktu 8.4 regulaminu.',
-            hint: 'Damian napisze na czacie krótko po zablokowaniu konta.',
+            hint: 'Damien napisze na czacie krótko po zablokowaniu konta.',
             isCompleted: s4_sub1,
           },
           {
@@ -209,7 +209,7 @@ export function useQuestSystem(state: AppState) {
           {
             id: 'st_4_3',
             title: 'Zdejmij blokadę konta',
-            description: 'Damian uruchomi skrypt odwoławczy i przywróci pełne uprawnienia konta.',
+            description: 'Damien uruchomi skrypt odwoławczy i przywróci pełne uprawnienia konta.',
             hint: 'Po osiągnięciu 5. poziomu ban zniknie automatycznie.',
             isCompleted: s4_sub3,
           },

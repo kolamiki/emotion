@@ -9,19 +9,19 @@
     "members": [
       {
         "id": "u5",
-        "name": "Tomek Krawczyk",
+        "name": "Thomas Mercier",
         "avatarUrl": "https://i.pravatar.cc/150?u=u5",
         "role": "admin"
       },
       {
         "id": "u1",
-        "name": "Jan Kowalski",
+        "name": "Jean Laurent",
         "avatarUrl": "https://i.pravatar.cc/150?u=u1",
         "role": "member"
       },
       {
         "id": "u3",
-        "name": "Piotr Wiśniewski",
+        "name": "Pierre Dubois",
         "avatarUrl": "https://i.pravatar.cc/150?u=u3",
         "role": "moderator"
       }
@@ -31,7 +31,7 @@
         "id": "gp1",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "content": "Wczoraj byłem na nowym Diunie. Audiowizualne arcydzieło! Denis Villeneuve znowu dowiózł. Co wy na to?",
@@ -42,7 +42,7 @@
             "id": "gc1",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "Zgadzam się, muzyka Zimmera robi niesamowite wrażenie w kinie IMAX.",
@@ -52,7 +52,7 @@
             "id": "gc1_2",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "E tam, pierwsza połowa rozwleczona niemiłosiernie. Prawie zasnęłam w fotelu.",
@@ -62,10 +62,10 @@
             "id": "gc1_3",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
-            "text": "Marta, to kino kontemplacyjne, a nie Transformersy z wybuchami co 3 sekundy!",
+            "text": "Manon, to kino kontemplacyjne, a nie Transformersy z wybuchami co 3 sekundy!",
             "timestamp": "2026-05-27T09:42:00Z"
           }
         ]
@@ -74,7 +74,7 @@
         "id": "gp_cinema_rage",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "content": "Ludzie, czy wy do kina przychodzicie oglądać film czy świecić ekranem telefonu prosto w oczy wszystkim dookoła i żreć nachosy z sosem serowym jak świnie w korycie?! Wczoraj gość przez 2 godziny odpisywał na maile przy jasności ekranu 100%. Zwróciłem uwagę, to jeszcze usłyszałem, że 'jestem przewrażliwiony boomer'. Kiedy obsługa kin zacznie wreszcie wypraszać takich pajaców ze sali?!",
@@ -85,17 +85,17 @@
             "id": "gc_cr_1",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
-            "text": "Piotrek, 100% racji! Ja już przestałem chodzić w piątki i weekendy, bo to jest bydło nie publiczność. Tylko seanse w środku tygodnia o 14:00 mają sens.",
+            "text": "Pierre, 100% racji! Ja już przestałem chodzić w piątki i weekendy, bo to jest bydło nie publiczność. Tylko seanse w środku tygodnia o 14:00 mają sens.",
             "timestamp": "2026-06-02T20:25:00Z"
           },
           {
             "id": "gc_cr_2",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Płacę za bilet 45 zł to mam prawo sprawdzić telefon jak dostaję pilną wiadomość. Nie przesadzajcie z tym terroryzmem kinowym.",
@@ -105,10 +105,10 @@
             "id": "gc_cr_3",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
-            "text": "Tomek, inni też zapłacili 45 zł za bilet po to, żeby być w ciemnej sali, a nie oglądać twój ekran! Wyjdź na korytarz jak masz pilne sprawy.",
+            "text": "Thomas, inni też zapłacili 45 zł za bilet po to, żeby być w ciemnej sali, a nie oglądać twój ekran! Wyjdź na korytarz jak masz pilne sprawy.",
             "timestamp": "2026-06-02T20:45:00Z"
           }
         ]
@@ -128,17 +128,17 @@
             "id": "gc_mod_g1_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
-            "text": "Dzięki Piotr za usunięcie. Facetowi już kompletnie peron odjechał w tych wyzwiskach.",
+            "text": "Dzięki Pierre za usunięcie. Facetowi już kompletnie peron odjechał w tych wyzwiskach.",
             "timestamp": "2026-06-01T22:15:00Z"
           },
           {
             "id": "gc_mod_g1_2",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "Nie będzie tolerancji dla hejtu w tej grupie. Dyskutujemy o kinie z kulturą albo wcale.",
@@ -161,7 +161,7 @@
             "id": "gc_natalie_1_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Natalie, ty zawsze musisz wsadzić kij w mrowisko i doszukiwać się spisków korporacji? 😂 To był zwykły film rozrywkowy.",
@@ -171,17 +171,17 @@
             "id": "gc_natalie_1_2",
             "author": {
               "id": "u_kornel",
-              "name": "Kornel Zagórski",
+              "name": "Corentin Garnier",
               "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
             },
-            "text": "Tomek nie ma pojęcia o czym mówi, a Natalie trafiła w punkt. PrimeCo forsuje tę narrację od miesięcy. Natalie, zapraszamy do nas na grupę 'STOP Szarlatanom' – potrzebujemy takich bezkompromisowych głosów!",
+            "text": "Thomas nie ma pojęcia o czym mówi, a Natalie trafiła w punkt. PrimeCo forsuje tę narrację od miesięcy. Natalie, zapraszamy do nas na grupę 'STOP Szarlatanom' - potrzebujemy takich bezkompromisowych głosów!",
             "timestamp": "2026-06-03T18:25:00Z"
           },
           {
             "id": "gc_natalie_1_3",
             "author": {
               "id": "u_damian",
-              "name": "Damian Wilk",
+              "name": "Damien Loup",
               "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
             },
             "text": "Szacunek za odwagę Natalie! Niewielu ma jaja, żeby otwarcie punktować tych szarlatanów z PrimeCo. Dawaj do STOP Szarlatanom, tam nikt nie założy ci kagańca 🔥",
@@ -191,7 +191,7 @@
             "id": "gc_natalie_1_4",
             "author": {
               "id": "u_weronika",
-              "name": "Weronika Skalska",
+              "name": "Véronique Roche",
               "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
             },
             "text": "PrimeCo przejmuje kina, media i uniwersytety. Dobrze, że ktoś wreszcie nazywa rzeczy po imieniu i nie daje sobie mydlić oczu.",
@@ -212,13 +212,13 @@
     "members": [
       {
         "id": "u3",
-        "name": "Piotr Wiśniewski",
+        "name": "Pierre Dubois",
         "avatarUrl": "https://i.pravatar.cc/150?u=u3",
         "role": "admin"
       },
       {
         "id": "u2",
-        "name": "Anna Nowak",
+        "name": "Anne Moreau",
         "avatarUrl": "https://i.pravatar.cc/150?u=u2",
         "role": "member"
       }
@@ -228,7 +228,7 @@
         "id": "gp_job_rant",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
         "content": "Ogłoszenie z dzisiaj w centrum: 'Młody, dynamiczny zespół poszukuje asystenta ds. marketingu. Wymagania: biegły angielski i niemiecki, 3 lata doświadczenia, dyspozycyjność w weekendy, własny laptop i samochód. Oferujemy: owocowe czwartki, kartę MultiSport i umowę zlecenie na 1/4 etatu z wynagrodzeniem 900 zł netto'. Czy rekruterom w tym kraju już do reszty odebrało poczucie wstydu?! Błagam, szanujmy się i nie aplikujcie na takie żałosne ochłapy!",
@@ -239,7 +239,7 @@
             "id": "gc_jr_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Zapomnieli dopisać w benefitach: 'Młody zespół i kawa z ekspresu przelewowego' xDDD Januszex w czystej postaci.",
@@ -249,7 +249,7 @@
             "id": "gc_jr_2",
             "author": {
               "id": "u7",
-              "name": "Michał Dąbrowski",
+              "name": "Michel Bertrand",
               "avatarUrl": "https://i.pravatar.cc/150?u=u7"
             },
             "text": "Najgorsze jest to, że dopóki studenci będą na to aplikować, dopóty takie 'firmy' będą bezczelnie żerować na darmowej pracy.",
@@ -264,7 +264,7 @@
           "name": "Anonimowy użytkownik",
           "avatarUrl": "/avatars/anonim.png"
         },
-        "content": "[Oferta usunięta przez Administratora Piotra Wiśniewskiego. Powód: Oferowanie pracy bez umowy, brak jawnych widełek płacowych oraz podejrzenie oszustwa finansowego (wymóg wpłaty 'kaucji rekrutacyjnej' 150 zł za materiały szkoleniowe). Zgłoszone do moderacji globalnej.]",
+        "content": "[Oferta usunięta przez Administratora Pierre'a Dubois. Powód: Oferowanie pracy bez umowy, brak jawnych widełek płacowych oraz podejrzenie oszustwa finansowego (wymóg wpłaty 'kaucji rekrutacyjnej' 150 zł za materiały szkoleniowe). Zgłoszone do moderacji globalnej.]",
         "timestamp": "2026-06-01T15:00:00Z",
         "likes": 5,
         "comments": [
@@ -272,7 +272,7 @@
             "id": "gc_mod_g2_1",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "Przypominam: w tej grupie posty bez widełek płacowych lub z podejrzanymi linkami wylatują z automatu!",
@@ -282,10 +282,10 @@
             "id": "gc_mod_g2_2",
             "author": {
               "id": "u2",
-              "name": "Anna Nowak",
+              "name": "Anne Moreau",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
-            "text": "Dzięki Piotr za czujność, próbowali wcisnąć ten sam scam na innej grupie.",
+            "text": "Dzięki Pierre za czujność, próbowali wcisnąć ten sam scam na innej grupie.",
             "timestamp": "2026-06-01T15:18:00Z"
           }
         ]
@@ -303,13 +303,13 @@
     "members": [
       {
         "id": "u4",
-        "name": "Kasia Zielińska",
+        "name": "Céline Girard",
         "avatarUrl": "https://i.pravatar.cc/150?u=u4",
         "role": "admin"
       },
       {
         "id": "u6",
-        "name": "Marta Lewandowska",
+        "name": "Manon Lambert",
         "avatarUrl": "https://i.pravatar.cc/150?u=u6",
         "role": "moderator"
       }
@@ -319,7 +319,7 @@
         "id": "gp_vinted_drama",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
         "content": "Wystawiłam wózek dziecięcy po siostrzeńcu za 180 zł (nowy kosztował 1400 zł, stan igła). Pierwsza wiadomość od 'kupującego': 'Daję 30 zł z wysyłką na pani koszt, a jak pani nie pasuje to niech pani pamięta, że mam horom curke i serca pani nie ma'.\n\nLudzie, czy wam już resztki przyzwoitości wyłączyło?! Nie oddam za darmo, nie zarezerwuję do dziesiątego 'jak wpadnie wypłata' i nie przywiozę taksówką na drugi koniec województwa! Szanujmy swój czas! 🤦‍♀️🤬",
@@ -330,7 +330,7 @@
             "id": "gc_vd_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Klasyka gatunku! Mi facet proponował zamianę spawarki wartej 2 koła na... worek orzechów włoskich i używane radio samochodowe z 2003 roku xDD",
@@ -340,7 +340,7 @@
             "id": "gc_vd_2",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "Najlepsi są ci co piszą 'aktualne?', odpisujesz w sekundę że tak, a oni zapadają się pod ziemię i znikają na zawsze w czasoprzestrzeni.",
@@ -352,7 +352,7 @@
         "id": "gp4",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
         "content": "Sprzedam konsolę PlayStation 5 z dwoma padami. Stan idealny, mało używana. Cena: 1750 zł. Odbiór osobisty w centrum lub wysyłka po przedpłacie.",
@@ -363,7 +363,7 @@
             "id": "gc3",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "Czy cena podlega negocjacji? Dam 1400 zł i jestem dzisiaj pod blokiem.",
@@ -373,10 +373,10 @@
             "id": "gc3_2",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
-            "text": "Marta, za 1400 to mogę ci sprzedać jednego pada i kabel zasilający 😂 Cena ostateczna to 1650 zł.",
+            "text": "Manon, za 1400 to mogę ci sprzedać jednego pada i kabel zasilający 😂 Cena ostateczna to 1650 zł.",
             "timestamp": "2026-05-27T11:35:00Z"
           }
         ]
@@ -396,7 +396,7 @@
             "id": "gc_mod_g3_1",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "Uważajcie na takie linki! Typ wysyłał na WhatsAppie spreparowaną stronę bramki płatniczej.",
@@ -417,13 +417,13 @@
     "members": [
       {
         "id": "u1",
-        "name": "Jan Kowalski",
+        "name": "Jean Laurent",
         "avatarUrl": "https://i.pravatar.cc/150?u=u1",
         "role": "admin"
       },
       {
         "id": "u2",
-        "name": "Anna Nowak",
+        "name": "Anne Moreau",
         "avatarUrl": "https://i.pravatar.cc/150?u=u2",
         "role": "member"
       }
@@ -433,7 +433,7 @@
         "id": "gp6",
         "author": {
           "id": "u1",
-          "name": "Jan Kowalski",
+          "name": "Jean Laurent",
           "avatarUrl": "https://i.pravatar.cc/150?u=u1"
         },
         "content": "Ej, piwko w sobotę w starym pubie Pod Baryłką?",
@@ -444,7 +444,7 @@
             "id": "gc3_lo",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "git, wpadnę na jedno",
@@ -454,7 +454,7 @@
             "id": "gc4_lo",
             "author": {
               "id": "u2",
-              "name": "Anna Nowak",
+              "name": "Anne Moreau",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
             "text": "odpadam, mam sprawdziany do oceny :(",
@@ -464,7 +464,7 @@
             "id": "gc5_lo",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "w następną chętnie, w tę mam dyżur na ściance",
@@ -474,7 +474,7 @@
             "id": "gc6_lo",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
             "text": "dobra, to kto będzie ten będzie, rezerwuję stolik na 20:00.",
@@ -486,7 +486,7 @@
         "id": "gp_reunion_feud",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
         "content": "Słuchajcie, mija 8 lat od matury, zróbmy wreszcie to oficjalne spotkanie rocznikowe! Tylko błagam, bez wykrętów i marudzenia, ustalmy jeden wspólny termin w czerwcu.",
@@ -497,7 +497,7 @@
             "id": "gc_rf_1",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "Jak znowu mamy przez 4 godziny słuchać o tym kto ile zarabia w korpo i czyje dziecko ma lepsze oceny, to ja szczerze dziękuję.",
@@ -507,10 +507,10 @@
             "id": "gc_rf_2",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
-            "text": "Marta, nie dramatyzuj znowu, ostatnio było super dopóki ktoś nie zaczął dyskutować o polityce xD Ja chętnie przyjdę!",
+            "text": "Manon, nie dramatyzuj znowu, ostatnio było super dopóki ktoś nie zaczął dyskutować o polityce xD Ja chętnie przyjdę!",
             "timestamp": "2026-06-01T19:28:00Z"
           }
         ]
@@ -530,7 +530,7 @@
             "id": "gc_mod_g4_1",
             "author": {
               "id": "u2",
-              "name": "Anna Nowak",
+              "name": "Anne Moreau",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
             "text": "Dzięki za usunięcie, żenujące to już było...",
@@ -551,7 +551,7 @@
     "members": [
       {
         "id": "u3",
-        "name": "Piotr Wiśniewski",
+        "name": "Pierre Dubois",
         "avatarUrl": "https://i.pravatar.cc/150?u=u3",
         "role": "admin"
       }
@@ -561,7 +561,7 @@
         "id": "gp_ai_hype",
         "author": {
           "id": "u7",
-          "name": "Michał Dąbrowski",
+          "name": "Michel Bertrand",
           "avatarUrl": "https://i.pravatar.cc/150?u=u7"
         },
         "content": "Czy tylko mnie skręca z żenady od wciskania hasła 'AI' do dosłownie każdego sprzętu domowego? Szczoteczka do zębów z AI, czajnik z AI, lodówka z AI, a nowy smartfon za 7500 zł wiesza się przy przełączaniu obiektywów w aparacie. 95% tego 'sztucznego intelektu' to zwykły algorytm z dopisanym hasłem marketingowym, żeby wyciągnąć od naiwnych klientów dwa razy więcej kasy. Dokąd ten świat zmierza?",
@@ -572,7 +572,7 @@
             "id": "gc_ai_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Święte słowa! Moja 'inteligentna' pralka ostatnio zablokowała drzwi na 3 godziny, bo 'analizowała optymalny profil płukania z chmury' xDDD Postęp stulecia.",
@@ -582,7 +582,7 @@
             "id": "gc_ai_2",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
             "text": "Zaraz zlecą się korpo-ewangeliści i ci wyjaśnią, że jesteś technofobem i nie rozumiesz 'cyfrowej transformacji dobrostanu' xD",
@@ -594,7 +594,7 @@
         "id": "gp7",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "content": "Uwaga, wyszedł iOS 21.2. Aktualizacja waży ponad 6GB. Najważniejsze zmiany: nowy tryb oszczędzania energii, zmiana interfejsu aparatu i głębsza integracja z chmurą e-Motion. Ktoś już instalował? Jak bateria?",
@@ -605,7 +605,7 @@
             "id": "gc4_tech",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
             "text": "Apple to dno i wyciąganie kasy za kabelki, nic nowego od 5 lat.",
@@ -615,7 +615,7 @@
             "id": "gc5_tech",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
             "text": "Czekam aż zlecą się wszyscy fanboje Androida i zaczną pisać elaboraty xD",
@@ -638,7 +638,7 @@
             "id": "gc_mod_g5_1",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "Mam nadzieję, że nikt nie pobrał tego pliku... Zwykły trojan.",
@@ -659,13 +659,13 @@
     "members": [
       {
         "id": "u8",
-        "name": "Ola Kamińska",
+        "name": "Aurélie Morel",
         "avatarUrl": "https://i.pravatar.cc/150?u=u8",
         "role": "admin"
       },
       {
         "id": "u9",
-        "name": "Bartek Nowicki",
+        "name": "Bastien Renaud",
         "avatarUrl": "https://i.pravatar.cc/150?u=u9",
         "role": "moderator"
       },
@@ -677,19 +677,19 @@
       },
       {
         "id": "u7",
-        "name": "Michał Dąbrowski",
+        "name": "Michel Bertrand",
         "avatarUrl": "https://i.pravatar.cc/150?u=u7",
         "role": "member"
       },
       {
         "id": "u3",
-        "name": "Piotr Wiśniewski",
+        "name": "Pierre Dubois",
         "avatarUrl": "https://i.pravatar.cc/150?u=u3",
         "role": "member"
       },
       {
         "id": "u4",
-        "name": "Kasia Zielińska",
+        "name": "Céline Girard",
         "avatarUrl": "https://i.pravatar.cc/150?u=u4",
         "role": "member"
       }
@@ -710,7 +710,7 @@
             "id": "gc_missing_1_1",
             "author": {
               "id": "u9",
-              "name": "Bartek Nowicki",
+              "name": "Bastien Renaud",
               "avatarUrl": "https://i.pravatar.cc/150?u=u9"
             },
             "text": "O której to dokładnie było i w którym kinie? Zgłosiłaś to od razu obsłudze i ochronie, żeby zabezpieczyli monitoring?",
@@ -730,7 +730,7 @@
             "id": "gc_missing_1_3",
             "author": {
               "id": "u8",
-              "name": "Ola Kamińska",
+              "name": "Aurélie Morel",
               "avatarUrl": "https://i.pravatar.cc/150?u=u8"
             },
             "text": "Marinette, nie czekaj ani chwili, od razu zgłaszaj sprawę na policję. Udostępniam Twój apel na naszych kanałach ratunkowych.",
@@ -740,20 +740,20 @@
             "id": "gc_missing_1_4",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
-            "text": "Mieszkam niedaleko tego kina. Jeśli zorganizujemy grupę poszukiwawczą na przyległych ulicach, dajcie znać na priv – dołączę natychmiast!",
+            "text": "Mieszkam niedaleko tego kina. Jeśli zorganizujemy grupę poszukiwawczą na przyległych ulicach, dajcie znać na priv - dołączę natychmiast!",
             "timestamp": "2026-06-03T20:46:00Z"
           },
           {
             "id": "gc_missing_1_5",
             "author": {
               "id": "u7",
-              "name": "Michał Dąbrowski",
+              "name": "Michel Bertrand",
               "avatarUrl": "https://i.pravatar.cc/150?u=u7"
             },
-            "text": "Nie chcę siać paniki, ale to mi cuchnie porwaniem na zlecenie albo zemstą... Kojarzycie w ogóle jej aktywność w sieci? Wystarczy wejść do grupy 'Filmowe polecajki' i poczytać jej posty. Ta samozwańcza 'krytyczka filmowa' jedzie wyłącznie na hejcie i kontrowersji, bezczelnie obrażała ludzi i wylewała pomyje na każdego. Prześledźcie jej wpisy w 'Filmowych polecajkach' – założę się, że narobiła sobie tam potężnych wrogów.",
+            "text": "Nie chcę siać paniki, ale to mi cuchnie porwaniem na zlecenie albo zemstą... Kojarzycie w ogóle jej aktywność w sieci? Wystarczy wejść do grupy 'Filmowe polecajki' i poczytać jej posty. Ta samozwańcza 'krytyczka filmowa' jedzie wyłącznie na hejcie i kontrowersji, bezczelnie obrażała ludzi i wylewała pomyje na każdego. Prześledźcie jej wpisy w 'Filmowych polecajkach' - założę się, że narobiła sobie tam potężnych wrogów.",
             "timestamp": "2026-06-03T20:52:00Z"
           }
         ]
@@ -765,7 +765,7 @@
           "name": "Anonimowy użytkownik",
           "avatarUrl": "/avatars/anonim.png"
         },
-        "content": "[Wpis usunięty przez Administratora Olę Kamińską. Powód: Celowe wprowadzanie w błąd służb ratunkowych, publikowanie fałszywych doniesień o rzekomym 'odnalezieniu' oraz naruszenie spokoju rodziny zaginionej (§ 9 Regulaminu Grupy). Użytkownik zablokowany bezterminowo]",
+        "content": "[Wpis usunięty przez Administratora Aurélie Morel. Powód: Celowe wprowadzanie w błąd służb ratunkowych, publikowanie fałszywych doniesień o rzekomym 'odnalezieniu' oraz naruszenie spokoju rodziny zaginionej (§ 9 Regulaminu Grupy). Użytkownik zablokowany bezterminowo]",
         "timestamp": "2026-06-03T21:15:00Z",
         "likes": 12,
         "comments": [
@@ -773,7 +773,7 @@
             "id": "gc_msz_1",
             "author": {
               "id": "u8",
-              "name": "Ola Kamińska",
+              "name": "Aurélie Morel",
               "avatarUrl": "https://i.pravatar.cc/150?u=u8"
             },
             "text": "Ostrzegam wszystkich: każdy kolejny troll żerujący na zaginięciu Natalie wylatuje natychmiast z banem i zgłoszeniem do organów ścigania!",
@@ -795,10 +795,10 @@
         "id": "gp_missing_2",
         "author": {
           "id": "u8",
-          "name": "Ola Kamińska",
+          "name": "Aurélie Morel",
           "avatarUrl": "https://i.pravatar.cc/150?u=u8"
         },
-        "content": "📌 ZASADY POSTĘPOWANIA W PIERWSZYCH GODZINACH ZAGINIĘCIA:\n1. Policja ma obowiązek przyjąć zgłoszenie NATYCHMIAST – mit o czekaniu 24h/48h to szkodliwa bzdura!\n2. Zabezpieczcie ostatnie logowania kont (Find My Phone / Google, portale społecznościowe).\n3. Przy zgłoszeniach w grupie podawajcie: dokładne miejsce, ubiór, znaki szczególne oraz ostatnie zdjęcie.\nPomagajmy sobie nawzajem i zachowajmy spokój w komentarzach.",
+        "content": "📌 ZASADY POSTĘPOWANIA W PIERWSZYCH GODZINACH ZAGINIĘCIA:\n1. Policja ma obowiązek przyjąć zgłoszenie NATYCHMIAST - mit o czekaniu 24h/48h to szkodliwa bzdura!\n2. Zabezpieczcie ostatnie logowania kont (Find My Phone / Google, portale społecznościowe).\n3. Przy zgłoszeniach w grupie podawajcie: dokładne miejsce, ubiór, znaki szczególne oraz ostatnie zdjęcie.\nPomagajmy sobie nawzajem i zachowajmy spokój w komentarzach.",
         "timestamp": "2026-06-01T10:00:00Z",
         "likes": 56,
         "comments": [
@@ -806,7 +806,7 @@
             "id": "gc_missing_2_1",
             "author": {
               "id": "u7",
-              "name": "Michał Dąbrowski",
+              "name": "Michel Bertrand",
               "avatarUrl": "https://i.pravatar.cc/150?u=u7"
             },
             "text": "Warto też od razu wygenerować kopię zapasową danych z chmury, jeśli posiadacie wspólny dostęp rodzinny.",
@@ -816,7 +816,7 @@
             "id": "gc_missing_2_2",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
             "text": "Bardzo ważny post! Przypnijmy go na stałe u góry grupy.",
@@ -828,7 +828,7 @@
         "id": "gp_missing_3",
         "author": {
           "id": "u9",
-          "name": "Bartek Nowicki",
+          "name": "Bastien Renaud",
           "avatarUrl": "https://i.pravatar.cc/150?u=u9"
         },
         "content": "WSPANIAŁA WIADOMOŚĆ: 78-letni pan Henryk, który zaginął wczoraj na obrzeżach lasu, został odnaleziony cały i zdrowy! 🚁 Zlokalizowaliśmy go przy użyciu drona z kamerą termowizyjną w gęstym młodniku, 4 km od miejsca zamieszkania. Dziękuję wszystkim wolontariuszom za błyskawiczną nocną akcję! ❤️👏",
@@ -839,7 +839,7 @@
             "id": "gc_missing_3_1",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
             "text": "Niesamowita robota! Drony z termowizją w takich akcjach ratują życie.",
@@ -849,10 +849,10 @@
             "id": "gc_missing_3_2",
             "author": {
               "id": "u8",
-              "name": "Ola Kamińska",
+              "name": "Aurélie Morel",
               "avatarUrl": "https://i.pravatar.cc/150?u=u8"
             },
-            "text": "Wielki szacunek Bartek dla Ciebie i całej ekipy poszukiwawczej!",
+            "text": "Wielki szacunek Bastien dla Ciebie i całej ekipy poszukiwawczej!",
             "timestamp": "2026-06-02T08:00:00Z"
           }
         ]
@@ -861,10 +861,10 @@
         "id": "gp_missing_4",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
-        "content": "ZAGINIONY LABRADOR – POMÓŻCIE ZNALEŹĆ! 🐾 Wczoraj około 18:30 w okolicach Parku Miejskiego uciekł pies 'Baster' (biszkoptowy labrador, niebieska obroża z numerem). Pies wymaga leków na serce! Jeśli ktokolwiek go widział, prosimy o pilny kontakt.",
+        "content": "ZAGINIONY LABRADOR - POMÓŻCIE ZNALEŹĆ! 🐾 Wczoraj około 18:30 w okolicach Parku Miejskiego uciekł pies 'Baster' (biszkoptowy labrador, niebieska obroża z numerem). Pies wymaga leków na serce! Jeśli ktokolwiek go widział, prosimy o pilny kontakt.",
         "timestamp": "2026-06-03T15:00:00Z",
         "likes": 39,
         "comments": [
@@ -872,7 +872,7 @@
             "id": "gc_missing_4_1",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "Widziałem podobnego labradora ok. 19:15 przy alejce wzdłuż rzeki, biegał w stronę mostu. Sprawdźcie tamtejszy brzeg!",
@@ -899,7 +899,7 @@
         "id": "gp_garden_feud",
         "author": {
           "id": "u5",
-          "name": "Tomek Krawczyk",
+          "name": "Thomas Mercier",
           "avatarUrl": "https://i.pravatar.cc/150?u=u5"
         },
         "content": "Drodzy sąsiedzi z Rodzinnych Ogródków Działkowych! Jeśli jeszcze raz zobaczę, że ktoś przerzuca wyplewiony podagrycznik i wiadra ślimaków nagich przez siatkę na moją działkę, to całe to tałatajstwo wysypię wam z powrotem prosto na świeżo polakierowaną altanę! Miejcie trochę ludzkiej przyzwoitości i zróbcie sobie kompostownik, a nie robicie ze mnie wysypisko!",
@@ -910,7 +910,7 @@
             "id": "gc_gf_1",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
             "text": "Oho, zaczyna się coroczna Bitwa pod Grunwaldem na ROD-zie! 😂 Na ślimaki polecam pułapki piwne, działa cuda bez chemii.",
@@ -920,7 +920,7 @@
             "id": "gc_gf_2",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
             "text": "A sąsiad kosi trawę spalinówką w niedzielę o 6:45 rano, bo 'taki ma biorytm'. Człowiek na działce nie ma ani chwili spokoju.",
@@ -932,7 +932,7 @@
         "id": "gp_garden_1",
         "author": {
           "id": "u4",
-          "name": "Kasia Zielińska",
+          "name": "Céline Girard",
           "avatarUrl": "https://i.pravatar.cc/150?u=u4"
         },
         "content": "Moje pomidory malinowe zaczynają żółknąć od spodu liści. Czy to może być brak wapnia, czy to ta przeklęta zaraza ziemniaczana? Co polecacie na szybki ratunek?",
@@ -943,7 +943,7 @@
             "id": "gc_garden_2",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "To chyba znak, aby znaleźć inne hobby. Nie wszyscy muszą mieć rękę do roślin. Pozdrawiam serdecznie.",
@@ -953,10 +953,10 @@
             "id": "gc_garden_1",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
-            "text": "Nie słuchaj Piotra, on się zna na kamieniach w Tatrach a nie na pomidorach. To sucha zgnilizna wierzchołkowa! Oprysk saletrą wapniową załatwi sprawę.",
+            "text": "Nie słuchaj Pierre'a, on się zna na kamieniach w Tatrach a nie na pomidorach. To sucha zgnilizna wierzchołkowa! Oprysk saletrą wapniową załatwi sprawę.",
             "timestamp": "2026-06-02T10:45:00Z"
           }
         ]
@@ -976,7 +976,7 @@
             "id": "gc_mod_gar_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Wojny działkowe weszły na poziom prokuratury xD",
@@ -1000,7 +1000,7 @@
         "id": "gp_sports_war",
         "author": {
           "id": "u7",
-          "name": "Michał Dąbrowski",
+          "name": "Michel Bertrand",
           "avatarUrl": "https://i.pravatar.cc/150?u=u7"
         },
         "content": "Apel do kolarzy i hulajnogarzy w Parku Miejskim: alejki spacerowe to NIE jest tor wyścigowy Tour de France! Wczoraj facet w obcisłym trykocie przeleciał 40 km/h o 5 centymetrów od wózka z niemowlakiem, drąc się: 'Z drogi, rekord życiowy robię!'. Jeśli chcecie pobijać rekordy prędkości, zapraszam na szosę za miasto, a nie między spacerujące rodziny z dziećmi!",
@@ -1011,7 +1011,7 @@
             "id": "gc_sw_1",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "A biegacze w wielkich słuchawkach wygłuszających, którzy nie słyszą dzwonka i nagle robią nawrotkę w lewo bez spojrzenia za siebie? Każda strona ma swoje za uszami.",
@@ -1021,10 +1021,10 @@
             "id": "gc_sw_2",
             "author": {
               "id": "u7",
-              "name": "Michał Dąbrowski",
+              "name": "Michel Bertrand",
               "avatarUrl": "https://i.pravatar.cc/150?u=u7"
             },
-            "text": "Piotrek, biegacz biegnie 10 km/h i waży 75 kg. Rowerzysta na szosówce jedzie 40 km/h i może zabić dziecko na miejscu. Czujesz tę drobną różnicę w fizyce uderzenia?",
+            "text": "Pierre, biegacz biegnie 10 km/h i waży 75 kg. Rowerzysta na szosówce jedzie 40 km/h i może zabić dziecko na miejscu. Czujesz tę drobną różnicę w fizyce uderzenia?",
             "timestamp": "2026-06-03T10:25:00Z"
           }
         ]
@@ -1033,7 +1033,7 @@
         "id": "gp_sports_1",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "content": "Ktoś biega jutro rano w parku? Mam w planie spokojne 12km w tempie 5:20. Zapraszam do wspólnego treningu! 🏃‍♂️",
@@ -1044,7 +1044,7 @@
             "id": "gc_sports_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Ja chętnie! Będę przy głównym wejściu o 7:00.",
@@ -1067,7 +1067,7 @@
             "id": "gc_mod_sp_1",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "Promowanie dopingu w grupie amatorów to kryminał. Won stąd.",
@@ -1091,7 +1091,7 @@
         "id": "gp_madki_war",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
         "content": "Drogie Mamy, muszę to z siebie wyrzucić, bo zaraz pęknę. Dlaczego wciąż przyprowadzacie do przedszkola dzieci z zielonym katarzem do pasa i duszącym kaszlem, napojone rano syropem przeciwgorączkowym, żeby 'jakoś dotrwały do obiadu'?! Efekt? Moje dziecko po dwóch dniach zdrowia znowu leży w łóżku z zapaleniem oskrzeli. Czy wy naprawdę nie myślicie o innych dzieciach i ich rodzinach?!",
@@ -1102,7 +1102,7 @@
             "id": "gc_mw_1",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
             "text": "Aniu, a co mają zrobić rodzice, którzy pracują w firmach, gdzie za trzecie L4 w miesiącu grozi dyscyplinarka? System wsparcia opieki w tym kraju nie istnieje.",
@@ -1112,7 +1112,7 @@
             "id": "gc_mw_2",
             "author": {
               "id": "u10",
-              "name": "Natalia Wójcik",
+              "name": "Élodie Perrin",
               "avatarUrl": "https://i.pravatar.cc/150?u=u10"
             },
             "text": "Jako farmaceutka powiem jedno: maskowanie infekcji lekami przeciwgorączkowymi i wysyłanie osłabionego malucha do skupiska zarazków to przede wszystkim krzywda dla samego dziecka! Powikłania po niedoleczonych infekcjach bywają dramatyczne.",
@@ -1122,10 +1122,10 @@
             "id": "gc_mw_3",
             "author": {
               "id": "u2",
-              "name": "Anna Nowak",
+              "name": "Anne Moreau",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
-            "text": "Dokładnie Natalia! O to mi chodzi. Krzywdzicie własne dzieci i przy okazji 20 innych w grupie.",
+            "text": "Dokładnie Élodie! O to mi chodzi. Krzywdzicie własne dzieci i przy okazji 20 innych w grupie.",
             "timestamp": "2026-06-03T11:35:00Z"
           }
         ]
@@ -1134,7 +1134,7 @@
         "id": "gp_childcare_1",
         "author": {
           "id": "u2",
-          "name": "Anna Nowak",
+          "name": "Anne Moreau",
           "avatarUrl": "https://i.pravatar.cc/150?u=u2"
         },
         "content": "Macie jakieś sprawdzone pomysły na zabawy w domu dla 3-latka? Pogoda dzisiaj pod psem, leje od rana, a powoli kończą mi się pomysły. 🌧️🎨",
@@ -1145,7 +1145,7 @@
             "id": "gc_childcare_1",
             "author": {
               "id": "u1",
-              "name": "Jan Kowalski",
+              "name": "Jean Laurent",
               "avatarUrl": "https://i.pravatar.cc/150?u=u1"
             },
             "text": "Polecam budowanie bazy z koców i krzeseł! U nas zawsze działa na kilka godzin spokoju.",
@@ -1168,7 +1168,7 @@
             "id": "gc_mod_ch_1",
             "author": {
               "id": "u2",
-              "name": "Anna Nowak",
+              "name": "Anne Moreau",
               "avatarUrl": "https://i.pravatar.cc/150?u=u2"
             },
             "text": "Dziękuję za natychmiastową reakcję. Fotografowanie cudzych dzieci na placu zabaw to obrzydliwe przekroczenie granic.",
@@ -1189,19 +1189,19 @@
     "members": [
       {
         "id": "u_kornel",
-        "name": "Kornel Zagórski",
+        "name": "Corentin Garnier",
         "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski",
         "role": "admin"
       },
       {
         "id": "u_weronika",
-        "name": "Weronika Skalska",
+        "name": "Véronique Roche",
         "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska",
         "role": "moderator"
       },
       {
         "id": "u_damian",
-        "name": "Damian Wilk",
+        "name": "Damien Loup",
         "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk",
         "role": "member"
       }
@@ -1211,7 +1211,7 @@
         "id": "gp_anti_1",
         "author": {
           "id": "u_kornel",
-          "name": "Kornel Zagórski",
+          "name": "Corentin Garnier",
           "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
         },
         "content": "Przestańmy wreszcie udawać, że Profesor Prime 'widzi przyszłość'. To nie jest żadne oświecenie ani dar. Każdy, kto ma pojęcie o architekturze sieci neuronowych i big data, wie, że to zwykła agresywna ekstrapolacja danych i inwigilacja milionów obywateli! Facet sprzedaje wam tanią iluzję przeznaczenia, żebyście potulnie zaakceptowali jego monopol. Czas powiedzieć DOŚĆ temu szarlatanowi!",
@@ -1222,7 +1222,7 @@
             "id": "gc_anti_1_1",
             "author": {
               "id": "u_damian",
-              "name": "Damian Wilk",
+              "name": "Damien Loup",
               "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
             },
             "text": "Dokładnie. 'Wizjoner' od siedmiu boleści. Jak mu algorytm nawali na giełdzie, to zwali na 'niewłaściwą fluktuację emocjonalną'. Czysty scam dla naiwnych.",
@@ -1232,7 +1232,7 @@
             "id": "gc_anti_1_2",
             "author": {
               "id": "u_weronika",
-              "name": "Weronika Skalska",
+              "name": "Véronique Roche",
               "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
             },
             "text": "Najgorsze jest to, że PrimeCo na podstawie tych pseudonaukowych prognoz decyduje, kto dostanie kredyt, awans czy ubezpieczenie. Dzielą nas na kasty!",
@@ -1247,7 +1247,7 @@
           "name": "Anonimowy użytkownik",
           "avatarUrl": "/avatars/anonim.png"
         },
-        "content": "[Ten wpis został usunięty przez Administratora Kornela Zagórskiego. Powód: Wykryto skoordynowany astroturfing i trolling korporacyjny z adresu IP powiązanego z agencją PR obsługującą PrimeCo. Próba dyskredytacji ruchu i zastraszania świadków. Wasze korporacyjne sztuczki u nas nie przejdą!]",
+        "content": "[Ten wpis został usunięty przez Administratora Corentina Garniera. Powód: Wykryto skoordynowany astroturfing i trolling korporacyjny z adresu IP powiązanego z agencją PR obsługującą PrimeCo. Próba dyskredytacji ruchu i zastraszania świadków. Wasze korporacyjne sztuczki u nas nie przejdą!]",
         "timestamp": "2026-06-03T11:40:00Z",
         "likes": 39,
         "comments": [
@@ -1255,17 +1255,17 @@
             "id": "gc_mod_anti_1",
             "author": {
               "id": "u_damian",
-              "name": "Damian Wilk",
+              "name": "Damien Loup",
               "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
             },
-            "text": "Haha, panika na salonach Prime'a! Wynajmują płatne farmy trolli, żeby uciszać dyskusję. Brawo Kornel za natychmiastowego bana!",
+            "text": "Haha, panika na salonach Prime'a! Wynajmują płatne farmy trolli, żeby uciszać dyskusję. Brawo Corentin za natychmiastowego bana!",
             "timestamp": "2026-06-03T11:48:00Z"
           },
           {
             "id": "gc_mod_anti_2",
             "author": {
               "id": "u_weronika",
-              "name": "Weronika Skalska",
+              "name": "Véronique Roche",
               "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
             },
             "text": "To tylko dowodzi, jak bardzo boją się prawdy. Nie damy się zastraszyć!",
@@ -1277,7 +1277,7 @@
         "id": "gp_anti_2",
         "author": {
           "id": "u_weronika",
-          "name": "Weronika Skalska",
+          "name": "Véronique Roche",
           "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
         },
         "content": "Nowa Nauka to narzędzie segregacji społecznej. PrimeCo buduje szklane wieżowce i enklawy dla garstki bogaczy, wmawiając reszcie społeczeństwa, że ich 'niższy status' został rzekomo matematycznie wyliczony przez algorytm przyszłości. Nie ma większego kłamstwa niż determinizm społeczny serwowany przez korporację z Paryża. Pogłębianie biedy pod płaszczykiem nauki to zbrodnia.",
@@ -1288,7 +1288,7 @@
             "id": "gc_anti_2_1",
             "author": {
               "id": "u_kornel",
-              "name": "Kornel Zagórski",
+              "name": "Corentin Garnier",
               "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
             },
             "text": "Zgadzam się w 100%. Zwykły człowiek staje się towarem, a Prime liczy zyski w drogich garniturach.",
@@ -1300,7 +1300,7 @@
         "id": "gp_anti_3",
         "author": {
           "id": "u_damian",
-          "name": "Damian Wilk",
+          "name": "Damien Loup",
           "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
         },
         "content": "Widzieliście ostatni wywiad z tym bufoniastym 'Profesorem'? Mówi zagadkami, pije espresso za 100 euro i patrzy na wszystkich z góry, jakby był nadczłowiekiem. Prawda jest taka, że bez armii PR-owców i prawników PrimeCo byłby nikim. Czy ktoś w ogóle kiedykolwiek widział twardy, zrecenzowany dowód na te jego 'proroctwa'?",
@@ -1311,11 +1311,44 @@
             "id": "gc_anti_3_1",
             "author": {
               "id": "u_weronika",
-              "name": "Weronika Skalska",
+              "name": "Véronique Roche",
               "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
             },
             "text": "Żadnych recenzji naukowych, wszystko utajnione jako 'tajemnica przedsiębiorstwa'. Klasyka manipulacji.",
             "timestamp": "2026-06-03T14:25:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_anti_comics",
+        "author": {
+          "id": "u_damian",
+          "name": "Damien Loup",
+          "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+        },
+        "content": "Czy tylko mnie skręca z zażenowania, jak patrzę na rekomendowane grupy na tej pseudo-platformie? PrimeCo bezczelnie inwigiluje użytkowników, algorytmy banują ludzi za zadawanie niewygodnych pytań, a eMotion bez wstydu promuje mi grupkę 'Polskie komiksy - łączmy się' 🤡 Zgraja oderwanych od rzeczywistości nerdów i starych dziadersów masturbuje się tam do Thorgala i zeszytów z czasów PRL-u, udając, że żyją w innym świecie! Przecież to jest podręcznikowa korporacyjna zasłona dymna Gastonka i PrimeCo: dać masom kolorowe komiksy i tanią nostalgię, żeby przypadkiem nie zauważyli, jak korporacja pozbawia ich wolności. Bojkotujcie ten komiksowy cyrk i tych starych zgredów!",
+        "timestamp": "2026-06-03T15:30:00Z",
+        "likes": 51,
+        "comments": [
+          {
+            "id": "gc_anti_comics_1",
+            "author": {
+              "id": "u_weronika",
+              "name": "Véronique Roche",
+              "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+            },
+            "text": "Niestety eskapizm w fikcję to klasyczna technika pacyfikacji nastrojów społecznych. Zamiast kwestionować monopol PrimeCo i algorytmy socjoekonomiczne, łatwiej uciec w bezpieczny świat kadrów z dzieciństwa.",
+            "timestamp": "2026-06-03T15:45:00Z"
+          },
+          {
+            "id": "gc_anti_comics_2",
+            "author": {
+              "id": "u_kornel",
+              "name": "Corentin Garnier",
+              "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+            },
+            "text": "Dokładnie Damien. Co ciekawe, w tamtej grupie jako moderatorzy kręcą się dziwne konta (np. jakiś milicjant i zakonnik, czysty trolling), a administracja kasuje każdą próbę poruszenia wątku technologii. Nie dajcie się ogłupiać tym infantylnym teatrzykiem.",
+            "timestamp": "2026-06-03T16:00:00Z"
           }
         ]
       },
@@ -1334,7 +1367,7 @@
             "id": "gc_anti_natalie_1",
             "author": {
               "id": "u_kornel",
-              "name": "Kornel Zagórski",
+              "name": "Corentin Garnier",
               "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
             },
             "text": "W samo sedno Natalie. Determinizm PrimeCo to ideologiczna pułapka na naiwnych.",
@@ -1344,7 +1377,7 @@
             "id": "gc_anti_natalie_2",
             "author": {
               "id": "u_damian",
-              "name": "Damian Wilk",
+              "name": "Damien Loup",
               "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
             },
             "text": "Klasa wypowiedź 🔥 Uważaj na siebie, bo za takie słowa PrimeCo lubi uciszać ludzi xd",
@@ -1365,7 +1398,7 @@
     "icon": "BookOpen",
     "description": "Grupa miłośników rodzimego komiksu. Wspomnienia, klasyki, rarytasy z dawnych lat i współczesne perełki rysunkowe!",
     "coverColor": "#1e3a5f",
-    "membersCount": 384,
+    "membersCount": 387,
     "members": [
       {
         "id": "u_matylda",
@@ -1387,38 +1420,56 @@
       },
       {
         "id": "u8",
-        "name": "Ola Kamińska",
+        "name": "Aurélie Morel",
         "avatarUrl": "https://i.pravatar.cc/150?u=u8",
         "role": "member"
       },
       {
         "id": "u5",
-        "name": "Tomek Krawczyk",
+        "name": "Thomas Mercier",
         "avatarUrl": "https://i.pravatar.cc/150?u=u5",
         "role": "member"
       },
       {
         "id": "u6",
-        "name": "Marta Lewandowska",
+        "name": "Manon Lambert",
         "avatarUrl": "https://i.pravatar.cc/150?u=u6",
         "role": "member"
       },
       {
         "id": "u3",
-        "name": "Piotr Wiśniewski",
+        "name": "Pierre Dubois",
         "avatarUrl": "https://i.pravatar.cc/150?u=u3",
         "role": "member"
       },
       {
         "id": "u_filip",
-        "name": "Filip Czarnecki",
+        "name": "Philippe Caron",
         "avatarUrl": "https://i.pravatar.cc/150?u=filip_czarnecki",
         "role": "member"
       },
       {
         "id": "u4",
-        "name": "Kasia Zielińska",
+        "name": "Céline Girard",
         "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+        "role": "member"
+      },
+      {
+        "id": "u_stanislaw_baranski",
+        "name": "Stanisław Barański",
+        "avatarUrl": "https://i.pravatar.cc/150?u=stanislaw_baranski",
+        "role": "member"
+      },
+      {
+        "id": "u_bogumila_kaczmarek",
+        "name": "Bogumiła Kaczmarek",
+        "avatarUrl": "https://i.pravatar.cc/150?u=bogumila_kaczmarek",
+        "role": "member"
+      },
+      {
+        "id": "u_mariusz_klimczak",
+        "name": "Mariusz Klimczak",
+        "avatarUrl": "https://i.pravatar.cc/150?u=mariusz_klimczak",
         "role": "member"
       }
     ],
@@ -1427,7 +1478,7 @@
         "id": "gp_nowy_fan_1",
         "author": {
           "id": "u_filip",
-          "name": "Filip Czarnecki",
+          "name": "Philippe Caron",
           "avatarUrl": "https://i.pravatar.cc/150?u=filip_czarnecki"
         },
         "content": "Dzień dobry grupo, dziękuje za przyjęcie. Od kilku dni zacząłem się interesować komiksami więc postanowiłem spróbować. Na próbę zamówiłem All-Star Superman, bo mega spodobał mi się ten nowy Superman Gunna i bardzo chciałem poznać komiksowy pierwowzór. Jeśli ktoś miałby coś godnego polecenia na start dla młodzieńca lat 16 to proszę o propozycje! A z jakich sklepów polecacie zamawiać? \nPozdrawiam!",
@@ -1438,7 +1489,7 @@
             "id": "gc_hater_1",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Czy ty w ogóle przeczytałeś nazwę tej grupy zanim cokolwiek tu nasmarowałeś? 'POLSKIE KOMIKSY'! Co tu robi ten amerykański superhero szrot dla dzieciarni? A ten nowy Superman Gunna to przecież kolorowy festiwal żenady dla gimbazy. Superman Snydera z Cavillem był o niebo lepszy - mroczny, z prawdziwą mitologią i dojrzałą wizją, a nie jakiś slapstickowy cyrk. No i wracając do meritum: wypad na fora DC, a nie zaśmiecaj grupy o polskiej klasyce!",
@@ -1448,7 +1499,7 @@
             "id": "gc_hater_2",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "16 lat i zero umiejętności czytania ze zrozumieniem. Następnym razem zamiast Supermana kup sobie elementarz i słownik. Poziom grupy leci na łeb na szyję przez takich ludzi...",
@@ -1461,14 +1512,14 @@
               "name": "Matylda Iggermann",
               "avatarUrl": "/avatars/matylda.png"
             },
-            "text": "Hej Filip, nie przejmuj się tymi zgredami w komentarzach! Każdy z nas od czegoś zaczynał. Co prawda ta grupa skupia się głównie na rodzimym komiksie, ale 'All-Star Superman' Granta Morrisona to absolutny majstersztyk i wybitny wybór na start przygody z medium. Czy to dobry komiks na start? Podyskutujemy po lekturze ;) Powodzenia!",
+            "text": "Hej Philippe, nie przejmuj się tymi zgredami w komentarzach! Każdy z nas od czegoś zaczynał. Co prawda ta grupa skupia się głównie na rodzimym komiksie, ale 'All-Star Superman' Granta Morrisona to absolutny majstersztyk i wybitny wybór na start przygody z medium. Czy to dobry komiks na start? Podyskutujemy po lekturze ;) Powodzenia!",
             "timestamp": "2026-06-03T11:38:00Z"
           },
           {
             "id": "gc_hater_3",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "Dramat... Ludzie tu dyskutują o Rosińskim, Baranowskim, Chmielewskim, a tu wlatuje dzieciak z facetem w niebieskich gaciach i jeszcze każe sobie linki do sklepów pod nos podstawiać. Google ci wyłączyli?",
@@ -1478,17 +1529,17 @@
             "id": "gc_supporter_2",
             "author": {
               "id": "u4",
-              "name": "Kasia Zielińska",
+              "name": "Céline Girard",
               "avatarUrl": "https://i.pravatar.cc/150?u=u4"
             },
-            "text": "Fajnie, że w wieku 16 lat w ogóle sięgasz po papierowe albumy zamiast tylko bezmyślnie scrollować TikToka. Nie zrażaj się elitaryzmem 'prawdziwych koneserów' z góry wątku 😉 Witaj w świecie komiksów Filip, czytaj to co sprawia ci frajdę!",
+            "text": "Fajnie, że w wieku 16 lat w ogóle sięgasz po papierowe albumy zamiast tylko bezmyślnie scrollować TikToka. Nie zrażaj się elitaryzmem 'prawdziwych koneserów' z góry wątku 😉 Witaj w świecie komiksów Philippe, czytaj to co sprawia ci frajdę!",
             "timestamp": "2026-06-03T11:55:00Z"
           },
           {
             "id": "gc_hater_4",
             "author": {
               "id": "u8",
-              "name": "Ola Kamińska",
+              "name": "Aurélie Morel",
               "avatarUrl": "https://i.pravatar.cc/150?u=u8"
             },
             "text": "Jeśli szukasz trykociarzy z amerykańskich korpo-taśmociągów, to pomyliłeś fora. Tutaj rozmawiamy o europejskiej i polskiej tradycji komiksowej, a nie o franczyzach Warnera. Usuń ten post zanim admin da ci bana.",
@@ -1500,7 +1551,7 @@
         "id": "gp_wydzial7_1",
         "author": {
           "id": "u3",
-          "name": "Piotr Wiśniewski",
+          "name": "Pierre Dubois",
           "avatarUrl": "https://i.pravatar.cc/150?u=u3"
         },
         "content": "Pytanie do osób obeznanych w temacie: czy 'Wydział 7' trzeba czytać bezwzględnie po kolei, czy można zacząć od środka? Chciałem sprawdzić tę serię, ale w księgarni mieli tylko zeszyty 16 i 17. Z góry dzięki za odpowiedź!",
@@ -1510,7 +1561,18 @@
           "Szymon Wilk",
           "Jakub Lange"
         ],
-        "comments": []
+        "comments": [
+          {
+            "id": "gc_wydzial7_1_1",
+            "author": {
+              "id": "u_mariusz_klimczak",
+              "name": "Mariusz Klimczak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=mariusz_klimczak"
+            },
+            "text": "Lepiej czytać po kolei od 'Grupy Błyskawica', bo wątek porucznika Wilka i ojca Lange tworzy spójną całość, ale poszczególne tomy bronią się też same. Zeszyty 16 i 17 to już mocny finał, więc polecam jednak nadrobić początek!",
+            "timestamp": "2026-06-03T16:50:00Z"
+          }
+        ]
       },
       {
         "id": "gp_thorgal_1",
@@ -1527,7 +1589,7 @@
             "id": "gc_thorgal_1_1",
             "author": {
               "id": "u8",
-              "name": "Ola Kamińska",
+              "name": "Aurélie Morel",
               "avatarUrl": "https://i.pravatar.cc/150?u=u8"
             },
             "text": "Dla mnie też zdecydowanie 'Łucznicy'. Po prostu idealny album od pierwszej do ostatniej planszy.",
@@ -1537,7 +1599,7 @@
             "id": "gc_thorgal_1_2",
             "author": {
               "id": "u5",
-              "name": "Tomek Krawczyk",
+              "name": "Thomas Mercier",
               "avatarUrl": "https://i.pravatar.cc/150?u=u5"
             },
             "text": "Ciężki wybór, bo forma Rosińskiego była wtedy wybitna, ale ja stawiam na 'Zdradzoną czarodziejkę'. Klasyczny, niepowtarzalny klimat.",
@@ -1547,7 +1609,7 @@
             "id": "gc_thorgal_1_3",
             "author": {
               "id": "u6",
-              "name": "Marta Lewandowska",
+              "name": "Manon Lambert",
               "avatarUrl": "https://i.pravatar.cc/150?u=u6"
             },
             "text": "Mój głos idzie na 'Alinoë'. Niezwykle nastrojowy i najbardziej zapadający w pamięć tom z całej serii.",
@@ -1557,11 +1619,61 @@
             "id": "gc_thorgal_1_4",
             "author": {
               "id": "u3",
-              "name": "Piotr Wiśniewski",
+              "name": "Pierre Dubois",
               "avatarUrl": "https://i.pravatar.cc/150?u=u3"
             },
             "text": "U mnie na pierwszym miejscu zawsze będzie 'Gwiezdne dziecko'. Prawdziwy klasyk.",
             "timestamp": "2026-06-02T17:35:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_relax_1",
+        "author": {
+          "id": "u_stanislaw_baranski",
+          "name": "Stanisław Barański",
+          "avatarUrl": "https://i.pravatar.cc/150?u=stanislaw_baranski"
+        },
+        "content": "Udało się! Po prawie 15 latach polowania dorwałem na giełdzie staroci kompletny, dziewiczy numer 1 magazynu 'Relax' z lipca 1976 roku w stanie gabinetowym. Żadnych zagięć, wkładka na miejscu. Dla takich chwil warto jeszcze żyć i kolekcjonować. Młodzi tego nie zrozumieją, ale to był wtedy powiew zupełnie innego świata w szarym PRL-u. Ktoś z Was ma jeszcze swój pierwszy egzemplarz?",
+        "timestamp": "2026-06-03T18:45:00Z",
+        "likes": 19,
+        "likedBy": [
+          "Szymon Wilk",
+          "Jakub Lange",
+          "Matylda Iggermann",
+          "Bogumiła Kaczmarek",
+          "Mariusz Klimczak"
+        ],
+        "comments": [
+          {
+            "id": "gc_relax_1_1",
+            "author": {
+              "id": "u_bogumila_kaczmarek",
+              "name": "Bogumiła Kaczmarek",
+              "avatarUrl": "https://i.pravatar.cc/150?u=bogumila_kaczmarek"
+            },
+            "text": "Gratulacje Panie Stanisławie, absolutny biały kruk! Mój egzemplarz z dzieciństwa był zaczytany na śmierć, kartki wypadały z grzbietu. Kreska Grzegorza Rosińskiego w tamtych numerach to czysta poezja.",
+            "timestamp": "2026-06-03T19:05:00Z"
+          },
+          {
+            "id": "gc_relax_1_2",
+            "author": {
+              "id": "u_mariusz_klimczak",
+              "name": "Mariusz Klimczak",
+              "avatarUrl": "https://i.pravatar.cc/150?u=mariusz_klimczak"
+            },
+            "text": "Szacunek! Dzisiaj młodzież zachwyca się jakimiś wygenerowanymi przez AI grafikami albo trykociarzami z Marvela, a tu prawdziwa sztuka, tusz, pot i talent. Niech służy w kolekcji!",
+            "timestamp": "2026-06-03T19:18:00Z"
+          },
+          {
+            "id": "gc_relax_1_3",
+            "author": {
+              "id": "u_jakub_lange",
+              "name": "Jakub Lange",
+              "avatarUrl": "/avatars/lange.png"
+            },
+            "text": "Piękny stan zachowania. Przypominają się dawne lata i lektura przy lampce naftowej. Cierpliwość kolekcjonera została nagrodzona.",
+            "timestamp": "2026-06-03T19:30:00Z"
           }
         ]
       }

@@ -10,8 +10,6 @@ import {
   Building2,
   ArrowLeft,
   CheckCircle2,
-  RotateCcw,
-  Sparkles,
   Medal,
   Award,
   Check,
@@ -35,7 +33,7 @@ interface DailyChallengeProps {
 }
 
 export const DailyChallenge: React.FC<DailyChallengeProps> = ({
-  currentUserName = 'Jan Kowalski',
+  currentUserName = 'Jean Laurent',
   currentUserAvatar = 'https://i.pravatar.cc/150?u=u1',
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<PuzzleType | null>(null);
@@ -54,9 +52,6 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
     totalChallengesCount,
     completeChallenge,
     giveUpChallenge,
-    resetTodayAttempts,
-    debugResetAll,
-    addBonusXp,
   } = useDailyChallengeState();
 
   const isStartedRef = React.useRef(false);
@@ -366,7 +361,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
         </div>
 
         {/* Subtle Developer Actions */}
-        <div className={styles.headerActions}>
+        {/* <div className={styles.headerActions}>
           <button
             className={`${styles.devPill} ${styles.devPillPrimary}`}
             onClick={() => addBonusXp(400)}
@@ -390,7 +385,7 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
           >
             Reset XP
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.content}>
@@ -446,16 +441,16 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
             {/* Tier Legend */}
             {/* <div className={styles.tierLegend}>
               <span className={styles.legendItem}>
-                <strong>Brąz:</strong> Poz. 1–10
+                <strong>Brąz:</strong> Poz. 1-10
               </span>
               <span className={styles.legendItem}>
-                <strong>Srebro:</strong> Poz. 11–25
+                <strong>Srebro:</strong> Poz. 11-25
               </span>
               <span className={styles.legendItem}>
-                <strong>Złoto:</strong> Poz. 26–50+
+                <strong>Złoto:</strong> Poz. 26-50+
               </span>
               <span className={styles.legendItem}>
-                <strong>Punktacja:</strong> Top 10 w rankingu (10–100 XP)
+                <strong>Punktacja:</strong> Top 10 w rankingu (10-100 XP)
               </span>
             </div> */}
           </div>

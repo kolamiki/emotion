@@ -381,7 +381,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       if (targetThreadIndex === -1) {
         const participantUser = usersData.allUsers.find(u => u.id === senderId) || {
           id: senderId,
-          name: senderId === 'u_marinette' ? 'Marinette Dupont' : senderId === 'u_damian' ? 'Damian Wilk' : senderId === 'u_matylda' ? 'Matylda Iggermann' : senderId,
+          name: senderId === 'u_marinette' ? 'Marinette Dupont' : senderId === 'u_damian' ? 'Damien Loup' : senderId === 'u_matylda' ? 'Matylda Iggermann' : senderId,
           avatarUrl: senderId === 'u_marinette' ? 'https://i.pravatar.cc/150?u=marinette' : `https://i.pravatar.cc/150?u=${senderId}`,
           isOnline: true,
         };

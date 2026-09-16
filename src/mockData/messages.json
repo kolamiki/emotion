@@ -3,7 +3,7 @@
     "threadId": "t1",
     "participant": {
       "id": "u2",
-      "name": "Anna Nowak",
+      "name": "Anne Moreau",
       "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true
     },
@@ -32,7 +32,7 @@
     "threadId": "t2",
     "participant": {
       "id": "u3",
-      "name": "Piotr Wiśniewski",
+      "name": "Pierre Dubois",
       "avatarUrl": "https://i.pravatar.cc/150?u=u3",
       "isOnline": false
     },
@@ -49,7 +49,7 @@
     "threadId": "t3",
     "participant": {
       "id": "u4",
-      "name": "Kasia Zielińska",
+      "name": "Céline Girard",
       "avatarUrl": "https://i.pravatar.cc/150?u=u4",
       "isOnline": true
     },

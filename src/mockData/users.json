@@ -1,9 +1,9 @@
 {
   "currentUser": {
     "id": "u1",
-    "name": "Jan Kowalski",
-    "firstName": "Jan",
-    "lastName": "Kowalski",
+    "name": "Jean Laurent",
+    "firstName": "Jean",
+    "lastName": "Laurent",
     "avatarUrl": "https://i.pravatar.cc/150?u=u1",
     "isOnline": true,
     "bio": "Tu będzie opis wpisany przez użytkownika na ekranie logowania",
@@ -14,7 +14,7 @@
   "allUsers": [
     {
       "id": "u1",
-      "name": "Jan Kowalski",
+      "name": "Jean Laurent",
       "firstName": "Jan",
       "lastName": "Kowalski",
       "avatarUrl": "https://i.pravatar.cc/150?u=u1",
@@ -26,7 +26,7 @@
     },
     {
       "id": "u2",
-      "name": "Anna Nowak",
+      "name": "Anne Moreau",
       "avatarUrl": "https://i.pravatar.cc/150?u=u2",
       "isOnline": true,
       "isFriend": true,
@@ -37,7 +37,7 @@
     },
     {
       "id": "u3",
-      "name": "Piotr Wiśniewski",
+      "name": "Pierre Dubois",
       "avatarUrl": "https://i.pravatar.cc/150?u=u3",
       "isOnline": false,
       "isFriend": true,
@@ -48,7 +48,7 @@
     },
     {
       "id": "u4",
-      "name": "Kasia Zielińska",
+      "name": "Céline Girard",
       "avatarUrl": "https://i.pravatar.cc/150?u=u4",
       "isOnline": true,
       "isFriend": true,
@@ -59,7 +59,7 @@
     },
     {
       "id": "u5",
-      "name": "Tomek Krawczyk",
+      "name": "Thomas Mercier",
       "avatarUrl": "https://i.pravatar.cc/150?u=u5",
       "isOnline": true,
       "isFriend": false,
@@ -70,7 +70,7 @@
     },
     {
       "id": "u6",
-      "name": "Marta Lewandowska",
+      "name": "Manon Lambert",
       "avatarUrl": "https://i.pravatar.cc/150?u=u6",
       "isOnline": false,
       "isFriend": false,
@@ -81,7 +81,7 @@
     },
     {
       "id": "u7",
-      "name": "Michał Dąbrowski",
+      "name": "Michel Bertrand",
       "avatarUrl": "https://i.pravatar.cc/150?u=u7",
       "isOnline": true,
       "isFriend": false,
@@ -92,7 +92,7 @@
     },
     {
       "id": "u8",
-      "name": "Ola Kamińska",
+      "name": "Aurélie Morel",
       "avatarUrl": "https://i.pravatar.cc/150?u=u8",
       "isOnline": true,
       "isFriend": false,
@@ -103,7 +103,7 @@
     },
     {
       "id": "u9",
-      "name": "Bartek Nowicki",
+      "name": "Bastien Renaud",
       "avatarUrl": "https://i.pravatar.cc/150?u=u9",
       "isOnline": true,
       "isFriend": false,
@@ -114,7 +114,7 @@
     },
     {
       "id": "u10",
-      "name": "Natalia Wójcik",
+      "name": "Élodie Perrin",
       "avatarUrl": "https://i.pravatar.cc/150?u=u10",
       "isOnline": true,
       "isFriend": true,
@@ -125,7 +125,7 @@
     },
     {
       "id": "u11",
-      "name": "Jakub Mazur",
+      "name": "Jules Marchand",
       "avatarUrl": "https://i.pravatar.cc/150?u=u11",
       "isOnline": false,
       "isFriend": false,
@@ -136,7 +136,7 @@
     },
     {
       "id": "u12",
-      "name": "Karolina Szymańska",
+      "name": "Caroline Guérin",
       "avatarUrl": "https://i.pravatar.cc/150?u=u12",
       "isOnline": true,
       "isFriend": false,
@@ -224,7 +224,7 @@
     },
     {
       "id": "u_kornel",
-      "name": "Kornel Zagórski",
+      "name": "Corentin Garnier",
       "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski",
       "isOnline": true,
       "isFriend": false,
@@ -235,7 +235,7 @@
     },
     {
       "id": "u_weronika",
-      "name": "Weronika Skalska",
+      "name": "Véronique Roche",
       "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska",
       "isOnline": true,
       "isFriend": false,
@@ -246,7 +246,7 @@
     },
     {
       "id": "u_damian",
-      "name": "Damian Wilk",
+      "name": "Damien Loup",
       "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk",
       "isOnline": true,
       "isFriend": false,
@@ -285,13 +285,46 @@
     },
     {
       "id": "u_filip",
-      "name": "Filip Czarnecki",
+      "name": "Philippe Caron",
       "avatarUrl": "https://i.pravatar.cc/150?u=filip_czarnecki",
       "isOnline": true,
       "isFriend": false,
       "bio": "16 lat. Dopiero zaczynam przygodę z komiksami. Szukam dobrych tomów na start!",
       "location": "Warszawa, Polska",
       "joinDate": "maj 2026",
+      "fictionalCharacter": false
+    },
+    {
+      "id": "u_stanislaw_baranski",
+      "name": "Stanisław Barański",
+      "avatarUrl": "https://i.pravatar.cc/150?u=stanislaw_baranski",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Kolekcjoner magazynu 'Relax', 'Kajka i Kokosza' oraz 'Kapitana Żbika'. Pierwsze wydania z lat 70. i 80. to moja pasja.",
+      "location": "Warszawa, Polska",
+      "joinDate": "wrzesień 2024",
+      "fictionalCharacter": false
+    },
+    {
+      "id": "u_bogumila_kaczmarek",
+      "name": "Bogumiła Kaczmarek",
+      "avatarUrl": "https://i.pravatar.cc/150?u=bogumila_kaczmarek",
+      "isOnline": false,
+      "isFriend": false,
+      "bio": "Ilustratorka i graficzka. Zakochana w kresce Grzegorza Rosińskiego, Tadeusza Baranowskiego i klasycznym polskim sci-fi.",
+      "location": "Poznań, Polska",
+      "joinDate": "październik 2024",
+      "fictionalCharacter": false
+    },
+    {
+      "id": "u_mariusz_klimczak",
+      "name": "Mariusz Klimczak",
+      "avatarUrl": "https://i.pravatar.cc/150?u=mariusz_klimczak",
+      "isOnline": true,
+      "isFriend": false,
+      "bio": "Czytelnik i publicysta komiksowy. Pamiętam kolejki po Tytusa w kioskach Ruchu. W komiksie cenię warsztat i historię.",
+      "location": "Kraków, Polska",
+      "joinDate": "listopad 2024",
       "fictionalCharacter": false
     }
   ]

@@ -2,7 +2,7 @@
   "notifications": [
     {
       "id": "n1",
-      "message": "Anna Nowak polubiła Twój post.",
+      "message": "Anne Moreau polubiła Twój post.",
       "isRead": false,
       "timestamp": "2026-05-30T18:00:00Z",
       "type": "like",
@@ -10,7 +10,7 @@
     },
     {
       "id": "n2",
-      "message": "Piotr Wiśniewski skomentował Twój post.",
+      "message": "Pierre Dubois skomentował Twój post.",
       "isRead": false,
       "timestamp": "2026-05-30T17:30:00Z",
       "type": "comment",
@@ -18,7 +18,7 @@
     },
     {
       "id": "n4",
-      "message": "Tomek Krawczyk wspomniał Cię w komentarzu.",
+      "message": "Thomas Mercier wspomniał Cię w komentarzu.",
       "isRead": false,
       "timestamp": "2026-05-30T14:00:00Z",
       "type": "mention",
@@ -26,7 +26,7 @@
     },
     {
       "id": "n5",
-      "message": "Marta Lewandowska wysłała Ci zaproszenie do znajomych.",
+      "message": "Manon Lambert wysłała Ci zaproszenie do znajomych.",
       "isRead": false,
       "timestamp": "2026-05-30T12:00:00Z",
       "type": "friend",
@@ -34,7 +34,7 @@
     },
     {
       "id": "n8",
-      "message": "Bartek Nowicki skomentował Twój post: \"Świetne zdjęcie!\"",
+      "message": "Bastien Renaud skomentował Twój post: \"Świetne zdjęcie!\"",
       "isRead": true,
       "timestamp": "2026-05-29T20:00:00Z",
       "type": "comment",
@@ -42,7 +42,7 @@
     },
     {
       "id": "n9",
-      "message": "Ola Kamińska wspomniała Cię w poście.",
+      "message": "Aurélie Morel wspomniała Cię w poście.",
       "isRead": true,
       "timestamp": "2026-05-29T18:00:00Z",
       "type": "mention",
@@ -50,7 +50,7 @@
     },
     {
       "id": "n10",
-      "message": "Jakub Mazur wysłał Ci zaproszenie do znajomych.",
+      "message": "Jules Marchand wysłał Ci zaproszenie do znajomych.",
       "isRead": true,
       "timestamp": "2026-05-29T15:00:00Z",
       "type": "friend",

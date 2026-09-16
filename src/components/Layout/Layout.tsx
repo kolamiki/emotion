@@ -138,7 +138,7 @@ export const Layout: React.FC = () => {
         const damianMsg: Message = {
           id: `damian-unban-${Date.now()}`,
           senderId: 'u_damian',
-          text: 'Pięknie! Skrypt odwoławczy przeszedł pomyślnie i ban został zdjęty! 🚀 Masz znowu pełen dostęp do serwisu. Wejdź teraz do grupy STOP Szarlatanom i przejrzyj posty – znajdziesz tam coś bardzo ciekawego o Natalie...',
+          text: 'Pięknie! Skrypt odwoławczy przeszedł pomyślnie i ban został zdjęty! 🚀 Masz znowu pełen dostęp do serwisu. Wejdź teraz do grupy STOP Szarlatanom i przejrzyj posty - znajdziesz tam coś bardzo ciekawego o Natalie...',
           timestamp: new Date().toISOString(),
         };
         dispatch({ type: 'ADD_RESPONSE_MESSAGE', threadId: damianThreadId, message: damianMsg });

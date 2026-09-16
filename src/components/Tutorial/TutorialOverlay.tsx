@@ -79,7 +79,7 @@ export const TOUR_STEPS: TourStep[] = [
     targetId: 'tour-daily-challenge',
     title: 'Wyzwania Dnia i Zadania Fabularne',
     description:
-      'Rozwiązuj codzienne łamigłówki, zdobywaj punkty doświadczenia (XP) i podnoś poziom konta. Miej oczy szeroko otwarte – w eMotion każda wiadomość i wpis mogą kryć intrygujące poszlaki!',
+      'Rozwiązuj codzienne łamigłówki, zdobywaj punkty doświadczenia (XP) i podnoś poziom konta. Miej oczy szeroko otwarte - w eMotion każda wiadomość i wpis mogą kryć intrygujące poszlaki!',
     icon: <Compass size={20} />,
     placement: 'right',
     requiresMobileSidebar: true,

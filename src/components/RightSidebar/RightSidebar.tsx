@@ -14,8 +14,8 @@ interface RightSidebarProps {
 }
 
 const fakeActivity = [
-  { name: 'Anna Nowak', action: 'polubiła post', target: 'Tomka Krawczyka', avatar: 'https://i.pravatar.cc/150?u=u2', time: '2 min temu', userId: 'u2' },
-  { name: 'Piotr Wiśniewski', action: 'skomentował post', target: 'Marty Lewandowskiej', avatar: 'https://i.pravatar.cc/150?u=u3', time: '15 min temu', userId: 'u3' },
+  { name: 'Anne Moreau', action: 'polubiła post', target: 'Thomasa Merciera', avatar: 'https://i.pravatar.cc/150?u=u2', time: '2 min temu', userId: 'u2' },
+  { name: 'Pierre Dubois', action: 'skomentował post', target: 'Manon Lambert', avatar: 'https://i.pravatar.cc/150?u=u3', time: '15 min temu', userId: 'u3' },
 ];
 
 const trendingTopics = [

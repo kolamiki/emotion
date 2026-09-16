@@ -1144,7 +1144,7 @@ export function scheduleChatResponse(
     // If Matylda already accepted (not in pendingFriends), fall through to AI personality
   }
 
-  // Handle Damian Wilk (u_damian) assistance
+  // Handle Damien Loup (u_damian) assistance
   if (participantId === 'u_damian') {
     const textLower = userText.toLowerCase();
     let responseText = '';
@@ -1206,7 +1206,7 @@ export function scheduleChatResponse(
     return;
   }
 
-  // Handle Ola Kamińska (u8) group join request for "Szukam osoby - pomoc" (g_szukam)
+  // Handle Aurélie Morel (u8) group join request for "Szukam osoby - pomoc" (g_szukam)
   if (participantId === 'u8') {
     const textLower = userText.toLowerCase();
     const isSensible = textLower.length >= 2 && !textLower.includes('spierdalaj') && !textLower.includes('chuj');
@@ -1231,7 +1231,7 @@ export function scheduleChatResponse(
             notification: {
               id: `n-approve-szukam-${Date.now()}`,
               type: 'group',
-              message: 'Ola Kamińska zaakceptowała Twoją prośbę o dołączenie do grupy "Szukam osoby - pomoc".',
+              message: 'Aurélie Morel zaakceptowała Twoją prośbę o dołączenie do grupy "Szukam osoby - pomoc".',
               timestamp: new Date().toISOString(),
               isRead: false,
               link: { type: 'group', groupId: 'g_szukam' }
@@ -1444,7 +1444,7 @@ export function schedulePostCommentResponse(
           type: 'ADD_NOTIFICATION',
           notification: {
             id: `notif-kornel-like-${Date.now()}`,
-            message: `Kornel Zagórski polubił Twój post.`,
+            message: `Corentin Garnier polubił Twój post.`,
             isRead: false,
             timestamp: new Date().toISOString(),
             type: 'like',
@@ -1455,7 +1455,7 @@ export function schedulePostCommentResponse(
         // Kornel adds a comment
         const kornel = allUsers.find(u => u.id === 'u_kornel') || {
           id: 'u_kornel',
-          name: 'Kornel Zagórski',
+          name: 'Corentin Garnier',
           avatarUrl: 'https://i.pravatar.cc/150?u=kornel_zagorski'
         };
 
@@ -1486,7 +1486,7 @@ export function schedulePostCommentResponse(
           type: 'ADD_NOTIFICATION',
           notification: {
             id: `notif-kornel-group-${Date.now()}`,
-            message: 'Kornel Zagórski zaakceptował Twoją prośbę o dołączenie do grupy "STOP Szarlatanom: Prawda o Nowej Nauce i PrimeCo".',
+            message: 'Corentin Garnier zaakceptował Twoją prośbę o dołączenie do grupy "STOP Szarlatanom: Prawda o Nowej Nauce i PrimeCo".',
             isRead: false,
             timestamp: new Date().toISOString(),
             type: 'group',
@@ -1513,11 +1513,11 @@ export function schedulePostCommentResponse(
             }
           });
 
-          // 20s later: Damian Wilk writes offering bypass via Daily Challenge Level 5
+          // 20s later: Damien Loup writes offering bypass via Daily Challenge Level 5
           setTimeout(() => {
             const damianUser = allUsers.find(u => u.id === 'u_damian') || {
               id: 'u_damian',
-              name: 'Damian Wilk',
+              name: 'Damien Loup',
               avatarUrl: 'https://i.pravatar.cc/150?u=damian_wilk'
             };
 
@@ -1578,7 +1578,7 @@ export function schedulePostCommentResponse(
                     notification: {
                       id: `n-damian-${Date.now()}`,
                       type: 'chat',
-                      message: 'Damian Wilk wysłał Ci wiadomość na czacie.',
+                      message: 'Damien Loup wysłał Ci wiadomość na czacie.',
                       timestamp: new Date().toISOString(),
                       isRead: false,
                       link: { type: 'chat', threadId: damianThreadId }
@@ -1798,10 +1798,10 @@ function selectDiverseCommenters(
     // Kupię, sprzedam, zamienię: Kasia, Anna, Piotr
     aiUsers.sort((a, b) => (a.id === 'u4' ? -1 : b.id === 'u4' ? 1 : 0));
   } else if (groupId === 'g4') {
-    // Mat-Fiz LO: Anna, Kasia, Piotr, Jan
+    // Mat-Fiz LO: Anne, Céline, Pierre, Jean
     aiUsers.sort((a, b) => (a.id === 'u2' ? -1 : b.id === 'u2' ? 1 : 0));
   } else if (groupId === 'g5') {
-    // Techno newsy: Gaston, Matylda, Kasia, Piotr
+    // Techno newsy: Gaston, Matylda, Céline, Pierre
     aiUsers.sort((a, b) => (a.id === 'u_gaston' ? -1 : b.id === 'u_gaston' ? 1 : 0));
   }
 
