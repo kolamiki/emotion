@@ -32,37 +32,48 @@ interface IncomingRequest {
 }
 
 // ============================================
-//  CORS HEADERS
+//  ALLOWED ORIGINS & CORS
 // ============================================
 
-function corsHeaders(): Record<string, string> {
-  return {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Max-Age': '86400',
-  };
-}
+const ALLOWED_EXACT_ORIGINS = new Set([
+  'https://emotion.net.pl',
+  'https://www.emotion.net.pl',
+  'https://kolamiki.github.io',
+]);
 
-// ============================================
-//  ORIGIN VALIDATION (BLOCK UNRELATED WEBSITES)
-// ============================================
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return true; // Allow direct / same-origin / privacy-stripped requests
+  const lower = origin.toLowerCase().trim();
 
-function isForeignSite(origin: string | null): boolean {
-  if (!origin) return false; // Allow direct/same-origin/privacy-stripped requests
-  const lower = origin.toLowerCase();
+  if (ALLOWED_EXACT_ORIGINS.has(lower)) {
+    return true;
+  }
 
-  // Allow GitHub Pages and Localhost
-  if (
-    lower.endsWith('.github.io') ||
-    lower.includes('localhost') ||
-    lower.includes('127.0.0.1')
-  ) {
+  // Allow local development (localhost / 127.0.0.1 on any port)
+  try {
+    const url = new URL(lower);
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+      return true;
+    }
+  } catch {
     return false;
   }
 
-  // Reject foreign domains trying to leech your worker
-  return true;
+  return false;
+}
+
+function corsHeaders(origin: string | null, defaultAllowedOrigin?: string): Record<string, string> {
+  const allowOrigin = (origin && isAllowedOrigin(origin))
+    ? origin
+    : (defaultAllowedOrigin || 'https://emotion.net.pl');
+
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, X-App-Source',
+    'Access-Control-Max-Age': '86400',
+    'Vary': 'Origin',
+  };
 }
 
 // ============================================
@@ -181,7 +192,8 @@ async function callGroq(
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const headers = corsHeaders();
+    const origin = request.headers.get('Origin');
+    const headers = corsHeaders(origin, env.ALLOWED_ORIGIN);
 
     // 1. Handle CORS preflight (OPTIONS)
     if (request.method === 'OPTIONS') {
@@ -194,8 +206,6 @@ export default {
         JSON.stringify({
           status: 'ok',
           message: 'eMotion AI Proxy is operational',
-          provider: env.AI_PROVIDER,
-          model: env.AI_MODEL,
         }),
         { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } }
       );
@@ -209,11 +219,10 @@ export default {
       });
     }
 
-    // 4. Block unrelated third-party websites
-    const origin = request.headers.get('Origin');
-    if (isForeignSite(origin)) {
+    // 4. Block unauthorized third-party websites
+    if (!isAllowedOrigin(origin)) {
       return new Response(
-        JSON.stringify({ error: 'Access denied: Foreign origins not allowed.' }),
+        JSON.stringify({ error: 'Access denied: Origin not allowed.' }),
         { status: 403, headers: { ...headers, 'Content-Type': 'application/json' } }
       );
     }
@@ -252,11 +261,16 @@ export default {
         { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } }
       );
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
-      console.error('[AI Proxy Error]', message);
+      const rawMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[AI Proxy Error]', rawMessage);
+
+      // Sanitize potential API key patterns from error output before sending to client
+      const sanitizedMessage = rawMessage
+        .replace(/key=[a-zA-Z0-9_\-]+/gi, 'key=***')
+        .replace(/Bearer\s+[a-zA-Z0-9_\-]+/gi, 'Bearer ***');
 
       return new Response(
-        JSON.stringify({ error: message }),
+        JSON.stringify({ error: sanitizedMessage }),
         { status: 500, headers: { ...headers, 'Content-Type': 'application/json' } }
       );
     }

@@ -12,7 +12,7 @@ AI_MODEL = "gemini-3.5-flash-lite"
 AI_PROVIDER = "gemini"
 
 # Your frontend's origin for CORS
-ALLOWED_ORIGIN = "https://kolamiki.github.io"
+ALLOWED_ORIGIN = "https://emotion.net.pl"
 
 # API keys are stored as Secrets (not here!)
 # Run:  npx wrangler secret put GEMINI_API_KEY

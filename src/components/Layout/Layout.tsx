@@ -35,10 +35,10 @@ export const Layout: React.FC = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
 
-  // Check IS_DEV mode for tutorial
+  // Check dev mode for tutorial
   const isDevMode =
-    import.meta.env.IS_DEV === 'true' ||
-    import.meta.env.VITE_IS_DEV === 'true';
+    import.meta.env.VITE_IS_DEV === 'true' ||
+    Boolean(import.meta.env.DEV && import.meta.env.VITE_IS_DEV !== 'false');
 
   const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(() => {
     if (isDevMode) return false;

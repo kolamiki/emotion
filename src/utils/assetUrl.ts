@@ -1,10 +1,10 @@
 /**
  * Resolves a public asset path relative to the Vite `base` setting.
- * In dev mode, `import.meta.env.BASE_URL` is `/`, in production it is `/emotion/`.
+ * With custom domain emotion.net.pl, `import.meta.env.BASE_URL` is `/`.
  * This ensures assets from the `public/` folder are always found,
- * both locally and on GitHub Pages.
+ * both locally and in production.
  *
- * Usage: getAssetUrl('/logo.png') => '/emotion/logo.png' (prod) or '/logo.png' (dev)
+ * Usage: getAssetUrl('/logo.png') => '/logo.png'
  */
 export function getAssetUrl(path: string): string {
   const base = import.meta.env.BASE_URL;
