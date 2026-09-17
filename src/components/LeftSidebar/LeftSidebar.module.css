@@ -342,6 +342,39 @@
   color: var(--primary);
 }
 
+/* === Legal Disclaimer === */
+.legalDisclaimer {
+  padding: 12px 14px;
+  background: var(--bg-panel);
+  border: var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.disclaimerText {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  text-align: justify;
+}
+
+.disclaimerMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  border-top: var(--border-light);
+  padding-top: 6px;
+  opacity: 0.85;
+}
+
 /* === Scrollbar === */
 .sidebar::-webkit-scrollbar {
   width: 4px;

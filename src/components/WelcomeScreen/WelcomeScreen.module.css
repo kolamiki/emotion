@@ -182,6 +182,65 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Legal consent box */
+.legalConsentArea {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg-main);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+}
+
+.consentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+}
+
+.consentText {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+.legalToggleBtn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  margin-left: 26px;
+  align-self: flex-start;
+}
+
+.legalDetails {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-top: 4px;
+  margin-left: 26px;
+  border: 1px dashed var(--gray-300);
+}
+
 .submitBtn {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: white;

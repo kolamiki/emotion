@@ -219,6 +219,17 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           );
         })}
       </div>
+
+      {/* Fictional Disclaimer */}
+      <footer className={styles.legalDisclaimer}>
+        <p className={styles.disclaimerText}>
+          Strona oraz prezentowane na niej postacie i wydarzenia są dziełem fikcji, stworzonym przez wielokulturowy zespół wyznający różne wierzenia i religie. Wszelkie podobieństwa do realnych osób, podmiotów lub zdarzeń są całkowicie przypadkowe.
+        </p>
+        <div className={styles.disclaimerMeta}>
+          <span>eMotion © 2026</span>
+          <span>Fikcja artystyczna</span>
+        </div>
+      </footer>
     </nav>
   );
 };

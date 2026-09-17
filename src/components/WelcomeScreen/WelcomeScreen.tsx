@@ -19,12 +19,14 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const [lastName, setLastName] = useState('');
   const [bio, setBio] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]);
+  const [consentAccepted, setConsentAccepted] = useState(true);
+  const [showLegalDetails, setShowLegalDetails] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanFirst = firstName.trim();
     const cleanLast = lastName.trim();
-    if (!cleanFirst || !cleanLast) return;
+    if (!cleanFirst || !cleanLast || !consentAccepted) return;
 
     onComplete({
       name: `${cleanFirst} ${cleanLast}`,
@@ -111,10 +113,39 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           />
         </div>
 
-        <button 
-          type="submit" 
+        {/* Legal Consent & Disclaimer */}
+        <div className={styles.legalConsentArea}>
+          <label className={styles.consentRow}>
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={consentAccepted}
+              onChange={e => setConsentAccepted(e.target.checked)}
+            />
+            <span className={styles.consentText}>
+              Potwierdzam, że rozumiem fikcyjno-artystyczny charakter projektu eMotion. Wyrażam zgodę na lokalne zapisywanie danych sesji.
+            </span>
+          </label>
+          <button
+            type="button"
+            className={styles.legalToggleBtn}
+            onClick={() => setShowLegalDetails(!showLegalDetails)}
+          >
+            {showLegalDetails ? 'Ukryj notę prawną ▲' : 'Więcej informacji prawnych ▼'}
+          </button>
+          {showLegalDetails && (
+            <div className={styles.legalDetails}>
+              • <strong>Fikcja artystyczna:</strong> Platforma, użytkownicy i wątki narracyjne są dziełem wyobraźni stworzonym przez wielokulturowy zespół. Wszelkie podobieństwo do prawdziwych osób czy firm jest przypadkowe.<br />
+              • <strong>Art. 50 AI Act:</strong> Rozmówcy i profile w aplikacji są wirtualnymi personami, a nie żywymi ludźmi.<br />
+              • <strong>Prywatność (RODO):</strong> Wpisane dane nie trafiają do zewnętrznej bazy kont - są przechowywane w pamięci Twojej przeglądarki. Treści czatu są przetwarzane wyłącznie na czas generowania odpowiedzi.
+            </div>
+          )}
+        </div>
+
+        <button
+          type="submit"
           className={styles.submitBtn}
-          disabled={!firstName.trim() || !lastName.trim()}
+          disabled={!firstName.trim() || !lastName.trim() || !consentAccepted}
         >
           Rozpocznij
         </button>
