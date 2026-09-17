@@ -5,7 +5,7 @@ import {
   CheckCircle2,
   ChevronDown,
   ChevronUp,
-  Sparkles,
+  Crown,
   Lightbulb,
   AlertTriangle,
   Clapperboard,
@@ -30,7 +30,7 @@ const stageIconMap: Record<string, React.ReactNode> = {
   Ban: <Ban size={18} />,
   FileText: <FileText size={18} />,
   Key: <Key size={18} />,
-  Sparkles: <Sparkles size={18} />,
+  Crown: <Crown size={18} />,
 };
 
 export const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose, questState }) => {

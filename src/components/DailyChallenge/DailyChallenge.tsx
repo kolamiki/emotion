@@ -367,7 +367,6 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
             onClick={() => addBonusXp(400)}
             title="Dodaj +400 XP (test awansu na Poziom 5)"
           >
-            <Sparkles size={13} />
             +400 XP (Test)
           </button>
           <button

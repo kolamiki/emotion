@@ -285,7 +285,7 @@ export function useQuestSystem(state: AppState) {
         subtitle: 'Audiencja u Profesora & Fabryka Twarzy',
         description: 'Ostateczna rozmowa z CEO PrimeCo. Prawda o naturze tożsamości i losie Natalie Chalamet.',
         rewardText: 'Finałowe odkrycie i ujawnienie komiksu Fabryka Twarzy',
-        icon: 'Sparkles',
+        icon: 'Crown',
         isCompleted: s7_completed,
         isActive: s6_completed && !s7_completed,
         isLocked: !s6_completed,

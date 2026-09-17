@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Clock, CheckCircle, HelpCircle, RotateCcw, Flag, Trophy, Sparkles, Delete } from 'lucide-react';
+import { Clock, CheckCircle, HelpCircle, RotateCcw, Flag, Trophy, Star, Delete } from 'lucide-react';
 import styles from './sudoku.module.css';
 
 export interface SudokuData {
@@ -386,7 +386,7 @@ export const SudokuPuzzleComponent: React.FC<SudokuPuzzleProps> = ({
           <div className={styles.modalCard}>
             <div className={styles.modalTrophy}>
               <Trophy size={48} className={styles.trophyIcon} />
-              <Sparkles size={24} className={styles.sparkleIcon} />
+              <Star size={24} className={styles.sparkleIcon} />
             </div>
             <h2 className={styles.modalTitle}>Sudoku Ukończone! 🎉</h2>
             <p className={styles.modalSubtitle}>

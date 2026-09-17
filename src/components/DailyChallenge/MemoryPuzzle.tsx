@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Clock, CheckCircle, HelpCircle, RotateCcw, Flag, Trophy, Sparkles, Layers } from 'lucide-react';
+import { Clock, CheckCircle, HelpCircle, RotateCcw, Flag, Trophy, Star, Layers } from 'lucide-react';
 import styles from './memory.module.css';
 
 export interface MemoryData {
@@ -268,7 +268,7 @@ export const MemoryPuzzleComponent: React.FC<MemoryPuzzleProps> = ({
           <div className={styles.modalCard}>
             <div className={styles.modalTrophy}>
               <Trophy size={48} className={styles.trophyIcon} />
-              <Sparkles size={24} className={styles.sparkleIcon} />
+              <Star size={24} className={styles.sparkleIcon} />
             </div>
             <h2 className={styles.modalTitle}>Wszystkie Pary Odnalezione! 🎉</h2>
             <p className={styles.modalSubtitle}>

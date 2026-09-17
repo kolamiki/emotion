@@ -6,7 +6,7 @@ import {
   RotateCcw,
   Flag,
   Trophy,
-  Sparkles,
+  Star,
   ArrowRightLeft,
   ChevronDown,
   ChevronUp,
@@ -654,7 +654,7 @@ export const CrosswordPuzzleComponent: React.FC<CrosswordPuzzleProps> = ({
           <div className={styles.modalCard}>
             <div className={styles.modalTrophy}>
               <Trophy size={48} className={styles.trophyIcon} />
-              <Sparkles size={24} className={styles.sparkleIcon} />
+              <Star size={24} className={styles.sparkleIcon} />
             </div>
             <h2 className={styles.modalTitle}>Krzyżówka Rozwiązana! 🎉</h2>
             <p className={styles.modalSubtitle}>

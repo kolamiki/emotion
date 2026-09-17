@@ -20,7 +20,7 @@ interface LeaderboardProps {
 
 // Fictional users for the leaderboard
 const fakeUsers = [
-  { id: 'lb-1', name: 'Profesor Prime', avatarUrl: './avatars/prime.png' },
+  { id: 'lb-1', name: 'Profesor Prime', avatarUrl: '/avatars/prime.png' },
   { id: 'lb-2', name: 'Pierre Dubois', avatarUrl: 'https://i.pravatar.cc/150?u=u3' },
   { id: 'lb-3', name: 'Thomas Mercier', avatarUrl: 'https://i.pravatar.cc/150?u=u5' },
   { id: 'lb-4', name: 'Élodie Perrin', avatarUrl: 'https://i.pravatar.cc/150?u=u10' },

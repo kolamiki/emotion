@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Clock, CheckCircle, HelpCircle, RotateCcw, Flag, Trophy, Sparkles, Search } from 'lucide-react';
+import { Clock, CheckCircle, HelpCircle, RotateCcw, Flag, Trophy, Star, Search } from 'lucide-react';
 import styles from './wordsearch.module.css';
 
 export interface WordsearchData {
@@ -359,7 +359,7 @@ export const WordsearchPuzzleComponent: React.FC<WordsearchPuzzleProps> = ({
           <div className={styles.modalCard}>
             <div className={styles.modalTrophy}>
               <Trophy size={48} className={styles.trophyIcon} />
-              <Sparkles size={24} className={styles.sparkleIcon} />
+              <Star size={24} className={styles.sparkleIcon} />
             </div>
             <h2 className={styles.modalTitle}>Wykreślanka Rozwiązana! 🎉</h2>
             <p className={styles.modalSubtitle}>
