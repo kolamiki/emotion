@@ -210,25 +210,25 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
         {groups
           .filter(g => !g.isMember && !EXCLUDED_RECOMMENDED_GROUP_IDS.has(g.id))
           .map(group => {
-          const isActive = activeView.type === 'group' && activeView.groupId === group.id;
-          return (
-            <div
-              key={group.id}
-              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
-              onClick={() => handleGroupClick(group.id)}
-              title={isBanned ? "Konto zawieszone - grupy zablokowane (§ 12.3 ToS)" : group.name}
-            >
+            const isActive = activeView.type === 'group' && activeView.groupId === group.id;
+            return (
               <div
-                className={styles.navIcon}
-                style={{ background: group.coverColor }}
+                key={group.id}
+                className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${isBanned ? styles.navItemDisabled : ''}`}
+                onClick={() => handleGroupClick(group.id)}
+                title={isBanned ? "Konto zawieszone - grupy zablokowane (§ 12.3 ToS)" : group.name}
               >
-                {iconMap[group.icon] || <Users size={16} />}
+                <div
+                  className={styles.navIcon}
+                  style={{ background: group.coverColor }}
+                >
+                  {iconMap[group.icon] || <Users size={16} />}
+                </div>
+                <span className={styles.navLabel}>{group.name}</span>
+                <ChevronRight size={14} className={styles.navChevron} />
               </div>
-              <span className={styles.navLabel}>{group.name}</span>
-              <ChevronRight size={14} className={styles.navChevron} />
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
 
       {/* Fictional Disclaimer */}
