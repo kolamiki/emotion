@@ -123,16 +123,37 @@ export function getInitialState(): AppState {
       const userCreatedPosts = persistedGroup.posts.filter(p => !basePostIds.has(p.id));
 
       const updatedBasePosts = baseGroup.posts.map(basePost => {
+        const liveAuthor = usersData.allUsers.find(u => u.id === basePost.author.id);
+        const postWithFreshAuthor = {
+          ...basePost,
+          author: {
+            ...basePost.author,
+            name: liveAuthor ? liveAuthor.name : basePost.author.name,
+            avatarUrl: liveAuthor ? liveAuthor.avatarUrl : basePost.author.avatarUrl,
+          },
+          comments: basePost.comments.map(c => {
+            const liveCommentAuthor = usersData.allUsers.find(u => u.id === c.author.id);
+            return {
+              ...c,
+              author: {
+                ...c.author,
+                name: liveCommentAuthor ? liveCommentAuthor.name : c.author.name,
+                avatarUrl: liveCommentAuthor ? liveCommentAuthor.avatarUrl : c.author.avatarUrl,
+              },
+            };
+          }),
+        };
+
         const persistedPost = persistedGroup.posts.find(p => p.id === basePost.id);
-        if (!persistedPost) return basePost;
+        if (!persistedPost) return postWithFreshAuthor;
 
         const baseCommentIds = new Set(basePost.comments.map(c => c.id));
         const userAddedComments = persistedPost.comments.filter(c => !baseCommentIds.has(c.id));
 
         return {
-          ...basePost,
+          ...postWithFreshAuthor,
           likes: Math.max(basePost.likes, persistedPost.likes),
-          comments: [...basePost.comments, ...userAddedComments],
+          comments: [...postWithFreshAuthor.comments, ...userAddedComments],
         };
       });
 
@@ -147,14 +168,35 @@ export function getInitialState(): AppState {
     const basePostIds = new Set(base.posts.map(p => p.id));
     const userCreatedFeedPosts = (persisted.posts || []).filter(p => !basePostIds.has(p.id) && p.id !== 'p6');
     const updatedBaseFeedPosts = base.posts.map(basePost => {
+      const liveAuthor = usersData.allUsers.find(u => u.id === basePost.author.id);
+      const postWithFreshAuthor = {
+        ...basePost,
+        author: {
+          ...basePost.author,
+          name: liveAuthor ? liveAuthor.name : basePost.author.name,
+          avatarUrl: liveAuthor ? liveAuthor.avatarUrl : basePost.author.avatarUrl,
+        },
+        comments: basePost.comments.map(c => {
+          const liveCommentAuthor = usersData.allUsers.find(u => u.id === c.author.id);
+          return {
+            ...c,
+            author: {
+              ...c.author,
+              name: liveCommentAuthor ? liveCommentAuthor.name : c.author.name,
+              avatarUrl: liveCommentAuthor ? liveCommentAuthor.avatarUrl : c.author.avatarUrl,
+            },
+          };
+        }),
+      };
+
       const persistedPost = (persisted.posts || []).find(p => p.id === basePost.id);
-      if (!persistedPost) return basePost;
+      if (!persistedPost) return postWithFreshAuthor;
       const baseCommentIds = new Set(basePost.comments.map(c => c.id));
       const userAddedComments = persistedPost.comments.filter(c => !baseCommentIds.has(c.id));
       return {
-        ...basePost,
+        ...postWithFreshAuthor,
         likes: Math.max(basePost.likes, persistedPost.likes),
-        comments: [...basePost.comments, ...userAddedComments],
+        comments: [...postWithFreshAuthor.comments, ...userAddedComments],
       };
     });
 

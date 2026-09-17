@@ -227,6 +227,12 @@
         "name": "Jules Marchand",
         "avatarUrl": "/avatars/normals/male_normal_6.png",
         "role": "member"
+      },
+      {
+        "id": "u4",
+        "name": "Céline Girard",
+        "avatarUrl": "/avatars/normals/female_normal_8.png",
+        "role": "member"
       }
     ],
     "posts": [
@@ -280,6 +286,29 @@
             },
             "text": "Bardzo solidne podejście i konkretny projekt. Odezwij się w wolnej chwili na priv, chętnie pogadam o audio i podrzucę parę kontaktów w branży!",
             "timestamp": "2026-06-03T11:50:00Z"
+          }
+        ]
+      },
+      {
+        "id": "gp_celine_job",
+        "author": {
+          "id": "u4",
+          "name": "Céline Girard",
+          "avatarUrl": "/avatars/normals/female_normal_8.png"
+        },
+        "content": "[Szukam Pracy]\n[Analityk laboratoryjny / Diagnostyka biologiczna / Weterynaria]\n[Paryż / Relokacja]\nEmail: [celine.girard.lab@e-motion.net]\n\nCześć wszystkim... Niestety nadszedł ten dzień. Po 3 latach pracy w zespole analityczno-laboratoryjnym w fabryce PrimeCo zostałam z dnia na dzień zwolniona w związku z wdrażaniem autonomicznych modeli AI. Przez lata powtarzano nam, że technologia ma nas tylko wspierać, a skończyło się na porannym mailu z kadr i zablokowanej przepustce.\n\nSzukam pracy jako analityk laboratoryjny, technik weterynaryjny lub w placówkach badawczo-klinicznych. Mam duże doświadczenie w pracy z aparaturą diagnostyczną, hodowlami komórkowymi i analizą próbek biologicznych. Jestem w pełni gotowa na relokację. Będę niezwykle wdzięczna za wszelkie namiary i polecenia.",
+        "timestamp": "2026-06-03T10:15:00Z",
+        "likes": 37,
+        "comments": [
+          {
+            "id": "gc_cj_1",
+            "author": {
+              "id": "u_behrmann",
+              "name": "Helmut Behrmann",
+              "avatarUrl": "/avatars/behrmann.png"
+            },
+            "text": "Szanowna Pani Céline, proszę nie marnować talentu na korporacyjne obietnice PrimeCo. W moim instytucie w Düsseldorfie prowadzimy zaawansowane badania z pogranicza genetyki i behawiorystyki, gdzie żywe doświadczenie laboratoryjne jest nie do zastąpienia przez żadne AI. Zapewniam pełny pakiet relokacyjny oraz zajęcie idealnie skrojone dla osoby z Pani wiedzą i doświadczeniem. Proszę o wiadomość na priv.",
+            "timestamp": "2026-06-03T10:40:00Z"
           }
         ]
       },
