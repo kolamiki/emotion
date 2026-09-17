@@ -236,9 +236,19 @@ export const TopBar: React.FC<TopBarProps> = ({
     return `${Math.floor(hrs / 24)}d`;
   };
 
-  const handleClearData = () => {
-    if (confirm('Czy na pewno chcesz usunąć wszystkie dane z localStorage i przeładować stronę? (Opcja deweloperska)')) {
+  const isResetCommand = (query: string) => {
+    const q = query.trim().toUpperCase();
+    return q === 'RESET_MEMORY' || q === 'RESERT_MEMORY';
+  };
+
+  const executeMemoryReset = () => {
+    if (
+      confirm(
+        'Potwierdź pełny reset pamięci aplikacji (RESET_MEMORY). Wszystkie dane sesji, posty i ustawienia zostaną bezpowrotnie usunięte.'
+      )
+    ) {
       localStorage.clear();
+      localStorage.setItem('emotion-app-version', '1.0');
       window.location.reload();
     }
   };
@@ -281,6 +291,12 @@ export const TopBar: React.FC<TopBarProps> = ({
               value={searchQuery}
               onChange={handleSearchChange}
               onFocus={handleSearchFocus}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && isResetCommand(searchQuery)) {
+                  e.preventDefault();
+                  executeMemoryReset();
+                }
+              }}
             />
             {searchQuery && (
               <button
@@ -388,11 +404,28 @@ export const TopBar: React.FC<TopBarProps> = ({
                   </>
                 )}
 
-                {searchResults.length === 0 && searchGroupResults.length === 0 && (
-                  <div className={styles.searchEmpty}>
-                    <Search size={24} />
-                    <span>Brak wyników dla „{searchQuery}"</span>
+                {isResetCommand(searchQuery) ? (
+                  <div
+                    className={styles.resetPromptItem}
+                    onClick={executeMemoryReset}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <Trash2 size={20} className={styles.resetPromptIcon} />
+                    <div className={styles.resetPromptInfo}>
+                      <div className={styles.resetPromptTitle}>Resetowanie pamięci aplikacji</div>
+                      <div className={styles.resetPromptDesc}>
+                        Wykryto polecenie resetu. Kliknij tutaj lub naciśnij Enter, aby zresetować aplikację.
+                      </div>
+                    </div>
                   </div>
+                ) : (
+                  searchResults.length === 0 && searchGroupResults.length === 0 && (
+                    <div className={styles.searchEmpty}>
+                      <Search size={24} />
+                      <span>Brak wyników dla „{searchQuery}"</span>
+                    </div>
+                  )
                 )}
               </div>
             )}
@@ -401,15 +434,6 @@ export const TopBar: React.FC<TopBarProps> = ({
 
         {/* Actions */}
         <div className={styles.actions}>
-          <button
-            className={styles.actionBtn}
-            title="Wyczyść dane (Dev)"
-            onClick={handleClearData}
-            style={{ color: 'var(--accent)' }}
-          >
-            <Trash2 size={18} />
-          </button>
-
           <button
             className={`${styles.actionBtn} ${styles.mobileSearchBtn}`}
             onClick={() => {
@@ -452,17 +476,6 @@ export const TopBar: React.FC<TopBarProps> = ({
               <span className={styles.badge}>{unreadNotifs}</span>
             )}
           </button>
-
-          {/* onToggleScenarioPanel && (
-            <button
-              id="btn-scenarios"
-              className={styles.actionBtn}
-              title="Scenariusze"
-              onClick={onToggleScenarioPanel}
-            >
-              <Zap size={18} />
-            </button>
-          ) */}
 
           <img
             src={currentUser.avatarUrl}

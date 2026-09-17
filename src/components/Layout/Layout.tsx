@@ -7,7 +7,6 @@ import { GroupView } from '../GroupView/GroupView';
 import { RightSidebar } from '../RightSidebar/RightSidebar';
 import { ChatContainer } from '../Chat/ChatContainer';
 import { ProfilePreview } from '../ProfilePreview/ProfilePreview';
-import { ScenarioPanel } from '../ScenarioPanel/ScenarioPanel';
 import { FriendsList } from '../FriendsList/FriendsList';
 import { DailyChallenge } from '../DailyChallenge/DailyChallenge';
 import { useAppStore } from '../../store/appStore';
@@ -30,18 +29,11 @@ export const Layout: React.FC = () => {
   const [activeView, setActiveView] = useState<ActiveView>({ type: 'feed' });
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [viewedUserId, setViewedUserId] = useState<string | null>(null);
-  const [isScenarioPanelOpen, setIsScenarioPanelOpen] = useState(false);
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
 
-  // Check dev mode for tutorial
-  const isDevMode =
-    import.meta.env.VITE_IS_DEV === 'true' ||
-    Boolean(import.meta.env.DEV && import.meta.env.VITE_IS_DEV !== 'false');
-
   const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(() => {
-    if (isDevMode) return false;
     return localStorage.getItem('emotion-tutorial-completed') !== 'true';
   });
 
@@ -373,12 +365,12 @@ export const Layout: React.FC = () => {
       );
 
       if (userId === 'u_matylda' && hasAntiPrimePost) {
-        // User DID post against Prime — trigger hostile confrontation scenario
+        // User DID post against Prime - trigger hostile confrontation scenario
         if (scenarioManagerRef.current) {
           scenarioManagerRef.current.runScenario('sc_matylda_friend_request');
         }
       } else if (userId === 'u_matylda' && !hasAntiPrimePost) {
-        // User has NOT posted against Prime — Matylda asks where they know each other
+        // User has NOT posted against Prime - Matylda asks where they know each other
         if (scenarioManagerRef.current) {
           scenarioManagerRef.current.runScenario('sc_matylda_friendly_request');
         }
@@ -610,12 +602,6 @@ export const Layout: React.FC = () => {
           onNavigateToPost={handleNavigateToPostFromProfile}
         />
       )}
-
-      <ScenarioPanel
-        isOpen={isScenarioPanelOpen}
-        onClose={() => setIsScenarioPanelOpen(false)}
-        scenarioManager={scenarioManagerRef.current}
-      />
 
       {/* Quest Tracker Modal Dialog */}
       <QuestModal

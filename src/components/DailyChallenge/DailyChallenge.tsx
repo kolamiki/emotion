@@ -359,32 +359,6 @@ export const DailyChallenge: React.FC<DailyChallengeProps> = ({
             </p>
           </div>
         </div>
-
-        {/* Subtle Developer Actions */}
-        {/* <div className={styles.headerActions}>
-          <button
-            className={`${styles.devPill} ${styles.devPillPrimary}`}
-            onClick={() => addBonusXp(400)}
-            title="Dodaj +400 XP (test awansu na Poziom 5)"
-          >
-            +400 XP (Test)
-          </button>
-          <button
-            className={styles.devPill}
-            onClick={resetTodayAttempts}
-            title="Resetuje dzisiejsze próby"
-          >
-            <RotateCcw size={12} />
-            Reset Dnia
-          </button>
-          <button
-            className={styles.devPill}
-            onClick={debugResetAll}
-            title="Resetuje cały postęp"
-          >
-            Reset XP
-          </button>
-        </div> */}
       </div>
 
       <div className={styles.content}>

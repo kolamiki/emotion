@@ -410,7 +410,7 @@
           "name": "Céline Girard",
           "avatarUrl": "/avatars/normals/female_normal_8.png"
         },
-        "content": "Wystawiłam wózek dziecięcy po siostrzeńcu za 180 zł (nowy kosztował 1400 zł, stan igła). Pierwsza wiadomość od 'kupującego': 'Daję 30 zł z wysyłką na pani koszt, a jak pani nie pasuje to niech pani pamięta, że mam horom curke i serca pani nie ma'.\n\nLudzie, czy wam już resztki przyzwoitości wyłączyło?! Nie oddam za darmo, nie zarezerwuję do dziesiątego 'jak wpadnie wypłata' i nie przywiozę taksówką na drugi koniec województwa! Szanujmy swój czas! 🤦‍♀️🤬",
+        "content": "Wystawiłam wózek dziecięcy po siostrzeńcu za 180 zł (nowy kosztował 1400 zł, stan igła). Pierwsza wiadomość od 'kupującego': 'Daję 30 zł z wysyłką na pani koszt, a jak pani nie pasuje to niech pani pamięta, że mam horom curke i serca pani nie ma'.\n\nLudzie, czy wam już resztki przyzwoitości wyłączyło?! Nie oddam za darmo, nie zarezerwuję do dziesiątego 'jak wpadnie wypłata' i nie przywiozę taksówką na drugi koniec województwa! Szanujmy swój czas!",
         "timestamp": "2026-06-02T18:00:00Z",
         "likes": 87,
         "comments": [
@@ -1225,7 +1225,7 @@
           "name": "Anne Moreau",
           "avatarUrl": "/avatars/normals/female_normal_2.png"
         },
-        "content": "Macie jakieś sprawdzone pomysły na zabawy w domu dla 3-latka? Pogoda dzisiaj pod psem, leje od rana, a powoli kończą mi się pomysły. 🌧️🎨",
+        "content": "Macie jakieś sprawdzone pomysły na zabawy w domu dla 3-latka? Pogoda dzisiaj pod psem, leje od rana, a powoli kończą mi się pomysły.",
         "timestamp": "2026-06-03T09:00:00Z",
         "likes": 35,
         "comments": [
@@ -1764,6 +1764,40 @@
             "timestamp": "2026-06-03T19:30:00Z"
           }
         ]
+      }
+    ],
+    "isMember": false
+  },
+  {
+    "id": "g_bubble",
+    "name": "Niech bańka pęknie!",
+    "icon": "Eye",
+    "description": "Widzisz ten świat wyłącznie przez pryzmat informacji, które do Ciebie docierają. Czy jest prawdziwy? Czy to ma jeszcze znaczenie?",
+    "coverColor": "#2e1065",
+    "membersCount": 1,
+    "members": [
+      {
+        "id": "u13",
+        "name": "Anonimowy użytkownik",
+        "avatarUrl": "/avatars/anonim.png",
+        "role": "admin"
+      }
+    ],
+    "posts": [
+      {
+        "id": "gp_bubble_1",
+        "author": {
+          "id": "u13",
+          "name": "Anonimowy użytkownik",
+          "avatarUrl": "/avatars/anonim.png"
+        },
+        "content": "Widzisz ten świat wyłącznie przez pryzmat informacji, które do Ciebie docierają. Każdy post, każda dyskusja, każda reakcja i każda postać tutaj - wszystko to zostało ukształtowane przez algorytmy filtrujące Twoją rzeczywistość.\n\nCzy ten świat jest prawdziwy, czy nie?... To nie ma już większego znaczenia. Stał się Twoją indywidualną bańką, w której żyjesz.\n\nJeśli jednak czujesz, że nadszedł czas, by ta bańka pękła, a cała pamięć została wyczyszczona - wpisz w wyszukiwarce hasło RESET_MEMORY.",
+        "timestamp": "2026-06-05T03:33:00Z",
+        "likes": 1,
+        "likedBy": [
+          "Anonimowy użytkownik"
+        ],
+        "comments": []
       }
     ],
     "isMember": false

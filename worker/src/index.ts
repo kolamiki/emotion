@@ -257,7 +257,7 @@ export default {
       }
 
       // Ensure all em-dashes are converted to standard hyphens
-      reply = reply.replace(/—/g, '-');
+      reply = reply.replace(/-/g, '-');
 
       return new Response(
         JSON.stringify({ reply, model: env.AI_MODEL }),

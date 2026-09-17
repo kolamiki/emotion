@@ -643,6 +643,59 @@
   opacity: 0.4;
 }
 
+/* === Reset Memory Prompt in Search Dropdown === */
+.resetPromptItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.resetPromptItem:hover {
+  background: #fee2e2;
+}
+
+.resetPromptIcon {
+  color: #ef4444;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.resetPromptInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.resetPromptTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #b91c1c;
+}
+
+.resetPromptDesc {
+  font-size: 0.78rem;
+  color: #991b1b;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.actionBtnResetActive {
+  background: #fee2e2 !important;
+  color: #ef4444 !important;
+  border-color: #fca5a5 !important;
+  animation: pulseReset 1.5s infinite;
+}
+
+@keyframes pulseReset {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
 .mobileSearchBtn {
   display: none;
 }

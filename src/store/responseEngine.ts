@@ -828,8 +828,8 @@ export function scheduleChatResponse(
     const mentionsNatalieAntiPrime =
       /\b(szarlatan|szarlatanom|szarlatanami|prime|primeco|manifest)\b/i.test(userText) ||
       (/\b(odkry[łl]em|znalaz[łl]em|widzia[łl]em|przeczyta[łl]em)\b/i.test(userText) &&
-       /\b(post|wpis|artyku[łl]|manifest|krytyk\w*)\b/i.test(userText) &&
-       !/\b(postaram|pomog\w*)\b/i.test(userText));
+        /\b(post|wpis|artyku[łl]|manifest|krytyk\w*)\b/i.test(userText) &&
+        !/\b(postaram|pomog\w*)\b/i.test(userText));
 
     const alreadySentMatyldaClue = Boolean(
       threadMessages?.some(m => m.senderId === 'u_marinette' && (m.text.includes('Matyld') || m.text.includes('Iggermann')))
@@ -1049,7 +1049,7 @@ export function scheduleChatResponse(
     }
   }
 
-  // Handle Matylda friendly path (no anti-Prime post — she asks where they know each other)
+  // Handle Matylda friendly path (no anti-Prime post - she asks where they know each other)
   if (participantId === 'u_matylda' && !hasAntiPrimePost) {
     // Only intercept while Matylda hasn't accepted yet (still in pending)
     if (_pendingFriends?.has('u_matylda')) {
@@ -1068,7 +1068,7 @@ export function scheduleChatResponse(
         textLower.includes('rocznik');
 
       if (mentionsSchool) {
-        // User mentioned school — Matylda remembers and accepts!
+        // User mentioned school - Matylda remembers and accepts!
         const messagesToSend = [
           { text: 'Mat-fiz?! Czekaj... o matko, teraz kojarzę! 😮', typingDelay: 600, typingDuration: 1500 },
           { text: 'Sorry, mam tyle na głowie z tym doktoratem, że czasem zapominam własne imię 😅', typingDelay: 800, typingDuration: 1600 },
@@ -1116,7 +1116,7 @@ export function scheduleChatResponse(
 
         return;
       } else {
-        // User didn't mention school — Matylda asks again
+        // User didn't mention school - Matylda asks again
         const confusedResponses = [
           'Hmm... nadal nie kojarzę 😅 Z jakiejś szkoły? Uczelni? Podpowiedz mi!',
           'Serio nie mogę sobie przypomnieć... Z jakiegoś liceum? Studiów? 🤔',

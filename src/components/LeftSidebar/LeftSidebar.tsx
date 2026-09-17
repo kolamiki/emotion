@@ -13,6 +13,7 @@ import {
   AlertTriangle,
   Compass,
   BookOpen,
+  Eye,
 } from 'lucide-react';
 import styles from './LeftSidebar.module.css';
 import type { User, Group, ActiveView } from '../../types';
@@ -42,7 +43,16 @@ const iconMap: Record<string, React.ReactNode> = {
   Cpu: <Cpu size={16} />,
   AlertTriangle: <AlertTriangle size={16} />,
   BookOpen: <BookOpen size={16} />,
+  Eye: <Eye size={16} />,
 };
+
+const EXCLUDED_RECOMMENDED_GROUP_IDS = new Set([
+  'g_szukam',
+  'g_childcare',
+  'g_anty_prime',
+  'g_polskie_komiksy',
+  'g_bubble',
+]);
 
 export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   currentUser,
@@ -197,8 +207,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
       {/* Recommended Groups */}
       <div className={styles.section}>
-        <div className={styles.sectionHeader}>Polecane grupy</div>
-        {groups.filter(g => !g.isMember && g.id !== 'g_szukam').slice(0, 3).map(group => {
+        {groups
+          .filter(g => !g.isMember && !EXCLUDED_RECOMMENDED_GROUP_IDS.has(g.id))
+          .map(group => {
           const isActive = activeView.type === 'group' && activeView.groupId === group.id;
           return (
             <div
@@ -226,7 +237,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           Strona oraz prezentowane na niej postacie i wydarzenia są dziełem fikcji, stworzonym przez wielokulturowy zespół wyznający różne wierzenia i religie. Wszelkie podobieństwa do realnych osób, podmiotów lub zdarzeń są całkowicie przypadkowe.
         </p>
         <div className={styles.disclaimerMeta}>
-          <span>eMotion © 2026</span>
+          <span>eMotion v1.0 © 2026</span>
           <span>Fikcja artystyczna</span>
         </div>
       </footer>
