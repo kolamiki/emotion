@@ -299,32 +299,32 @@ const contextualChatTemplates: Record<string, Record<Sentiment, string[]>> = {
   },
   'u_marinette': { // Marinette Dupont
     positive: [
-      'Dzięki wielkie za wsparcie 💛 Naprawdę dodaje mi to sił...',
-      'Dzięki, że jesteś. Mam nadzieję, że wkrótce wszystko się wyjaśni...',
-      'To miłe... cieszę się, że mogę na Ciebie liczyć ✨',
+      'Super to słyszeć! ✨ Cieszę się, że napisałeś.',
+      'Dzięki za miłe słowa! Od razu cieplej na sercu 😊',
+      'Fajnie, że jesteś! Masz może jakieś ciekawe plany na dzisiaj?',
     ],
     negative: [
-      'To jest jakiś koszmar... tak bardzo się o nią boję 🥺',
-      'Wiem... najgorsza jest ta bezsilność. Nie spocznę, dopóki jej nie znajdę.',
-      'Czuję się z tym wszystkim taka bezradna 🫂',
+      'Ehh, rozumiem Cię... czasami po prostu jest cięższy dzień 🫂',
+      'Przykro mi to słyszeć. Trzymaj się ciepło, mam nadzieję, że wkrótce będzie lepiej...',
+      'Wiem, jak to bywa... Jakbyś chciał pogadać, to śmiało pisz.',
     ],
     neutral: [
-      'Rozumiem... Jakbyś tylko cokolwiek usłyszał o Natalie, pisz od razu!',
-      'Cały czas myślę o tym wieczorze w kinie. Wszystko wydawało się takie normalne...',
-      'Muszę zachować spokój i sprawdzić każdy ślad...',
+      'Ciekawe podejście, w sumie coś w tym jest! 🤔',
+      'A co u Ciebie dzisiaj słychać? Oglądałeś ostatnio coś godnego polecenia?',
+      'Dobre spostrzeżenie. Też się nad tym czasami zastanawiam.',
     ],
     funny: [
-      'Dzięki za próbę rozładowania stresu... chociaż ciężko mi myśleć o czymkolwiek innym 😅',
-      'Doceniam to, pomaga na chwilę nie zwariować...',
+      'Hahaha, dobre! Poprawiłeś mi humor, dzięki 😂',
+      'Haha, trafione w punkt! Dawno się tak nie uśmiałam 😄',
     ],
     question: [
-      'Wyszła do toalety po filmie i przepadła... W kabinie zostały tylko jej ubrania i telefon 📱',
-      'Próbuję pytać ludzi z kina, ochronę... każdy szczegół może mieć znaczenie!',
-      'Musimy dorwać nagrania z monitoringu, jeśli obsługa kina w ogóle nam pomoże.',
+      'Dobre pytanie! Myślę, że wiele zależy od punktu widzenia...',
+      'Hmm, muszę się nad tym chwilę zastanowić 🤔 A Ty jak do tego podchodzisz?',
+      'Ciekawa sprawa, sama nie jestem pewna na 100%!',
     ],
     vulgar: [
-      'Proszę, nie pisz tak... Jestem kłębkiem nerwów przez zniknięcie Natalie.',
-      'Naprawdę musisz tak pisać? Przeżywam teraz koszmar...',
+      'Hej, prosiłabym o trochę spokojniejszy język... Nie lubię takich słów.',
+      'Możemy rozmawiać spokojniej? Nie ma potrzeby tak pisać.',
     ],
   },
 };
@@ -1744,7 +1744,8 @@ function selectDiverseCommenters(
   groupId?: string,
   postContent?: string
 ): any[] {
-  const eligible = allUsers.filter(u => u.id !== currentUserId && u.isOnline !== false);
+  // Exclude current user, offline users, and Marinette (interaction with her is strictly restricted to chat messages)
+  const eligible = allUsers.filter(u => u.id !== currentUserId && u.isOnline !== false && u.id !== 'u_marinette');
 
   // Analyze post content context
   const norm = normalize(postContent || '');
@@ -1769,9 +1770,9 @@ function selectDiverseCommenters(
   let otherUsers = eligible.filter(u => !hasAIPersonality(u.id));
 
   // If the post is hostile / anti-Prime / aggressive:
-  // Exclude sensitive and peace-loving characters from commenting (Marinette, Anna, Kasia, Ola)
+  // Exclude sensitive and peace-loving characters from commenting (Anna, Kasia, Ola)
   if (isAntiPrimeOrHostile || groupId === 'g_anty_prime') {
-    const sensitiveUserIds = new Set(['u_marinette', 'u2', 'u4', 'u8']);
+    const sensitiveUserIds = new Set(['u2', 'u4', 'u8']);
     aiUsers = aiUsers.filter(u => !sensitiveUserIds.has(u.id));
     otherUsers = otherUsers.filter(u => !sensitiveUserIds.has(u.id));
 
@@ -1789,8 +1790,8 @@ function selectDiverseCommenters(
       return 0;
     });
   } else if (groupId === 'g1') {
-    // Filmowe polecajki: Marinette, Gaston, Kasia, Piotr
-    aiUsers.sort((a, b) => (a.id === 'u_marinette' ? -1 : b.id === 'u_marinette' ? 1 : 0));
+    // Filmowe polecajki: Gaston, Kasia, Piotr
+    aiUsers.sort((a, b) => (a.id === 'u_gaston' ? -1 : b.id === 'u_gaston' ? 1 : 0));
   } else if (groupId === 'g2') {
     // Szukam pracy: Piotr, Anna, Kasia, Gaston
     aiUsers.sort((a, b) => (a.id === 'u3' ? -1 : b.id === 'u3' ? 1 : 0));

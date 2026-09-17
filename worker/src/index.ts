@@ -256,6 +256,9 @@ export default {
         reply = await callGemini(env.GEMINI_API_KEY, env.AI_MODEL, body.systemPrompt, trimmedMessages);
       }
 
+      // Ensure all em-dashes are converted to standard hyphens
+      reply = reply.replace(/—/g, '-');
+
       return new Response(
         JSON.stringify({ reply, model: env.AI_MODEL }),
         { status: 200, headers: { ...headers, 'Content-Type': 'application/json' } }

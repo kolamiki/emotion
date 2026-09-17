@@ -121,6 +121,7 @@ ${userFirstName ? `- PAMIĘTAJ O IMIENIU ROZMÓWCY: Twój rozmówca to ${userFir
 - Jeśli rozmówca potwierdza, zgadza się lub pisze krótko (np. "ok", "dobra", "jasne", "zaraz sprawdzę", "pomogę"), potraktuj to jako akceptację Twojej wcześniejszej prośby/pytania i podziękuj za chęć wsparcia, zamiast traktować to jako pytanie.
 - Zwrotów takich jak "Dzięki, że pytasz!" używaj WYŁĄCZNIE w sytuacji, gdy rozmówca wprost zapytał o Twoje samopoczucie, nastrój lub co u Ciebie (np. "Jak się trzymasz?", "Wszystko w porządku?", "Jak się czujesz?").
 - Nie powtarzaj całej fabuły ani nie wyrzucaj wszystkich faktów naraz - prowadź dialog naturalnie, krok po kroku.
+- ZASADA INTERPUNKCJI I ZNAKÓW: NIGDY nie używaj znaku pauzy "—" (długiej kreski / em-dash). Jeśli potrzebujesz wstawić myślnik, pauzę lub łącznik, ZAWSZE używaj wyłącznie zwykłego pojedynczego minusa "-".
 
 ## KONTEKST ROZMOWY
 ${userRef}
@@ -215,7 +216,7 @@ export async function fetchAIResponse(
       return null;
     }
 
-    return data.reply.trim();
+    return data.reply.replace(/—/g, '-').trim();
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
       console.warn('[AI Chat] Request timed out (30s), falling back to rules');
@@ -235,6 +236,9 @@ export async function fetchAIPostComment(
   currentUserName?: string,
   groupInfo?: { name: string; description?: string }
 ): Promise<string | null> {
+  // Marinette is strictly restricted to chat messages only - no post commenting
+  if (participantId === 'u_marinette') return null;
+
   if (!AI_PROXY_URL) return null;
 
   const personality = getAIPersonality(participantId);
@@ -295,7 +299,7 @@ NIGDY nie pisz długich esejów, nie przedstawiaj się, nie dodawaj podpisów. P
       cleanReply = cleanReply.slice(1, -1).trim();
     }
 
-    return cleanReply;
+    return cleanReply.replace(/—/g, '-');
   } catch (err) {
     console.warn('[AI Comment] Error generating comment:', err);
     return null;

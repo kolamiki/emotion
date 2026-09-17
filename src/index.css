@@ -109,6 +109,10 @@ img {
   display: block;
 }
 
+textarea {
+  resize: none;
+}
+
 /* === Scrollbar === */
 ::-webkit-scrollbar {
   width: 8px;

@@ -577,7 +577,7 @@
   font-size: 0.92rem;
   line-height: 1.5;
   color: var(--text-primary);
-  resize: vertical;
+  resize: none;
   min-height: 48px;
   outline: none;
 }
