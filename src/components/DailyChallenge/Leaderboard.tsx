@@ -21,15 +21,15 @@ interface LeaderboardProps {
 // Fictional users for the leaderboard
 const fakeUsers = [
   { id: 'lb-1', name: 'Profesor Prime', avatarUrl: '/avatars/prime.png' },
-  { id: 'lb-2', name: 'Pierre Dubois', avatarUrl: 'https://i.pravatar.cc/150?u=u3' },
-  { id: 'lb-3', name: 'Thomas Mercier', avatarUrl: 'https://i.pravatar.cc/150?u=u5' },
-  { id: 'lb-4', name: 'Élodie Perrin', avatarUrl: 'https://i.pravatar.cc/150?u=u10' },
-  { id: 'lb-5', name: 'Michel Bertrand', avatarUrl: 'https://i.pravatar.cc/150?u=u7' },
-  { id: 'lb-6', name: 'Manon Lambert', avatarUrl: 'https://i.pravatar.cc/150?u=u6' },
-  { id: 'lb-7', name: 'Bastien Renaud', avatarUrl: 'https://i.pravatar.cc/150?u=u9' },
-  { id: 'lb-8', name: 'Aurélie Morel', avatarUrl: 'https://i.pravatar.cc/150?u=u8' },
-  { id: 'lb-9', name: 'Jules Marchand', avatarUrl: 'https://i.pravatar.cc/150?u=u11' },
-  { id: 'lb-10', name: 'Caroline Guérin', avatarUrl: 'https://i.pravatar.cc/150?u=u12' },
+  { id: 'lb-2', name: 'Pierre Dubois', avatarUrl: '/avatars/normals/male_normal_10.png' },
+  { id: 'lb-3', name: 'Thomas Mercier', avatarUrl: '/avatars/normals/male_normal_9.png' },
+  { id: 'lb-4', name: 'Élodie Perrin', avatarUrl: '/avatars/normals/female_normal_1.png' },
+  { id: 'lb-5', name: 'Michel Bertrand', avatarUrl: '/avatars/normals/male_normal_3.png' },
+  { id: 'lb-6', name: 'Juliette Lambert', avatarUrl: '/avatars/normals/female_normal_5.png' },
+  { id: 'lb-7', name: 'Bastien Renaud', avatarUrl: '/avatars/normals/male_normal_4.png' },
+  { id: 'lb-8', name: 'Aurélie Morel', avatarUrl: '/avatars/normals/female_normal_7.png' },
+  { id: 'lb-9', name: 'Jules Marchand', avatarUrl: '/avatars/normals/male_normal_6.png' },
+  { id: 'lb-10', name: 'Caroline Guérin', avatarUrl: '/avatars/normals/female_normal_3.png' },
 ];
 
 /**

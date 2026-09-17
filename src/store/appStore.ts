@@ -88,10 +88,23 @@ export function getInitialState(): AppState {
     const messagesByParticipant = new Map<string, typeof rawMessages[0]>();
     for (const thread of rawMessages) {
       const pid = thread.participant.id;
+      // Always ensure participant has latest authoritative avatarUrl and name from usersData
+      const liveUser = usersData.allUsers.find(u => u.id === pid);
+      const updatedThread = {
+        ...thread,
+        participant: {
+          ...thread.participant,
+          name: liveUser ? liveUser.name : thread.participant.name,
+          avatarUrl: liveUser ? liveUser.avatarUrl : thread.participant.avatarUrl,
+        }
+      };
+
       if (!messagesByParticipant.has(pid)) {
-        messagesByParticipant.set(pid, { ...thread, messages: [...thread.messages] });
+        messagesByParticipant.set(pid, { ...updatedThread, messages: [...thread.messages] });
       } else {
         const existingThread = messagesByParticipant.get(pid)!;
+        existingThread.participant.name = updatedThread.participant.name;
+        existingThread.participant.avatarUrl = updatedThread.participant.avatarUrl;
         // merge and sort messages by timestamp
         const allMsgs = [...existingThread.messages, ...thread.messages];
         const uniqueMsgs = Array.from(new Map(allMsgs.map(m => [m.id, m])).values());
@@ -382,7 +395,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         const participantUser = usersData.allUsers.find(u => u.id === senderId) || {
           id: senderId,
           name: senderId === 'u_marinette' ? 'Marinette Dupont' : senderId === 'u_damian' ? 'Damien Loup' : senderId === 'u_matylda' ? 'Matylda Iggermann' : senderId,
-          avatarUrl: senderId === 'u_marinette' ? 'https://i.pravatar.cc/150?u=marinette' : `https://i.pravatar.cc/150?u=${senderId}`,
+          avatarUrl: senderId === 'u_marinette' ? '/avatars/normals/marinette.png' : senderId === 'u_damian' ? '/avatars/normals/male_normal_2.png' : senderId === 'u_matylda' ? '/avatars/matylda.png' : '/avatars/anonim.png',
           isOnline: true,
         };
         const newThread: MessageThread = {

@@ -14,8 +14,8 @@ interface RightSidebarProps {
 }
 
 const fakeActivity = [
-  { name: 'Anne Moreau', action: 'polubiła post', target: 'Thomasa Merciera', avatar: 'https://i.pravatar.cc/150?u=u2', time: '2 min temu', userId: 'u2' },
-  { name: 'Pierre Dubois', action: 'skomentował post', target: 'Manon Lambert', avatar: 'https://i.pravatar.cc/150?u=u3', time: '15 min temu', userId: 'u3' },
+  { name: 'Anne Moreau', action: 'polubiła post', target: 'Thomasa Merciera', avatar: '/avatars/normals/female_normal_2.png', time: '2 min temu', userId: 'u2' },
+  { name: 'Pierre Dubois', action: 'skomentował post', target: 'Juliette Lambert', avatar: '/avatars/normals/male_normal_10.png', time: '15 min temu', userId: 'u3' },
 ];
 
 const trendingTopics = [
@@ -56,10 +56,11 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
 
     // Add all existing message threads
     for (const thread of messages) {
+      const liveUser = usersData.allUsers.find(u => u.id === thread.participant.id);
       contactMap.set(thread.participant.id, {
         userId: thread.participant.id,
-        name: thread.participant.name,
-        avatarUrl: thread.participant.avatarUrl,
+        name: liveUser?.name || thread.participant.name,
+        avatarUrl: liveUser?.avatarUrl || thread.participant.avatarUrl,
         isOnline: !!thread.participant.isOnline,
         threadId: thread.threadId,
         unread: isThreadUnread(thread),

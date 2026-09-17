@@ -228,13 +228,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
   // Add Matylda's like
   if (matyldaLikesActive && post.author.id === currentUser.id) {
     likeAvatarsData = [
-      { url: 'https://i.pravatar.cc/150?u=u_matylda', id: 'u_matylda' },
+      { url: '/avatars/matylda.png', id: 'u_matylda' },
       ...likeAvatarsData.slice(0, 2)
     ];
     if (displayLikes === 0) displayLikes = 1;
   }
 
-  const isModerated = post.author.id === 'u13' || post.content.startsWith('[');
+  const isModerated = post.author.id === 'u13' || post.content.startsWith('[Treść została usunięta');
 
   return (
     <article className={`${styles.postCard} ${isModerated ? styles.moderatedCard : ''}`} data-post-id={post.id}>

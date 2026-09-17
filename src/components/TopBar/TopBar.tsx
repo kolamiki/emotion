@@ -530,6 +530,9 @@ export const TopBar: React.FC<TopBarProps> = ({
                   }).map(thread => {
                     const lastMsg = thread.messages[thread.messages.length - 1];
                     const unread = isThreadUnread(thread);
+                    const liveUser = usersData.allUsers.find(u => u.id === thread.participant.id);
+                    const participantAvatar = liveUser?.avatarUrl || thread.participant.avatarUrl;
+                    const participantName = liveUser?.name || thread.participant.name;
                     return (
                       <div
                         key={thread.threadId}
@@ -538,8 +541,8 @@ export const TopBar: React.FC<TopBarProps> = ({
                       >
                         <div className={styles.msgAvatarWrap}>
                           <img
-                            src={thread.participant.avatarUrl}
-                            alt={thread.participant.name}
+                            src={participantAvatar}
+                            alt={participantName}
                             className={styles.msgAvatar}
                             onClick={(e) => {
                               e.stopPropagation();
@@ -553,7 +556,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                           {thread.participant.isOnline && <div className={styles.onlineDot} />}
                         </div>
                         <div className={styles.msgInfo}>
-                          <div className={styles.msgName}>{thread.participant.name}</div>
+                          <div className={styles.msgName}>{participantName}</div>
                           <div className={styles.msgPreview}>{lastMsg?.text}</div>
                         </div>
                         <div className={styles.msgTime}>{formatTime(lastMsg?.timestamp)}</div>

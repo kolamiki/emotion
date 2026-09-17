@@ -1456,7 +1456,7 @@ export function schedulePostCommentResponse(
         const kornel = allUsers.find(u => u.id === 'u_kornel') || {
           id: 'u_kornel',
           name: 'Corentin Garnier',
-          avatarUrl: 'https://i.pravatar.cc/150?u=kornel_zagorski'
+          avatarUrl: '/avatars/normals/male_normal_8.png'
         };
 
         const kornelComment: Comment = {
@@ -1518,7 +1518,7 @@ export function schedulePostCommentResponse(
             const damianUser = allUsers.find(u => u.id === 'u_damian') || {
               id: 'u_damian',
               name: 'Damien Loup',
-              avatarUrl: 'https://i.pravatar.cc/150?u=damian_wilk'
+              avatarUrl: '/avatars/normals/male_normal_2.png'
             };
 
             const damianThreadId = 't_u_damian';

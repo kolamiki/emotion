@@ -34,7 +34,7 @@ interface DailyChallengeProps {
 
 export const DailyChallenge: React.FC<DailyChallengeProps> = ({
   currentUserName = 'Jean Laurent',
-  currentUserAvatar = 'https://i.pravatar.cc/150?u=u1',
+  currentUserAvatar = '/avatars/main_selection/male_1.jpeg',
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<PuzzleType | null>(null);
   const [puzzleData, setPuzzleData] = useState<any>(null);

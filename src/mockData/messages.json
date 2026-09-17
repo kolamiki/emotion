@@ -4,7 +4,7 @@
     "participant": {
       "id": "u2",
       "name": "Anne Moreau",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+      "avatarUrl": "/avatars/normals/female_normal_2.png",
       "isOnline": true
     },
     "messages": [
@@ -33,7 +33,7 @@
     "participant": {
       "id": "u3",
       "name": "Pierre Dubois",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+      "avatarUrl": "/avatars/normals/male_normal_10.png",
       "isOnline": false
     },
     "messages": [
@@ -50,7 +50,7 @@
     "participant": {
       "id": "u4",
       "name": "Céline Girard",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+      "avatarUrl": "/avatars/normals/female_normal_8.png",
       "isOnline": true
     },
     "messages": [

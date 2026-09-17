@@ -3,6 +3,7 @@ import { X, Send } from 'lucide-react';
 import styles from './Chat.module.css';
 import type { MessageThread, Message, AppAction, TypingState } from '../../types';
 import { scheduleChatResponse } from '../../store/responseEngine';
+import { usersData } from '../../mockData';
 
 interface ChatContainerProps {
   threads: MessageThread[];
@@ -148,13 +149,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     }
   };
 
+  const liveUser = usersData.allUsers.find(u => u.id === thread.participant.id);
+  const participantAvatar = liveUser?.avatarUrl || thread.participant.avatarUrl;
+  const participantName = liveUser?.name || thread.participant.name;
+
   return (
     <div className={styles.chatWindow} onClick={markAsRead}>
       <div className={styles.chatHeader}>
         <div className={styles.chatAvatarWrap}>
           <img 
-            src={thread.participant.avatarUrl} 
-            alt={thread.participant.name} 
+            src={participantAvatar} 
+            alt={participantName} 
             className={styles.chatAvatar}
             onClick={() => onViewProfile && onViewProfile(thread.participant.id)}
             style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
@@ -162,7 +167,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           {thread.participant.isOnline && <div className={styles.chatOnline} />}
         </div>
         <div className={styles.chatHeaderInfo}>
-          <span className={styles.chatName}>{thread.participant.name}</span>
+          <span className={styles.chatName}>{participantName}</span>
           {isTyping && (
             <span className={styles.chatTypingLabel}>pisze...</span>
           )}

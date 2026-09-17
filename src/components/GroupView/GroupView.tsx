@@ -443,7 +443,7 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
     }
   };
 
-  const isModerated = post.author.id === 'u13' || post.content.startsWith('[');
+  const isModerated = post.author.id === 'u13' || post.content.startsWith('[Treść została usunięta');
 
   return (
     <div className={`${styles.groupPost} ${isModerated ? styles.moderatedCard : ''}`} data-post-id={post.id}>

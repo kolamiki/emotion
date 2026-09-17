@@ -4,10 +4,10 @@ import styles from './WelcomeScreen.module.css';
 import { getAssetUrl } from '../../utils/assetUrl';
 
 const AVATARS = [
-  'https://i.pravatar.cc/150?img=11',
-  'https://i.pravatar.cc/150?img=32',
-  'https://i.pravatar.cc/150?img=47',
-  'https://i.pravatar.cc/150?img=68',
+  getAssetUrl('/avatars/main_selection/male_1.jpeg'),
+  getAssetUrl('/avatars/main_selection/male_2.png'),
+  getAssetUrl('/avatars/main_selection/female_1.jpg'),
+  getAssetUrl('/avatars/main_selection/female_2.jpeg'),
 ];
 
 interface WelcomeScreenProps {
