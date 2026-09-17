@@ -3,6 +3,7 @@ import { Heart, MessageCircle, Share2, Send, Loader2, ShieldAlert } from 'lucide
 import styles from './Feed.module.css';
 import type { Post, User, Comment, AppAction, LikedPosts } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
+import { ShareModal } from '../ShareModal/ShareModal';
 
 interface FeedProps {
   posts: Post[];
@@ -20,6 +21,7 @@ interface FeedProps {
 export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, dispatch, matyldaLikesActive, onOpenCreatePost, onViewProfile, highlightedPostId, onClearHighlight, isBanned }) => {
   const [visibleCount, setVisibleCount] = useState(5);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [sharingPost, setSharingPost] = useState<Post | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
@@ -117,6 +119,7 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           matyldaLikesActive={matyldaLikesActive}
           onViewProfile={onViewProfile}
           isBanned={isBanned}
+          onShare={setSharingPost}
         />
       ))}
 
@@ -125,6 +128,12 @@ export const Feed: React.FC<FeedProps> = ({ posts, currentUser, likedPosts, disp
           {isLoadingMore && <Loader2 size={24} className={styles.loaderIcon} />}
         </div>
       )}
+
+      <ShareModal
+        isOpen={Boolean(sharingPost)}
+        onClose={() => setSharingPost(null)}
+        post={sharingPost}
+      />
     </div>
   );
 };
@@ -138,9 +147,10 @@ interface PostCardProps {
   matyldaLikesActive: boolean;
   onViewProfile?: (userId: string) => void;
   isBanned?: boolean;
+  onShare: (post: Post) => void;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, matyldaLikesActive, onViewProfile, isBanned }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, matyldaLikesActive, onViewProfile, isBanned, onShare }) => {
   const [popping, setPopping] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -338,7 +348,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
           <MessageCircle size={18} />
           Komentarz
         </button>
-        <button className={styles.actionButton}>
+        <button
+          className={styles.actionButton}
+          onClick={() => onShare(post)}
+        >
           <Share2 size={18} />
           Udostępnij
         </button>
