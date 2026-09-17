@@ -4,7 +4,7 @@
     "author": {
       "id": "u_natalie",
       "name": "Natalie Chalamet",
-      "avatarUrl": "https://i.pravatar.cc/150?u=natalie",
+      "avatarUrl": "/avatars/normals/natalie.png",
       "isOnline": false
     },
     "content": "Właśnie wyszłam z przedpremierowego seansu w Le Grand Rex i przysięgam, dawno mnie tak coś nie rozwścieczyło. Dwie godziny ordynarnego prania mózgu ubranego w ładne kadry i patetyczną muzyczkę. Dialogi jak z korpo-prezentacji, zero emocji, za to pełno nachalnego wciskania 'jedynej słusznej wizji przyszłości'. A najgorsze, że połowa sali biła brawo, bo dostali darmowego szampana przy wejściu... Jeśli to ma być ta wielka rewolucja kulturowa, to ja wysiadam. Idę na mocnego drinka, żeby o tym zapomnieć. 🎬🤮🍸",
@@ -16,7 +16,7 @@
         "author": {
           "id": "u_damian",
           "name": "Damien Loup",
-          "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+          "avatarUrl": "/avatars/normals/male_normal_2.png"
         },
         "text": "W punkt Natalie. Komercyjna papka sponsorowana przez korporacje, żeby uśpić czujność i wcisnąć ludziom tani konsumpcjonizm.",
         "timestamp": "2026-06-03T14:12:00Z"
@@ -26,7 +26,7 @@
         "author": {
           "id": "u_kornel",
           "name": "Corentin Garnier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+          "avatarUrl": "/avatars/normals/male_normal_8.png"
         },
         "text": "PrimeCo pompuje w to miliony euro, a recenzenci na ich garnuszku pieją z zachwytu. Dobrze, że ktoś jeszcze ma odwagę mówić prawdę.",
         "timestamp": "2026-06-03T14:25:00Z"
@@ -51,7 +51,7 @@
         "author": {
           "id": "u_kornel",
           "name": "Corentin Garnier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=kornel_zagorski"
+          "avatarUrl": "/avatars/normals/male_normal_8.png"
         },
         "text": "Czyli w skrócie: każdy, kto krytykuje monopol i zadaje niewygodne pytania o powiązania z PrimeCo, dostaje bana pod płaszczykiem 'mowy nienawiści'? Piękna nowomowa, panie Gaston.",
         "timestamp": "2026-06-03T13:38:00Z"
@@ -61,7 +61,7 @@
         "author": {
           "id": "u_damian",
           "name": "Damien Loup",
-          "avatarUrl": "https://i.pravatar.cc/150?u=damian_wilk"
+          "avatarUrl": "/avatars/normals/male_normal_2.png"
         },
         "text": "'Algorytmy chroniące dobrostan' - większego korporacyjnego bełkotu dawno nie czytałem. Zwykła cenzura prewencyjna ubrana w różowe barwy.",
         "timestamp": "2026-06-03T13:45:00Z"
@@ -71,7 +71,7 @@
         "author": {
           "id": "u_weronika",
           "name": "Véronique Roche",
-          "avatarUrl": "https://i.pravatar.cc/150?u=weronika_skalska"
+          "avatarUrl": "/avatars/normals/female_normal_4.png"
         },
         "text": "Gaston, powiedz lepiej kiedy ujawnicie audyt algorytmów profilowania emocjonalnego, o który wnioskują organizacje obywatelskie!",
         "timestamp": "2026-06-03T13:52:00Z"
@@ -84,7 +84,7 @@
     "author": {
       "id": "u1",
       "name": "Jean Laurent",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "avatarUrl": "/avatars/main_selection/male_1.jpeg",
       "isOnline": true
     },
     "content": "Kupiłem ekspres kolbowy, żeby 'zaoszczędzić na kawiarniach na mieście'. Po dwóch tygodniach: waga z dokładnością do 0.1g, młynek żarnowy za miliony monet, trzy paczki ziaren z Etiopii i oglądanie na YouTube poradników o dystrybucji igłowej o 2 w nocy. Zaoszczędzone środki: -1200 zł. Ale espresso ma nuty jaśminu i bergamotki, więc chyba wygrałem życie? ☕🤡",
@@ -96,7 +96,7 @@
         "author": {
           "id": "u4",
           "name": "Céline Girard",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+          "avatarUrl": "/avatars/normals/female_normal_8.png"
         },
         "text": "Hahaha witamy w króliczej norze speciality! Daj znać jak zaczniesz filtrować wodę przez minerały wulkaniczne 😂",
         "timestamp": "2026-06-03T12:22:00Z"
@@ -106,7 +106,7 @@
         "author": {
           "id": "u3",
           "name": "Pierre Dubois",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "avatarUrl": "/avatars/normals/male_normal_10.png"
         },
         "text": "Wpadam jutro na to burżujskie espresso, przygotuj filiżankę!",
         "timestamp": "2026-06-03T12:35:00Z"
@@ -116,7 +116,7 @@
         "author": {
           "id": "u1",
           "name": "Jean Laurent",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+          "avatarUrl": "/avatars/main_selection/male_1.jpeg"
         },
         "text": "Wpadaj, tylko muszę najpierw odmierzyć dokładnie 18.2 grama co do ziarenka xD",
         "timestamp": "2026-06-03T12:40:00Z"
@@ -129,7 +129,7 @@
     "author": {
       "id": "u7",
       "name": "Michel Bertrand",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u7",
+      "avatarUrl": "/avatars/normals/male_normal_3.png",
       "isOnline": true
     },
     "content": "Godzina 3:20 w nocy. Wezwanie z kodem 1, sygnały, pędzimy przez całe miasto, adrenalina pod sufit, wpadamy z torbą reanimacyjną na 4. piętro... 'Panie ratowniku, bo mnie od trzech tygodni swędzi mały palec u stopy, a do przychodni są kolejki'.\n\nLudzie, błagam was na wszystko: karetka pogotowia ratunkowego to NIE jest mobilna przychodnia ani darmowa taksówka na SOR! Przez takie bezmyślne wezwania ktoś z zatrzymaniem krążenia czy udarem może nie doczekać pomocy. Trochę odpowiedzialności za innych!",
@@ -141,7 +141,7 @@
         "author": {
           "id": "u10",
           "name": "Élodie Perrin",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u10"
+          "avatarUrl": "/avatars/normals/female_normal_1.png"
         },
         "text": "Michel, u mnie na nocnym dyżurze w aptece to samo. Przychodzi facet o 2:40 w nocy, dzwoni dzwonkiem jak opętany... po gumy do żucia i witaminę C, po czym ma pretensje, że doliczam opłatę nocną 🤦‍♀️",
         "timestamp": "2026-06-03T11:58:00Z"
@@ -151,7 +151,7 @@
         "author": {
           "id": "u3",
           "name": "Pierre Dubois",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "avatarUrl": "/avatars/normals/male_normal_10.png"
         },
         "text": "Za nieuzasadnione wezwanie powinien być automatyczny rachunek na 3000 zł i problem skończyłby się w tydzień.",
         "timestamp": "2026-06-03T12:10:00Z"
@@ -161,7 +161,7 @@
         "author": {
           "id": "u9",
           "name": "Bastien Renaud",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u9"
+          "avatarUrl": "/avatars/normals/male_normal_4.png"
         },
         "text": "W górach identycznie - wzywają GOPR i śmigłowiec, bo 'się zmęczyli' 2 km przed schroniskiem i im zimno w tenisówkach. Ręce i nogi opadają.",
         "timestamp": "2026-06-03T12:20:00Z"
@@ -186,7 +186,7 @@
         "author": {
           "id": "u3",
           "name": "Pierre Dubois",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "avatarUrl": "/avatars/normals/male_normal_10.png"
         },
         "text": "I bardzo dobrze, że to poleciało. Doxxowanie ludzi z osiedla i wrzucanie ich numerów telefonów pod wymyślonym pretekstem to już było dno.",
         "timestamp": "2026-06-03T09:22:00Z"
@@ -196,7 +196,7 @@
         "author": {
           "id": "u5",
           "name": "Thomas Mercier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+          "avatarUrl": "/avatars/normals/male_normal_9.png"
         },
         "text": "Cenzura wchodzi na pełnej xD Nawet nie zdążyłem doczytać o co poszła ta afera i kto kogo obraził.",
         "timestamp": "2026-06-03T09:30:00Z"
@@ -205,8 +205,8 @@
         "id": "c_mod1_3",
         "author": {
           "id": "u6",
-          "name": "Manon Lambert",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+          "name": "Juliette Lambert",
+          "avatarUrl": "/avatars/normals/female_normal_5.png"
         },
         "text": "Thomas, facet wypisywał chore groźby pod adresem dziewczyn ze zdjęć. Cieszę się, że administracja w końcu go zablokowała.",
         "timestamp": "2026-06-03T09:41:00Z"
@@ -219,7 +219,7 @@
     "author": {
       "id": "u4",
       "name": "Céline Girard",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u4",
+      "avatarUrl": "/avatars/normals/female_normal_8.png",
       "isOnline": true
     },
     "content": "Gorący apel z nocnego dyżuru w lecznicy: BŁAGAM WAS, nie dokarmiajcie psów kośćmi z kurczaka ani słodyczami! Od rana wyciągamy z żołądków ostre odłamki kości i tabliczki czekolady, bo 'piesek tak ładnie prosił przy obiedzie'. Kończy się bólem, pilną operacją za kilka tysięcy i gigantycznym stresem dla zwierzaka. Jeśli naprawdę kochacie swoje pupile, kupcie im porządny przysmak funkcyjny albo zabierzcie na 2-godzinny spacer do lasu! 🐾🛑",
@@ -231,7 +231,7 @@
         "author": {
           "id": "u5",
           "name": "Thomas Mercier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+          "avatarUrl": "/avatars/normals/male_normal_9.png"
         },
         "text": "Kasiu, mów to mojej teściowej... 'Przecież pies na wsi zawsze jadł resztki z zupy i dożył 15 lat'. Ręce i cycki opadają.",
         "timestamp": "2026-06-02T21:20:00Z"
@@ -241,7 +241,7 @@
         "author": {
           "id": "u4",
           "name": "Céline Girard",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+          "avatarUrl": "/avatars/normals/female_normal_8.png"
         },
         "text": "Thomas, przyślij ją do mnie na dyżur na godzinę, niech zobaczy jak wygląda perforacja jelita u szczeniaka, to natychmiast zmieni podejście.",
         "timestamp": "2026-06-02T21:26:00Z"
@@ -251,7 +251,7 @@
         "author": {
           "id": "u2",
           "name": "Anne Moreau",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+          "avatarUrl": "/avatars/normals/female_normal_2.png"
         },
         "text": "Udostępniam dalej! Ludzie wciąż powtarzają te szkodliwe mity...",
         "timestamp": "2026-06-02T21:40:00Z"
@@ -264,7 +264,7 @@
     "author": {
       "id": "u5",
       "name": "Thomas Mercier",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u5",
+      "avatarUrl": "/avatars/normals/male_normal_9.png",
       "isOnline": true
     },
     "content": "Prawie trzy tygodnie szlifowania, bejcowania i pasowania dębowych belek ze stuletniej stodoły z Mazur. Klienci chcieli 'coś z duszą i charakterem' do kamienicy. Stół waży chyba ze 130 kilo, czterech chłopa wnosiło to na 3. piętro bez windy, ale efekt końcowy wynagradza każdą kroplę potu. Prawdziwe drewno żyje własnym życiem - żaden laminowany paździerz z marketu nigdy tego nie zastąpi! 🪵☕",
@@ -276,7 +276,7 @@
         "author": {
           "id": "u1",
           "name": "Jean Laurent",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+          "avatarUrl": "/avatars/main_selection/male_1.jpeg"
         },
         "text": "Petarda robota Thomas! Ile za taki bierzesz na zamówienie? Bo u mnie ten tani stolik chwieje się od samego patrzenia na kubek kawy xD",
         "timestamp": "2026-06-02T16:55:00Z"
@@ -286,7 +286,7 @@
         "author": {
           "id": "u5",
           "name": "Thomas Mercier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+          "avatarUrl": "/avatars/normals/male_normal_9.png"
         },
         "text": "Dzięki wielkie! Zależy od wymiarów i grubości blatu, odezwij się na priv to ci rozrysuję opcje.",
         "timestamp": "2026-06-02T17:05:00Z"
@@ -296,7 +296,7 @@
         "author": {
           "id": "u4",
           "name": "Céline Girard",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+          "avatarUrl": "/avatars/normals/female_normal_8.png"
         },
         "text": "Cudowny! Aż czuć zapach naturalnego wosku i drewna przez monitor 😍",
         "timestamp": "2026-06-02T17:20:00Z"
@@ -309,7 +309,7 @@
     "author": {
       "id": "u1",
       "name": "Jean Laurent",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "avatarUrl": "/avatars/main_selection/male_1.jpeg",
       "isOnline": true
     },
     "content": "Algorytmy social mediów to stan umysłu. Przez 3 sekundy zawiesiłem wzrok na filmiku o czyszczeniu dywanów parownicą, a teraz mój feed to wyłącznie renowacja starych chodników, polerowanie reflektorów i gość, który myje myjką ciśnieniową nagrobki w Ohio. Dlaczego to jest tak hipnotyzujące i czemu oglądam to od godziny? 🧼💀",
@@ -321,7 +321,7 @@
         "author": {
           "id": "u2",
           "name": "Anne Moreau",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+          "avatarUrl": "/avatars/normals/female_normal_2.png"
         },
         "text": "To i tak lepiej niż ja - kliknęłam raz w przepis na chleb na zakwasie i teraz eMotion uważa, że powinnam otworzyć rzemieślniczą piekarnię w Bieszczadach 🥖",
         "timestamp": "2026-06-02T14:32:00Z"
@@ -331,7 +331,7 @@
         "author": {
           "id": "u5",
           "name": "Thomas Mercier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+          "avatarUrl": "/avatars/normals/male_normal_9.png"
         },
         "text": "Myjka ciśnieniowa to najczystsza forma dopaminy, zero wstydu, wszyscy tam byliśmy 🤝",
         "timestamp": "2026-06-02T14:45:00Z"
@@ -344,7 +344,7 @@
     "author": {
       "id": "u10",
       "name": "Élodie Perrin",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u10",
+      "avatarUrl": "/avatars/normals/female_normal_1.png",
       "isOnline": true
     },
     "content": "Dzisiejsza scenka z apteki, autentyk:\n- Poproszę antybiotyk bez recepty, ten mocny, bo mnie w gardle drapie od wczoraj.\n- Dzień dobry. Antybiotyki są wyłącznie na receptę lekarską, zresztą na infekcję wirusową antybiotyk nie pomoże.\n- Ale ja wiem lepiej co mi jest! Pan doktor w telewizji śniadaniowej mówił, że trzeba brać od razu!\n- Proszę skonsultować się z lekarzem rodzinnym.\n- 'Pani jest bezczelna i odmawia ratowania życia, napiszę skargę do izby aptekarskiej i do mediów!'\n\nKurtyna. Drodzy pacjenci, antybiotykooporność to nie teoria spiskowa, tylko śmiertelne zagrożenie. Jak tak dalej pójdzie, to za 10 lat znowu będziemy umierać na zapalenie zęba...",
@@ -356,7 +356,7 @@
         "author": {
           "id": "u7",
           "name": "Michel Bertrand",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+          "avatarUrl": "/avatars/normals/male_normal_3.png"
         },
         "text": "U nas na SORze hit sezonu to: 'Panie doktorze, wypiszcie antybiotyk profilaktycznie, bo w sobotę mam wesele szwagra i muszę być zdrowy' xDDD",
         "timestamp": "2026-06-02T12:15:00Z"
@@ -366,7 +366,7 @@
         "author": {
           "id": "u8",
           "name": "Aurélie Morel",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+          "avatarUrl": "/avatars/normals/female_normal_7.png"
         },
         "text": "Podziwiam Waszą anielską cierpliwość... Ja bym po tygodniu za tym okienkiem chyba zwariowała.",
         "timestamp": "2026-06-02T12:30:00Z"
@@ -379,7 +379,7 @@
     "author": {
       "id": "u8",
       "name": "Aurélie Morel",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u8",
+      "avatarUrl": "/avatars/normals/female_normal_7.png",
       "isOnline": true
     },
     "content": "Przyszła dzisiaj do naszej księgarni dziewczyna ze statywem i lampą pierścieniową. Wzięła z półki 12 najdroższych wydań klasyki w twardej oprawie, ułożyła w malowniczy stosik przy oknie, pozowała przez 40 minut z kubkiem kawy, robiąc maślane miny do rolek na TikToka... po czym zostawiła cały ten bałagan na parapecie i wyszła ze słowami: 'Dzięki, materiał na cały miesiąc nagrany!'.\n\nCzy my jako społeczeństwo jeszcze w ogóle czytamy książki, czy literatura stała się już tylko darmowym rekwizytem meblowym do budowania fałszywego wizerunku intelektualisty w sieci? 📖☕🤦‍♀️",
@@ -391,7 +391,7 @@
         "author": {
           "id": "u11",
           "name": "Jules Marchand",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u11"
+          "avatarUrl": "/avatars/normals/male_normal_6.png"
         },
         "text": "Olu, w świecie muzyki to samo! Ludzie kupują płyty winylowe za 180 zł, wieszają w ramkach na ścianie dla 'estetyki retro', a nawet nie mają gramofonu w domu xD Pozerstwo level master.",
         "timestamp": "2026-06-01T17:45:00Z"
@@ -401,7 +401,7 @@
         "author": {
           "id": "u2",
           "name": "Anne Moreau",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+          "avatarUrl": "/avatars/normals/female_normal_2.png"
         },
         "text": "Niestety w szkołach widzę to samo u dzieciaków - ważne, żeby okładka ładnie wyszła na relacji. Smutne to jest bardzo.",
         "timestamp": "2026-06-01T18:00:00Z"
@@ -426,7 +426,7 @@
         "author": {
           "id": "u7",
           "name": "Michel Bertrand",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u7"
+          "avatarUrl": "/avatars/normals/male_normal_3.png"
         },
         "text": "Kolejny 'gwarantowany zysk 300% w 48 godzin dzięki tajnemu botowi z Dubaju'. Prawie mój starszy sąsiad dał się na to nabrać w zeszłym miesiącu.",
         "timestamp": "2026-06-01T14:15:00Z"
@@ -436,7 +436,7 @@
         "author": {
           "id": "u5",
           "name": "Thomas Mercier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+          "avatarUrl": "/avatars/normals/male_normal_9.png"
         },
         "text": "Dziwię się, że ludzie w 2026 roku wciąż wierzą w darmowe pieniądze z internetu...",
         "timestamp": "2026-06-01T14:28:00Z"
@@ -449,7 +449,7 @@
     "author": {
       "id": "u9",
       "name": "Bastien Renaud",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u9",
+      "avatarUrl": "/avatars/normals/male_normal_4.png",
       "isOnline": true
     },
     "content": "Trzeci raz w tym tygodniu: 'turyści' wjechali ciężkim SUV-em w głąb ścisłego rezerwatu przyrody, bo 'Google Maps tak pokazał najkrótszą drogę na polanę', po czym zawiesili auto na pniaku w błocie po same progi. Jak zapytałem kierowcę, czy widział wielką tablicę 'Zakaz wjazdu - Park Narodowy', usłyszałem ze szczerym uśmiechem: 'No widziałem, ale myślałem, że to tylko dla traktorów'.\n\nMandat 1500 zł, koszt wyciągarki leśnej i punkty karne. Może następnym razem nawigacja pokaże drogę do odrobiny zdrowego rozsądku. Szanujcie las, to dom zwierząt, a nie tor offroadowy! 🌲🐗",
@@ -461,7 +461,7 @@
         "author": {
           "id": "u3",
           "name": "Pierre Dubois",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "avatarUrl": "/avatars/normals/male_normal_10.png"
         },
         "text": "1500 zł to śmiech na sali dla kogoś w aucie za pół miliona. Powinno być 10 000 zł i miesiąc prac społecznych przy sprzątaniu szlaków z butelek i puszek!",
         "timestamp": "2026-06-01T09:45:00Z"
@@ -471,7 +471,7 @@
         "author": {
           "id": "u2",
           "name": "Anne Moreau",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u2"
+          "avatarUrl": "/avatars/normals/female_normal_2.png"
         },
         "text": "Porażająca bezmyślność... Biedne sarny i lisy, taki hałas w środku okresu lęgowego.",
         "timestamp": "2026-06-01T10:02:00Z"
@@ -484,7 +484,7 @@
     "author": {
       "id": "u1",
       "name": "Jean Laurent",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u1",
+      "avatarUrl": "/avatars/main_selection/male_1.jpeg",
       "isOnline": true
     },
     "content": "Składanie mebli z paczki bez instrukcji to współczesny test charakteru. Zostały mi cztery śrubki, dwa kołki i jeden metalowy kątownik o nieznanym przeznaczeniu. Komoda stoi, wygląda stabilnie, dopóki nikt na nią głośniej nie oddycha. Daję jej 3 dni. 🔨📦😅",
@@ -495,8 +495,8 @@
         "id": "c_usr3_1",
         "author": {
           "id": "u6",
-          "name": "Manon Lambert",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+          "name": "Juliette Lambert",
+          "avatarUrl": "/avatars/normals/female_normal_5.png"
         },
         "text": "Te 'nadmiarowe' śrubki to zawsze te, które trzymają całą konstrukcję w pionie. Czekam na telefon w nocy jak runie z hukiem 😂",
         "timestamp": "2026-05-31T18:28:00Z"
@@ -506,7 +506,7 @@
         "author": {
           "id": "u1",
           "name": "Jean Laurent",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+          "avatarUrl": "/avatars/main_selection/male_1.jpeg"
         },
         "text": "Dopóki nikt nie kładzie na niej nic cięższego niż pilot od telewizora, jesteśmy bezpieczni!",
         "timestamp": "2026-05-31T18:35:00Z"
@@ -519,7 +519,7 @@
     "author": {
       "id": "u3",
       "name": "Pierre Dubois",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u3",
+      "avatarUrl": "/avatars/normals/male_normal_10.png",
       "isOnline": false
     },
     "content": "Rzut oka na mój grafik w gabinecie fizjoterapii na ten tydzień: 85% pacjentów to ludzie w wieku 24-35 lat ze zmasakrowanym odcinkiem szyjnym i lędźwiowym od 10 godzin siedzenia zgarbionym przed monitorem i scrollowania telefonu ze zwieszoną głową.\n\nPrzestańcie kupować cudowne maści i pistolety do masażu z telezakupów za 600 zł. Wstańcie od biurka co 45 minut, zróbcie 15 przysiadów, rozciągnijcie klatkę piersiową i wyjdźcie wieczorem na godzinny marsz! Wasze stawy i kręgosłup podziękują wam za 10 lat. Ruch to życie, tabletki tego nie załatwią. 🚶‍♂️🦴",
@@ -531,7 +531,7 @@
         "author": {
           "id": "u5",
           "name": "Thomas Mercier",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u5"
+          "avatarUrl": "/avatars/normals/male_normal_9.png"
         },
         "text": "Właśnie się odruchowo wyprostowałem na krześle czytając to... Za późno stary, łupie w krzyżu od poniedziałku xD",
         "timestamp": "2026-05-31T18:15:00Z"
@@ -541,7 +541,7 @@
         "author": {
           "id": "u3",
           "name": "Pierre Dubois",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "avatarUrl": "/avatars/normals/male_normal_10.png"
         },
         "text": "Thomas, bo zamiast dźwigać te dębowe bale z nóg na ugiętych kolanach, szarpiesz z prostych pleców! Wpadnij na konsultację to ci pokażę wzorce ruchowe.",
         "timestamp": "2026-05-31T18:22:00Z"
@@ -551,7 +551,7 @@
         "author": {
           "id": "u4",
           "name": "Céline Girard",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+          "avatarUrl": "/avatars/normals/female_normal_8.png"
         },
         "text": "Potwierdzam... po 8 godzinach stania pochyloną nad stołem operacyjnym czuję się jak 90-letnia staruszka.",
         "timestamp": "2026-05-31T18:40:00Z"
@@ -563,8 +563,8 @@
     "id": "p_marta_1",
     "author": {
       "id": "u6",
-      "name": "Manon Lambert",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u6",
+      "name": "Juliette Lambert",
+      "avatarUrl": "/avatars/normals/female_normal_5.png",
       "isOnline": false
     },
     "content": "Dopiero co wylądowałam z Barcelony, wsiadam do pociągu Intercity w Warszawie i od razu uderza mnie ten specyficzny, swojski folklor: pan obok rozmawia na głośnomówiącym o swojej kolonoskopii, naprzeciwko ktoś wyciąga kanapkę z jajkiem na twardo i kiełbasą krakowską, a klimatyzacja działa w trybie 'Syberia zimą'. Kocham ten kraj całym sercem, nigdzie indziej nie ma tylu intensywnych bodźców na metr kwadratowy! 😂🚄🇵🇱",
@@ -576,9 +576,9 @@
         "author": {
           "id": "u4",
           "name": "Céline Girard",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u4"
+          "avatarUrl": "/avatars/normals/female_normal_8.png"
         },
-        "text": "Witamy w macierzy Manon! 😂 Jajko na twardo w PKP to dziedzictwo narodowe UNESCO, nie marudź!",
+        "text": "Witamy w macierzy Juliette! 😂 Jajko na twardo w PKP to dziedzictwo narodowe UNESCO, nie marudź!",
         "timestamp": "2026-05-31T14:45:00Z"
       },
       {
@@ -586,7 +586,7 @@
         "author": {
           "id": "u1",
           "name": "Jean Laurent",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u1"
+          "avatarUrl": "/avatars/main_selection/male_1.jpeg"
         },
         "text": "Przynajmniej nie ma opóźnienia 180 minut z powodu 'awarii sieci trakcyjnej', to już sukces na europejską skalę!",
         "timestamp": "2026-05-31T14:52:00Z"
@@ -595,8 +595,8 @@
         "id": "c_mar_3",
         "author": {
           "id": "u6",
-          "name": "Manon Lambert",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u6"
+          "name": "Juliette Lambert",
+          "avatarUrl": "/avatars/normals/female_normal_5.png"
         },
         "text": "Nie zapeszaj, właśnie stanęliśmy w szczerym polu przed Iławą i stoimy od 15 minut...",
         "timestamp": "2026-05-31T15:08:00Z"
@@ -609,7 +609,7 @@
     "author": {
       "id": "u2",
       "name": "Anne Moreau",
-      "avatarUrl": "https://i.pravatar.cc/150?u=u2",
+      "avatarUrl": "/avatars/normals/female_normal_2.png",
       "isOnline": true
     },
     "content": "Sprawdzam kartkówki z angielskiego z 6. klasy i po prostu muszę się podzielić: na pytanie 'Translate: He is a sensible and calm person', uczeń napisał: 'On jest sensowny i ma wywalone'. W sumie... czy to nie jest najpiękniejsza życiowa definicja spokoju ducha? Zostawiłam pełny punkt za kreatywność! 🇬🇧📝😂",
@@ -621,7 +621,7 @@
         "author": {
           "id": "u8",
           "name": "Aurélie Morel",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u8"
+          "avatarUrl": "/avatars/normals/female_normal_7.png"
         },
         "text": "Hahaha, złoto! Dzieciaki mają czasami niesamowity instynkt językowy 👏",
         "timestamp": "2026-05-30T16:35:00Z"
@@ -631,7 +631,7 @@
         "author": {
           "id": "u3",
           "name": "Pierre Dubois",
-          "avatarUrl": "https://i.pravatar.cc/150?u=u3"
+          "avatarUrl": "/avatars/normals/male_normal_10.png"
         },
         "text": "Dobre! Mój nowy życiowy cel: być sensownym i mieć wywalone.",
         "timestamp": "2026-05-30T16:50:00Z"
