@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, MessageCircle, UserPlus, UserMinus, UserCheck, Clock, MapPin, Calendar, Users, FileText, Trophy } from 'lucide-react';
+import { X, MessageCircle, UserPlus, UserMinus, UserCheck, Clock, MapPin, Calendar, Users, FileText, Trophy, Heart, ChevronRight, ArrowUpRight } from 'lucide-react';
 import styles from './ProfilePreview.module.css';
 import type { User, Group, Post } from '../../types';
 import { BLOCKED_FRIEND_IDS, BLOCKED_MESSAGE_USER_IDS } from '../../types';
@@ -30,6 +30,8 @@ interface ProfilePreviewProps {
   onToggleFriend: (userId: string) => void;
   onClose: () => void;
   onOpenChat?: (userId: string) => void;
+  onNavigateToGroup?: (groupId: string) => void;
+  onNavigateToPost?: (postId: string, groupId?: string) => void;
 }
 
 export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
@@ -42,6 +44,8 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   onToggleFriend,
   onClose,
   onOpenChat,
+  onNavigateToGroup,
+  onNavigateToPost,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const { levelInfo: currentLevelInfo } = useDailyChallengeState();
@@ -68,19 +72,56 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   // Find posts by this user (feed posts)
   const userPosts = posts.filter(p => p.author.id === user.id);
 
+  // Compute total likes received
+  const totalLikes = userPosts.reduce((sum, p) => sum + p.likes, 0);
+
   // Mutual groups (groups where both current user and profile user are members)
   const mutualGroups = groups.filter(g =>
     g.members.some(m => m.id === user.id) &&
     g.members.some(m => m.id === currentUserId)
   );
 
-  // Find the most recent post
-  const latestPost = userPosts.length > 0
-    ? userPosts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0]
-    : null;
+  // Find latest post: feed post if available, else fallback to group post
+  let latestPost: {
+    id: string;
+    content: string;
+    timestamp: string;
+    likes: number;
+    commentsCount: number;
+    groupId?: string;
+    groupName?: string;
+  } | null = null;
 
-  // Compute total likes received
-  const totalLikes = userPosts.reduce((sum, p) => sum + p.likes, 0);
+  if (userPosts.length > 0) {
+    const sorted = [...userPosts].sort(
+      (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
+    latestPost = {
+      id: sorted[0].id,
+      content: sorted[0].content,
+      timestamp: sorted[0].timestamp,
+      likes: sorted[0].likes,
+      commentsCount: sorted[0].comments.length,
+    };
+  } else {
+    const userGroupPosts = groups.flatMap(g =>
+      (g.posts || [])
+        .filter(gp => gp.author.id === user.id)
+        .map(gp => ({
+          id: gp.id,
+          content: gp.content,
+          timestamp: gp.timestamp,
+          likes: gp.likes,
+          commentsCount: gp.comments.length,
+          groupId: g.id,
+          groupName: g.name,
+        }))
+    ).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    if (userGroupPosts.length > 0) {
+      latestPost = userGroupPosts[0];
+    }
+  }
 
   const formatJoinDate = () => user.joinDate || 'maj 2026';
   const formatLocation = () => user.location || 'Polska';
@@ -103,6 +144,18 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
   const handleToggleFriend = () => {
     if (!isFriend && !pendingFriends.has(user.id) && isFriendBlocked) return;
     onToggleFriend(user.id);
+  };
+
+  const handleGroupClick = (groupId: string) => {
+    if (onNavigateToGroup) {
+      onNavigateToGroup(groupId);
+    }
+  };
+
+  const handlePostClick = () => {
+    if (latestPost && onNavigateToPost) {
+      onNavigateToPost(latestPost.id, latestPost.groupId);
+    }
   };
 
   return (
@@ -188,12 +241,28 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
             </div>
             <div className={styles.mutualList}>
               {mutualGroups.map(g => (
-                <div key={g.id} className={styles.mutualItem}>
-                  <div
-                    className={styles.mutualIcon}
-                    style={{ background: g.coverColor }}
-                  />
-                  <span className={styles.mutualName}>{g.name}</span>
+                <div
+                  key={g.id}
+                  role="button"
+                  tabIndex={0}
+                  className={styles.mutualItem}
+                  onClick={() => handleGroupClick(g.id)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleGroupClick(g.id);
+                    }
+                  }}
+                  title={`Przejdź do grupy: ${g.name}`}
+                >
+                  <div className={styles.mutualLeft}>
+                    <div
+                      className={styles.mutualIcon}
+                      style={{ background: g.coverColor }}
+                    />
+                    <span className={styles.mutualName}>{g.name}</span>
+                  </div>
+                  <ChevronRight size={16} className={styles.mutualArrow} />
                 </div>
               ))}
             </div>
@@ -204,13 +273,49 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
         {latestPost && (
           <div className={styles.latestPostSection}>
             <div className={styles.latestPostTitle}>Ostatni post</div>
-            <div className={styles.latestPostContent}>
-              {latestPost.content.length > 120
-                ? latestPost.content.slice(0, 120) + '...'
-                : latestPost.content}
-            </div>
-            <div className={styles.latestPostMeta}>
-              ❤️ {latestPost.likes} · 💬 {latestPost.comments.length}
+            <div
+              role="button"
+              tabIndex={0}
+              className={styles.latestPostCard}
+              onClick={handlePostClick}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handlePostClick();
+                }
+              }}
+              title="Kliknij, aby przejść do posta"
+            >
+              <div className={styles.latestPostContent}>
+                {latestPost.content.length > 130
+                  ? latestPost.content.slice(0, 130) + '...'
+                  : latestPost.content}
+              </div>
+              <div className={styles.latestPostFooter}>
+                <div className={styles.latestPostMeta}>
+                  <span className={styles.postMetaItem}>
+                    <Heart size={12} className={styles.postMetaHeart} />
+                    {latestPost.likes}
+                  </span>
+                  <span className={styles.postMetaDot}>·</span>
+                  <span className={styles.postMetaItem}>
+                    <MessageCircle size={12} className={styles.postMetaComment} />
+                    {latestPost.commentsCount}
+                  </span>
+                  {latestPost.groupName && (
+                    <>
+                      <span className={styles.postMetaDot}>·</span>
+                      <span className={styles.postMetaGroupBadge} title={latestPost.groupName}>
+                        w {latestPost.groupName}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <div className={styles.latestPostAction}>
+                  <span className={styles.latestPostActionText}>Zobacz</span>
+                  <ArrowUpRight size={13} className={styles.latestPostActionArrow} />
+                </div>
+              </div>
             </div>
           </div>
         )}

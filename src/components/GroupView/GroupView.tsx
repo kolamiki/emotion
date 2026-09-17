@@ -16,11 +16,48 @@ interface GroupViewProps {
   pendingGroupJoins?: Set<string>;
   onRequestGroupJoin?: (groupId: string) => void;
   isBanned?: boolean;
+  highlightedPostId?: string | null;
+  onClearHighlight?: () => void;
 }
 
-export const GroupView: React.FC<GroupViewProps> = ({ group, currentUser, likedPosts, dispatch, onBack, onViewProfile, onPostCreated, pendingGroupJoins, onRequestGroupJoin, isBanned }) => {
+export const GroupView: React.FC<GroupViewProps> = ({
+  group,
+  currentUser,
+  likedPosts,
+  dispatch,
+  onBack,
+  onViewProfile,
+  onPostCreated,
+  pendingGroupJoins,
+  onRequestGroupJoin,
+  isBanned,
+  highlightedPostId,
+  onClearHighlight,
+}) => {
   const [newGroupPostText, setNewGroupPostText] = useState('');
   const [isMembersExpanded, setIsMembersExpanded] = useState(false);
+
+  // Scroll to highlighted group post
+  useEffect(() => {
+    if (!highlightedPostId) return;
+
+    const timer = setTimeout(() => {
+      const el = document.querySelector(`[data-post-id="${highlightedPostId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add(styles.postHighlighted);
+
+        setTimeout(() => {
+          el.classList.remove(styles.postHighlighted);
+          if (onClearHighlight) onClearHighlight();
+        }, 2500);
+      } else {
+        if (onClearHighlight) onClearHighlight();
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [highlightedPostId, onClearHighlight]);
 
   useEffect(() => {
     setIsMembersExpanded(false);
@@ -409,7 +446,7 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
   const isModerated = post.author.id === 'u13' || post.content.startsWith('[');
 
   return (
-    <div className={`${styles.groupPost} ${isModerated ? styles.moderatedCard : ''}`}>
+    <div className={`${styles.groupPost} ${isModerated ? styles.moderatedCard : ''}`} data-post-id={post.id}>
       <div className={styles.gpHeader}>
         <img
           src={post.author.avatarUrl}

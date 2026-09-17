@@ -289,6 +289,27 @@ export const Layout: React.FC = () => {
     setViewedUserId(userId);
   };
 
+  const handleNavigateToGroupFromProfile = (groupId: string) => {
+    setViewedUserId(null);
+    handleNavigate({ type: 'group', groupId });
+  };
+
+  const handleNavigateToPostFromProfile = (postId: string, groupId?: string) => {
+    setViewedUserId(null);
+    if (groupId) {
+      handleNavigate({ type: 'group', groupId });
+      setTimeout(() => {
+        setHighlightedPostId(postId);
+      }, 100);
+    } else {
+      setHighlightedPostId(null);
+      handleNavigate({ type: 'feed' });
+      setTimeout(() => {
+        setHighlightedPostId(postId);
+      }, 100);
+    }
+  };
+
   const handleNotificationClick = (link: NotificationLink) => {
     switch (link.type) {
       case 'post':
@@ -520,6 +541,8 @@ export const Layout: React.FC = () => {
                 pendingGroupJoins={state.pendingGroupJoins}
                 onRequestGroupJoin={handleRequestGroupJoin}
                 isBanned={state.isBanned}
+                highlightedPostId={highlightedPostId}
+                onClearHighlight={() => setHighlightedPostId(null)}
               />
             )}
             {activeView.type === 'friends' && (
@@ -583,6 +606,8 @@ export const Layout: React.FC = () => {
           onToggleFriend={handleToggleFriend}
           onClose={() => setViewedUserId(null)}
           onOpenChat={handleOpenChatWithUser}
+          onNavigateToGroup={handleNavigateToGroupFromProfile}
+          onNavigateToPost={handleNavigateToPostFromProfile}
         />
       )}
 
