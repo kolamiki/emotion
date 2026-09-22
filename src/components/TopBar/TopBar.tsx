@@ -98,6 +98,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   const toggleDropdown = (type: 'notifications' | 'messages') => {
     setActiveDropdown(prev => (prev === type ? null : type));
     setShowSearchResults(false);
+    setIsMobileSearchOpen(false);
   };
 
   const closeDropdown = () => setActiveDropdown(null);
@@ -117,15 +118,16 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   // Close search results on outside click
   useEffect(() => {
-    if (!showSearchResults) return;
+    if (!showSearchResults && !isMobileSearchOpen) return;
     const handler = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setShowSearchResults(false);
+        setIsMobileSearchOpen(false);
       }
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, [showSearchResults]);
+  }, [showSearchResults, isMobileSearchOpen]);
 
   // Debounced search
   const performSearch = useCallback((query: string) => {
@@ -176,6 +178,7 @@ export const TopBar: React.FC<TopBarProps> = ({
     setSearchResults([]);
     setSearchGroupResults([]);
     setShowSearchResults(false);
+    setIsMobileSearchOpen(false);
   };
 
   const handleGroupResultClick = (groupId: string) => {
@@ -184,6 +187,7 @@ export const TopBar: React.FC<TopBarProps> = ({
     setSearchResults([]);
     setSearchGroupResults([]);
     setShowSearchResults(false);
+    setIsMobileSearchOpen(false);
   };
 
   const handleSearchFocus = () => {
@@ -242,6 +246,8 @@ export const TopBar: React.FC<TopBarProps> = ({
   };
 
   const executeMemoryReset = () => {
+    setIsMobileSearchOpen(false);
+    setShowSearchResults(false);
     if (
       confirm(
         'Potwierdź pełny reset pamięci aplikacji (RESET_MEMORY). Wszystkie dane sesji, posty i ustawienia zostaną bezpowrotnie usunięte.'
@@ -272,14 +278,27 @@ export const TopBar: React.FC<TopBarProps> = ({
     <>
       <header className={styles.topbar} id="tour-topbar">
         {/* Logo */}
-        <div className={styles.logo} onClick={onNavigateHome}>
+        <div
+          className={styles.logo}
+          onClick={() => {
+            setIsMobileSearchOpen(false);
+            setShowSearchResults(false);
+            onNavigateHome();
+          }}
+        >
           <img src={getAssetUrl('/logo.png')} alt="e-Motion" className={styles.logoImage} />
           <span className={styles.logoText}>eMotion</span>
         </div>
 
         {/* Search */}
         <div className={`${styles.mobileSearchWrapper} ${isMobileSearchOpen ? styles.mobileSearchWrapperOpen : ''}`}>
-          <div className={styles.mobileSearchBackdrop} onClick={() => setIsMobileSearchOpen(false)} />
+          <div
+            className={styles.mobileSearchBackdrop}
+            onClick={() => {
+              setIsMobileSearchOpen(false);
+              setShowSearchResults(false);
+            }}
+          />
           <div className={styles.searchContainer} ref={searchRef}>
             <Search size={16} className={styles.searchIcon} />
             <input
@@ -292,13 +311,16 @@ export const TopBar: React.FC<TopBarProps> = ({
               onChange={handleSearchChange}
               onFocus={handleSearchFocus}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && isResetCommand(searchQuery)) {
+                if (e.key === 'Escape') {
+                  setShowSearchResults(false);
+                  setIsMobileSearchOpen(false);
+                } else if (e.key === 'Enter' && isResetCommand(searchQuery)) {
                   e.preventDefault();
                   executeMemoryReset();
                 }
               }}
             />
-            {searchQuery && (
+            {searchQuery ? (
               <button
                 className={styles.searchClear}
                 onClick={() => {
@@ -311,7 +333,18 @@ export const TopBar: React.FC<TopBarProps> = ({
               >
                 <X size={14} />
               </button>
-            )}
+            ) : isMobileSearchOpen ? (
+              <button
+                className={styles.searchClear}
+                onClick={() => {
+                  setIsMobileSearchOpen(false);
+                  setShowSearchResults(false);
+                }}
+                title="Zamknij wyszukiwarkę"
+              >
+                <X size={14} />
+              </button>
+            ) : null}
 
             {/* Search Results Dropdown */}
             {showSearchResults && (
