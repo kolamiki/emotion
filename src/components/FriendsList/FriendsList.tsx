@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { UserPlus, UserMinus, MessageCircle, MapPin, Calendar, Search, X, Clock } from 'lucide-react';
 import styles from './FriendsList.module.css';
 import { usersData } from '../../mockData';
@@ -33,7 +33,7 @@ const EXCLUDED_RECOMMENDATION_IDS = new Set([
   'u_gaston',       // Gaston De Sole
   'u14',            // Nicolas de La Hire
   'u_matylda',      // Matylda Iggermann
-  'u13',            // Anonimowy użytkownik
+  'u13',            // Anonymous user
   'u_behrmann',     // Helmut Behrmann
   'u_szymon_wilk',  // Szymon Wilk
   'u_jakub_lange',  // Jakub Lange

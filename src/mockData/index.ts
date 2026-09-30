@@ -66,6 +66,7 @@ const processedGroupsData = groupsData.map(group => ({
   })),
 }));
 
+
 export const mockData: AppData = {
   currentUser: processedUsersData.currentUser,
   posts: processedPostsData,
@@ -76,7 +77,7 @@ export const mockData: AppData = {
 } as AppData;
 
 export { default as responsesData } from './responses.json';
-export { usersData } from './processedUsers';
+export { usersData, getUserById, resolveAuthor } from './processedUsers';
 export { default as scenariosData } from './scenarios.json';
 export { processedGroupsData as groupsData };
 

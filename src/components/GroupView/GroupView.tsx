@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2, ShieldAlert, ChevronDown, ChevronUp } from 'lucide-react';
 import styles from './GroupView.module.css';
 import type { Group, User, Comment, AppAction, LikedPosts } from '../../types';
 import { scheduleGroupPostCommentResponse } from '../../store/responseEngine';
-import { usersData } from '../../mockData';
+import { usersData, resolveAuthor } from '../../mockData';
 
 interface GroupViewProps {
   group: Group;
@@ -359,6 +359,9 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
   onPostCreated,
   isBanned,
 }) => {
+  // Resolve author data: currentUser takes priority, then usersData, then embedded
+  const author = post.author.id === currentUser.id ? currentUser : resolveAuthor(post.author);
+
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
@@ -449,15 +452,15 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
     <div className={`${styles.groupPost} ${isModerated ? styles.moderatedCard : ''}`} data-post-id={post.id}>
       <div className={styles.gpHeader}>
         <img
-          src={post.author.avatarUrl}
-          alt={post.author.name}
+          src={author.avatarUrl}
+          alt={author.name}
           className={styles.gpAvatar}
-          onClick={() => onViewProfile && onViewProfile(post.author.id)}
+          onClick={() => onViewProfile && onViewProfile(author.id)}
           style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
         />
         <div>
           <div className={styles.gpAuthor}>
-            {post.author.name}
+            {author.name}
             {isModerated && <span className={styles.moderatedBadge}>Zmoderowano</span>}
           </div>
           <div className={styles.gpTime}>{formatTime(post.timestamp)}</div>
@@ -553,21 +556,24 @@ const GroupPostCard: React.FC<GroupPostCardProps> = ({
       {/* Comments */}
       {post.comments.length > 0 && (
         <div className={styles.gpComments}>
-          {post.comments.map(c => (
+          {post.comments.map(c => {
+            const commentAuthor = c.author.id === currentUser.id ? currentUser : resolveAuthor(c.author);
+            return (
             <div key={c.id} className={styles.gpComment}>
               <img
-                src={c.author.avatarUrl}
-                alt={c.author.name}
+                src={commentAuthor.avatarUrl}
+                alt={commentAuthor.name}
                 className={styles.gpCommentAvatar}
-                onClick={() => onViewProfile && onViewProfile(c.author.id)}
+                onClick={() => onViewProfile && onViewProfile(commentAuthor.id)}
                 style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
               />
               <div className={styles.gpCommentBubble}>
-                <div className={styles.gpCommentAuthor}>{c.author.name}</div>
+                <div className={styles.gpCommentAuthor}>{commentAuthor.name}</div>
                 <div className={styles.gpCommentText}>{c.text}</div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

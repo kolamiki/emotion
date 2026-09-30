@@ -1,4 +1,4 @@
-import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis, Group, User, MessageThread } from '../types';
+﻿import type { AppAction, ResponseOption, PostCommentResponseOption, Message, Comment, Sentiment, Topic, ContextAnalysis, Group, User, MessageThread } from '../types';
 import { hasAIPersonality, getAIPersonality, fetchAIResponse, fetchAIPostComment } from '../services/aiChatService';
 import { responsesData, usersData, groupsData } from '../mockData';
 
@@ -412,11 +412,11 @@ interface ProfanityConfig {
 }
 
 const profanityConfigs: Record<string, ProfanityConfig> = {
-  'u2': { // Anna - wrażliwa, blokuje szybko
+  'u2': { // Anna - sensitive, blocks quickly
     maxStrikes: 3,
     farewellMessage: 'Nie... są pewne granice poziomu rozmowy. A ty zniżyłeś się tak bardzo, że szorując po dnie, wykopałeś sobie dół, w którym chyba tylko sam ze sobą będziesz czuł się dobrze. Do widzenia.',
     apologyMessage: 'Hej, sorry za ostatnią wiadomość. Trochę mnie poniosło. Kiepski dzień itp... Mam nadzieję, że mi wybaczysz 🥺',
-    cooldownMs: 604_800_000, // tydzień spokoju na odpowiedź
+    cooldownMs: 604_800_000, // one week cooldown
   },
   'u4': { // Kasia - blokuje po 4
     maxStrikes: 4,
@@ -424,7 +424,7 @@ const profanityConfigs: Record<string, ProfanityConfig> = {
     apologyMessage: 'Hej... przepraszam, że się odcięłam. Miałam ciężki tydzień i chyba zareagowałam zbyt ostro. Mam nadzieję, że nie masz żalu 💛',
     cooldownMs: 30_000, // 30s demo (symuluje "kilka dni")
   },
-  'u3': { // Piotr - wytrzymały, ale też ma granicę
+  'u3': { // Piotr - resilient, but has his limits
     maxStrikes: 6,
     farewellMessage: 'Dobra, starczy. Mam wystarczająco własnych problemów, żeby jeszcze słuchać takich rzeczy. Nara.',
     apologyMessage: 'Ej, słuchaj, sorry za tamto. Byłem trochę naburmuszony. Piwo na zgodę? 🍺',
@@ -1796,7 +1796,7 @@ function selectDiverseCommenters(
     // Szukam pracy: Piotr, Anna, Kasia, Gaston
     aiUsers.sort((a, b) => (a.id === 'u3' ? -1 : b.id === 'u3' ? 1 : 0));
   } else if (groupId === 'g3') {
-    // Kupię, sprzedam, zamienię: Kasia, Anna, Piotr
+    // Buy, sell, trade: Kasia, Anna, Piotr
     aiUsers.sort((a, b) => (a.id === 'u4' ? -1 : b.id === 'u4' ? 1 : 0));
   } else if (groupId === 'g4') {
     // Mat-Fiz LO: Anne, Céline, Pierre, Jean

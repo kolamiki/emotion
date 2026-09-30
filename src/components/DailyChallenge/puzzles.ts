@@ -1,4 +1,4 @@
-export type PuzzleType =
+﻿export type PuzzleType =
   | 'sudoku'
   | 'crossword'
   | 'wordsearch'
@@ -267,7 +267,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
     title: 'Rebus',
     description: 'Odgadnij 5 rebusów jak najszybciej. Podpowiedź dodaje 20s kary, pominięcie 90s.',
     items: [
-      // === PRZYSŁOWIA ===
+      // === PROVERBS ===
       { id: 101, category: 'Przysłowia', emojis: ['⏰', '💸'], answer: 'Czas to pieniądz', hint: 'Gdy każda minuta jest cenna.' },
       { id: 102, category: 'Przysłowia', emojis: ['🍎', '❌', '➡️', '🌳'], answer: 'Niedaleko pada jabłko od jabłoni', hint: 'Dzieci są podobne do rodziców.' },
       { id: 103, category: 'Przysłowia', emojis: ['🌧️', '🏠', '☀️', '🏠'], answer: 'Wszędzie dobrze ale w domu najlepiej', hint: 'Powrót jest zawsze najprzyjemniejszy.' },
@@ -279,7 +279,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       { id: 109, category: 'Przysłowia', emojis: ['🐦', '✋', '🦅', '🏠'], answer: 'Lepszy wróbel w garści niż gołąb na dachu', hint: 'Pewne, małe zyski są lepsze niż niepewne obietnice.' },
       { id: 110, category: 'Przysłowia', emojis: ['😴', '🛏️', '☀️', '🛌'], answer: 'Kto rano wstaje temu Pan Bóg daje', hint: 'Wczesne wstawanie przynosi korzyści.' },
 
-      // === TYTUŁY FILMÓW ===
+      // === MOVIE TITLES ===
       { id: 201, category: 'Tytuły filmów', emojis: ['🦁', '👑'], answer: 'Król Lew', hint: 'Klasyk Disneya o Simbie.' },
       { id: 202, category: 'Tytuły filmów', emojis: ['🚢', '🧊', '💔'], answer: 'Titanic', hint: 'Katastrofa wielkiego liniowca.' },
       { id: 203, category: 'Tytuły filmów', emojis: ['💍', '🧙‍♂️', '🌋'], answer: 'Władca Pierścieni', hint: 'Wyprawa do Mordoru.' },
@@ -291,7 +291,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       { id: 209, category: 'Tytuły filmów', emojis: ['🦇', '🦸‍♂️', '🌃'], answer: 'Mroczny Rycerz', hint: 'Batman kontra Joker w Gotham.' },
       { id: 210, category: 'Tytuły filmów', emojis: ['👽', '🚲', '🌕'], answer: 'E.T.', hint: 'Kosmita chce zadzwonić do domu.' },
 
-      // === BOHATEROWIE KOMIKSOWI ===
+      // === COMIC BOOK HEROES ===
       { id: 301, category: 'Bohaterowie komiksowi', emojis: ['⚡', '🔨', '🌩️'], answer: 'Thor', hint: 'Nordycki bóg piorunów z Avengers.' },
       { id: 302, category: 'Bohaterowie komiksowi', emojis: ['🛡️', '⭐', '🇺🇸'], answer: 'Kapitan Ameryka', hint: 'Pierwszy Avenger z tarczą z vibranium.' },
       { id: 303, category: 'Bohaterowie komiksowi', emojis: ['🤖', '❤️', '🚀'], answer: 'Iron Man', hint: 'Tony Stark w pancerzu.' },
@@ -303,7 +303,7 @@ export const dailyPuzzles: Record<number, PuzzleCollection> = {
       { id: 309, category: 'Bohaterowie komiksowi', emojis: ['🃏', '🤡', '🃏'], answer: 'Joker', hint: 'Książę Zbrodni i wróg Batmana.' },
       { id: 310, category: 'Bohaterowie komiksowi', emojis: ['🦝', '🔫', '🚀'], answer: 'Rocket Raccoon', hint: 'Kosmiczny szop ze Strażników Galaktyki.' },
 
-      // === KRAJE ŚWIATA ===
+      // === COUNTRIES OF THE WORLD ===
       { id: 401, category: 'Kraje świata', emojis: ['🍕', '👢', '🏛️'], answer: 'Włochy', hint: 'Kraj w kształcie buta, stolica Rzym.' },
       { id: 402, category: 'Kraje świata', emojis: ['🗼', '🥖', '🥐'], answer: 'Francja', hint: 'Kraj z Wieżą Eiffla i stolicą w Paryżu.' },
       { id: 403, category: 'Kraje świata', emojis: ['🍣', '🗾', '🗻'], answer: 'Japonia', hint: 'Kraj Kwitnącej Wiśni z górą Fudżi.' },

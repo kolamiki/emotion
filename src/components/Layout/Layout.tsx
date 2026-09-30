@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+﻿import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Layout.module.css';
 import { TopBar } from '../TopBar/TopBar';
 import { LeftSidebar } from '../LeftSidebar/LeftSidebar';
@@ -375,7 +375,7 @@ export const Layout: React.FC = () => {
           scenarioManagerRef.current.runScenario('sc_matylda_friendly_request');
         }
       } else {
-        // Domyślny timer dla innych użytkowników
+        // Default timer for other users
         const timer = setTimeout(() => {
           pendingFriendTimersRef.current.delete(userId);
           dispatch({ type: 'ACCEPT_FRIEND', userId });

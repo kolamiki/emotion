@@ -1,4 +1,4 @@
-export interface User {
+﻿export interface User {
   id: string;
   name: string;
   firstName?: string;
@@ -121,7 +121,7 @@ export interface ContextAnalysis {
 
 /** User IDs that cannot be added as friends */
 export const BLOCKED_FRIEND_IDS: ReadonlySet<string> = new Set([
-  'u13',            // Anonimowy użytkownik
+  'u13',            // Anonymous user
   'u14',            // Nicolas de La Hire
   'u_behrmann',     // Helmut Behrmann
   'u_gaston',       // Gaston De Sole

@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { Heart, MessageCircle, Share2, Send, Loader2, ShieldAlert } from 'lucide-react';
 import styles from './Feed.module.css';
 import type { Post, User, Comment, AppAction, LikedPosts } from '../../types';
 import { schedulePostCommentResponse } from '../../store/responseEngine';
 import { ShareModal } from '../ShareModal/ShareModal';
+import { resolveAuthor } from '../../mockData';
 
 interface FeedProps {
   posts: Post[];
@@ -151,6 +152,9 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatch, matyldaLikesActive, onViewProfile, isBanned, onShare }) => {
+  // Resolve author data: currentUser takes priority (always fresh), then usersData, then embedded
+  const author = post.author.id === currentUser.id ? currentUser : resolveAuthor(post.author);
+
   const [popping, setPopping] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -219,8 +223,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
 
   // Fake "like avatars" - use first commenters + author as likers
   let likeAvatarsData = [
-    { url: post.author.avatarUrl, id: post.author.id },
-    ...post.comments.slice(0, 2).map(c => ({ url: c.author.avatarUrl, id: c.author.id })),
+    { url: author.avatarUrl, id: author.id },
+    ...post.comments.slice(0, 2).map(c => { const ca = resolveAuthor(c.author); return { url: ca.avatarUrl, id: ca.id }; }),
   ].slice(0, 3);
 
   let displayLikes = post.likes;
@@ -241,17 +245,17 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
       <div className={styles.postHeader}>
         <div className={styles.avatarWrap}>
           <img
-            src={post.author.id === currentUser.id ? currentUser.avatarUrl : post.author.avatarUrl}
-            alt={post.author.id === currentUser.id ? currentUser.name : post.author.name}
+            src={author.avatarUrl}
+            alt={author.name}
             className={styles.postAvatar}
-            onClick={() => onViewProfile && onViewProfile(post.author.id)}
+            onClick={() => onViewProfile && onViewProfile(author.id)}
             style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
           />
           {post.author.isOnline && <div className={styles.avatarOnline} />}
         </div>
         <div className={styles.postMeta}>
           <div className={styles.postAuthor}>
-            {post.author.id === currentUser.id ? currentUser.name : post.author.name}
+            {author.name}
             {isModerated && <span className={styles.moderatedBadge}>Zmoderowano</span>}
           </div>
           <div className={styles.postTime}>{formatTime(post.timestamp)}</div>
@@ -369,26 +373,30 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser, isLiked, dispatc
               Zobacz {post.comments.length - 2} więcej komentarzy...
             </div>
           )}
-          {visibleComments.map((comment: Comment) => (
+          {visibleComments.map((comment: Comment) => {
+            const commentAuthor = comment.author.id === currentUser.id ? currentUser : resolveAuthor(comment.author);
+            return (
             <div key={comment.id} className={styles.commentItem}>
               <img
-                src={comment.author.id === currentUser.id ? currentUser.avatarUrl : comment.author.avatarUrl}
-                alt={comment.author.id === currentUser.id ? currentUser.name : comment.author.name}
+                src={commentAuthor.avatarUrl}
+                alt={commentAuthor.name}
                 className={styles.commentAvatar}
-                onClick={() => onViewProfile && onViewProfile(comment.author.id)}
+                onClick={() => onViewProfile && onViewProfile(commentAuthor.id)}
                 style={{ cursor: onViewProfile ? 'pointer' : 'default' }}
               />
               <div>
                 <div className={styles.commentBubble}>
                   <div className={styles.commentAuthor}>
-                    {comment.author.id === currentUser.id ? currentUser.name : comment.author.name}
+                    {commentAuthor.name}
                   </div>
                   <div className={styles.commentText}>{comment.text}</div>
                 </div>
                 <div className={styles.commentTime}>{formatTime(comment.timestamp)}</div>
               </div>
             </div>
-          ))}
+            );
+          })}
+
         </div>
       )}
 
