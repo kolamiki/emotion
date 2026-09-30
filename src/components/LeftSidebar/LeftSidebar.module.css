@@ -86,7 +86,7 @@
 
 /* === Quest Tracker Card / Button === */
 .questSection {
-  background: #ffffff;
+  background: var(--bg-panel);
   border: 1px solid rgba(108, 43, 217, 0.2);
   border-radius: var(--radius-lg);
   box-shadow: 0 2px 8px rgba(108, 43, 217, 0.04);
@@ -124,8 +124,8 @@
 
 @keyframes compassIconGlow {
   0%, 100% {
-    background: #f5f3ff;
-    border-color: #ede9fe;
+    background: var(--primary-lighter);
+    border-color: rgba(108, 43, 217, 0.15);
   }
   50% {
     background: #7c3aed;
@@ -164,17 +164,17 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: #f5f3ff;
-  border: 1px solid #ede9fe;
+  background: var(--primary-lighter);
+  border: 1px solid rgba(108, 43, 217, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6c2bd9;
+  color: var(--primary);
   flex-shrink: 0;
 }
 
 .questCompassIcon {
-  color: #6c2bd9;
+  color: var(--primary);
 }
 
 .questTrackerText {
@@ -199,11 +199,11 @@
 .questTrackerProgressBadge {
   font-size: 0.72rem;
   font-weight: 700;
-  color: #6c2bd9;
-  background: #f5f3ff;
+  color: var(--primary);
+  background: var(--primary-lighter);
   padding: 1px 7px;
   border-radius: 999px;
-  border: 1px solid #ede9fe;
+  border: 1px solid rgba(108, 43, 217, 0.15);
 }
 
 .questTrackerDesc {
@@ -395,3 +395,78 @@
     gap: 14px;
   }
 }
+
+/* === Theme Toggle === */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-panel);
+  border: var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: box-shadow 0.15s, background 0.15s;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+}
+
+.themeToggle:hover {
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+}
+
+.themeToggleIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--gray-100);
+  color: var(--primary);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.themeToggleLabel {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+/* Pill switch */
+.themeTogglePill {
+  position: relative;
+  width: 34px;
+  height: 19px;
+  background: var(--gray-300);
+  border-radius: 999px;
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+
+.themeTogglePillDark {
+  background: var(--primary);
+}
+
+.themeToggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.themeTogglePillDark .themeToggleThumb {
+  transform: translateX(15px);
+}
+

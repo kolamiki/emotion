@@ -180,29 +180,30 @@
 }
 
 .cell:hover {
-  background: rgba(108, 43, 217, 0.06);
+  background: linear-gradient(rgba(124, 58, 237, 0.14), rgba(124, 58, 237, 0.14)), var(--bg-panel);
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1.5px var(--primary-light, #8b5cf6);
+  z-index: 2;
 }
 
 .cellHouse {
   cursor: pointer;
-  background: rgba(108, 43, 217, 0.04);
+  background: linear-gradient(rgba(108, 43, 217, 0.06), rgba(108, 43, 217, 0.06)), var(--bg-panel);
 }
 
 .cellHouse:hover {
-  background: rgba(108, 43, 217, 0.1);
+  background: linear-gradient(rgba(124, 58, 237, 0.20), rgba(124, 58, 237, 0.20)), var(--bg-panel);
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1.5px var(--primary);
+  z-index: 2;
 }
 
 /* House currently being linked */
 .cellLinking {
-  background: rgba(108, 43, 217, 0.15) !important;
-  box-shadow: 0 0 0 2px var(--primary), 0 0 12px rgba(108, 43, 217, 0.3);
-  animation: linkPulse 1.2s ease-in-out infinite;
-  z-index: 2;
-}
-
-@keyframes linkPulse {
-  0%, 100% { box-shadow: 0 0 0 2px var(--primary), 0 0 8px rgba(108, 43, 217, 0.2); }
-  50% { box-shadow: 0 0 0 3px var(--primary), 0 0 16px rgba(108, 43, 217, 0.4); }
+  background: linear-gradient(rgba(108, 43, 217, 0.22), rgba(108, 43, 217, 0.22)), var(--bg-panel) !important;
+  border-color: var(--primary) !important;
+  box-shadow: inset 0 0 0 2px var(--primary) !important;
+  z-index: 3;
 }
 
 /* House that already has a connection */
@@ -212,17 +213,29 @@
 
 /* Bomb that can be connected to the linking house */
 .cellConnectable {
-  box-shadow: inset 0 0 0 2px rgba(16, 185, 129, 0.5);
-  background: rgba(16, 185, 129, 0.1) !important;
+  border-color: var(--success) !important;
+  box-shadow: inset 0 0 0 2px var(--success) !important;
+  background: linear-gradient(rgba(16, 185, 129, 0.16), rgba(16, 185, 129, 0.16)), var(--bg-panel) !important;
   cursor: pointer;
+  z-index: 2;
 }
 
 .cellTank {
-  background: rgba(108, 43, 217, 0.12);
+  background: var(--tank-cell-bg);
+  border-color: var(--tank-cell-border);
+  box-shadow: inset 0 0 0 1px var(--tank-cell-border);
+}
+
+.cellTank:hover {
+  background: var(--tank-cell-bg-hover);
+  border-color: var(--primary-light, #a78bfa);
+  box-shadow: inset 0 0 0 1.5px var(--primary-light, #a78bfa);
+  z-index: 2;
 }
 
 .cellTankError {
-  background: rgba(255, 107, 107, 0.15);
+  background: rgba(255, 107, 107, 0.18);
+  border-color: var(--accent);
 }
 
 .cellTankError .tankIcon {
@@ -230,12 +243,19 @@
 }
 
 .cellMark {
-  background: rgba(239, 68, 68, 0.06);
+  background: linear-gradient(rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.08)), var(--bg-panel);
+}
+
+.cellMark:hover {
+  background: linear-gradient(rgba(239, 68, 68, 0.16), rgba(239, 68, 68, 0.16)), var(--bg-panel);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  z-index: 2;
 }
 
 /* === Mark (X) icon === */
 .markIcon {
-  color: rgba(239, 68, 68, 0.55);
+  color: rgba(239, 68, 68, 0.65);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,20 +267,24 @@
 .houseIcon {
   font-size: calc(var(--cell-size) * 0.64);
   line-height: 1;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* === Tank icon === */
+/* === Tank icon (Bomb) === */
 .tankIcon {
-  font-size: calc(var(--cell-size) * 0.6);
-  color: var(--primary);
-  animation: tankAppear 0.25s ease-out;
+  font-size: calc(var(--cell-size) * 0.66);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.15s ease;
+  user-select: none;
+}
+
+.cellTank:hover .tankIcon {
+  transform: scale(1.1);
 }
 
 @keyframes tankAppear {

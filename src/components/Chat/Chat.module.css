@@ -115,10 +115,10 @@
 }
 
 .bubble {
-  padding: 8px 14px;
-  border-radius: 18px;
-  font-size: 0.9rem;
-  line-height: 1.45;
+  padding: 7px 12px;
+  border-radius: 16px;
+  font-size: 0.82rem;
+  line-height: 1.42;
   word-break: break-word;
   overflow-wrap: anywhere;
   box-sizing: border-box;
@@ -152,7 +152,7 @@
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  padding: 10px 12px;
+  padding: 8px 12px;
   border-top: var(--border-light);
   background: var(--bg-panel);
   box-sizing: border-box;
@@ -161,18 +161,20 @@
 
 .chatInput {
   flex: 1;
-  padding: 8px 14px;
+  padding: 8px 13px;
   border: var(--border-light);
   border-radius: 18px;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 0.8rem;
   line-height: 1.4;
   outline: none;
   background: var(--gray-50);
+  color: var(--text-primary);
+  caret-color: var(--primary);
   transition: border-color 0.15s, box-shadow 0.15s;
   box-sizing: border-box;
   resize: none;
-  min-height: 38px;
+  min-height: 35px;
   max-height: 120px;
   overflow-y: auto;
   display: block;
@@ -308,6 +310,7 @@
     padding-bottom: max(10px, env(safe-area-inset-bottom));
   }
   .chatInput {
-    font-size: 16px;
+    font-size: 0.8rem;
+    padding: 8px 13px;
   }
 }

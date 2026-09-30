@@ -4,7 +4,7 @@ import { useAppStore } from './store/appStore';
 import { Layout } from './components/Layout/Layout';
 import { WelcomeScreen } from './components/WelcomeScreen/WelcomeScreen';
 
-export const APP_VERSION = '1.0';
+export const APP_VERSION = '1.1';
 
 function AppContent() {
   const [isOnboarded, setIsOnboarded] = useState(

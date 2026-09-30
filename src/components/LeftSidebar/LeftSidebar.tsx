@@ -14,10 +14,14 @@ import {
   Compass,
   BookOpen,
   Eye,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import styles from './LeftSidebar.module.css';
 import type { User, Group, ActiveView } from '../../types';
 import { useDailyChallengeState } from '../../hooks/useDailyChallengeState';
+import { useTheme } from '../../hooks/useTheme';
+import { APP_VERSION } from '../../App';
 
 interface LeftSidebarProps {
   currentUser: User;
@@ -69,6 +73,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   hasQuestAttention = false,
 }) => {
   const { levelInfo } = useDailyChallengeState();
+  const { theme, toggleTheme, isDark } = useTheme();
 
   const handleGroupClick = (groupId: string) => {
     if (isBanned) {
@@ -231,13 +236,31 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           })}
       </div>
 
+      {/* Theme Toggle */}
+      <button
+        className={styles.themeToggle}
+        onClick={toggleTheme}
+        title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        <span className={styles.themeToggleIcon}>
+          {isDark ? <Sun size={15} /> : <Moon size={15} />}
+        </span>
+        <span className={styles.themeToggleLabel}>
+          {isDark ? 'Tryb jasny' : 'Tryb ciemny'}
+        </span>
+        <span className={`${styles.themeTogglePill} ${isDark ? styles.themeTogglePillDark : ''}`}>
+          <span className={styles.themeToggleThumb} />
+        </span>
+      </button>
+
       {/* Fictional Disclaimer */}
       <footer className={styles.legalDisclaimer}>
         <p className={styles.disclaimerText}>
           Strona oraz prezentowane na niej postacie i wydarzenia są dziełem fikcji, stworzonym przez wielokulturowy zespół wyznający różne wierzenia i religie. Wszelkie podobieństwa do realnych osób, podmiotów lub zdarzeń są całkowicie przypadkowe.
         </p>
         <div className={styles.disclaimerMeta}>
-          <span>eMotion v1.0 © 2026</span>
+          <span>eMotion v{APP_VERSION} © 2026</span>
           <span>Fikcja artystyczna</span>
         </div>
       </footer>

@@ -18,6 +18,9 @@
   --warning: #F59E0B;
   --warning-light: #FEF3C7;
   --info: #3B82F6;
+  --tank-cell-bg: #ede9fe;
+  --tank-cell-bg-hover: #ddd6fe;
+  --tank-cell-border: rgba(108, 43, 217, 0.25);
 
   /* === Neutral Palette === */
   --gray-50: #F9FAFB;
@@ -70,6 +73,44 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* === Dark Mode === */
+[data-theme="dark"] {
+  --gray-50:  #1E2028;
+  --gray-100: #252830;
+  --gray-200: #2E3140;
+  --gray-300: #3D4158;
+  --gray-400: #5A5F7A;
+  --gray-500: #7B8099;
+  --gray-600: #9CA3AF;
+  --gray-700: #C9D0E0;
+  --gray-800: #E2E8F0;
+  --gray-900: #F1F5F9;
+
+  --bg-page:       #13151C;
+  --bg-panel:      #1A1D27;
+  --text-primary:  #EDF0F7;
+  --text-secondary:#9CA3C4;
+  --text-muted:    #6B7099;
+
+  --border-light:  1px solid rgba(255,255,255,0.07);
+  --shadow-xs:     0 1px 2px rgba(0,0,0,0.4);
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md:     0 4px 6px -1px rgba(0,0,0,0.5), 0 2px 4px -1px rgba(0,0,0,0.3);
+  --shadow-lg:     0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3);
+  --shadow-xl:     0 20px 25px -5px rgba(0,0,0,0.6), 0 10px 10px -5px rgba(0,0,0,0.3);
+
+  --primary-lighter: rgba(108, 43, 217, 0.18);
+  --accent-light:    rgba(255, 107, 107, 0.15);
+  --success-light:   rgba(16, 185, 129, 0.12);
+  --warning-light:   rgba(245, 158, 11, 0.12);
+
+  /* Bomb/Tank cell in dark mode: lighter, clearly distinguished shade of purple */
+  --tank-cell-bg:       #6343ab;
+  --tank-cell-bg-hover: #7350c2;
+  --tank-cell-border:   #a78bfa;
+}
+
+
 /* === Reset === */
 *,
 *::before,
@@ -111,6 +152,13 @@ img {
 
 textarea {
   resize: none;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  color: var(--text-primary);
 }
 
 /* === Scrollbar === */

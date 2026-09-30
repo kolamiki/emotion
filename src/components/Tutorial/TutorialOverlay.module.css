@@ -53,7 +53,7 @@
 .tourCard {
   position: fixed;
   z-index: 10002;
-  background: #ffffff;
+  background: var(--bg-panel);
   border-radius: 18px;
   border: 1px solid rgba(139, 92, 246, 0.28);
   box-shadow: 
@@ -61,7 +61,7 @@
     0 0 0 1px rgba(0, 0, 0, 0.06),
     0 8px 24px -4px rgba(139, 92, 246, 0.2);
   padding: 22px;
-  color: #0f172a;
+  color: var(--text-primary);
   box-sizing: border-box;
   animation: cardPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transition: top 0.32s cubic-bezier(0.16, 1, 0.3, 1),
@@ -105,27 +105,27 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #6c2bd9;
-  background: #f5f3ff;
-  border: 1px solid #ede9fe;
+  color: var(--primary);
+  background: var(--primary-lighter);
+  border: 1px solid rgba(108, 43, 217, 0.2);
   padding: 3px 8px;
   border-radius: 999px;
 }
 
 .stepBadgeIcon {
-  color: #6c2bd9;
+  color: var(--primary);
 }
 
 .stepNumberText {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .closeBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 4px;
   border-radius: 6px;
@@ -136,8 +136,8 @@
 }
 
 .closeBtn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--gray-100);
+  color: var(--text-primary);
 }
 
 /* Body */
@@ -157,19 +157,19 @@
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: #f5f3ff;
-  border: 1px solid #ede9fe;
+  background: var(--primary-lighter);
+  border: 1px solid rgba(108, 43, 217, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6c2bd9;
+  color: var(--primary);
   flex-shrink: 0;
 }
 
 .stepTitle {
   font-size: 1.08rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-primary);
   margin: 0;
   line-height: 1.3;
 }
@@ -177,7 +177,7 @@
 .stepDesc {
   font-size: 0.88rem;
   line-height: 1.55;
-  color: #475569;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -188,7 +188,7 @@
   justify-content: space-between;
   gap: 12px;
   padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--gray-200);
   box-sizing: border-box;
 }
 
@@ -211,14 +211,14 @@
   height: 8px;
   border-radius: 999px;
   border: none;
-  background: #cbd5e1;
+  background: var(--gray-300);
   padding: 0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .dot:hover {
-  background: #94a3b8;
+  background: var(--gray-400);
 }
 
 .dotActive {
@@ -237,7 +237,7 @@
 .skipBtn {
   background: transparent;
   border: none;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
@@ -249,17 +249,17 @@
 }
 
 .skipBtn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--gray-100);
+  color: var(--text-primary);
 }
 
 .prevBtn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  color: #475569;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  color: var(--text-secondary);
   font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
@@ -271,9 +271,9 @@
 }
 
 .prevBtn:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-  color: #0f172a;
+  background: var(--gray-200);
+  border-color: var(--gray-300);
+  color: var(--text-primary);
 }
 
 .nextBtn {

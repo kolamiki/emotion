@@ -144,21 +144,21 @@
 }
 
 .tier_bronze {
-  background: #fef3c7;
+  background: var(--warning-light);
   color: #92400e;
-  border: 1px solid #fde68a;
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .tier_silver {
-  background: #f1f5f9;
-  color: #334155;
-  border: 1px solid #cbd5e1;
+  background: var(--gray-100);
+  color: var(--text-secondary);
+  border: 1px solid var(--gray-200);
 }
 
 .tier_gold {
-  background: #fffbeb;
+  background: var(--warning-light);
   color: #b45309;
-  border: 1px solid #fde68a;
+  border: 1px solid rgba(245, 158, 11, 0.3);
   box-shadow: 0 1px 4px rgba(245, 158, 11, 0.15);
 }
 
@@ -254,7 +254,7 @@
 }
 
 .mutualItem:hover {
-  background: #ffffff;
+  background: var(--bg-panel);
   border-color: rgba(108, 43, 217, 0.35);
   transform: translateY(-1px);
   box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.06);
@@ -319,7 +319,7 @@
 }
 
 .latestPostCard {
-  background: #ffffff;
+  background: var(--bg-panel);
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-lg);
   padding: 12px 14px 10px;
@@ -328,7 +328,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* Premium bottom shadow without AI-like left border */
   box-shadow:
     0 4px 12px -2px rgba(0, 0, 0, 0.06),
     0 2px 4px -1px rgba(0, 0, 0, 0.03);
@@ -499,9 +498,9 @@
 }
 
 .actionBtnDanger {
-  background: #fee2e2;
+  background: var(--accent-light);
   color: #ef4444;
-  border: 1px solid #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .actionBtnDanger:hover {
@@ -531,9 +530,9 @@
 }
 
 .actionBtnPending:hover {
-  background: #fee2e2;
+  background: var(--accent-light);
   color: #ef4444;
-  border-color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 .actionBtnPending:hover .pendingIconDefault,
