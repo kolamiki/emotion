@@ -470,3 +470,14 @@
   transform: translateX(15px);
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    padding: 0;
+    margin: 0;
+    gap: 12px;
+  }
+}
+

@@ -37,6 +37,10 @@
   /* === Surface Colors === */
   --bg-page: #F3F4F6;
   --bg-panel: #FFFFFF;
+  --bg-mobile-sidebar: #E5E7EB;
+  --bg-chat-minimized: linear-gradient(180deg, #FFFFFF 0%, #F5F7FB 100%);
+  --border-chat-minimized: 1px solid rgba(124, 58, 237, 0.25);
+  --shadow-chat-minimized: 0 -4px 14px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(124, 58, 237, 0.12);
   --text-primary: #111827;
   --text-secondary: #6B7280;
   --text-muted: #9CA3AF;
@@ -88,6 +92,10 @@
 
   --bg-page:       #13151C;
   --bg-panel:      #1A1D27;
+  --bg-mobile-sidebar: #0B0D13;
+  --bg-chat-minimized: linear-gradient(180deg, #272C3E 0%, #1E2232 100%);
+  --border-chat-minimized: 1px solid rgba(139, 92, 246, 0.35);
+  --shadow-chat-minimized: 0 -4px 18px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
   --text-primary:  #EDF0F7;
   --text-secondary:#9CA3C4;
   --text-muted:    #6B7099;

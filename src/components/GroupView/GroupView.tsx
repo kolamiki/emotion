@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowLeft, Users, Heart, MessageCircle, Clock, Shield, Send, PenLine, Lock, Loader2, ShieldAlert, ChevronDown, ChevronUp } from 'lucide-react';
 import styles from './GroupView.module.css';
 import type { Group, User, Comment, AppAction, LikedPosts } from '../../types';
@@ -61,7 +61,12 @@ export const GroupView: React.FC<GroupViewProps> = ({
 
   useEffect(() => {
     setIsMembersExpanded(false);
-  }, [group.id]);
+    if (!highlightedPostId) {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [group.id, highlightedPostId]);
 
   const visibleMembers = isMembersExpanded ? group.members : group.members.slice(0, 4);
 

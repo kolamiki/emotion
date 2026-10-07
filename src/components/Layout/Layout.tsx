@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Layout.module.css';
 import { TopBar } from '../TopBar/TopBar';
 import { LeftSidebar } from '../LeftSidebar/LeftSidebar';
@@ -26,6 +26,7 @@ export const Layout: React.FC = () => {
   const { levelInfo } = useDailyChallengeState();
   const { questState, toasts, dismissToast } = useQuestSystem(state);
   const [activeChats, setActiveChats] = useState<string[]>([]);
+  const [minimizedChatIds, setMinimizedChatIds] = useState<Set<string>>(new Set());
   const [activeView, setActiveView] = useState<ActiveView>({ type: 'feed' });
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [viewedUserId, setViewedUserId] = useState<string | null>(null);
@@ -113,7 +114,7 @@ export const Layout: React.FC = () => {
         if (!seenMessageIdsRef.current.has(msg.id)) {
           seenMessageIdsRef.current.add(msg.id);
           if (msg.senderId !== state.currentUser.id) {
-            handleOpenChat(thread.threadId);
+            handleOpenChat(thread.threadId, false);
           }
         }
       });
@@ -138,37 +139,135 @@ export const Layout: React.FC = () => {
     }
   }, [state.isBanned, levelInfo.level, dispatch]);
 
-  // Manage max active chats based on window size
+  // Maximum number of minimized chat tabs allowed simultaneously
+  const MAX_MINIMIZED_CHATS = 3;
+
+  // Manage max expanded chats based on window size (minimized chats can remain collapsed up to 3)
   useEffect(() => {
     const handleResize = () => {
-      const maxChats = window.innerWidth <= 768 ? 1 : 2;
+      const maxExpanded = window.innerWidth <= 768 ? 1 : 2;
       setActiveChats(prev => {
-        if (prev.length > maxChats) {
-          return prev.slice(0, maxChats);
+        const expanded = prev.filter(id => !minimizedChatIds.has(id));
+        if (expanded.length > maxExpanded) {
+          const toMinimize = expanded.slice(maxExpanded);
+          setMinimizedChatIds(m => {
+            const currentList = Array.from(m).filter(id => !toMinimize.includes(id));
+            const updatedList = [...toMinimize, ...currentList];
+            const kept = updatedList.slice(0, MAX_MINIMIZED_CHATS);
+            const evicted = updatedList.slice(MAX_MINIMIZED_CHATS);
+            if (evicted.length > 0) {
+              setActiveChats(chats => chats.filter(id => !evicted.includes(id)));
+            }
+            return new Set(kept);
+          });
         }
         return prev;
       });
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial check
-
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [minimizedChatIds]);
 
-  const handleOpenChat = (threadId: string) => {
+  const handleOpenChat = (threadId: string, fromUserClick = true) => {
     setActiveChats(prev => {
-      const maxChats = window.innerWidth <= 768 ? 1 : 2;
       const withoutNew = prev.filter(id => id !== threadId);
-      // Place newest chat at index 0 so it is always first/most prominent
-      const next = [threadId, ...withoutNew];
-      return next.slice(0, maxChats);
+      return [threadId, ...withoutNew].slice(0, 5); // Max 2 expanded + max 3 minimized = 5 total
     });
+
+    const maxExpanded = window.innerWidth <= 768 ? 1 : 2;
+
+    if (fromUserClick) {
+      // User explicitly clicked contact: expand it
+      setMinimizedChatIds(prevMinimized => {
+        const nextMinimized = new Set(prevMinimized);
+        nextMinimized.delete(threadId);
+
+        const otherExpanded = activeChats.filter(id => id !== threadId && !prevMinimized.has(id));
+        if (otherExpanded.length >= maxExpanded) {
+          const toMinimize = otherExpanded[otherExpanded.length - 1];
+          const currentList = Array.from(nextMinimized).filter(id => id !== toMinimize);
+          const updatedList = [toMinimize, ...currentList];
+          const kept = updatedList.slice(0, MAX_MINIMIZED_CHATS);
+          const evicted = updatedList.slice(MAX_MINIMIZED_CHATS);
+          if (evicted.length > 0) {
+            setActiveChats(chats => chats.filter(id => !evicted.includes(id)));
+          }
+          return new Set(kept);
+        }
+        return nextMinimized;
+      });
+
+      dispatch({ type: 'MARK_THREAD_READ', threadId });
+    } else {
+      // Auto-incoming message:
+      // If already minimized, keep it minimized so it blinks!
+      setMinimizedChatIds(prevMinimized => {
+        if (prevMinimized.has(threadId)) return prevMinimized;
+        const otherExpanded = activeChats.filter(id => id !== threadId && !prevMinimized.has(id));
+        if (otherExpanded.length >= maxExpanded) {
+          const toMinimize = otherExpanded[otherExpanded.length - 1];
+          const currentList = Array.from(prevMinimized).filter(id => id !== toMinimize);
+          const updatedList = [toMinimize, ...currentList];
+          const kept = updatedList.slice(0, MAX_MINIMIZED_CHATS);
+          const evicted = updatedList.slice(MAX_MINIMIZED_CHATS);
+          if (evicted.length > 0) {
+            setActiveChats(chats => chats.filter(id => !evicted.includes(id)));
+          }
+          return new Set(kept);
+        }
+        return prevMinimized;
+      });
+    }
+  };
+
+  const handleMinimizeChat = (threadId: string) => {
+    setMinimizedChatIds(prev => {
+      const currentList = Array.from(prev).filter(id => id !== threadId);
+      const updatedList = [threadId, ...currentList];
+      const kept = updatedList.slice(0, MAX_MINIMIZED_CHATS);
+      const evicted = updatedList.slice(MAX_MINIMIZED_CHATS);
+      if (evicted.length > 0) {
+        setActiveChats(chats => chats.filter(id => !evicted.includes(id)));
+      }
+      return new Set(kept);
+    });
+  };
+
+  const handleRestoreChat = (threadId: string) => {
+    const maxExpanded = window.innerWidth <= 768 ? 1 : 2;
+
+    setActiveChats(prev => [threadId, ...prev.filter(id => id !== threadId)]);
+
+    setMinimizedChatIds(prevMinimized => {
+      const nextMinimized = new Set(prevMinimized);
+      nextMinimized.delete(threadId);
+
+      const otherExpanded = activeChats.filter(id => id !== threadId && !prevMinimized.has(id));
+      if (otherExpanded.length >= maxExpanded) {
+        const toMinimize = otherExpanded[otherExpanded.length - 1];
+        const currentList = Array.from(nextMinimized).filter(id => id !== toMinimize);
+        const updatedList = [toMinimize, ...currentList];
+        const kept = updatedList.slice(0, MAX_MINIMIZED_CHATS);
+        const evicted = updatedList.slice(MAX_MINIMIZED_CHATS);
+        if (evicted.length > 0) {
+          setActiveChats(chats => chats.filter(id => !evicted.includes(id)));
+        }
+        return new Set(kept);
+      }
+      return nextMinimized;
+    });
+
     dispatch({ type: 'MARK_THREAD_READ', threadId });
   };
 
   const handleCloseChat = (threadId: string) => {
     setActiveChats(prev => prev.filter(id => id !== threadId));
+    setMinimizedChatIds(prev => {
+      const next = new Set(prev);
+      next.delete(threadId);
+      return next;
+    });
   };
 
   const handleOpenChatWithUser = (userId: string) => {
@@ -176,7 +275,7 @@ export const Layout: React.FC = () => {
 
     const existingThread = state.messages.find(m => m.participant.id === userId);
     if (existingThread) {
-      handleOpenChat(existingThread.threadId);
+      handleOpenChat(existingThread.threadId, true);
       return;
     }
 
@@ -196,7 +295,7 @@ export const Layout: React.FC = () => {
     };
 
     dispatch({ type: 'CREATE_THREAD', thread: newThread });
-    handleOpenChat(newThreadId);
+    handleOpenChat(newThreadId, true);
   };
 
   // Track if Marinette's Filmowe polecajki reaction has fired
@@ -263,6 +362,11 @@ export const Layout: React.FC = () => {
     }
 
     setActiveView(view);
+
+    // Reset scroll to the top of the page when navigating to a view/group
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     // Trigger scenario engine on group enter
     if (view.type === 'group' && scenarioManagerRef.current) {
@@ -436,7 +540,7 @@ export const Layout: React.FC = () => {
         notifications={state.notifications}
         messages={state.messages}
         readThreads={state.readThreads}
-        onOpenChat={handleOpenChat}
+        onOpenChat={(threadId) => handleOpenChat(threadId, true)}
         onNavigateHome={() => handleNavigate({ type: 'feed' })}
         isCreatePostOpen={isCreatePostOpen}
         onOpenCreatePost={handleOpenCreatePost}
@@ -562,7 +666,7 @@ export const Layout: React.FC = () => {
             readThreads={state.readThreads}
             currentUserId={state.currentUser.id}
             friends={state.friends}
-            onOpenChat={handleOpenChat}
+            onOpenChat={(id) => handleOpenChat(id, true)}
             onOpenChatUser={handleOpenChatWithUser}
             onViewProfile={handleViewProfile}
           />
@@ -575,6 +679,10 @@ export const Layout: React.FC = () => {
         currentUserName={state.currentUser.firstName || state.currentUser.name.split(' ')[0]}
         typing={state.typing}
         dispatch={dispatch}
+        readThreads={state.readThreads}
+        minimizedChatIds={minimizedChatIds}
+        onMinimize={handleMinimizeChat}
+        onRestore={handleRestoreChat}
         onClose={handleCloseChat}
         onViewProfile={handleViewProfile}
         pendingFriends={state.pendingFriends}

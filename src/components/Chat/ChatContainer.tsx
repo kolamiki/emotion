@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { X, Send } from 'lucide-react';
+import { X, Send, Minus } from 'lucide-react';
 import styles from './Chat.module.css';
 import type { MessageThread, Message, AppAction, TypingState } from '../../types';
 import { scheduleChatResponse } from '../../store/responseEngine';
@@ -14,6 +14,10 @@ interface ChatContainerProps {
   pendingFriends: Set<string>;
   pendingGroupJoins?: Set<string>;
   hasAntiPrimePost?: boolean;
+  readThreads?: Record<string, string>;
+  minimizedChatIds: Set<string>;
+  onMinimize: (threadId: string) => void;
+  onRestore: (threadId: string) => void;
   onClose: (threadId: string) => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -27,6 +31,10 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   pendingFriends,
   pendingGroupJoins,
   hasAntiPrimePost,
+  readThreads,
+  minimizedChatIds,
+  onMinimize,
+  onRestore,
   onClose,
   onViewProfile,
 }) => {
@@ -40,11 +48,41 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const visibleThreads = isMobile && threads.length > 0 ? [threads[threads.length - 1]] : threads;
+  const expandedThreads = threads.filter(t => !minimizedChatIds.has(t.threadId));
+  const minimizedThreads = threads.filter(t => minimizedChatIds.has(t.threadId));
+
+  // On mobile: show active expanded thread if open, otherwise show minimized folder stack
+  // On desktop: show minimized folder stack at right edge, expanded windows to its left
+  const visibleExpanded = isMobile && expandedThreads.length > 0
+    ? [expandedThreads[0]]
+    : expandedThreads;
+
+  const showMinimizedStack = minimizedThreads.length > 0 && (!isMobile || expandedThreads.length === 0);
 
   return (
     <div className={styles.chatContainer}>
-      {visibleThreads.map(thread => (
+      {/* 1. Minimized Folder Stack - docked at the far right edge, layered like folder cards */}
+      {showMinimizedStack && (
+        <div className={styles.minimizedFolderStack}>
+          {minimizedThreads.map((thread, index) => (
+            <MinimizedChatTab
+              key={thread.threadId}
+              thread={thread}
+              index={index}
+              total={minimizedThreads.length}
+              isMobile={isMobile}
+              currentUserId={currentUserId}
+              isTyping={!!typing[thread.threadId]}
+              readThreads={readThreads}
+              onRestore={() => onRestore(thread.threadId)}
+              onClose={() => onClose(thread.threadId)}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* 2. Expanded Chat Windows sit to the left of the minimized folder stack */}
+      {visibleExpanded.map(thread => (
         <ChatWindow
           key={thread.threadId}
           thread={thread}
@@ -54,11 +92,83 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
           dispatch={dispatch}
           pendingFriends={pendingFriends}
           pendingGroupJoins={pendingGroupJoins}
+          onMinimize={() => onMinimize(thread.threadId)}
           onClose={() => onClose(thread.threadId)}
           onViewProfile={onViewProfile}
           hasAntiPrimePost={hasAntiPrimePost}
         />
       ))}
+    </div>
+  );
+};
+
+interface MinimizedChatTabProps {
+  thread: MessageThread;
+  index: number;
+  total: number;
+  isMobile: boolean;
+  currentUserId: string;
+  isTyping: boolean;
+  readThreads?: Record<string, string>;
+  onRestore: () => void;
+  onClose: () => void;
+}
+
+const MinimizedChatTab: React.FC<MinimizedChatTabProps> = ({
+  thread,
+  index,
+  total: _total,
+  isMobile,
+  currentUserId,
+  isTyping,
+  readThreads,
+  onRestore,
+  onClose,
+}) => {
+  const liveUser = usersData.allUsers.find(u => u.id === thread.participant.id);
+  const participantAvatar = liveUser?.avatarUrl || thread.participant.avatarUrl;
+  const participantName = liveUser?.name || thread.participant.name;
+
+  const isUnread = (() => {
+    const otherMessages = thread.messages.filter(m => m.senderId !== currentUserId);
+    if (otherMessages.length === 0) return false;
+    const lastOtherMsg = otherMessages[otherMessages.length - 1];
+    const lastReadTs = readThreads?.[thread.threadId];
+    if (!lastReadTs) return true;
+    return new Date(lastOtherMsg.timestamp) > new Date(lastReadTs);
+  })();
+
+  // Shift subsequent tabs to overlap previous ones horizontally, like index divider tabs in a folder
+  const overlapMargin = index > 0 ? (isMobile ? -100 : -118) : 0;
+
+  return (
+    <div
+      className={`${styles.folderTab} ${isUnread ? styles.folderTabUnread : ''}`}
+      style={{
+        zIndex: 10 + index,
+        marginLeft: `${overlapMargin}px`,
+      }}
+      onClick={onRestore}
+      title={`Otwórz czat: ${participantName}`}
+    >
+      <div className={styles.folderTabAvatarWrap}>
+        <img src={participantAvatar} alt={participantName} className={styles.folderTabAvatar} />
+        {thread.participant.isOnline && <div className={styles.folderTabOnline} />}
+      </div>
+      <span className={styles.folderTabName}>{participantName}</span>
+      {isTyping && <span className={styles.folderTabTyping}>pisze...</span>}
+      {isUnread && <span className={styles.folderTabUnreadDot} />}
+      <button
+        type="button"
+        className={styles.folderTabCloseBtn}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        title="Zamknij czat"
+      >
+        <X size={13} />
+      </button>
     </div>
   );
 };
@@ -72,6 +182,7 @@ interface ChatWindowProps {
   pendingFriends: Set<string>;
   pendingGroupJoins?: Set<string>;
   hasAntiPrimePost?: boolean;
+  onMinimize: () => void;
   onClose: () => void;
   onViewProfile?: (userId: string) => void;
 }
@@ -85,6 +196,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   pendingFriends,
   pendingGroupJoins,
   hasAntiPrimePost,
+  onMinimize,
   onClose,
   onViewProfile,
 }) => {
@@ -153,6 +265,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const participantAvatar = liveUser?.avatarUrl || thread.participant.avatarUrl;
   const participantName = liveUser?.name || thread.participant.name;
 
+
+
   return (
     <div className={styles.chatWindow} onClick={markAsRead}>
       <div className={styles.chatHeader}>
@@ -172,9 +286,30 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             <span className={styles.chatTypingLabel}>pisze...</span>
           )}
         </div>
-        <button className={styles.chatCloseBtn} onClick={onClose}>
-          <X size={14} />
-        </button>
+        <div className={styles.chatHeaderActions}>
+          <button
+            type="button"
+            className={styles.chatActionBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              onMinimize();
+            }}
+            title="Minimalizuj czat"
+          >
+            <Minus size={14} />
+          </button>
+          <button
+            type="button"
+            className={styles.chatCloseBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            title="Zamknij czat"
+          >
+            <X size={14} />
+          </button>
+        </div>
       </div>
 
       <div className={styles.chatMessages}>

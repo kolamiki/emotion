@@ -73,7 +73,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   hasQuestAttention = false,
 }) => {
   const { levelInfo } = useDailyChallengeState();
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
 
   const handleGroupClick = (groupId: string) => {
     if (isBanned) {

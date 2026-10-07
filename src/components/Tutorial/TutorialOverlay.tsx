@@ -59,7 +59,7 @@ export const TOUR_STEPS: TourStep[] = [
     targetId: (_isMobile, isTablet) => (isTablet ? 'btn-messages' : 'tour-friends'),
     title: 'Komunikator i Znajomi',
     description:
-      'Śledź listę swoich kontaktów oraz użytkowników online. Kliknij na profil dowolnego znajomego, aby otworzyć okno bezpośredniego czatu i prowadzić rozmowy w czasie rzeczywistym.',
+      'Śledź listę swoich kontaktów oraz użytkowników online. Kliknij profil dowolnego znajomego, aby otworzyć okno czatu i rozmawiać w czasie rzeczywistym. Możesz zminimalizować do 3 rozmów (przycisk minus – w nagłówku chatu), a te zwiną się w estetyczne zakładki w prawym dolnym rogu. Nowe wiadomości zasygnalizuje fioletowa poświata.',
     icon: <MessageCircle size={20} />,
     placement: 'left',
     requiresMobileSidebar: false,
